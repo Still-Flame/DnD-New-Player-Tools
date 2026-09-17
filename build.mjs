@@ -42,6 +42,7 @@ function nav(current) {
   const links = [
     ["/", "D&amp;D Tools"],
     ["/finder/", "Class Finder"],
+    ["/stats/", "Ability Scores"],
     ["/compendium/", "Subclass Compendium"],
   ];
   const items = links
@@ -107,6 +108,13 @@ const PAGES = [
     path: "/finder/",
     description:
       "Ten questions that point a first-time D&D player at a class they'll actually enjoy — official classes and homebrew, no jargon required.",
+  },
+  {
+    src: "stat-roller.html",
+    out: "stats/index.html",
+    path: "/stats/",
+    description:
+      "Roll 4d6 and drop the lowest, or use the standard array or point buy \u2014 then add your background's ability increases. Reroll anything as often as you like.",
   },
   {
     src: "compendium/index.html",

@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
 <title>D&amp;D Class Tools</title>
-<meta name="description" content="Two tools for D&amp;D 2024: a ten-question class finder for first-time players, and a subclass compendium covering official and homebrew classes.">
+<meta name="description" content="Three tools for D&amp;D 2024: a ten-question class finder for first-time players, an ability score roller, and a subclass compendium covering official and homebrew classes.">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="D&amp;D Tools">
 <meta property="og:title" content="D&amp;D Class Tools">
-<meta property="og:description" content="A ten-question class finder for first-time players, and a subclass compendium covering official and homebrew classes.">
+<meta property="og:description" content="A ten-question class finder for first-time players, an ability score roller, and a subclass compendium covering official and homebrew classes.">
 <meta name="twitter:card" content="summary">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -51,7 +51,7 @@
     font-family:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
     font-size: var(--step-0); line-height:1.6; -webkit-font-smoothing: antialiased;
   }
-  .wrap { max-width:52rem; margin-inline:auto; padding:clamp(40px,8vw,84px) 20px 80px; }
+  .wrap { max-width:62rem; margin-inline:auto; padding:clamp(40px,8vw,84px) 20px 80px; }
 
   .eyebrow {
     font-family:"IBM Plex Mono", ui-monospace, monospace; font-size: var(--step--1);
@@ -65,7 +65,8 @@
   .lede { color: var(--ink-soft); max-width:56ch; margin:14px 0 0; font-size: var(--step-1); }
 
   .cards { display:grid; gap:18px; margin-top:44px; }
-  @media (min-width: 46rem) { .cards { grid-template-columns:1fr 1fr; } }
+  @media (min-width: 40rem) { .cards { grid-template-columns:1fr 1fr; } }
+  @media (min-width: 58rem) { .cards { grid-template-columns:repeat(3,1fr); } }
 
   .card {
     display:flex; flex-direction:column; gap:10px; min-width:0;
@@ -77,6 +78,7 @@
   .card:hover, .card:focus-visible { border-color: var(--accent); transform: translateY(-2px); }
   .card:focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
   .card--finder { --accent: var(--accent-official); }
+  .card--stats  { --accent: var(--accent-official); }
   .card--comp   { --accent: var(--accent-home); }
 
   .card-k {
@@ -116,11 +118,11 @@
 <div class="wrap">
 
   <p class="eyebrow">Dungeons &amp; Dragons 2024</p>
-  <h1>Two tools for picking a class, and for living with the choice</h1>
+  <h1>Three tools for picking a character, and for living with the choice</h1>
   <p class="lede">
     One is for the player who has never rolled a die and does not know what a
-    cantrip is. The other is for the table that has read all of it twice and
-    wants to know exactly what a subclass changes.
+    cantrip is. One rolls the numbers. The last is for the table that has read
+    all of it twice and wants to know exactly what a subclass changes.
   </p>
 
   <div class="cards">
@@ -135,6 +137,17 @@
         and an explanation of why. Official and homebrew modes.
       </p>
       <span class="card-go">Find a class</span>
+    </a>
+
+    <a class="card card--stats" href="/stats/">
+      <span class="card-k">4d6, drop the lowest</span>
+      <h2 class="card-h">Ability Scores</h2>
+      <p>
+        Roll, then put the number wherever you want — and reroll anything, as
+        often as you want. Standard array and point buy are here too, along with
+        the background increases the 2024 rules attach to your origin.
+      </p>
+      <span class="card-go">Roll some dice</span>
     </a>
 
     <a class="card card--comp" href="/compendium/">
@@ -152,8 +165,8 @@
   </div>
 
   <p class="note">
-    Both work on a phone at the table, in light or dark, and neither needs an
-    account or stores anything about you.
+    All three work on a phone at the table, in light or dark, and none of them
+    needs an account or stores anything about you.
   </p>
 
   <footer>

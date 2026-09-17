@@ -1,0 +1,998 @@
+<title>Roll Your Ability Scores</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+
+<style>
+  :root {
+    --ground:#E4E1D8; --surface:#F1EFE9; --surface-2:#EAE7DF;
+    --ink:#1B1E23; --ink-soft:#5B626C; --ink-faint:#8A9099;
+    --rule:#C6C2B6; --rule-soft:#D6D2C7;
+    --accent:#9A5A15; --accent-ink:#FFFFFF;
+    --good:#1C6659;
+
+    --step--2:.68rem;
+    --step--1: clamp(.74rem,.72rem + .12vw,.8rem);
+    --step-0:  clamp(.95rem,.92rem + .18vw,1.05rem);
+    --step-1:  clamp(1.05rem,1rem + .26vw,1.2rem);
+    --step-2:  clamp(1.25rem,1.12rem + .6vw,1.6rem);
+    --step-3:  clamp(1.7rem,1.35rem + 1.7vw,2.6rem);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:#131619; --surface:#1B1F24; --surface-2:#22272D;
+      --ink:#E7E4DB; --ink-soft:#A0A7B0; --ink-faint:#6E757E;
+      --rule:#2E343B; --rule-soft:#262B31;
+      --accent:#D9903F; --accent-ink:#131619; --good:#47AD99;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground:#131619; --surface:#1B1F24; --surface-2:#22272D;
+    --ink:#E7E4DB; --ink-soft:#A0A7B0; --ink-faint:#6E757E;
+    --rule:#2E343B; --rule-soft:#262B31;
+    --accent:#D9903F; --accent-ink:#131619; --good:#47AD99;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin:0; background: var(--ground); color: var(--ink);
+    font-family:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: var(--step-0); line-height:1.6; -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width:60rem; margin-inline:auto; padding:clamp(20px,3vw,32px) 20px 80px; }
+
+  .eyebrow {
+    font-family:"IBM Plex Mono", ui-monospace, monospace; font-size: var(--step--1);
+    letter-spacing:.14em; text-transform:uppercase; color: var(--ink-faint); margin:0;
+  }
+  h1 {
+    font-family: Fraunces, Georgia,"Times New Roman",serif; font-optical-sizing:auto;
+    font-weight:600; font-size: var(--step-3); line-height:1.05; letter-spacing:-.015em;
+    margin:6px 0 0; text-wrap:balance;
+  }
+  .lede { color: var(--ink-soft); max-width:60ch; margin:12px 0 0; }
+
+  h2 {
+    margin-top:30px;
+    font-family:"IBM Plex Mono",monospace; font-size: var(--step--2); letter-spacing:.14em;
+    text-transform:uppercase; color: var(--ink-faint); font-weight:500;
+    margin-bottom:10px; display:flex; align-items:baseline; gap:10px;
+  }
+  h2 .h2-note { text-transform:none; letter-spacing:0; font-family:inherit; }
+
+  button { font:inherit; color:inherit; cursor:pointer; }
+  button:focus-visible, select:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+
+  /* ---------- method switch ---------- */
+  .seg { display:inline-flex; border:1px solid var(--rule); background: var(--surface); margin-top:22px; flex-wrap:wrap; }
+  .seg button {
+    background:none; border:0; padding:9px 15px; font-size: var(--step--1);
+    color: var(--ink-soft); border-right:1px solid var(--rule);
+  }
+  .seg button:last-child { border-right:0; }
+  .seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); font-weight:500; }
+
+  .howto {
+    margin-top:16px; border-left:3px solid var(--accent); background: var(--surface);
+    padding:12px 15px; font-size: var(--step--1); color: var(--ink-soft);
+  }
+  .howto b { color: var(--ink); font-weight:600; }
+
+  /* ---------- roller ---------- */
+  .roller {
+    margin-top:22px; background: var(--surface); border:1px solid var(--rule);
+    padding:18px; display:flex; flex-wrap:wrap; gap:18px; align-items:center;
+  }
+  .dice { display:flex; gap:8px; }
+  .die {
+    width:42px; height:42px; display:grid; place-items:center;
+    border:1px solid var(--rule); background: var(--ground);
+    font-family:"IBM Plex Mono",monospace; font-size:1.05rem; font-weight:500;
+    font-variant-numeric: tabular-nums;
+  }
+  .die[data-dropped="true"] { color: var(--ink-faint); border-style:dashed; position:relative; }
+  .die[data-dropped="true"]::after {
+    content:""; position:absolute; inset:auto 6px; height:1px; background: var(--ink-faint);
+  }
+  .die[data-empty="true"] { color: var(--ink-faint); border-style:dotted; }
+  .roll-sum { font-family:"IBM Plex Mono",monospace; font-size: var(--step-1); }
+  .roll-sum b { font-size: var(--step-2); font-weight:600; }
+  .roll-actions { margin-left:auto; display:flex; gap:8px; flex-wrap:wrap; }
+
+  .btn {
+    background: var(--accent); color: var(--accent-ink); border:1px solid var(--accent);
+    padding:9px 16px; font-size: var(--step--1); font-weight:500;
+  }
+  .btn[disabled] { opacity:.4; cursor:not-allowed; }
+  .btn-ghost { background:none; color: var(--ink-soft); border-color: var(--rule); }
+  .btn-ghost:hover:not([disabled]) { border-color: var(--accent); color: var(--accent); }
+
+  /* ---------- pool (standard array) ---------- */
+  .pool { display:flex; flex-wrap:wrap; gap:8px; margin-top:22px; }
+  .chip {
+    min-width:52px; padding:9px 12px; border:1px solid var(--rule); background: var(--surface);
+    font-family:"IBM Plex Mono",monospace; font-size: var(--step-1); font-variant-numeric: tabular-nums;
+  }
+  .chip[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+  .chip[disabled] { opacity:.32; }
+
+  .points { margin-top:22px; font-family:"IBM Plex Mono",monospace; font-size: var(--step--1); color: var(--ink-soft); }
+  .points b { color: var(--ink); font-size: var(--step-1); }
+  .points[data-spent="true"] b { color: var(--good); }
+
+  /* ---------- ability cards ----------
+     Laid out like the 2024 character sheet's ability blocks: name across the
+     top, the modifier in a circle, the score in a box beside it, both labelled
+     underneath. The chamfered frame is two nested clip-paths — a border would
+     be cut off by the clip. */
+  .abils {
+    margin-top:18px; display:grid; gap:14px;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+  }
+  @media (min-width: 52rem) { .abils { grid-template-columns: repeat(3, minmax(0,1fr)); } }
+
+  .ab-card { --corner:11px; --frame: var(--rule); padding:1px; background: var(--frame); }
+  .ab-card, .ab-in {
+    clip-path: polygon(
+      var(--corner) 0, calc(100% - var(--corner)) 0, 100% var(--corner),
+      100% calc(100% - var(--corner)), calc(100% - var(--corner)) 100%,
+      var(--corner) 100%, 0 calc(100% - var(--corner)), 0 var(--corner));
+  }
+  .ab-in { background: var(--surface); padding:12px 14px 12px; height:100%; }
+
+  .ab-card[data-moving="true"], .ab-card[data-drop="true"] { --frame: var(--accent); }
+  .ab-card[data-drop="true"] .ab-in { background: var(--surface-2); }
+  .ab-card[data-target="true"] { --frame: var(--accent); }
+  .ab-card[data-dragging="true"] { opacity:.45; }
+
+  .ab-name {
+    text-align:center; font-family:"IBM Plex Mono",monospace; font-weight:600;
+    font-size: var(--step--1); letter-spacing:.13em; text-transform:uppercase;
+    margin:0 0 6px;
+  }
+
+  .ab-dials { display:flex; align-items:center; justify-content:center; gap:10px; }
+  .dial { text-align:center; }
+  .dial-k {
+    display:block; font-family:"IBM Plex Mono",monospace; font-size:.6rem;
+    letter-spacing:.13em; text-transform:uppercase; color: var(--ink-faint); margin-top:3px;
+  }
+  .ab-mod {
+    width:74px; height:74px; border:2px solid var(--rule); border-radius:50%;
+    display:grid; place-items:center; font-family: Fraunces, Georgia, serif;
+    font-weight:600; font-size:1.7rem; font-variant-numeric: tabular-nums;
+    background: var(--ground);
+  }
+  .ab-total {
+    width:58px; height:52px; border:2px solid var(--rule);
+    display:grid; place-items:center; font-family:"IBM Plex Mono",monospace;
+    font-weight:600; font-size:1.3rem; font-variant-numeric: tabular-nums;
+    background: var(--ground); cursor:grab; touch-action:none; user-select:none;
+  }
+  .ab-total[data-grabbable="false"] { cursor:default; color: var(--ink-faint); }
+  .ab-total[data-grabbable="true"]:hover { border-color: var(--accent); }
+  .ab-total:active[data-grabbable="true"] { cursor:grabbing; }
+
+  .ab-meta {
+    margin:9px 0 0; text-align:center; font-family:"IBM Plex Mono",monospace;
+    font-size: var(--step--2); color: var(--ink-faint); min-height:1.1em;
+  }
+  .ab-bonus { color: var(--good); font-weight:600; }
+  .ab-note { color: var(--ink-faint); }
+  .ab-base { font-variant-numeric: tabular-nums; }
+
+  .ab-act { display:flex; gap:6px; justify-content:center; margin-top:9px; min-height:30px; }
+  .mini {
+    background:none; border:1px solid var(--rule); color: var(--ink-soft);
+    width:30px; height:30px; display:grid; place-items:center; font-size:.95rem; line-height:1;
+  }
+  .mini:hover:not([disabled]) { border-color: var(--accent); color: var(--accent); }
+  .mini[disabled] { opacity:.3; cursor:not-allowed; }
+  .mini[data-on="true"] { border-color: var(--accent); color: var(--accent); background: var(--surface-2); }
+  .assign {
+    background:none; border:1px dashed var(--accent); color: var(--accent);
+    padding:6px 12px; font-size: var(--step--1); white-space:nowrap;
+  }
+
+  /* the thing that follows your finger */
+  .ghost {
+    position:fixed; z-index:40; pointer-events:none; transform:translate(-50%,-50%);
+    width:58px; height:52px; display:grid; place-items:center;
+    border:2px solid var(--accent); background: var(--surface);
+    font-family:"IBM Plex Mono",monospace; font-weight:600; font-size:1.3rem;
+    box-shadow:0 8px 24px -8px rgba(0,0,0,.45);
+  }
+
+  /* shrink the dials rather than dropping to one very tall column: a shorter
+     page means less dragging past the edge of a phone screen */
+  @media (max-width: 26rem) {
+    .ab-in { padding:10px 8px; }
+    .ab-mod { width:60px; height:60px; font-size:1.4rem; border-width:1.5px; }
+    .ab-total { width:48px; height:44px; font-size:1.1rem; border-width:1.5px; }
+    .ab-dials { gap:6px; }
+    .ab-name { font-size: var(--step--2); letter-spacing:.08em; }
+  }
+
+  .hint { margin:10px 0 0; font-size: var(--step--1); color: var(--accent); }
+
+  /* ---------- background ---------- */
+  .bg-box { margin-top:34px; }
+  .bg-controls { display:flex; flex-wrap:wrap; gap:12px; align-items:center; }
+  select {
+    font:inherit; font-size: var(--step--1); color: var(--ink); background: var(--surface);
+    border:1px solid var(--rule); padding:9px 11px; max-width:100%;
+  }
+  .bg-abils { margin-top:12px; }
+
+  /* two labelled slots rather than a cycle: "+2 goes here, +1 goes there" */
+  .asi-slot { display:flex; align-items:center; flex-wrap:wrap; gap:8px 10px; margin-top:10px; }
+  .asi-label {
+    font-family:"IBM Plex Mono",monospace; font-size: var(--step-1); font-weight:600;
+    color: var(--good); min-width:3.6rem;
+  }
+  .asi-opts { display:flex; flex-wrap:wrap; gap:6px; }
+  .asi-opt {
+    border:1px solid var(--rule); background: var(--surface); color: var(--ink-soft);
+    padding:7px 12px; font-size: var(--step--1);
+  }
+  .asi-opt[aria-pressed="true"] {
+    border-color: var(--good); color: var(--good); font-weight:500; background: var(--surface-2);
+  }
+  .asi-opt[disabled] { opacity:.3; cursor:not-allowed; }
+  .asi-hint { font-size: var(--step--1); color: var(--ink-faint); }
+
+  .houserule {
+    display:flex; align-items:flex-start; gap:10px; margin-top:18px;
+    font-size: var(--step--1); color: var(--ink-soft); cursor:pointer; max-width:62ch;
+  }
+  .houserule input { margin:3px 0 0; accent-color: var(--accent); flex:none; }
+  .houserule b { color: var(--ink); font-weight:600; }
+  .bg-pick {
+    border:1px solid var(--rule); background: var(--surface); padding:8px 13px;
+    font-size: var(--step--1); display:flex; align-items:center; gap:8px;
+  }
+  .bg-pick b { font-family:"IBM Plex Mono",monospace; color: var(--good); }
+  .bg-pick[aria-pressed="true"] { border-color: var(--good); }
+
+  .summary {
+    margin-top:30px; padding-top:18px; border-top:1px solid var(--rule);
+    display:flex; flex-wrap:wrap; gap:8px 26px; font-size: var(--step--1); color: var(--ink-soft);
+  }
+  .summary b { color: var(--ink); font-family:"IBM Plex Mono",monospace; }
+
+  footer { margin-top:44px; padding-top:20px; border-top:1px solid var(--rule);
+           font-size: var(--step--1); color: var(--ink-faint); }
+  footer p { margin:0 0 8px; max-width:62ch; }
+
+  .sr {
+    position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+    overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .die { transition: transform .12s ease; }
+    .rolling .die { transform: translateY(-3px); }
+  }
+</style>
+
+<div class="wrap">
+
+  <header>
+    <p class="eyebrow">Step 3 &middot; determine ability scores</p>
+    <h1>Roll Your Ability Scores</h1>
+    <p class="lede">
+      Roll four six-sided dice, drop the lowest, keep the rest. Put the number
+      wherever you like, and reroll anything as often as you want &mdash; nothing
+      here is locked in. The two non-random methods are here too, in case your
+      DM prefers one.
+    </p>
+  </header>
+
+  <div class="seg" role="group" aria-label="Method">
+    <button type="button" id="m-roll" aria-pressed="true">Roll 4d6</button>
+    <button type="button" id="m-array" aria-pressed="false">Standard array</button>
+    <button type="button" id="m-point" aria-pressed="false">Point buy</button>
+  </div>
+
+  <p class="howto" id="howto"></p>
+
+  <div id="method-ui"></div>
+
+  <div class="abils" id="abils"></div>
+
+  <p class="sr" role="status" aria-live="polite" id="live"></p>
+
+  <div class="bg-box">
+    <h2>Background <span class="h2-note">&mdash; where your origin bonus goes</span></h2>
+    <div class="bg-controls">
+      <label for="bg-select" class="sr">Background</label>
+      <select id="bg-select"></select>
+      <div class="seg" role="group" aria-label="Bonus spread" id="spread-seg">
+        <button type="button" id="sp-21" aria-pressed="true">+2 and +1</button>
+        <button type="button" id="sp-111" aria-pressed="false">+1 to all three</button>
+      </div>
+    </div>
+    <div class="bg-abils" id="bg-abils"></div>
+    <label class="houserule">
+      <input type="checkbox" id="free-asi">
+      <span><b>House rule: any ability.</b> Lets the increases go anywhere instead of
+      being limited to the three your background offers. The background stays
+      selectable for reference.</span>
+    </label>
+  </div>
+
+  <div class="summary" id="summary"></div>
+
+  <footer>
+    <p>
+      Rules from the 2024 Player's Handbook: ability scores on p.&nbsp;38, background
+      ability increases on p.&nbsp;178. No increase can raise a score above 20.
+    </p>
+    <p>
+      Nothing is saved or sent anywhere &mdash; reloading the page starts over.
+    </p>
+  </footer>
+
+</div>
+
+
+<script>
+(function () {
+  "use strict";
+
+  var ABIL = [
+    ["str", "Strength"], ["dex", "Dexterity"], ["con", "Constitution"],
+    ["int", "Intelligence"], ["wis", "Wisdom"], ["cha", "Charisma"]
+  ];
+  var KEYS = ABIL.map(function (a) { return a[0]; });
+  var NAME = {};
+  ABIL.forEach(function (a) { NAME[a[0]] = a[1]; });
+
+  /* 2024 Player's Handbook, chapter 4. Each background offers three abilities;
+     you raise one by 2 and another by 1, or all three by 1. The house-rule
+     switch lifts the "three abilities" restriction and nothing else. */
+  var BACKGROUNDS = [
+    ["Acolyte",     ["int", "wis", "cha"]],
+    ["Artisan",     ["str", "dex", "int"]],
+    ["Charlatan",   ["dex", "con", "cha"]],
+    ["Criminal",    ["dex", "con", "int"]],
+    ["Entertainer", ["str", "dex", "cha"]],
+    ["Farmer",      ["str", "con", "wis"]],
+    ["Guard",       ["str", "int", "wis"]],
+    ["Guide",       ["dex", "con", "wis"]],
+    ["Hermit",      ["con", "wis", "cha"]],
+    ["Merchant",    ["con", "int", "cha"]],
+    ["Noble",       ["str", "int", "cha"]],
+    ["Sage",        ["con", "int", "wis"]],
+    ["Sailor",      ["str", "dex", "wis"]],
+    ["Scribe",      ["dex", "int", "wis"]],
+    ["Soldier",     ["str", "dex", "con"]],
+    ["Wayfarer",    ["dex", "wis", "cha"]]
+  ];
+
+  var ARRAY = [15, 14, 13, 12, 10, 8];
+  var COST = { 8:0, 9:1, 10:2, 11:3, 12:4, 13:5, 14:7, 15:9 };
+  var BUDGET = 27;
+
+  var HOWTO = {
+    roll: "<b>Roll four d6, drop the lowest.</b> Roll, then pick an ability to put the total in — or use <em>Roll all six</em> and place them afterwards. Drag a score box onto another ability to swap the two \u2014 or use the \u21c4 button. Every score has a reroll button too, so nothing you place is final.",
+    array: "<b>The standard array.</b> Six fixed numbers, no luck involved: 15, 14, 13, 12, 10 and 8. Pick a number, then pick an ability. Drag a score box onto another ability to swap them, or send one back to the pool.",
+    point: "<b>Point buy.</b> 27 points, every score starts at 8 and can reach 15. The last few points cost more than the first — 14 costs 7 and 15 costs 9 — so two good scores and one weak one buys more than three middling ones. Drag a score box onto another ability to swap them."
+  };
+
+  var state = {
+    method: "roll",
+    scores: {},        // ability -> base score, or null
+    pending: null,     // { dice:[4], drop:index, total:n }
+    pool: [],          // standard array numbers still unplaced
+    picked: null,      // index into pool that is selected
+    moving: null,      // ability whose score is being moved
+    bg: "",
+    freeAsi: false,    // house rule: increases are not tied to the background
+    spread: "21",      // "21" or "111"
+    pick2: null,       // ability taking +2
+    pick1: []          // abilities taking +1
+  };
+
+  var el = {
+    howto: document.getElementById("howto"),
+    methodUI: document.getElementById("method-ui"),
+    abils: document.getElementById("abils"),
+    live: document.getElementById("live"),
+    bgSelect: document.getElementById("bg-select"),
+    bgAbils: document.getElementById("bg-abils"),
+    spreadSeg: document.getElementById("spread-seg"),
+    freeAsi: document.getElementById("free-asi"),
+    summary: document.getElementById("summary")
+  };
+
+  function d6() { return 1 + Math.floor(Math.random() * 6); }
+
+  function roll4d6() {
+    var dice = [d6(), d6(), d6(), d6()];
+    var drop = 0;
+    for (var i = 1; i < 4; i++) if (dice[i] < dice[drop]) drop = i;
+    var total = 0;
+    for (var j = 0; j < 4; j++) if (j !== drop) total += dice[j];
+    return { dice: dice, drop: drop, total: total };
+  }
+
+  function mod(score) { return Math.floor((score - 10) / 2); }
+  function signed(n) { return (n >= 0 ? "+" : "−") + Math.abs(n); }
+  function esc(s) {
+    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+  function say(msg) { el.live.textContent = msg; }
+
+  /* ---------- scores ---------- */
+
+  function resetScores() {
+    state.scores = {};
+    KEYS.forEach(function (k) {
+      state.scores[k] = state.method === "point" ? 8 : null;
+    });
+    state.pending = null;
+    state.moving = null;
+    state.pool = state.method === "array" ? ARRAY.slice() : [];
+    state.picked = null;
+  }
+
+  function pointsSpent() {
+    var n = 0;
+    KEYS.forEach(function (k) { n += COST[state.scores[k]] || 0; });
+    return n;
+  }
+
+  function bonusOf(a) {
+    if (state.pick2 === a) return 2;
+    return state.pick1.indexOf(a) !== -1 ? 1 : 0;
+  }
+
+  function total(a) {
+    var base = state.scores[a];
+    if (base === null || base === undefined) return null;
+    return Math.min(20, base + bonusOf(a));
+  }
+
+  function allFilled() {
+    return KEYS.every(function (k) { return state.scores[k] !== null; });
+  }
+
+  /* move or swap two abilities' base scores */
+  function swap(a, b) {
+    var t = state.scores[a];
+    state.scores[a] = state.scores[b];
+    state.scores[b] = t;
+  }
+
+  /* ---------- background / increases ---------- */
+
+  function bgAbilities() {
+    for (var i = 0; i < BACKGROUNDS.length; i++) {
+      if (BACKGROUNDS[i][0] === state.bg) return BACKGROUNDS[i][1];
+    }
+    return null;
+  }
+
+  /* which abilities may take an increase */
+  function candidates() {
+    if (state.freeAsi) return KEYS.slice();
+    return bgAbilities();
+  }
+
+  function dropOne(a) {
+    var i = state.pick1.indexOf(a);
+    if (i !== -1) state.pick1.splice(i, 1);
+  }
+
+  /* keep the selection legal for the current mode and candidate list */
+  function tidySelection() {
+    var allowed = candidates();
+    if (!allowed) { state.pick2 = null; state.pick1 = []; return; }
+    if (allowed.indexOf(state.pick2) === -1) state.pick2 = null;
+    state.pick1 = state.pick1.filter(function (a) {
+      return allowed.indexOf(a) !== -1 && a !== state.pick2;
+    });
+
+    if (state.spread === "111") {
+      state.pick2 = null;
+      // with exactly three candidates there is nothing to choose
+      if (allowed.length === 3) state.pick1 = allowed.slice();
+      while (state.pick1.length > 3) state.pick1.shift();
+    } else {
+      while (state.pick1.length > 1) state.pick1.shift();
+    }
+  }
+
+  /* Explicit slots beat a cycle here: "+2 goes to X, +1 goes to Y" is two
+     clicks and never surprises anyone. Clicking the current holder clears it. */
+  function setTwo(a) {
+    state.pick2 = (state.pick2 === a) ? null : a;
+    if (state.pick2) dropOne(state.pick2);
+    tidySelection(); render();
+  }
+  function setOne(a) {
+    state.pick1 = (state.pick1.length === 1 && state.pick1[0] === a) ? [] : [a];
+    if (state.pick2 === a) state.pick2 = null;
+    tidySelection(); render();
+  }
+  function toggleOne(a) {
+    if (state.pick1.indexOf(a) !== -1) dropOne(a);
+    else {
+      if (state.pick1.length >= 3) state.pick1.shift();
+      state.pick1.push(a);
+    }
+    tidySelection(); render();
+  }
+
+  function increaseStatus() {
+    var allowed = candidates();
+    if (!allowed) return null;
+    if (state.spread === "111") {
+      var n = state.pick1.length;
+      return n === 3 ? "" : "Choose " + (3 - n) + " more to take +1.";
+    }
+    if (!state.pick2) return "";
+    if (!state.pick1.length) return "pick one";
+    return "";
+  }
+
+  function slotRow(label, hint, attr, allowed, isOn, isBlocked) {
+    var h = '<div class="asi-slot"><span class="asi-label">' + label + "</span>" +
+            '<div class="asi-opts">';
+    allowed.forEach(function (a) {
+      var on = isOn(a), blocked = isBlocked ? isBlocked(a) : false;
+      h += '<button type="button" class="asi-opt" ' + attr + '="' + a + '"' +
+        ' aria-pressed="' + on + '"' + (blocked ? " disabled" : "") + '>' +
+        esc(NAME[a]) + "</button>";
+    });
+    h += "</div>";
+    if (hint) h += '<span class="asi-hint">' + hint + "</span>";
+    return h + "</div>";
+  }
+
+  function renderBackground() {
+    var allowed = candidates();
+    el.spreadSeg.style.display = allowed ? "" : "none";
+
+    if (!allowed) {
+      el.bgAbils.innerHTML =
+        '<p style="margin:4px 0 0;color:var(--ink-faint);font-size:var(--step--1)">' +
+        "Pick a background to add its ability increases \u2014 or switch on the house rule below. " +
+        "You can leave this until later; the scores above are complete without it.</p>";
+      return;
+    }
+
+    var h = "";
+    if (state.spread === "111") {
+      if (allowed.length === 3) {
+        h += '<div class="asi-slot"><span class="asi-label">+1 each</span><div class="asi-opts">';
+        allowed.forEach(function (a) {
+          h += '<span class="asi-opt" aria-pressed="true">' + esc(NAME[a]) + "</span>";
+        });
+        h += "</div></div>";
+      } else {
+        h += slotRow("+1 each", increaseStatus(), "data-tog1", allowed,
+          function (a) { return state.pick1.indexOf(a) !== -1; });
+      }
+    } else {
+      h += slotRow("+2 to", "", "data-set2", allowed,
+        function (a) { return state.pick2 === a; });
+      h += slotRow("+1 to", increaseStatus(), "data-set1", allowed,
+        function (a) { return state.pick1.indexOf(a) !== -1; },
+        function (a) { return state.pick2 === a; });
+    }
+    el.bgAbils.innerHTML = h;
+  }
+
+  /* ---------- rendering ---------- */
+
+  function renderMethodUI() {
+    var h = "";
+
+    if (state.method === "roll") {
+      var p = state.pending;
+      h += '<div class="roller">';
+      h += '<div class="dice" aria-hidden="true">';
+      for (var i = 0; i < 4; i++) {
+        h += p
+          ? '<span class="die" data-dropped="' + (i === p.drop) + '">' + p.dice[i] + "</span>"
+          : '<span class="die" data-empty="true">&middot;</span>';
+      }
+      h += "</div>";
+      h += '<p class="roll-sum" style="margin:0">' +
+        (p ? "Keeps <b>" + p.total + "</b>" : '<span style="color:var(--ink-faint)">No roll yet</span>') +
+        "</p>";
+      h += '<div class="roll-actions">';
+      h += '<button type="button" class="btn" id="do-roll">' + (p ? "Reroll" : "Roll 4d6") + "</button>";
+      h += '<button type="button" class="btn btn-ghost" id="roll-all">Roll all six</button>';
+      h += '<button type="button" class="btn btn-ghost" id="clear-all">Clear</button>';
+      h += "</div></div>";
+      if (p) h += '<p class="hint">Choose an ability below to put <b>' + p.total + "</b> into.</p>";
+
+    } else if (state.method === "array") {
+      h += '<div class="pool" role="group" aria-label="Numbers to place">';
+      state.pool.forEach(function (n, i) {
+        h += '<button type="button" class="chip" data-chip="' + i + '"' +
+          ' aria-pressed="' + (state.picked === i) + '">' + n + "</button>";
+      });
+      if (!state.pool.length) {
+        h += '<p style="margin:0;color:var(--ink-faint);font-size:var(--step--1)">All six placed.</p>';
+      }
+      h += "</div>";
+      h += '<div class="roll-actions" style="margin-top:14px">' +
+        '<button type="button" class="btn btn-ghost" id="clear-all">Start over</button></div>';
+      if (state.picked !== null) {
+        h += '<p class="hint">Choose an ability to put <b>' + state.pool[state.picked] + "</b> into.</p>";
+      }
+
+    } else {
+      var left = BUDGET - pointsSpent();
+      h += '<p class="points" data-spent="' + (left === 0) + '">' +
+        "<b>" + left + "</b> of " + BUDGET + " points left</p>";
+      h += '<div class="roll-actions" style="margin-top:14px">' +
+        '<button type="button" class="btn btn-ghost" id="clear-all">Reset to 8s</button></div>';
+    }
+
+    if (state.moving) {
+      h += '<p class="hint">Moving <b>' + state.scores[state.moving] + "</b> from " +
+        esc(NAME[state.moving]) + " — choose where it goes. " +
+        '<button type="button" class="btn btn-ghost" id="cancel-move" ' +
+        'style="padding:3px 10px;margin-left:6px">Cancel</button></p>';
+    }
+
+    el.methodUI.innerHTML = h;
+  }
+
+  function renderAbilities() {
+    var h = "";
+    var left = state.method === "point" ? BUDGET - pointsSpent() : 0;
+
+    ABIL.forEach(function (ab) {
+      var key = ab[0], base = state.scores[key], bonus = bonusOf(key), tot = total(key);
+      var isSource = state.moving === key;
+      var isSwapTarget = state.moving && !isSource;
+      var isRollTarget = !state.moving && state.method === "roll" && state.pending && base === null;
+      var isArrayTarget = !state.moving && state.method === "array" && state.picked !== null && base === null;
+      var filled = base !== null;
+
+      h += '<div class="ab-card" data-ab="' + key + '"' +
+        ' data-target="' + (isRollTarget || isArrayTarget) + '"' +
+        ' data-moving="' + isSource + '"' +
+        ' data-swappable="' + (isSwapTarget && filled) + '"><div class="ab-in">';
+
+      h += '<p class="ab-name">' + esc(ab[1]) + "</p>";
+
+      h += '<div class="ab-dials">';
+      h += '<span class="dial"><span class="ab-mod">' +
+        (tot === null ? "—" : signed(mod(tot))) +
+        '</span><span class="dial-k">Modifier</span></span>';
+      h += '<span class="dial"><span class="ab-total" data-grabbable="' + filled + '"' +
+        (filled ? ' data-grab="' + key + '" role="button" tabindex="0"' +
+                  ' aria-label="' + esc(ab[1]) + " score " + tot + ', drag to another ability to swap"' : "") +
+        ">" + (tot === null ? "—" : tot) +
+        '</span><span class="dial-k">Score</span></span>';
+      h += "</div>";
+
+      /* the working, under the dials: base score, then the origin increase */
+      h += '<p class="ab-meta">';
+      h += '<span class="ab-base">' + (filled ? base : "—") + "</span>";
+      h += '<span class="ab-bonus">' + (bonus ? " + " + bonus : "") + "</span>";
+      h += '<span class="ab-note">' + (filled ? (bonus ? " origin" : " base") : "") + "</span>";
+      h += "</p>";
+
+      h += '<div class="ab-act">';
+      if (isSwapTarget) {
+        h += '<button type="button" class="assign" data-swapto="' + key + '">' +
+          (filled ? "Swap · " + base : "Move here") + "</button>";
+      } else if (isSource) {
+        h += '<button type="button" class="mini" data-cancelmove="1" data-on="true" ' +
+          'title="Cancel the move" aria-label="Cancel the move">×</button>';
+      } else if (isRollTarget) {
+        h += '<button type="button" class="assign" data-assign="' + key + '">Put ' + state.pending.total + " here</button>";
+      } else if (isArrayTarget) {
+        h += '<button type="button" class="assign" data-place="' + key + '">Put ' + state.pool[state.picked] + " here</button>";
+      } else {
+        if (filled) {
+          h += '<button type="button" class="mini" data-move="' + key + '" ' +
+            'title="Move or swap ' + esc(ab[1]) + '" aria-label="Move or swap ' + esc(ab[1]) + '">⇄</button>';
+        }
+        if (state.method === "roll" && filled) {
+          h += '<button type="button" class="mini" data-reroll="' + key + '" ' +
+            'title="Reroll ' + esc(ab[1]) + '" aria-label="Reroll ' + esc(ab[1]) + '">↻</button>';
+          h += '<button type="button" class="mini" data-clear="' + key + '" ' +
+            'title="Clear ' + esc(ab[1]) + '" aria-label="Clear ' + esc(ab[1]) + '">×</button>';
+        } else if (state.method === "array" && filled) {
+          h += '<button type="button" class="mini" data-unplace="' + key + '" ' +
+            'title="Return ' + base + ' to the pool" aria-label="Return ' + base + ' to the pool">×</button>';
+        } else if (state.method === "point") {
+          var canDown = base > 8;
+          var canUp = base < 15 && (COST[base + 1] - COST[base]) <= left;
+          h += '<button type="button" class="mini" data-dec="' + key + '"' + (canDown ? "" : " disabled") +
+            ' aria-label="Lower ' + esc(ab[1]) + '">−</button>';
+          h += '<button type="button" class="mini" data-inc="' + key + '"' + (canUp ? "" : " disabled") +
+            ' aria-label="Raise ' + esc(ab[1]) + '">+</button>';
+        }
+      }
+      h += "</div></div></div>";
+    });
+
+    el.abils.innerHTML = h;
+  }
+
+  function renderSummary() {
+    if (!allFilled()) { el.summary.innerHTML = ""; return; }
+    var sum = 0, mods = 0;
+    KEYS.forEach(function (k) { var t = total(k); sum += t; mods += mod(t); });
+    el.summary.innerHTML =
+      "<span>Total <b>" + sum + "</b></span>" +
+      "<span>Average <b>" + (sum / 6).toFixed(1) + "</b></span>" +
+      "<span>Modifiers add up to <b>" + signed(mods) + "</b></span>" +
+      '<span style="color:var(--ink-faint)">The standard array totals 72, for comparison.</span>';
+  }
+
+  function render() {
+    el.howto.innerHTML = HOWTO[state.method];
+    renderMethodUI();
+    renderAbilities();
+    renderBackground();
+    renderSummary();
+  }
+
+  /* ---------- controls ---------- */
+
+  function setMethod(m) {
+    if (state.method === m) return;
+    state.method = m;
+    ["roll", "array", "point"].forEach(function (k) {
+      document.getElementById("m-" + k).setAttribute("aria-pressed", String(k === m));
+    });
+    resetScores();
+    render();
+  }
+  document.getElementById("m-roll").addEventListener("click", function () { setMethod("roll"); });
+  document.getElementById("m-array").addEventListener("click", function () { setMethod("array"); });
+  document.getElementById("m-point").addEventListener("click", function () { setMethod("point"); });
+
+  function setSpread(v) {
+    state.spread = v;
+    document.getElementById("sp-21").setAttribute("aria-pressed", String(v === "21"));
+    document.getElementById("sp-111").setAttribute("aria-pressed", String(v === "111"));
+    tidySelection();
+    render();
+  }
+  document.getElementById("sp-21").addEventListener("click", function () { setSpread("21"); });
+  document.getElementById("sp-111").addEventListener("click", function () { setSpread("111"); });
+
+  el.freeAsi.addEventListener("change", function () {
+    state.freeAsi = el.freeAsi.checked;
+    tidySelection();
+    render();
+    say(state.freeAsi ? "Increases can go on any ability." : "Increases limited to the background's abilities.");
+  });
+
+  el.bgSelect.addEventListener("change", function () {
+    state.bg = el.bgSelect.value;
+    tidySelection();
+    render();
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && state.moving) { state.moving = null; render(); say("Move cancelled."); }
+  });
+
+  document.addEventListener("click", function (e) {
+    var t = e.target.closest ? e.target.closest("button") : null;
+    if (!t) return;
+    var a;
+
+    if (t.id === "do-roll") {
+      state.moving = null;
+      state.pending = roll4d6();
+      render();
+      say("Rolled " + state.pending.dice.join(", ") + ", dropping the " +
+          state.pending.dice[state.pending.drop] + ", keeping " + state.pending.total + ".");
+      return;
+    }
+    if (t.id === "roll-all") {
+      state.moving = null; state.pending = null;
+      KEYS.forEach(function (k) { state.scores[k] = roll4d6().total; });
+      render(); say("Rolled all six.");
+      return;
+    }
+    if (t.id === "clear-all") { resetScores(); render(); say("Cleared."); return; }
+    if (t.id === "cancel-move" || t.hasAttribute("data-cancelmove")) {
+      state.moving = null; render(); say("Move cancelled."); return;
+    }
+
+    if ((a = t.getAttribute("data-move"))) {
+      state.moving = a;
+      state.pending = null;
+      state.picked = null;
+      render();
+      say("Moving " + NAME[a] + ". Choose where it goes.");
+      return;
+    }
+    if ((a = t.getAttribute("data-swapto"))) {
+      var from = state.moving;
+      var wasEmpty = state.scores[a] === null;
+      swap(from, a);
+      state.moving = null;
+      render();
+      say(wasEmpty ? NAME[from] + " moved to " + NAME[a] + "."
+                   : NAME[from] + " and " + NAME[a] + " swapped.");
+      return;
+    }
+
+    if ((a = t.getAttribute("data-assign"))) {
+      state.scores[a] = state.pending.total;
+      say(NAME[a] + " set to " + state.pending.total + ".");
+      state.pending = null; render();
+      return;
+    }
+    if ((a = t.getAttribute("data-reroll"))) {
+      var r = roll4d6();
+      state.scores[a] = r.total;
+      render(); say(NAME[a] + " rerolled to " + r.total + ".");
+      return;
+    }
+    if ((a = t.getAttribute("data-clear"))) { state.scores[a] = null; render(); say(NAME[a] + " cleared."); return; }
+
+    if (t.hasAttribute("data-chip")) {
+      var i = Number(t.getAttribute("data-chip"));
+      state.moving = null;
+      state.picked = state.picked === i ? null : i;
+      render();
+      return;
+    }
+    if ((a = t.getAttribute("data-place"))) {
+      state.scores[a] = state.pool[state.picked];
+      state.pool.splice(state.picked, 1);
+      state.picked = null;
+      render(); say(NAME[a] + " set.");
+      return;
+    }
+    if ((a = t.getAttribute("data-unplace"))) {
+      state.pool.push(state.scores[a]);
+      state.pool.sort(function (x, y) { return y - x; });
+      state.scores[a] = null;
+      render();
+      return;
+    }
+
+    if ((a = t.getAttribute("data-inc"))) { state.scores[a]++; render(); return; }
+    if ((a = t.getAttribute("data-dec"))) { state.scores[a]--; render(); return; }
+
+    if ((a = t.getAttribute("data-set2"))) { setTwo(a); return; }
+    if ((a = t.getAttribute("data-set1"))) { setOne(a); return; }
+    if ((a = t.getAttribute("data-tog1"))) { toggleOne(a); return; }
+  });
+
+  /* ---------- dragging a score onto another ability ----------
+     Pointer events rather than HTML5 drag-and-drop: HTML5 DnD does not fire on
+     touch, and this has to work on a phone at the table. The ⇄ button stays as
+     the keyboard and screen-reader path. */
+  var drag = null;
+
+  function cardUnder(x, y) {
+    var node = document.elementFromPoint(x, y);
+    return node && node.closest ? node.closest("[data-ab]") : null;
+  }
+
+  function clearDropMarks() {
+    var marked = el.abils.querySelectorAll('[data-drop="true"]');
+    for (var i = 0; i < marked.length; i++) marked[i].removeAttribute("data-drop");
+  }
+
+  function endDrag(commit, x, y) {
+    if (!drag) return;
+    if (drag.raf) cancelAnimationFrame(drag.raf);
+    if (drag.ghost && drag.ghost.parentNode) drag.ghost.parentNode.removeChild(drag.ghost);
+    var srcCard = el.abils.querySelector('[data-ab="' + drag.from + '"]');
+    if (srcCard) srcCard.removeAttribute("data-dragging");
+    clearDropMarks();
+
+    var from = drag.from, moved = drag.active;
+    drag = null;
+    if (!commit || !moved) return;
+
+    var target = cardUnder(x, y);
+    var to = target && target.getAttribute("data-ab");
+    if (!to || to === from) { say("Left where it was."); return; }
+
+    var wasEmpty = state.scores[to] === null;
+    swap(from, to);
+    render();
+    say(wasEmpty ? NAME[from] + " moved to " + NAME[to] + "."
+                 : NAME[from] + " and " + NAME[to] + " swapped.");
+  }
+
+  el.abils.addEventListener("pointerdown", function (e) {
+    var grip = e.target.closest ? e.target.closest("[data-grab]") : null;
+    if (!grip || e.button > 0) return;
+    drag = {
+      from: grip.getAttribute("data-grab"),
+      x0: e.clientX, y0: e.clientY,
+      lastX: e.clientX, lastY: e.clientY,
+      active: false, ghost: null, raf: null, id: e.pointerId, grip: grip
+    };
+  });
+
+  el.abils.addEventListener("pointermove", function (e) {
+    if (!drag || e.pointerId !== drag.id) return;
+    if (!drag.active) {
+      // a few pixels of slop so a plain tap is still a tap
+      if (Math.abs(e.clientX - drag.x0) + Math.abs(e.clientY - drag.y0) < 6) return;
+      drag.active = true;
+      state.moving = null;
+      try { drag.grip.setPointerCapture(drag.id); } catch (err) { /* not fatal */ }
+      var g = document.createElement("div");
+      g.className = "ghost";
+      g.textContent = drag.grip.textContent;
+      document.body.appendChild(g);
+      drag.ghost = g;
+      var card = el.abils.querySelector('[data-ab="' + drag.from + '"]');
+      if (card) card.setAttribute("data-dragging", "true");
+      say("Dragging " + NAME[drag.from] + ".");
+    }
+    e.preventDefault();
+    drag.lastX = e.clientX; drag.lastY = e.clientY;
+    if (!drag.raf) drag.raf = requestAnimationFrame(autoScrollTick);
+    drag.ghost.style.left = e.clientX + "px";
+    drag.ghost.style.top = e.clientY + "px";
+    clearDropMarks();
+    var over = cardUnder(e.clientX, e.clientY);
+    if (over && over.getAttribute("data-ab") !== drag.from) over.setAttribute("data-drop", "true");
+  });
+
+  /* Holding near the top or bottom edge scrolls the page: without this you
+     cannot reach an ability that is off-screen, which on a phone is most of
+     them. A held finger fires no more pointermove events, so this runs on its
+     own frame loop rather than off the move handler. */
+  function autoScrollTick() {
+    if (!drag || !drag.active) { drag && (drag.raf = null); return; }
+    var EDGE = 90, SPEED = 14;
+    var y = drag.lastY, h = window.innerHeight, dy = 0;
+    if (y < EDGE) dy = -SPEED * (1 - y / EDGE);
+    else if (y > h - EDGE) dy = SPEED * (1 - (h - y) / EDGE);
+    if (dy) {
+      window.scrollBy(0, dy);
+      clearDropMarks();
+      var over = cardUnder(drag.lastX, drag.lastY);
+      if (over && over.getAttribute("data-ab") !== drag.from) over.setAttribute("data-drop", "true");
+    }
+    drag.raf = requestAnimationFrame(autoScrollTick);
+  }
+
+  el.abils.addEventListener("pointerup", function (e) {
+    if (!drag || e.pointerId !== drag.id) return;
+    endDrag(true, e.clientX, e.clientY);
+  });
+  el.abils.addEventListener("pointercancel", function () { endDrag(false); });
+
+  /* keyboard equivalent on the score box itself */
+  el.abils.addEventListener("keydown", function (e) {
+    var grip = e.target.closest ? e.target.closest("[data-grab]") : null;
+    if (!grip) return;
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      state.moving = grip.getAttribute("data-grab");
+      state.pending = null; state.picked = null;
+      render();
+      say("Moving " + NAME[state.moving] + ". Choose where it goes.");
+    }
+  });
+
+  /* ---------- background list ---------- */
+
+  var opts = '<option value="">No background yet</option>';
+  BACKGROUNDS.forEach(function (b) {
+    opts += '<option value="' + esc(b[0]) + '">' + esc(b[0]) + " — " +
+      b[1].map(function (x) { return NAME[x]; }).join(", ") + "</option>";
+  });
+  el.bgSelect.innerHTML = opts;
+
+  resetScores();
+  render();
+})();
+</script>

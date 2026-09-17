@@ -52,15 +52,40 @@ paths behave differently under `file://`, so prefer a local server.
 
 ## Deploy to Cloudflare Pages
 
-1. Push this repo to GitHub.
+1. Push this repo to GitHub. **`build.mjs` must sit at the repo root** — not
+   inside a nested folder — or Cloudflare will not find it.
 2. Cloudflare dashboard → **Workers & Pages** → **Create** → **Pages** →
    **Connect to Git**, and pick the repo.
-3. Build settings:
+3. Build settings — all three matter:
    - **Framework preset:** None
-   - **Build command:** `node build.mjs`
+   - **Build command:** `npm run build`
    - **Build output directory:** `public`
 4. Deploy. Every push to the default branch rebuilds and republishes; pull
    requests get their own preview URL.
+
+`public/` is gitignored on purpose: Cloudflare generates it on every deploy, so
+committing it would mean two copies that can disagree.
+
+### If the deploy fails
+
+**`Could not detect a directory containing static files`** — Cloudflare had
+nothing to upload. Almost always one of:
+
+- **Build command is empty.** Without it `public/` is never created. A working
+  build logs three `built …` lines before the upload step; if your log jumps
+  straight from the wrangler banner to the error in well under a second, the
+  command did not run. Set it to `npm run build`.
+- **Build output directory is wrong.** It must be exactly `public`.
+- **Root directory is wrong.** If the repo root is a folder like
+  `dnd-tools-site/` with everything one level down, set **Root directory** to
+  that folder, or flatten the repo so `build.mjs` is at the top.
+
+**Last resort:** if you need it live right now, delete the `public/` line from
+`.gitignore`, run `npm run build`, commit the `public/` folder, then clear the
+build command and leave the output directory as `public`. Cloudflare will
+publish the committed files without building anything. Remember to rebuild and
+recommit after every content change — which is the reason not to do this
+long-term.
 
 You'll get a `*.pages.dev` address. If you later add a custom domain, update
 `SITE` at the top of `build.mjs` so the canonical and Open Graph URLs match —
