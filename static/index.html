@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>D&amp;D Class Tools</title>
+<meta name="description" content="Two tools for D&amp;D 2024: a ten-question class finder for first-time players, and a subclass compendium covering official and homebrew classes.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="D&amp;D Tools">
+<meta property="og:title" content="D&amp;D Class Tools">
+<meta property="og:description" content="A ten-question class finder for first-time players, and a subclass compendium covering official and homebrew classes.">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+
+<style>
+  :root {
+    --ground:#E4E1D8; --surface:#F1EFE9;
+    --ink:#1B1E23; --ink-soft:#5B626C; --ink-faint:#8A9099;
+    --rule:#C6C2B6; --rule-soft:#D6D2C7;
+    --accent-official:#9A5A15; --accent-home:#1C6659; --accent-ink:#FFFFFF;
+
+    --step--2:.68rem;
+    --step--1: clamp(.74rem,.72rem + .12vw,.8rem);
+    --step-0:  clamp(.95rem,.92rem + .18vw,1.05rem);
+    --step-1:  clamp(1.05rem,1rem + .26vw,1.2rem);
+    --step-2:  clamp(1.25rem,1.12rem + .6vw,1.6rem);
+    --step-3:  clamp(1.7rem,1.35rem + 1.7vw,2.6rem);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:#131619; --surface:#1B1F24;
+      --ink:#E7E4DB; --ink-soft:#A0A7B0; --ink-faint:#6E757E;
+      --rule:#2E343B; --rule-soft:#262B31;
+      --accent-official:#D9903F; --accent-home:#47AD99; --accent-ink:#131619;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground:#131619; --surface:#1B1F24;
+    --ink:#E7E4DB; --ink-soft:#A0A7B0; --ink-faint:#6E757E;
+    --rule:#2E343B; --rule-soft:#262B31;
+    --accent-official:#D9903F; --accent-home:#47AD99; --accent-ink:#131619;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin:0; background: var(--ground); color: var(--ink);
+    font-family:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: var(--step-0); line-height:1.6; -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width:52rem; margin-inline:auto; padding:clamp(40px,8vw,84px) 20px 80px; }
+
+  .eyebrow {
+    font-family:"IBM Plex Mono", ui-monospace, monospace; font-size: var(--step--1);
+    letter-spacing:.14em; text-transform:uppercase; color: var(--ink-faint); margin:0;
+  }
+  h1 {
+    font-family: Fraunces, Georgia,"Times New Roman",serif; font-optical-sizing:auto;
+    font-weight:600; font-size: var(--step-3); line-height:1.05; letter-spacing:-.015em;
+    margin:8px 0 0; text-wrap: balance; max-width:20ch;
+  }
+  .lede { color: var(--ink-soft); max-width:56ch; margin:14px 0 0; font-size: var(--step-1); }
+
+  .cards { display:grid; gap:18px; margin-top:44px; }
+  @media (min-width: 46rem) { .cards { grid-template-columns:1fr 1fr; } }
+
+  .card {
+    display:flex; flex-direction:column; gap:10px; min-width:0;
+    background: var(--surface); border:1px solid var(--rule);
+    border-top:3px solid var(--accent); padding:22px 22px 24px;
+    color:inherit; text-decoration:none;
+    transition: border-color .15s ease, transform .15s ease;
+  }
+  .card:hover, .card:focus-visible { border-color: var(--accent); transform: translateY(-2px); }
+  .card:focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
+  .card--finder { --accent: var(--accent-official); }
+  .card--comp   { --accent: var(--accent-home); }
+
+  .card-k {
+    font-family:"IBM Plex Mono", monospace; font-size: var(--step--2); letter-spacing:.14em;
+    text-transform:uppercase; color: var(--accent);
+  }
+  .card-h {
+    font-family: Fraunces, Georgia, serif; font-weight:600; font-size: var(--step-2);
+    line-height:1.15; margin:0; letter-spacing:-.01em;
+  }
+  .card p { margin:0; color: var(--ink-soft); font-size: var(--step--1); }
+  .card-go {
+    margin-top:auto; padding-top:12px; font-weight:500; font-size: var(--step--1); color: var(--accent);
+  }
+  .card-go::after { content:" \2192"; }
+
+  .note {
+    margin-top:44px; border-left:3px solid var(--rule); padding:2px 0 2px 15px;
+    font-size: var(--step--1); color: var(--ink-soft);
+  }
+
+  footer {
+    margin-top:52px; padding-top:22px; border-top:1px solid var(--rule);
+    font-size: var(--step--1); color: var(--ink-faint);
+  }
+  footer h2 {
+    font-family:"IBM Plex Mono", monospace; font-size: var(--step--2); letter-spacing:.14em;
+    text-transform:uppercase; color: var(--ink-faint); font-weight:500; margin:0 0 10px;
+  }
+  footer ul { list-style:none; margin:0; padding:0; display:grid; gap:6px; }
+  footer li { display:grid; grid-template-columns:minmax(0,1fr); }
+  footer b { color: var(--ink-soft); font-weight:500; }
+  footer p { margin:16px 0 0; max-width:62ch; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Dungeons &amp; Dragons 2024</p>
+  <h1>Two tools for picking a class, and for living with the choice</h1>
+  <p class="lede">
+    One is for the player who has never rolled a die and does not know what a
+    cantrip is. The other is for the table that has read all of it twice and
+    wants to know exactly what a subclass changes.
+  </p>
+
+  <div class="cards">
+
+    <a class="card card--finder" href="/finder/">
+      <span class="card-k">Ten questions</span>
+      <h2 class="card-h">Class Finder</h2>
+      <p>
+        Questions about how you like to play, not about game mechanics — how
+        much you want to keep track of, when you start thinking about your turn,
+        which scene sounds like the character you want to be. Ends with a class
+        and an explanation of why. Official and homebrew modes.
+      </p>
+      <span class="card-go">Find a class</span>
+    </a>
+
+    <a class="card card--comp" href="/compendium/">
+      <span class="card-k">Every subclass</span>
+      <h2 class="card-h">Subclass Compendium</h2>
+      <p>
+        All the 2024 subclasses plus six homebrew classes, each feature listed by
+        level. Hover any rules term for a definition — and a marked term tells you
+        what this subclass specifically does to it. Search with
+        <kbd>Ctrl</kbd>&#8202;+&#8202;<kbd>K</kbd>.
+      </p>
+      <span class="card-go">Browse subclasses</span>
+    </a>
+
+  </div>
+
+  <p class="note">
+    Both work on a phone at the table, in light or dark, and neither needs an
+    account or stores anything about you.
+  </p>
+
+  <footer>
+    <h2>Sources</h2>
+    <ul>
+      <li><b>Player's Handbook (2024)</b> — Wizards of the Coast</li>
+      <li><b>Kibbles' Compendium of Craft and Creation</b> — KibblesTasty</li>
+      <li><b>Kibbles' Compendium of Legends and Legacies</b> — KibblesTasty</li>
+      <li><b>Lyre's Guide to Retia: Land of Industry</b> — Logan Laidlaw / Nat19</li>
+    </ul>
+    <p>
+      An unofficial fan reference, summarising rather than reproducing. Every
+      page cites its book and page number — go there for the actual rules text,
+      and please buy the homebrew books if you use them. Not affiliated with or
+      endorsed by Wizards of the Coast.
+    </p>
+  </footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,16 @@
+# Cloudflare Pages response headers.
+# https://developers.cloudflare.com/pages/configuration/headers/
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: SAMEORIGIN
+  Permissions-Policy: geolocation=(), microphone=(), camera=()
+
+# data.js is ~600 KB and changes only when the compendium is rebuilt.
+# Cloudflare busts this automatically on deploy, so a long cache is safe.
+/compendium/data.js
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/favicon.svg
+  Cache-Control: public, max-age=86400
