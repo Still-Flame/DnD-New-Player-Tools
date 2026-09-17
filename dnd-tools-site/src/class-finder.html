@@ -1,0 +1,811 @@
+<title>Which D&D Class Should I Play?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+
+<style>
+  :root {
+    --ground:   #E4E1D8;
+    --surface:  #F1EFE9;
+    --surface-2:#EAE7DF;
+    --ink:      #1B1E23;
+    --ink-soft: #5B626C;
+    --ink-faint:#8A9099;
+    --rule:     #C6C2B6;
+    --rule-soft:#D6D2C7;
+    --accent-official: #9A5A15;
+    --accent-home:     #1C6659;
+    --accent-ink:      #FFFFFF;
+
+    --step--1: clamp(.74rem, .72rem + .12vw, .8rem);
+    --step-0:  clamp(.95rem, .92rem + .18vw, 1.05rem);
+    --step-1:  clamp(1.05rem, 1rem + .26vw, 1.22rem);
+    --step-2:  clamp(1.3rem, 1.16rem + .66vw, 1.68rem);
+    --step-3:  clamp(1.8rem, 1.4rem + 1.9vw, 2.8rem);
+    --step-4:  clamp(2.2rem, 1.5rem + 3.4vw, 3.8rem);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:   #131619; --surface: #1B1F24; --surface-2:#22272D;
+      --ink: #E7E4DB; --ink-soft: #A0A7B0; --ink-faint:#6E757E;
+      --rule: #2E343B; --rule-soft:#262B31;
+      --accent-official: #D9903F; --accent-home: #47AD99; --accent-ink: #131619;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground:   #131619; --surface: #1B1F24; --surface-2:#22272D;
+    --ink: #E7E4DB; --ink-soft: #A0A7B0; --ink-faint:#6E757E;
+    --rule: #2E343B; --rule-soft:#262B31;
+    --accent-official: #D9903F; --accent-home: #47AD99; --accent-ink: #131619;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: var(--step-0);
+    line-height: 1.55;
+    --accent: var(--accent-official);
+    -webkit-font-smoothing: antialiased;
+  }
+  body[data-mode="homebrew"] { --accent: var(--accent-home); }
+
+  .wrap {
+    max-width: 50rem;
+    margin-inline: auto;
+    padding-inline: 20px;
+    padding-block: clamp(28px, 5vw, 56px) 72px;
+    display: flex; flex-direction: column; gap: 26px;
+  }
+
+  .eyebrow {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: var(--step--1); letter-spacing: .14em;
+    text-transform: uppercase; color: var(--ink-faint); margin: 0;
+  }
+
+  h1 {
+    font-family: Fraunces, Georgia, "Times New Roman", serif;
+    font-optical-sizing: auto; font-weight: 600;
+    font-size: var(--step-3); line-height: 1.04; letter-spacing: -.015em;
+    text-wrap: balance; margin: 6px 0 0;
+  }
+  .lede { color: var(--ink-soft); max-width: 48ch; margin: 10px 0 0; }
+
+  .controls { display: flex; flex-wrap: wrap; gap: 12px; }
+  .seg {
+    display: inline-flex; background: var(--surface);
+    border: 1px solid var(--rule); padding: 3px; gap: 2px;
+  }
+  .seg button {
+    font: 500 var(--step--1)/1 "IBM Plex Mono", ui-monospace, monospace;
+    letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft);
+    background: none; border: 0; padding: 9px 13px; cursor: pointer; white-space: nowrap;
+  }
+  .seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+  .seg button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .prog { display: flex; flex-direction: column; gap: 9px; }
+  .prog-top {
+    display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
+    font-family: "IBM Plex Mono", monospace; font-size: var(--step--1);
+    letter-spacing: .1em; text-transform: uppercase; color: var(--ink-faint);
+  }
+  .prog-round { color: var(--accent); }
+  .ticks { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 3px; }
+  .tick { height: 5px; background: var(--rule-soft); }
+  .tick[data-s="done"] { background: var(--accent); }
+  .tick[data-s="now"]  { background: var(--ink-soft); }
+
+  .q-title {
+    font-family: Fraunces, Georgia, serif; font-weight: 600;
+    font-size: var(--step-2); line-height: 1.18; letter-spacing: -.01em;
+    text-wrap: balance; margin: 0; max-width: 30ch;
+  }
+  .q-note { color: var(--ink-soft); font-size: var(--step--1); margin: 6px 0 0; max-width: 52ch; }
+
+  .options { display: flex; flex-direction: column; margin-top: 18px; border-top: 1px solid var(--rule); }
+  .opt {
+    display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 14px;
+    width: 100%; text-align: left; background: none; border: 0;
+    border-bottom: 1px solid var(--rule-soft); border-left: 3px solid transparent;
+    padding: 15px 14px 15px 15px; cursor: pointer; color: inherit; font: inherit;
+    transition: background .14s ease, border-color .14s ease, padding-left .14s ease;
+  }
+  .opt:hover, .opt:focus-visible {
+    background: var(--surface); border-left-color: var(--accent); padding-left: 20px; outline: none;
+  }
+  .opt:focus-visible { box-shadow: inset 0 0 0 2px var(--accent); }
+  .opt-label { font-weight: 500; display: block; }
+  .opt-arrow { font-family: "IBM Plex Mono", monospace; color: var(--ink-faint); font-size: var(--step--1); align-self: center; }
+  .opt:hover .opt-arrow, .opt:focus-visible .opt-arrow { color: var(--accent); }
+
+  /* scene vignettes read as prose, not as menu items */
+  .options.scenes .opt { align-items: start; padding-block: 18px; }
+  .options.scenes .opt-label {
+    font-family: Fraunces, Georgia, serif;
+    font-size: var(--step-1); font-weight: 400; line-height: 1.45;
+    letter-spacing: -.005em; max-width: 58ch;
+  }
+  .options.scenes .opt-arrow { margin-top: .35em; }
+
+  .backrow { margin-top: 16px; display: flex; gap: 10px; flex-wrap: wrap; }
+  .link-btn {
+    font: 500 var(--step--1)/1 "IBM Plex Mono", monospace; letter-spacing: .06em;
+    text-transform: uppercase; background: none; border: 1px solid var(--rule);
+    color: var(--ink-soft); padding: 9px 12px; cursor: pointer;
+  }
+  .link-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .link-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .result-eyebrow {
+    font-family: "IBM Plex Mono", monospace; font-size: var(--step--1);
+    letter-spacing: .14em; text-transform: uppercase; color: var(--accent);
+  }
+  .result-name {
+    font-family: Fraunces, Georgia, serif; font-weight: 700;
+    font-size: var(--step-4); line-height: .98; letter-spacing: -.025em;
+    margin: 6px 0 0; text-wrap: balance;
+  }
+  .result-blurb {
+    font-size: var(--step-1); line-height: 1.62; max-width: 62ch;
+    margin: 18px 0 0; padding-top: 18px; border-top: 2px solid var(--accent);
+  }
+  .spec {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+    margin-top: 26px; border: 1px solid var(--rule); background: var(--surface);
+  }
+  .spec div { padding: 12px 14px; border-left: 1px solid var(--rule-soft); min-width: 0; }
+  .spec div:first-child { border-left: 0; }
+  .spec dt {
+    font-family: "IBM Plex Mono", monospace; font-size: .68rem; letter-spacing: .13em;
+    text-transform: uppercase; color: var(--ink-faint); margin: 0;
+  }
+  .spec dd { margin: 4px 0 0; font-size: var(--step--1); font-weight: 500; overflow-wrap: anywhere; }
+
+  .block-k {
+    font-family: "IBM Plex Mono", monospace; font-size: .68rem; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--ink-faint); display: block;
+  }
+  .runners { margin-top: 28px; display: flex; flex-direction: column; gap: 10px; }
+  .runner {
+    display: grid; grid-template-columns: 1fr 7rem auto; gap: 10px 14px;
+    align-items: center; border-top: 1px solid var(--rule-soft); padding-top: 10px;
+  }
+  .runner:first-of-type { border-top: 0; padding-top: 0; }
+  .runner-n { font-weight: 500; }
+  .bar { height: 6px; background: var(--rule-soft); position: relative; }
+  .bar span { position: absolute; inset: 0 auto 0 0; background: var(--accent); }
+  .runner-p {
+    font-family: "IBM Plex Mono", monospace; font-size: var(--step--1);
+    color: var(--ink-faint); font-variant-numeric: tabular-nums; text-align: right;
+  }
+
+  .drivers { margin-top: 28px; }
+  .drivers ul { list-style: none; margin: 10px 0 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+  .drivers li {
+    font-size: var(--step--1); color: var(--ink-soft); max-width: 60ch;
+    border-left: 2px solid var(--accent); padding: 2px 0 2px 12px;
+  }
+  .drivers b { color: var(--ink-faint); font-weight: 500; display: block;
+    font-family: "IBM Plex Mono", monospace; font-size: .66rem;
+    letter-spacing: .12em; text-transform: uppercase; margin-bottom: 2px; }
+
+  .notice {
+    border-left: 3px solid var(--accent); background: var(--surface);
+    padding: 13px 15px; font-size: var(--step--1); color: var(--ink-soft);
+  }
+  .notice strong { color: var(--ink); font-weight: 600; }
+
+  .chart { display: flex; flex-direction: column; gap: 34px; }
+  .tier { display: flex; flex-direction: column; gap: 4px; }
+  .tier-h {
+    display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+    border-bottom: 2px solid var(--accent); padding-bottom: 8px;
+  }
+  .tier-n { font-family: "IBM Plex Mono", monospace; font-size: var(--step--1); color: var(--accent); letter-spacing: .12em; }
+  .tier-t { font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: var(--step-1); margin: 0; }
+  .tier-note { font-size: var(--step--1); color: var(--ink-soft); margin: 0 0 0 auto; }
+  .branch { border-left: 1px solid var(--rule); margin-left: 4px; padding: 14px 0 2px 18px; position: relative; }
+  .branch::before { content: ""; position: absolute; left: -1px; top: 22px; width: 12px; border-top: 1px solid var(--rule); }
+  .branch-q { font-weight: 500; margin: 0 0 8px; }
+  .leaves { list-style: none; margin: 0; padding: 0 0 0 18px; border-left: 1px solid var(--rule-soft); }
+  .leaf {
+    display: grid; grid-template-columns: 1fr auto; gap: 8px 16px; align-items: baseline;
+    padding: 7px 0; position: relative; border-bottom: 1px dotted var(--rule-soft);
+  }
+  .leaf:last-child { border-bottom: 0; }
+  .leaf::before { content: ""; position: absolute; left: -18px; top: 17px; width: 12px; border-top: 1px solid var(--rule-soft); }
+  .leaf-f { color: var(--ink-soft); font-size: var(--step--1); }
+  .leaf-c {
+    font-family: "IBM Plex Mono", monospace; font-size: var(--step--1); font-weight: 600;
+    letter-spacing: .04em; text-transform: uppercase; color: var(--accent);
+    text-align: right; white-space: nowrap;
+  }
+
+  @media (max-width: 34rem) {
+    .leaf { grid-template-columns: 1fr; }
+    .leaf-c { text-align: left; }
+    .runner { grid-template-columns: 1fr auto; }
+    .runner .bar { grid-column: 1 / -1; }
+  }
+
+  footer { border-top: 1px solid var(--rule); padding-top: 16px; font-size: var(--step--1); color: var(--ink-faint); }
+  footer p { margin: 0 0 6px; max-width: 70ch; }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+
+<div class="wrap">
+
+  <header>
+    <p class="eyebrow">Class finder &middot; for your first character</p>
+    <h1>Which D&amp;D Class Should I Play?</h1>
+    <p class="lede">Ten questions, no jargon. Three about how the class plays, four about how you'd like to fight, and three about the kind of person you'd enjoy being. Works the same whether you're joining a long campaign or playing one evening.</p>
+  </header>
+
+  <div class="controls">
+    <div class="seg" role="group" aria-label="Content set">
+      <button type="button" id="mode-official" aria-pressed="true">Official</button>
+      <button type="button" id="mode-homebrew" aria-pressed="false">Homebrew</button>
+    </div>
+    <div class="seg" role="group" aria-label="View">
+      <button type="button" id="view-quiz" aria-pressed="true">Ten questions</button>
+      <button type="button" id="view-chart" aria-pressed="false">Quick chart</button>
+    </div>
+  </div>
+
+  <div class="notice" id="notice"></div>
+
+  <div class="prog" id="prog" aria-live="polite"></div>
+
+  <main id="stage"></main>
+
+  <footer>
+    <p id="foot-src"></p>
+    <p>A few levels in, every class also picks a speciality — a Fighter becomes a duellist or a knight, a Wizard picks a school. That's a separate decision and it's completely fine to leave it until you get there.</p>
+  </footer>
+
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var CLASSES = {
+    barbarian: {
+      name: "Barbarian", tough: "Very high", best: "Raw physical strength",
+      known: "Rage — a burst of fury that makes you hard to hurt",
+      src: "Player's Handbook 2024, p. 50",
+      blurb: "The Barbarian walks at the thing everyone else is backing away from. Their power is rage — not sulking, but something closer to a storm or a cornered animal. Switch it on and you hit harder and shrug off blows that would drop anyone else. You have more health than any other class and almost nothing to keep track of, which is why it gets recommended for first characters so often. Away from a fight you're the one who moves the fallen tree, stares down the guard, and sleeps outside without complaining. Simple to play, and never irrelevant." },
+    fighter: {
+      name: "Fighter", tough: "High", best: "Strength or quickness, your pick",
+      known: "More attacks than anyone, plus a second wind mid-fight",
+      src: "Player's Handbook 2024, p. 90",
+      blurb: "The Fighter is the professional. Soldiers, knights, duellists, bodyguards and hired swords all land here, and what unites them is being simply better with weapons and armour than anyone else in the room. You get more attacks than other classes, a burst of recovered energy partway through a fight, and enough armour to stand wherever you like. There's no magic to learn unless you want some, so your turns stay quick even at high levels. If what appealed to you was competence, preparation and already having the right tool in hand, this is the class built around exactly that." },
+    rogue: {
+      name: "Rogue", tough: "Average", best: "Quickness and precision",
+      known: "One devastating strike, and being better at more skills than anyone",
+      src: "Player's Handbook 2024, p. 128",
+      blurb: "The Rogue wins by knowing something the other side doesn't. Rather than wearing an opponent down, you wait for the opening and land one precise, brutal hit. Outside a fight you're the most capable person in the party: locks, traps, lies, rooftops, listening at doors, and working out who in town is worth bribing. You're not especially tough, so the game rewards you for never being where the blow lands. If you kept choosing plans that work exactly as designed, quiet solutions and being underestimated, the Rogue turns all of that into real abilities rather than just good roleplay." },
+    paladin: {
+      name: "Paladin", tough: "High", best: "Strength, and a forceful personality",
+      known: "Healing by touch, and pouring power into a single swing",
+      src: "Player's Handbook 2024, p. 108",
+      blurb: "A Paladin is a warrior held together by a promise. The oath might be sworn to a god, to nature spirits, or in a bad moment with only the dead as witnesses — what matters is that keeping it is where the power comes from. You wear the heaviest armour in the game, you can heal your friends by laying hands on them, and you can spend your magic on a single swing to end a fight early. It's a class about conviction: being the one who doesn't look away when someone powerful suggests you should. Promises and protection, made playable." },
+    monk: {
+      name: "Monk", tough: "Average", best: "Quickness and self-awareness",
+      known: "Speed, unarmed strikes, and a small pool of inner energy",
+      src: "Player's Handbook 2024, p. 100",
+      blurb: "The Monk turns their own body into the weapon. Training and mental discipline give you speed nobody can match, a flurry of unarmed strikes, and a small pool of inner energy you spend on things that look impossible — running along a wall, catching an arrow out of the air, stunning someone with a touch. You wear no armour and you aren't sturdy, so surviving means never standing still. The fantasy is self-mastery rather than strength or magic; you're testing yourself, not proving anything to anybody. Answers about control, stillness and discipline point straight at this one." },
+    ranger: {
+      name: "Ranger", tough: "High", best: "Quickness and reading the world",
+      known: "Marking a target, and knowing the wild better than anyone",
+      src: "Player's Handbook 2024, p. 118",
+      blurb: "The Ranger is at home where the roads stop. You track, you hunt, you find water, and you know which mushroom is the bad one — backed up by a little nature magic and a bow or a pair of blades. In a fight you mark one target and take it apart patiently. The whole shape of the class assumes a world larger than the room you're standing in, which makes it excellent on long journeys and in campaigns with real travel. If you kept choosing the long road, reading the land and never losing a trail, this is built for that." },
+    warlock: {
+      name: "Warlock", tough: "Average", best: "Force of personality",
+      known: "Few spells, always at full strength, back after a short break",
+      src: "Player's Handbook 2024, p. 152",
+      blurb: "A Warlock went looking for power and found something willing to trade. The patron might be an ancient fey lord, a devil, an angel, or something from past the edge of the world, and the relationship can be reverent, resentful or quietly hostile — the rulebook notes that many Warlocks treat their patron as a resource rather than a master. You get very few spells, but they always fire at full strength and come back after an hour's breather rather than a night's sleep, plus a set of permanent tricks you choose yourself. The least bookkeeping of any magic class, and the best story hook." },
+    sorcerer: {
+      name: "Sorcerer", tough: "Low", best: "Force of personality",
+      known: "Bending spells as you cast them",
+      src: "Player's Handbook 2024, p. 138",
+      blurb: "A Sorcerer never studied. The magic was in you from the start — a dragon somewhere in the family line, a strange birth, a lightning strike from a clear sky, or no explanation anyone can offer. You know a short list of spells by heart, so there's very little to prepare, but you can bend them as they leave your hands: split one across two targets, cast it silently, or fire it off in an instant. It's the flashiest of the magic classes and one of the least fiddly. Power that arrived uninvited, and the work of learning to hold it." },
+    wizard: {
+      name: "Wizard", tough: "Low", best: "Book learning",
+      known: "A book of spells that keeps growing",
+      src: "Player's Handbook 2024, p. 164",
+      blurb: "The Wizard earned every scrap of it. Magic is a system with rules and you've spent your life learning them, which is why you can reach more spells than anyone else and carry a book that grows every time you find one written down. You choose a fresh selection each morning, so the real game is guessing what today will need. It's the hardest class to play well and the most powerful one to play well. Away from combat you're often the person who solves the whole problem in an afternoon of reading, which is its own kind of heroism." },
+    cleric: {
+      name: "Cleric", tough: "Average", best: "Perceptiveness and conviction",
+      known: "Healing, protection, and a fresh set of spells each morning",
+      src: "Player's Handbook 2024, p. 68",
+      blurb: "A Cleric is where something divine touches the world. You might be a devout priest or a reluctant conscript, but either way people stop dying when you're nearby. You wear armour, you carry a weapon, and you rebuild your list of spells every morning — healing, protection, and a surprising amount of destruction. It's one of the most useful classes to have in a party and one of the most decision-heavy to play, because you choose what the day needs before you know what the day holds. Answers about faith, service and keeping people whole all arrive here." },
+    druid: {
+      name: "Druid", tough: "Average", best: "Perceptiveness and instinct",
+      known: "Turning into animals",
+      src: "Player's Handbook 2024, p. 78",
+      blurb: "The Druid belongs to an old order that speaks for the natural world. You can take the shape of animals — a wolf, a bear, something with wings — and call on weather, plants and the elements. Above all you care about balance, which now and then puts you at odds with the people you're travelling with. It's the most flexible class in the game and the one most likely to have you reading a page of rules mid-turn, because a Druid who becomes a bear has to run the bear. Worth it if the wild kept pulling at your answers." },
+    bard: {
+      name: "Bard", tough: "Average", best: "Charm and presence",
+      known: "Handing out dice that make your friends better at what they do",
+      src: "Player's Handbook 2024, p. 58",
+      blurb: "A Bard believes the world was spoken into existence and that some of those words are still lying around. In practice you're the one who talks the party out of trouble, knows a little about everything, and hands your friends dice that make them better at what they were already doing. You cast a full range of spells and eventually learn to borrow them from any other tradition. The real fantasy is curiosity — Bards are fascinated by almost everything, and the adventuring is mostly how they collect the stories. Choose it if people and questions interest you more than power." },
+
+    swordsaint: {
+      name: "Sword Saint", tough: "High", best: "Physical skill, then focus",
+      known: "Focus spent on techniques, with no spell list at all",
+      src: "Lyre's Guide to Retia, p. 413",
+      blurb: "A Sword Saint is following in someone's footsteps on purpose. The true Sword Saints were warriors who went past mastery into legend, and you are deliberately walking the same road, hoping the stories told about you afterwards are earned rather than invented — the book is firm that a Sword Saint never embellishes. You spend focus, a pool of concentration, on techniques that pull fire, wind, poison or conjured tools out of a swing. There's nothing to prepare in advance, which makes it the gentlest of the homebrew classes. Anime swordsmanship, a personal code, and quiet ambition." },
+    rangerrev: {
+      name: "Ranger (Revised)", tough: "High", best: "Physical skill, then instinct",
+      known: "Hunter's tricks that keep working on anything",
+      src: "Lyre's Guide to Retia, p. 402",
+      blurb: "This is the Retia book's ground-up rewrite of the Ranger, built to fix the original's flat stretches. Same fantasy — a tracker who is swift, hard to pin down and always ready for a surprise — but with more to do in a fight, and with its hunter's tricks reworked so they still apply against creatures you haven't specifically studied. You get a modest amount of nature magic and, if you want one, an animal at your side. Choose it if the long journey, reading country and never losing a trail mattered to you more than the spellcasting did." },
+    favoredsoul: {
+      name: "Favored Soul", tough: "High", best: "Force of personality",
+      known: "Few, very strong spells, back after a short break",
+      src: "Lyre's Guide to Retia, p. 339",
+      blurb: "Something enormous picked you out. A Favored Soul was handed a piece of a god's power through prophecy, destiny or sheer accident — and crucially, neither faith nor obedience came with it. You can do as you like, though there's a pull at the back of your head you'll spend the whole campaign arguing with. You fight in armour with real weapons and cast a small number of very strong spells that come back after an hour's breather rather than a night's sleep. The book openly calls it powerful and suggests treating it as a special occasion, so raise it with your DM before you commit." },
+    petalknight: {
+      name: "Petal Knight", tough: "High", best: "Quickness, then instinct",
+      known: "An epithet — a flower that is an honest picture of who you are",
+      src: "Lyre's Guide to Retia, p. 382",
+      blurb: "A Petal Knight is a duellist with a code. The world itself weighs up your soul and lends you a fragment of its power, which takes the form of an epithet — a flower representing who you actually are underneath. You fight light and fast, and roughly half your magic is aimed at helping the people beside you. Petal Knights care about order, living alongside the land, and settling things with as little destruction as possible, which is why they turn up in royal courts as often as in ruins. Courtly, principled, and genuinely unlike anything official." },
+    inscriptor: {
+      name: "Inscriptor", tough: "Average", best: "Book learning and craft",
+      known: "Writing that becomes true, and twists you spend to bend a scene",
+      src: "Lyre's Guide to Retia, p. 359",
+      blurb: "An Inscriptor is a writer whose work comes true. You might be a novelist, a playwright, a poet or a records clerk, and a muse — one of a cabal of demigods who keep an endless library — has taken an interest in your talent. You cast by describing: a novelist narrates events into being, an archivist writes objects into having new qualities. You also spend narrative twists to bend a scene the way a story would. It carries the most bookkeeping of the Retia classes and it's the one that will make your DM think hardest." },
+    inventor: {
+      name: "Inventor", tough: "Average", best: "Book learning and invention",
+      known: "Things you build, across ten different crafts",
+      src: "Kibbles' Compendium of Craft and Creation, p. 10",
+      blurb: "The Inventor makes things. Magic, to them, is a system waiting to be decoded and then improved on; spells are too temporary to be interesting when you could build something that lasts. The class splits into ten crafts that play almost like separate classes — firearms, clockwork golems, alchemy, powered armour, curse-work, runes, relics. Expect to track what you've built, what it's loaded with and what you're upgrading next. Inventors also tend to collect rivals, which the book treats as a feature. If your answers landed on things you made yourself, this was written for you." },
+    psion: {
+      name: "Psion", tough: "Low", best: "Mental discipline",
+      known: "Points of mental power instead of spells",
+      src: "Kibbles' Compendium of Craft and Creation, p. 64",
+      blurb: "A Psion does it with their mind and nothing else. There are no spells to prepare at all — you spend points across disciplines like telekinesis, telepathy and precognition, deciding how hard to push each effect as you use it. People find it unnerving, and the book notes that other magic users find it the most unsettling of all, because it cuts across magic rather than obeying it. You're the most physically fragile option here. The fantasy is a quiet person in a plain room who could rearrange it without standing up, and mostly chooses not to." },
+    occultist: {
+      name: "Occultist", tough: "Low", best: "Perceptiveness and tradition",
+      known: "Six traditions, plus rites, curses and familiars",
+      src: "Kibbles' Compendium of Legends and Legacies, p. 12",
+      blurb: "The Occultist collects the branches of magic that fell out of fashion. Its six traditions — witch, hedge mage, oracle, shaman, spiritualist, voidwatcher — differ enough that they nearly qualify as separate classes, and several of them were full classes in older editions of the game. You get a very large spell list plus rites, curses, familiars and totems, and you're usually the one quietly shifting the shape of a situation rather than ending it outright. Pick the tradition first, because it decides almost everything else. Old knowledge, spirits, and things people stopped writing down." },
+    spellblade: {
+      name: "Spellblade", tough: "Average", best: "Book learning, then physical skill",
+      known: "Casting a spell into your weapon and delivering it on the hit",
+      src: "Kibbles' Compendium of Legends and Legacies, p. 42",
+      blurb: "The Spellblade exists for one trick, done perfectly: cast a spell into your weapon and deliver it by hitting someone with it. Around that sits a mobile, teleport-heavy fighter with a real spell list and eight techniques to choose between — a balanced duellist, a frost specialist, a hunter of other mages, a dual-wielder, an armoured guardian, and one who throws the blade away entirely and punches with the spell instead. It's the homebrew answer to wanting both halves of the game at once. If magic and steel felt like a false choice, this is the fix." },
+    warden: {
+      name: "Warden", tough: "Very high", best: "Strength and instinct",
+      known: "Ground around you that enemies can't cross",
+      src: "Kibbles' Compendium of Legends and Legacies, p. 60",
+      blurb: "A Warden is nature's chosen bulwark. You're as durable as a Barbarian, and your signature trick makes the ground around you steadily harder to cross, so enemies simply cannot walk past you to reach your friends. Ten primal aspects decide what you actually are: elemental fury, beast ferocity, ancient roots, stone, sunlight, iron plate, dragon-terror, time, the astral, or a companion assembled out of bones. It's a proper defender's class in a game that doesn't usually reward defending. If holding a line and being the reason other people survive appealed, this delivers it." },
+    warlord: {
+      name: "Warlord", tough: "Average", best: "Judgement, or presence",
+      known: "Dice you spend to give your allies extra actions",
+      src: "Kibbles' Compendium of Legends and Legacies, p. 84",
+      blurb: "The Warlord is a commander rather than a star. You spend leadership dice to hand your friends extra attacks, extra movement and extra defence, so the loudest turns at the table happen to other people because of something you did. Eight presences shape the flavour: a steady veteran, a roaring chieftain, a noble, a pack leader, a tactician, a dancer, a terror. There's no spell list, which makes it one of the easier homebrew classes to pick up. Choose it if you'd rather set other people up than take the spotlight — a genuinely rare thing to want." }
+  };
+
+  var ROUNDS = ["How it plays", "How it plays", "How it plays",
+                "In a fight", "In a fight", "In a fight", "In a fight",
+                "Who you are", "Who you are", "Who you are"];
+
+  var QUIZ = {
+    official: [
+      { q: "How do you feel about looking things up in the middle of your turn?",
+        note: "The single best predictor of whether you'll enjoy a class.",
+        opts: [
+          { l: "I'd rather never have to.", w: { barbarian: 3, fighter: 3, rogue: 2 } },
+          { l: "A few options I can remember is fine.", w: { paladin: 2, ranger: 2, monk: 2, warlock: 3, sorcerer: 2, rogue: 1 } },
+          { l: "Hand me the rulebook. I'll read all of it.", w: { wizard: 3, druid: 3, cleric: 3, bard: 2 } } ] },
+      { q: "Some classes make you choose your magic for the day before you set out, like packing a bag. Others just know their handful of tricks permanently.",
+        note: "Neither is better. One is more work and more powerful; the other is faster to play.",
+        opts: [
+          { l: "Skip it — I'd rather have no magic to manage at all.", w: { barbarian: 3, fighter: 3, rogue: 3, monk: 1 } },
+          { l: "Give me a few tricks I permanently know and never have to pack.", w: { sorcerer: 3, warlock: 3, bard: 2, ranger: 2, paladin: 1 } },
+          { l: "Packing the bag is the good part.", w: { wizard: 3, cleric: 3, druid: 3 } } ] },
+      { q: "When do you start thinking about what your character could do?",
+        note: "Some classes hand you something to weigh up almost constantly. Others stay quiet until it's your go, which is restful and completely valid.",
+        opts: [
+          { l: "The moment it's my turn, and not before.", w: { barbarian: 4, fighter: 4, monk: 1, rogue: 1 } },
+          { l: "On my friends' turns too — I'm watching the whole fight.", w: { wizard: 3, cleric: 3, monk: 2, paladin: 2, druid: 2, bard: 2 } },
+          { l: "As soon as the DM starts describing a place.", w: { ranger: 4, druid: 3, rogue: 3, wizard: 2 } },
+          { l: "As soon as somebody in the world starts talking.", w: { bard: 4, warlock: 3, sorcerer: 2, paladin: 2 } } ] },
+      { q: "Where are you standing when a fight starts?",
+        opts: [
+          { l: "At the front, taking the hits.", w: { barbarian: 3, fighter: 3, paladin: 3 } },
+          { l: "Off to the side, moving constantly.", w: { rogue: 3, monk: 3, ranger: 2 } },
+          { l: "At the back, well out of reach.", w: { wizard: 3, sorcerer: 3, warlock: 2, cleric: 1, druid: 1 } },
+          { l: "Wherever there's a gap that needs filling.", w: { bard: 3, cleric: 3, druid: 2, paladin: 1 } } ] },
+      { q: "Your best possible turn looks like —",
+        opts: [
+          { l: "One enormous hit.", w: { barbarian: 3, paladin: 3, rogue: 3 } },
+          { l: "Four smaller hits in a row.", w: { fighter: 3, monk: 3, ranger: 2 } },
+          { l: "One piece of magic that changes the whole situation.", w: { wizard: 3, sorcerer: 2, druid: 2, warlock: 2 } },
+          { l: "Something that makes everyone else's turn better.", w: { bard: 3, cleric: 3, paladin: 1 } } ] },
+      { q: "How do you want to help the people standing next to you?",
+        opts: [
+          { l: "By being the one getting hit instead of them.", w: { barbarian: 3, fighter: 2, paladin: 2 } },
+          { l: "By patching them up and keeping them on their feet.", w: { cleric: 3, paladin: 2, druid: 2, bard: 2 } },
+          { l: "By making the problem go away before it reaches them.", w: { wizard: 2, druid: 2, rogue: 2, monk: 1, sorcerer: 1 } },
+          { l: "Honestly? By doing a great deal of damage.", w: { rogue: 3, sorcerer: 3, fighter: 2, warlock: 2, ranger: 2 } } ] },
+      { q: "Away from fighting, what do you want to be the best in the group at?",
+        opts: [
+          { l: "Talking people round.", w: { bard: 3, warlock: 2, sorcerer: 2, paladin: 1 } },
+          { l: "Getting in, getting out, and not being seen.", w: { rogue: 3, ranger: 1, monk: 1 } },
+          { l: "Knowing things nobody else knows.", w: { wizard: 3, cleric: 2, druid: 1, bard: 1 } },
+          { l: "Keeping everyone alive a long way from anywhere.", w: { ranger: 3, druid: 3, barbarian: 1 } } ] },
+
+      { q: "Which of these scenes stays with you?",
+        note: "Three questions about the person, not the rules. Each of these is someone years into their craft — pick the one you'd want to be, not the one that sounds most useful.",
+        scenes: true,
+        opts: [
+          { l: "A caravan won't take the mountain pass because of what's been living up there. You go up alone, come back at first light, and nobody asks a second question.", w: { fighter: 4, barbarian: 2, ranger: 1 } },
+          { l: "The road is gone under a landslide and the others are still arguing about the detour. You stop listening, put your shoulder to the stone, and move it.", w: { barbarian: 4 } },
+          { l: "A family has been quietly robbing a whole town for twenty years. By morning their ledgers are nailed to the market board, and nobody can prove you were ever inside the house.", w: { rogue: 4, bard: 1 } },
+          { l: "A city is panicking around you and you are walking through it at exactly the pace you chose. You reach the person who needs you first, and your hands are steady.", w: { monk: 4 } },
+          { l: "A village has been praying about something for a long time and it turns out to be you. You don't feel holy about it — you put your hands on people and they stop dying.", w: { cleric: 4, paladin: 2 } },
+          { l: "A powerful man tells you to look the other way, and offers a genuinely good reason. You don't, and every servant in the hall sees it happen.", w: { paladin: 4, fighter: 1 } },
+          { l: "Three days in an archive nobody has opened in a century, and you come out knowing how to undo the thing the whole region is fleeing. The answer is four words long.", w: { wizard: 4, bard: 1 } },
+          { l: "It has been in you since before you could speak and it still does things you didn't ask for. On a good day it does exactly what you wanted, which startles you every time.", w: { sorcerer: 4 } },
+          { l: "You made the deal knowing it was a poor one. Something talks to you while you sleep now, and in exchange you can do things nobody alive could have taught you.", w: { warlock: 4 } },
+          { l: "You stand at the treeline and the forest simply lets you in. You can name everything on the path, and when the river needs to be elsewhere, you ask it.", w: { druid: 4, ranger: 2 } },
+          { l: "You arrive in a town with nothing and leave three days later with the name of the thing nobody wanted to say aloud. They are still telling that story.", w: { bard: 4, rogue: 1 } },
+          { l: "Weeks from the nearest road you are not lost, not hungry, and the thing that has been following you has started to worry.", w: { ranger: 4, druid: 1 } } ] },
+      { q: "The group rolls into a town none of you have been to. Where do you actually go?",
+        opts: [
+          { l: "Wherever people fight for money. You want to know who the best here is.", w: { barbarian: 3, fighter: 3, monk: 2 } },
+          { l: "The busiest tavern. You'll know everything worth knowing by midnight.", w: { bard: 4, rogue: 2 } },
+          { l: "The temple, or whatever this place has instead of one.", w: { cleric: 4, paladin: 2 } },
+          { l: "Quietly round the back of the buildings, working out who watches whom.", w: { rogue: 4, ranger: 1 } },
+          { l: "Wherever they keep books — a library, a scribe, an old collector.", w: { wizard: 4, warlock: 2 } },
+          { l: "Straight out the far side. Towns make you itch.", w: { ranger: 4, druid: 3, barbarian: 1 } },
+          { l: "Wherever the person in charge holds court. You'd like to see what they're like.", w: { paladin: 3, bard: 2 } },
+          { l: "Somewhere quiet to sit a while. You've been travelling and you'd like a moment.", w: { monk: 4, druid: 1 } },
+          { l: "Somewhere nobody knows you. The last town went badly once they found out.", w: { sorcerer: 3, warlock: 3 } } ] },
+      { q: "Something has gone badly wrong in the village and nobody knows why. What do you do first?",
+        opts: [
+          { l: "Go and look at it. Whatever it is, it's usually smaller than it sounded.", w: { barbarian: 4, fighter: 2 } },
+          { l: "Ask everyone. Someone always knows and doesn't realise it.", w: { bard: 4, rogue: 1 } },
+          { l: "Find where it started and read the ground. Things leave marks.", w: { ranger: 4, druid: 2 } },
+          { l: "Work out who gains from it. That's usually the whole answer.", w: { rogue: 4, wizard: 1 } },
+          { l: "Look it up. Somebody has written about this before.", w: { wizard: 4 } },
+          { l: "Ask for guidance, and mean it. You've been wrong before.", w: { cleric: 4, paladin: 2 } },
+          { l: "Ask the thing that gave you your power. It always knows more than it says.", w: { warlock: 4, sorcerer: 2 } },
+          { l: "Sit with it until you understand it. Rushing is how people get this wrong.", w: { monk: 4, druid: 1 } },
+          { l: "Decide what's right, say so out loud, and start from there.", w: { paladin: 4 } } ] }
+    ],
+
+    homebrew: [
+      { q: "How do you feel about looking things up in the middle of your turn?",
+        note: "Homebrew classes are wordier than official ones. Answer for the table you actually play at.",
+        opts: [
+          { l: "I'd rather never have to.", w: { swordsaint: 3, rangerrev: 3, warden: 2 } },
+          { l: "A few options I can remember is fine.", w: { favoredsoul: 3, petalknight: 2, spellblade: 2, warlord: 2, warden: 1 } },
+          { l: "Hand me the rulebook. I'll read all of it.", w: { occultist: 3, inventor: 3, psion: 3, inscriptor: 3 } } ] },
+      { q: "Each of these classes invents its own little system to keep track of — a pool of points, a set of marks, a special kind of die.",
+        note: "How many separate things do you want going on at the edge of your character sheet?",
+        opts: [
+          { l: "One, clearly explained.", w: { swordsaint: 3, warden: 2, warlord: 2, spellblade: 2 } },
+          { l: "Two or three, happily.", w: { favoredsoul: 2, petalknight: 2, inventor: 2, psion: 2, occultist: 2 } },
+          { l: "The stranger the better. I want something nobody else at the table understands.", w: { psion: 3, inscriptor: 3, inventor: 3, occultist: 2 } } ] },
+      { q: "Some classes make you choose your magic for the day before you set out. Others just know their handful of tricks permanently.",
+        opts: [
+          { l: "Skip it — no magic to manage, please.", w: { swordsaint: 3, warden: 3, warlord: 3, rangerrev: 1 } },
+          { l: "A modest set of tricks I permanently know.", w: { petalknight: 2, favoredsoul: 2, spellblade: 3, rangerrev: 2 } },
+          { l: "A huge range of options that I curate myself.", w: { occultist: 3, inscriptor: 2, psion: 2, inventor: 2 } } ] },
+      { q: "Where are you standing when a fight starts?",
+        opts: [
+          { l: "At the front, and immovable.", w: { warden: 3, favoredsoul: 2, swordsaint: 2 } },
+          { l: "At the front, but never in the same place twice.", w: { spellblade: 3, swordsaint: 3, petalknight: 2 } },
+          { l: "In the middle — close enough to help, far enough to work.", w: { petalknight: 3, warlord: 3, occultist: 1 } },
+          { l: "At the back, thank you.", w: { psion: 3, inscriptor: 3, occultist: 3, inventor: 2, rangerrev: 1 } } ] },
+      { q: "Your best possible turn looks like —",
+        opts: [
+          { l: "One perfect move, executed exactly right.", w: { swordsaint: 3, spellblade: 2 } },
+          { l: "The enemy simply cannot get past me.", w: { warden: 3 } },
+          { l: "A shot from cover that the target never traces back.", w: { rangerrev: 4 } },
+          { l: "Magic delivered on the end of a weapon.", w: { spellblade: 3, petalknight: 2, favoredsoul: 2 } },
+          { l: "Everyone else getting an extra go because of me.", w: { warlord: 3, inscriptor: 1, occultist: 1 } },
+          { l: "Something the table has to read twice.", w: { psion: 3, inscriptor: 3, occultist: 2, inventor: 2 } } ] },
+      { q: "How do you want to help the people standing next to you?",
+        opts: [
+          { l: "I'm the wall. Nothing reaches them.", w: { warden: 3, favoredsoul: 2 } },
+          { l: "I patch them up, steady them, and move them around.", w: { warlord: 3, petalknight: 3, occultist: 2 } },
+          { l: "I hand them equipment that makes them better.", w: { inventor: 3 } },
+          { l: "I remove the threat.", w: { swordsaint: 2, spellblade: 2, psion: 2, favoredsoul: 2, rangerrev: 2 } } ] },
+      { q: "Away from fighting, what do you want to be the best in the group at?",
+        opts: [
+          { l: "Tracking, hunting, and getting everyone home.", w: { rangerrev: 3, warden: 2 } },
+          { l: "Reading minds, and reading rooms.", w: { psion: 3, occultist: 2, inscriptor: 1 } },
+          { l: "Building, repairing and making what we need.", w: { inventor: 3 } },
+          { l: "Writing it down, and making it true.", w: { inscriptor: 3 } },
+          { l: "Commanding the room.", w: { warlord: 3, petalknight: 2, favoredsoul: 1 } } ] },
+
+      { q: "Which of these scenes stays with you?",
+        note: "Three questions about the person, not the rules. Each of these is someone years into their craft — pick the one you'd want to be, not the one that sounds most useful.",
+        scenes: true,
+        opts: [
+          { l: "You have been copying a dead master's footwork for ten years and this morning it finally came out right. Somebody will write this down eventually, and you intend for it to be true when they do.", w: { swordsaint: 4 } },
+          { l: "Weeks from any road you are not lost, not hungry, and the thing that has been following you has started to worry.", w: { rangerrev: 4, warden: 1 } },
+          { l: "Something enormous picked you out of a crowd and handed you a piece of itself. It didn't ask, it doesn't own you, and you have not yet decided what you're going to do about that.", w: { favoredsoul: 4 } },
+          { l: "A flower opens at your collar that nobody put there, and it turns out to be an honest picture of who you are. You spend the evening in a lord's hall making sure the wrong thing doesn't happen, and nobody has to draw a blade.", w: { petalknight: 4 } },
+          { l: "You write the line, and outside the window it is abruptly true. The muse reading over your shoulder is pleased, which is its own kind of problem.", w: { inscriptor: 4 } },
+          { l: "The workshop smells of oil and scorched copper, and the thing on the bench sits up when you finish. Your rival two towns over is going to be furious.", w: { inventor: 4 } },
+          { l: "You are sitting perfectly still in a plain room you could rearrange without standing up. Everyone else in it can tell, and none of them can say how.", w: { psion: 4 } },
+          { l: "The rite is older than the country it's being performed in, and you are one of perhaps four people alive who still know it. You use it to fix something small, because that is what it was for.", w: { occultist: 4 } },
+          { l: "You put the spell into the blade rather than throwing it, and cross the room in a step that doesn't quite happen. There was never a choice to make between magic and steel.", w: { spellblade: 4 } },
+          { l: "The ground behind you has become impassable and the people you came with are getting away. You have not moved, and you are not going to.", w: { warden: 4, favoredsoul: 1 } },
+          { l: "You say six words to the person beside you and they do something they didn't know they could. The story afterwards is about them, and you are completely fine with that.", w: { warlord: 4 } } ] },
+      { q: "The group rolls into a town none of you have been to. Where do you actually go?",
+        opts: [
+          { l: "Wherever the best swordsman here trains. You'd like a look.", w: { swordsaint: 4, spellblade: 1 } },
+          { l: "Straight out the far side. Towns make you itch.", w: { rangerrev: 4, warden: 2 } },
+          { l: "The temple, or whatever this place has instead of one.", w: { favoredsoul: 4, occultist: 1 } },
+          { l: "Wherever the person in charge holds court.", w: { petalknight: 4, warlord: 2 } },
+          { l: "A bookseller, a printer, an archive — somewhere with paper.", w: { inscriptor: 4, occultist: 2 } },
+          { l: "A forge, a workshop, anywhere selling tools.", w: { inventor: 4, spellblade: 2 } },
+          { l: "Somewhere quiet. Crowds are loud in a way other people don't experience.", w: { psion: 4 } },
+          { l: "The oldest part of town, where the odd little customs survive.", w: { occultist: 4, warden: 1 } },
+          { l: "The guard post. You want to know who here would hold if it came to it.", w: { warlord: 4, warden: 2 } } ] },
+      { q: "Something has gone badly wrong in the village and nobody knows why. What do you do first?",
+        opts: [
+          { l: "Put yourself between it and everyone else while the others work it out.", w: { warden: 4, favoredsoul: 2 } },
+          { l: "Find where it started and read the ground.", w: { rangerrev: 4 } },
+          { l: "Ask politely, at length, and of the right person.", w: { petalknight: 4, warlord: 2 } },
+          { l: "Get people organised. Half of this is panic.", w: { warlord: 4 } },
+          { l: "Sit with it quietly and listen to what everyone isn't saying.", w: { psion: 4, occultist: 1 } },
+          { l: "Check whether an old rite covers this. One usually does.", w: { occultist: 4, inscriptor: 1 } },
+          { l: "Write it down properly. You think better on paper, and sometimes the paper answers.", w: { inscriptor: 4 } },
+          { l: "Build something that measures it.", w: { inventor: 4 } },
+          { l: "Go and look at it yourself, weapon drawn, and find out.", w: { swordsaint: 4, spellblade: 2 } } ] }
+    ]
+  };
+
+  var TREE = {
+    official: [
+      { label: "Keep it simple", note: "Almost nothing to keep track of. Useful from turn one.", branches: [
+        { q: "Stand at the front and take the hits.", opts: [
+          { f: "Fury — warpaint, scars, and something heavy held in both hands.", cls: "barbarian" },
+          { f: "Discipline — armour, shield, and the best training money can buy.", cls: "fighter" } ] },
+        { q: "Pick my moment, then hit once, hard.", opts: [
+          { f: "From behind, in the dark, with a dagger.", cls: "rogue" },
+          { f: "From sixty feet away, with a longbow.", cls: "fighter" } ] },
+        { q: "Survive anything — be the one still standing at the end.", opts: [
+          { f: "Rage through it and shrug off the damage.", cls: "barbarian" },
+          { f: "Never be where the blow lands in the first place.", cls: "rogue" } ] } ] },
+      { label: "A few tricks to manage", note: "One pool of something, or a short set of spells you permanently know.", branches: [
+        { q: "Hold the front line and keep people alive.", opts: [
+          { f: "A sworn oath, holy light, and hands that heal.", cls: "paladin" },
+          { f: "Bare fists, no armour, and nothing ever quite touches me.", cls: "monk" } ] },
+        { q: "Move fast and decide where the fight happens.", opts: [
+          { f: "Run up a wall, deflect the arrow, strike four times.", cls: "monk" },
+          { f: "Mark the target and drop it before it reaches us.", cls: "ranger" } ] },
+        { q: "Cast magic — but only a handful of spells I actually know.", opts: [
+          { f: "I made a bargain with something old and powerful.", cls: "warlock" },
+          { f: "The magic is in my blood and I never asked for it.", cls: "sorcerer" } ] },
+        { q: "Be at home out in the wild, far from any city.", opts: [
+          { f: "A tracker with a bow and an animal at my side.", cls: "ranger" },
+          { f: "A wanderer from a monastery nobody has heard of.", cls: "monk" } ] } ] },
+      { label: "Give me the whole toolbox", note: "Magic to choose each morning, and a real decision every turn.", branches: [
+        { q: "I want the largest range of spells in the game.", opts: [
+          { f: "A scholar with a book, studying my way to power.", cls: "wizard" },
+          { f: "A servant of a god, praying each morning for what today needs.", cls: "cleric" } ] },
+        { q: "I want to be the reason everyone else is still alive.", opts: [
+          { f: "Healing, holy fire, and a mace when it comes to that.", cls: "cleric" },
+          { f: "Songs and jokes and encouragement — helping by being good at everything.", cls: "bard" } ] },
+        { q: "I want to be a bit of everything at once.", opts: [
+          { f: "Turn into animals; the wild itself is my weapon.", cls: "druid" },
+          { f: "Talker, healer, blaster, problem-solver — some of each.", cls: "bard" } ] },
+        { q: "I want to solve problems outside of fighting, with magic.", opts: [
+          { f: "Rituals, research, and exactly the right spell for a strange problem.", cls: "wizard" },
+          { f: "Read the land, speak to animals, pass unseen through the wild.", cls: "druid" } ] } ] }
+    ],
+    homebrew: [
+      { label: "Simplest on this shelf", note: "Nothing to choose in advance. One pool of points, or a short set of tricks.", branches: [
+        { q: "Close the distance and end it up close.", opts: [
+          { f: "Chase a legend — a duellist who intends to be remembered by name.", cls: "swordsaint" },
+          { f: "Two blades, quick feet, and a kind of enemy I've studied for years.", cls: "rangerrev" } ] },
+        { q: "Stand in the way and refuse to move.", opts: [
+          { f: "The ground around me turns treacherous; nothing walks past.", cls: "warden" },
+          { f: "Bark, stone or iron for skin, and the sturdiest body in the book.", cls: "warden" } ] },
+        { q: "Stay at range and take the target apart.", opts: [
+          { f: "Techniques that pull fire or wind out of a swing at twenty paces.", cls: "swordsaint" },
+          { f: "Mark a quarry, track it across a continent, never lose it.", cls: "rangerrev" } ] } ] },
+      { label: "Weapon in one hand, magic in the other", note: "A modest set of spells alongside real fighting ability.", branches: [
+        { q: "Front line, with something divine behind the swing.", opts: [
+          { f: "A god handed me a fragment of itself. Faith was optional.", cls: "favoredsoul" },
+          { f: "A duellist whose soul blooms as a flower, sworn to order.", cls: "petalknight" } ] },
+        { q: "Put the magic into the weapon and deliver it on the hit.", opts: [
+          { f: "Step in, strike, step back out of the world for a moment.", cls: "spellblade" },
+          { f: "Light blade, courtly manners, half my magic cast on other people.", cls: "petalknight" } ] },
+        { q: "Make everyone else at the table have a better turn.", opts: [
+          { f: "Banners, war cries, and allies who suddenly act like veterans.", cls: "warlord" },
+          { f: "Few spells, enormous ones, all back after an hour\u2019s rest.", cls: "favoredsoul" } ] } ] },
+      { label: "Everything at once", note: "Invented systems and a great deal to track. Not a first character.", branches: [
+        { q: "I want to build the things the party fights with.", opts: [
+          { f: "Guns, gadgets, and a golem that follows me around.", cls: "inventor" },
+          { f: "Words — I write it down and the world agrees with me.", cls: "inscriptor" } ] },
+        { q: "I want power that doesn't look like anyone else's magic.", opts: [
+          { f: "Telekinesis, telepathy, a mind that bends the room.", cls: "psion" },
+          { f: "A patron muse who makes my prose real as I narrate it.", cls: "inscriptor" } ] },
+        { q: "I want the widest range of magic on the shelf.", opts: [
+          { f: "Witch, oracle, shaman, voidwatcher — six traditions, six near-classes.", cls: "occultist" },
+          { f: "Inventions and upgrades across ten different crafts.", cls: "inventor" } ] } ] }
+    ]
+  };
+
+  var META = {
+    official: {
+      notice: "<strong>Official content only</strong> — all twelve classes from the 2024 Player's Handbook, the current core rulebook.",
+      foot: "Source: Player's Handbook (2024), Chapter 3: Character Classes, pp. 48–175."
+    },
+    homebrew: {
+      notice: "<strong>Homebrew only</strong> — eleven classes written by people other than the game's publisher, from <em>Lyre's Guide to Retia</em> and the two Kibbles' compendiums. All three are built for the older 5e rules rather than the 2024 ones, so check with whoever is running your game before you pick one. None of them is a gentle first class; if this is your very first character, run the official set first.",
+      foot: "Sources: Lyre's Guide to Retia — Land of Industry (Logan Laidlaw / Nat19), Ch. 8, pp. 337–420. Kibbles' Compendium of Craft and Creation v1.2.1 and Kibbles' Compendium of Legends and Legacies v1.0.2 (KibblesTasty), Ch. 1 in each."
+    }
+  };
+
+  var state = { mode: "official", view: "quiz", answers: [] };
+
+  var stage = document.getElementById("stage");
+  var prog = document.getElementById("prog");
+  var notice = document.getElementById("notice");
+  var footSrc = document.getElementById("foot-src");
+
+  function quiz() { return QUIZ[state.mode]; }
+  function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+
+  function renderProg() {
+    if (state.view === "chart") { prog.hidden = true; return; }
+    prog.hidden = false;
+    var i = state.answers.length, total = quiz().length, done = i >= total, ticks = "";
+    for (var t = 0; t < total; t++) {
+      ticks += '<span class="tick" data-s="' + (t < i ? "done" : (t === i ? "now" : "todo")) + '"></span>';
+    }
+    prog.innerHTML =
+      '<div class="prog-top"><span class="prog-round">' + (done ? "Result" : ROUNDS[i]) + "</span>" +
+      "<span>" + (done ? total + " of " + total : (i + 1) + " of " + total) + "</span></div>" +
+      '<div class="ticks">' + ticks + "</div>";
+  }
+
+  function score() {
+    var totals = {}, qs = quiz();
+    state.answers.forEach(function (oi, qi) {
+      var w = qs[qi].opts[oi].w;
+      for (var k in w) { totals[k] = (totals[k] || 0) + w[k]; }
+    });
+    return Object.keys(totals)
+      .map(function (k) { return { key: k, n: totals[k] }; })
+      .sort(function (a, b) { return b.n - a.n || CLASSES[a.key].name.localeCompare(CLASSES[b.key].name); });
+  }
+
+  function drivers(key) {
+    var qs = quiz(), rows = [];
+    state.answers.forEach(function (oi, qi) {
+      var o = qs[qi].opts[oi], n = (o.w && o.w[key]) || 0;
+      if (n > 0) rows.push({ n: n, l: o.l, r: ROUNDS[qi] });
+    });
+    rows.sort(function (a, b) { return b.n - a.n; });
+    return rows.slice(0, 3);
+  }
+
+  function renderQuiz() {
+    var qs = quiz(), i = state.answers.length, html = "";
+
+    if (i < qs.length) {
+      var q = qs[i];
+      html += '<div><h2 class="q-title">' + esc(q.q) + "</h2>" +
+        (q.note ? '<p class="q-note">' + esc(q.note) + "</p>" : "") + "</div>";
+      html += '<div class="options' + (q.scenes ? " scenes" : "") + '">';
+      q.opts.forEach(function (o, oi) {
+        html += '<button type="button" class="opt" data-i="' + oi + '">' +
+          '<span class="opt-label">' + esc(o.l) + "</span>" +
+          '<span class="opt-arrow" aria-hidden="true">&rarr;</span></button>';
+      });
+      html += "</div>";
+      if (i > 0) {
+        html += '<div class="backrow"><button type="button" class="link-btn" data-act="back">&larr; Back</button>' +
+          '<button type="button" class="link-btn" data-act="restart">Start over</button></div>';
+      }
+      stage.innerHTML = html;
+      return;
+    }
+
+    var ranked = score(), top = ranked[0], c = CLASSES[top.key], max = top.n;
+
+    html += '<div><span class="result-eyebrow">Play a</span>' +
+      '<h2 class="result-name">' + esc(c.name) + "</h2>" +
+      '<p class="result-blurb">' + esc(c.blurb) + "</p></div>";
+
+    html += '<dl class="spec">' +
+      "<div><dt>How tough</dt><dd>" + esc(c.tough) + "</dd></div>" +
+      "<div><dt>What you're best at</dt><dd>" + esc(c.best) + "</dd></div>" +
+      "<div><dt>Known for</dt><dd>" + esc(c.known) + "</dd></div>" +
+      "<div><dt>Where to read it</dt><dd>" + esc(c.src) + "</dd></div>" +
+      "</dl>";
+
+    var d = drivers(top.key);
+    if (d.length) {
+      html += '<div class="drivers"><span class="block-k">The answers that got you here</span><ul>';
+      d.forEach(function (row) {
+        html += "<li><b>" + esc(row.r) + "</b>" + esc(row.l) + "</li>";
+      });
+      html += "</ul></div>";
+    }
+
+    var rest = ranked.slice(1, 5);
+    if (rest.length) {
+      html += '<div class="runners"><span class="block-k">Close behind, if this one doesn\'t grab you</span>';
+      rest.forEach(function (r) {
+        var pct = Math.round((r.n / max) * 100);
+        html += '<div class="runner"><span class="runner-n">' + esc(CLASSES[r.key].name) + "</span>" +
+          '<span class="bar"><span style="width:' + pct + '%"></span></span>' +
+          '<span class="runner-p">' + pct + "%</span></div>";
+      });
+      html += "</div>";
+    }
+
+    html += '<div class="backrow"><button type="button" class="link-btn" data-act="back">&larr; Change last answer</button>' +
+      '<button type="button" class="link-btn" data-act="restart">Start over</button></div>';
+
+    stage.innerHTML = html;
+  }
+
+  function renderChart() {
+    var tiers = TREE[state.mode], html = '<div class="chart">';
+    tiers.forEach(function (t, i) {
+      html += '<section class="tier"><div class="tier-h">' +
+        '<span class="tier-n">' + (i + 1) + "</span>" +
+        '<h2 class="tier-t">' + esc(t.label) + "</h2>" +
+        '<p class="tier-note">' + esc(t.note) + "</p></div>";
+      t.branches.forEach(function (b) {
+        html += '<div class="branch"><p class="branch-q">' + esc(b.q) + '</p><ul class="leaves">';
+        b.opts.forEach(function (o) {
+          html += '<li class="leaf"><span class="leaf-f">' + esc(o.f) + "</span>" +
+            '<span class="leaf-c">' + esc(CLASSES[o.cls].name) + "</span></li>";
+        });
+        html += "</ul></div>";
+      });
+      html += "</section>";
+    });
+    stage.innerHTML = html + "</div>";
+  }
+
+  function render() {
+    document.body.setAttribute("data-mode", state.mode);
+    notice.innerHTML = META[state.mode].notice;
+    footSrc.textContent = META[state.mode].foot;
+    renderProg();
+    if (state.view === "chart") { renderChart(); } else { renderQuiz(); }
+    document.getElementById("mode-official").setAttribute("aria-pressed", String(state.mode === "official"));
+    document.getElementById("mode-homebrew").setAttribute("aria-pressed", String(state.mode === "homebrew"));
+    document.getElementById("view-quiz").setAttribute("aria-pressed", String(state.view === "quiz"));
+    document.getElementById("view-chart").setAttribute("aria-pressed", String(state.view === "chart"));
+  }
+
+  stage.addEventListener("click", function (e) {
+    var opt = e.target.closest(".opt");
+    if (opt) { state.answers.push(Number(opt.getAttribute("data-i"))); window.scrollTo({ top: 0, behavior: "instant" }); render(); return; }
+    var act = e.target.closest("[data-act]");
+    if (act) {
+      if (act.getAttribute("data-act") === "back") { state.answers.pop(); } else { state.answers = []; }
+      render();
+    }
+  });
+
+  document.getElementById("mode-official").addEventListener("click", function () { state.mode = "official"; state.answers = []; render(); });
+  document.getElementById("mode-homebrew").addEventListener("click", function () { state.mode = "homebrew"; state.answers = []; render(); });
+  document.getElementById("view-quiz").addEventListener("click", function () { state.view = "quiz"; render(); });
+  document.getElementById("view-chart").addEventListener("click", function () { state.view = "chart"; render(); });
+
+  render();
+})();
+</script>

@@ -1,0 +1,649 @@
+<title>Subclass Compendium</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+
+<style>
+  :root {
+    --ground:#E4E1D8; --surface:#F1EFE9; --surface-2:#EAE7DF;
+    --ink:#1B1E23; --ink-soft:#5B626C; --ink-faint:#8A9099;
+    --rule:#C6C2B6; --rule-soft:#D6D2C7;
+    --accent-official:#9A5A15; --accent-home:#1C6659; --accent-ink:#FFFFFF;
+    --chip-bg:#FFFFFF;
+    --chip-shadow: 0 2px 6px rgba(27,30,35,.10), 0 14px 34px -14px rgba(27,30,35,.42);
+    --veil: rgba(27,30,35,.34);
+
+    --step--2:.68rem;
+    --step--1: clamp(.74rem,.72rem + .12vw,.8rem);
+    --step-0:  clamp(.95rem,.92rem + .18vw,1.05rem);
+    --step-1:  clamp(1.05rem,1rem + .26vw,1.2rem);
+    --step-2:  clamp(1.25rem,1.12rem + .6vw,1.6rem);
+    --step-3:  clamp(1.7rem,1.35rem + 1.7vw,2.6rem);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:#131619; --surface:#1B1F24; --surface-2:#22272D;
+      --ink:#E7E4DB; --ink-soft:#A0A7B0; --ink-faint:#6E757E;
+      --rule:#2E343B; --rule-soft:#262B31;
+      --accent-official:#D9903F; --accent-home:#47AD99; --accent-ink:#131619;
+      --chip-bg:#232930; --veil: rgba(0,0,0,.6);
+      --chip-shadow: 0 2px 6px rgba(0,0,0,.5), 0 16px 38px -14px rgba(0,0,0,.95);
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground:#131619; --surface:#1B1F24; --surface-2:#22272D;
+    --ink:#E7E4DB; --ink-soft:#A0A7B0; --ink-faint:#6E757E;
+    --rule:#2E343B; --rule-soft:#262B31;
+    --accent-official:#D9903F; --accent-home:#47AD99; --accent-ink:#131619;
+    --chip-bg:#232930; --veil: rgba(0,0,0,.6);
+    --chip-shadow: 0 2px 6px rgba(0,0,0,.5), 0 16px 38px -14px rgba(0,0,0,.95);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--ground); color: var(--ink);
+    font-family: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: var(--step-0); line-height: 1.6;
+    --accent: var(--accent-official);
+    -webkit-font-smoothing: antialiased;
+  }
+  body[data-src="homebrew"] { --accent: var(--accent-home); }
+
+  .wrap { max-width: 64rem; margin-inline: auto; padding-inline: 20px; padding-block: clamp(26px,4vw,44px) 80px; }
+
+  .eyebrow {
+    font-family:"IBM Plex Mono", ui-monospace, monospace; font-size: var(--step--1);
+    letter-spacing:.14em; text-transform: uppercase; color: var(--ink-faint); margin:0;
+  }
+  h1 {
+    font-family: Fraunces, Georgia,"Times New Roman",serif; font-optical-sizing:auto;
+    font-weight:600; font-size: var(--step-3); line-height:1.05; letter-spacing:-.015em;
+    margin:6px 0 0; text-wrap: balance;
+  }
+  .lede { color: var(--ink-soft); max-width:58ch; margin:10px 0 0; }
+  kbd {
+    font:500 .85em/1 "IBM Plex Mono", monospace; border:1px solid var(--rule);
+    padding:2px 5px; border-radius:3px; background: var(--surface); color: var(--ink);
+  }
+
+  .toolbar { display:flex; flex-wrap:wrap; gap:12px; align-items:center; margin-top:22px; }
+  .searchbtn {
+    display:flex; align-items:center; gap:10px; flex:1 1 18rem; max-width:26rem;
+    background: var(--surface); border:1px solid var(--rule); color: var(--ink-faint);
+    font: inherit; font-size: var(--step--1); padding:10px 12px; cursor:pointer; text-align:left;
+  }
+  .searchbtn:hover { border-color: var(--accent); color: var(--ink-soft); }
+  .searchbtn:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+  .searchbtn .sb-hint { margin-left:auto; font-family:"IBM Plex Mono",monospace; font-size: var(--step--2); letter-spacing:.06em; }
+
+  .classpick { display:flex; align-items:stretch; border:1px solid var(--rule); background: var(--surface); }
+  .classpick-k {
+    display:flex; align-items:center; padding:0 11px;
+    font:500 var(--step--2)/1 "IBM Plex Mono", monospace; letter-spacing:.12em;
+    text-transform:uppercase; color: var(--accent-ink); background: var(--accent);
+  }
+  .classpick select {
+    font:inherit; font-size: var(--step--1); color: var(--ink); background:none;
+    border:0; padding:10px 12px; cursor:pointer; max-width:15rem;
+  }
+  .classpick select:focus-visible { outline:2px solid var(--accent); outline-offset:-2px; }
+  .classpick select optgroup { color: var(--ink-faint); }
+  .classpick select option { color: var(--ink); background: var(--surface); }
+
+  .prototype {
+    margin-top:20px; border-left:3px solid var(--accent); background: var(--surface);
+    padding:12px 15px; font-size: var(--step--1); color: var(--ink-soft);
+  }
+  .prototype strong { color: var(--ink); font-weight:600; }
+
+  /* ---------- layout ---------- */
+  .layout { display:grid; grid-template-columns:16rem minmax(0,1fr); gap:40px; margin-top:30px; align-items:start; }
+  .layout > * { min-width:0; }
+  .rail { position:sticky; top: calc(env(safe-area-inset-top, 0px) + 16px); min-width:0; }
+  .rail-scroll, .rail-group, .rail-list { min-width:0; }
+  .rail-scroll {
+    max-height: calc(100vh - 56px); overflow-y:auto; padding-bottom:2px;
+    scrollbar-width: thin; scrollbar-color: var(--rule) transparent;
+  }
+  .rail-scroll::-webkit-scrollbar { width:8px; }
+  .rail-scroll::-webkit-scrollbar-thumb { background: var(--rule); }
+  .rail-scroll::-webkit-scrollbar-track { background: transparent; }
+  /* fades appear only when there is genuinely more list in that direction */
+  .rail::before, .rail::after {
+    content:""; position:absolute; left:0; right:8px; height:42px; pointer-events:none;
+    opacity:0; transition: opacity .15s ease;
+  }
+  .rail::before { top:0; background: linear-gradient(to bottom, var(--ground), transparent); }
+  .rail::after  { bottom:0; background: linear-gradient(to top, var(--ground), transparent); }
+  .rail[data-up="true"]::before { opacity:1; }
+  .rail[data-down="true"]::after { opacity:1; }
+
+  .rail-group + .rail-group { margin-top:18px; }
+  .rail-k {
+    font-family:"IBM Plex Mono",monospace; font-size: var(--step--2); letter-spacing:.14em;
+    text-transform:uppercase; color: var(--ink-faint); display:flex; gap:8px;
+    align-items:baseline; margin-bottom:8px;
+  }
+  .rail-n {
+    margin-left:auto; color: var(--accent); font-variant-numeric: tabular-nums;
+    border:1px solid color-mix(in srgb, var(--accent) 40%, transparent); padding:1px 6px;
+  }
+  .rail-list { display:flex; flex-direction:column; border-top:1px solid var(--rule); }
+  .rail-btn {
+    display:block; width:100%; text-align:left; font:inherit; color:inherit; background:none;
+    border:0; border-bottom:1px solid var(--rule-soft); border-left:3px solid transparent;
+    padding:10px 10px 10px 12px; cursor:pointer; transition: background .14s ease, border-color .14s ease;
+  }
+  .rail-btn:hover { background: var(--surface); }
+  .rail-btn:focus-visible { outline:2px solid var(--accent); outline-offset:-2px; }
+  .rail-btn[aria-current="true"] { border-left-color: var(--accent); background: var(--surface); }
+  .rail-btn[aria-current="true"] .rail-name { color: var(--accent); }
+  .rail-name { display:block; font-weight:500; font-size: var(--step--1); }
+  .rail-sub {
+    display:block; font-family:"IBM Plex Mono",monospace; font-size: var(--step--2);
+    letter-spacing:.07em; text-transform:uppercase; color: var(--ink-faint); margin-top:2px;
+  }
+
+  /* ---------- entry ---------- */
+  .entry-head { border-bottom:2px solid var(--accent); padding-bottom:16px; }
+  .entry-kicker { font-family:"IBM Plex Mono",monospace; font-size: var(--step--1); letter-spacing:.14em; text-transform:uppercase; color: var(--accent); }
+  .entry-name { font-family: Fraunces, Georgia, serif; font-weight:700; font-size: var(--step-2); line-height:1.1; letter-spacing:-.02em; margin:5px 0 0; }
+  .entry-tag { font-family: Fraunces, Georgia, serif; font-style:italic; font-size: var(--step-1); color: var(--ink-soft); margin:4px 0 0; }
+  .entry-flavor { margin:14px 0 0; max-width:66ch; color: var(--ink-soft); }
+  .entry-src { font-family:"IBM Plex Mono",monospace; font-size: var(--step--2); letter-spacing:.08em; text-transform:uppercase; color: var(--ink-faint); margin:12px 0 0; }
+
+  .features { display:flex; flex-direction:column; margin-top:8px; }
+  .feature { display:grid; grid-template-columns:4.6rem minmax(0,1fr); gap:0 20px; padding:20px 0; border-bottom:1px solid var(--rule-soft); }
+  .feature:last-child { border-bottom:0; }
+  .lvl { font-family:"IBM Plex Mono",monospace; font-size: var(--step--2); letter-spacing:.1em; text-transform:uppercase; color: var(--ink-faint); padding-top:.35em; }
+  .feature h3 { font-family: Fraunces, Georgia, serif; font-weight:600; font-size: var(--step-1); margin:0 0 6px; letter-spacing:-.01em; }
+  .feature p { margin:0 0 8px; max-width:66ch; }
+  .feature p:last-child { margin-bottom:0; }
+  .feature ul { margin:6px 0 0; padding-left:1.1em; max-width:66ch; }
+  .feature li { margin-bottom:5px; }
+
+
+  .prog-list { list-style:none; margin:4px 0 0; padding:0; display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem,1fr)); gap:2px 20px; }
+  .prog-list li { display:grid; grid-template-columns:2.2rem 1fr; gap:10px;
+    padding:5px 0; border-bottom:1px dotted var(--rule-soft); align-items:baseline; }
+  .prog-list b { font-family:"IBM Plex Mono",monospace; font-size:var(--step--2);
+    letter-spacing:.08em; color:var(--accent); font-weight:600; }
+
+  /* ---------- term + chip ---------- */
+  .term {
+    font:inherit; color:inherit; background:none; border:0; padding:0; cursor:help;
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--accent) 55%, transparent);
+    text-decoration-thickness:1px; text-underline-offset:.18em;
+  }
+  .term:hover, .term[aria-expanded="true"] { color: var(--accent); text-decoration-color: var(--accent); text-decoration-thickness:2px; }
+  .term:focus-visible { outline:2px solid var(--accent); outline-offset:2px; border-radius:2px; }
+  .term[data-mod="true"] { text-decoration-style: double; text-decoration-thickness:1px; }
+
+  .chip {
+    position:fixed; z-index:60; width:min(21rem, calc(100vw - 24px));
+    background: var(--chip-bg); border:1px solid var(--rule); box-shadow: var(--chip-shadow);
+    padding:13px 15px 14px; font-size: var(--step--1); line-height:1.5;
+    opacity:0; transform: translateY(-3px); transition: opacity .12s ease, transform .12s ease;
+  }
+  .chip[data-shown="true"] { opacity:1; transform:none; }
+  .chip-term { font-family:"IBM Plex Mono",monospace; font-size: var(--step--2); letter-spacing:.12em; text-transform:uppercase; color: var(--accent); }
+  .chip-def { margin:5px 0 0; color: var(--ink); }
+  .chip-mod { margin:11px 0 0; padding-top:10px; border-top:1px solid var(--rule-soft); }
+  .chip-mod-k { font-family:"IBM Plex Mono",monospace; font-size: var(--step--2); letter-spacing:.12em; text-transform:uppercase; color: var(--ink-faint); display:block; margin-bottom:3px; }
+  .chip-mod p { margin:0; color: var(--ink); }
+  .chip-pin { margin:10px 0 0; font-family:"IBM Plex Mono",monospace; font-size: var(--step--2); letter-spacing:.1em; text-transform:uppercase; color: var(--ink-faint); }
+
+  .termindex { margin-top:32px; border-top:1px solid var(--rule); padding-top:16px; }
+  .termindex-k { font-family:"IBM Plex Mono",monospace; font-size: var(--step--2); letter-spacing:.14em; text-transform:uppercase; color: var(--ink-faint); }
+  .termrow { display:flex; flex-wrap:wrap; gap:7px; margin-top:11px; }
+  .termrow .term { border:1px solid var(--rule-soft); background: var(--surface-2); padding:6px 10px; text-decoration:none; font-size: var(--step--1); }
+  .termrow .term[data-mod="true"] { border-color: color-mix(in srgb, var(--accent) 50%, var(--rule-soft)); }
+  .termrow .term:hover { border-color: var(--accent); text-decoration:none; }
+
+  /* ---------- search palette ---------- */
+  .veil { position:fixed; inset:0; background: var(--veil); z-index:70; display:flex; justify-content:center; padding: 12vh 16px 16px; }
+  .veil[hidden] { display:none; }
+  .palette {
+    width:min(40rem,100%); max-height:74vh; display:flex; flex-direction:column;
+    background: var(--chip-bg); border:1px solid var(--rule); box-shadow: var(--chip-shadow);
+  }
+  .palette input {
+    font: inherit; font-size: var(--step-1); width:100%; padding:16px 18px;
+    background:none; border:0; border-bottom:1px solid var(--rule); color: var(--ink);
+  }
+  .palette input:focus { outline:none; border-bottom-color: var(--accent); }
+  .palette input::placeholder { color: var(--ink-faint); }
+  .results { overflow-y:auto; padding:6px 0 8px; }
+  .res-group { font-family:"IBM Plex Mono",monospace; font-size: var(--step--2); letter-spacing:.14em; text-transform:uppercase; color: var(--ink-faint); padding:12px 18px 6px; }
+  .res {
+    display:grid; grid-template-columns:minmax(0,1fr) auto; gap:4px 14px; align-items:baseline;
+    width:100%; text-align:left; font:inherit; color:inherit; background:none; border:0;
+    border-left:3px solid transparent; padding:9px 18px 9px 15px; cursor:pointer;
+  }
+  .res[data-active="true"] { background: var(--surface-2); border-left-color: var(--accent); }
+  .res-name { font-weight:500; }
+  .res-name mark { background: color-mix(in srgb, var(--accent) 26%, transparent); color:inherit; }
+  .res-meta { font-family:"IBM Plex Mono",monospace; font-size: var(--step--2); letter-spacing:.08em; text-transform:uppercase; color: var(--ink-faint); white-space:nowrap; }
+  .res-def { grid-column:1 / -1; font-size: var(--step--1); color: var(--ink-soft); line-height:1.45; }
+  .res-empty { padding:22px 18px; color: var(--ink-faint); font-size: var(--step--1); }
+  .palette-foot {
+    border-top:1px solid var(--rule-soft); padding:9px 18px; display:flex; gap:16px; flex-wrap:wrap;
+    font-family:"IBM Plex Mono",monospace; font-size: var(--step--2); letter-spacing:.08em;
+    text-transform:uppercase; color: var(--ink-faint);
+  }
+
+  footer { margin-top:48px; border-top:1px solid var(--rule); padding-top:16px; font-size: var(--step--1); color: var(--ink-faint); }
+  footer p { margin:0 0 6px; max-width:74ch; }
+
+  @media (max-width:56rem) {
+    .layout { grid-template-columns:1fr; gap:24px; }
+    .rail { position:static; }
+    .rail::before, .rail::after { display:none; }
+    .rail-scroll { max-height:none; overflow:visible; }
+    .rail-group { margin-top:0; position:relative; }
+    .rail-group + .rail-group { margin-top:14px; }
+    .rail-group[data-many="true"]::after {
+      content:""; position:absolute; right:0; bottom:1px; width:44px; top:1.9em;
+      background: linear-gradient(to left, var(--ground), transparent); pointer-events:none;
+    }
+    .rail-list { flex-direction:row; overflow-x:auto; border-top:0; border-bottom:1px solid var(--rule); scrollbar-width:thin; }
+    .rail-btn { border-bottom:0; border-left:0; border-top:3px solid transparent; white-space:nowrap; padding:9px 14px; }
+    .rail-btn[aria-current="true"] { border-top-color: var(--accent); }
+    .feature { grid-template-columns:1fr; gap:5px; }
+    .lvl { padding-top:0; }
+    .veil { padding-top:6vh; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition:none !important; } }
+</style>
+
+<div class="wrap">
+
+  <header>
+    <p class="eyebrow">12 official classes &middot; 6 homebrew classes &middot; 200 pages</p>
+    <h1>Subclass Compendium</h1>
+    <p class="lede">Every feature in plain language, with the rules terms underlined. Hover one to read what it means; click or tap to pin it open, <kbd>Esc</kbd> to dismiss. A <em>doubled</em> underline means this page changes how that term works.</p>
+  </header>
+
+  <div class="toolbar">
+    <button type="button" class="searchbtn" id="searchbtn">
+      <span aria-hidden="true">&#9906;</span>
+      <span>Search subclasses, disciplines and terms</span>
+      <span class="sb-hint">/</span>
+    </button>
+    <label class="classpick">
+      <span class="classpick-k">Class</span>
+      <select id="classpick" aria-label="Class"></select>
+    </label>
+  </div>
+
+  <div class="prototype" id="prototype"></div>
+
+  <div class="layout">
+    <nav class="rail" id="rail" aria-label="Contents"></nav>
+    <main id="entry"></main>
+  </div>
+
+  <footer>
+    <p id="foot-src"></p>
+    <p>Feature text is summarised rather than reproduced. Where a definition is simplified for a first-time player, the page reference is the authority.</p>
+  </footer>
+
+</div>
+
+<div class="veil" id="veil" hidden>
+  <div class="palette" role="dialog" aria-modal="true" aria-label="Search">
+    <input type="text" id="q" placeholder="Type to narrow &mdash; a path, a discipline, a term&hellip;" autocomplete="off" spellcheck="false">
+    <div class="results" id="results"></div>
+    <div class="palette-foot"><span>&uarr;&darr; move</span><span>&crarr; open</span><span>Esc close</span></div>
+  </div>
+</div>
+
+<script src="data.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  var TERMS = window.COMPENDIUM.TERMS;
+  var CLASSES = window.COMPENDIUM.CLASSES;
+  var ENTRIES = window.COMPENDIUM.ENTRIES;
+
+  /* ================= state ================= */
+  var currentClass = "barbarian";
+  var currentEntry = "b-core";
+
+  var railEl = document.getElementById("rail");
+  var entryEl = document.getElementById("entry");
+  var noteEl = document.getElementById("prototype");
+  var footEl = document.getElementById("foot-src");
+
+  function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+
+  function markup(html, mods){
+    return html.replace(/\{\{([a-z0-9]+)(?:\|([^}]+))?\}\}/g, function(_, key, label){
+      var t = TERMS[key];
+      if (!t) return label || key;
+      var modded = Object.prototype.hasOwnProperty.call(mods, key);
+      return '<button type="button" class="term" data-term="'+key+'"'+(modded?' data-mod="true"':'')+' aria-expanded="false">'+esc(label||t.n)+"</button>";
+    });
+  }
+
+  // chip text is plain, so term markup inside a modification note is flattened
+  // to its display text rather than printed as braces
+  function plain(s){
+    return String(s).replace(/\{\{([a-z0-9]+)(?:\|([^}]+))?\}\}/g, function(_, key, label){
+      return label || (TERMS[key] ? TERMS[key].n : key);
+    });
+  }
+
+  function usedTerms(entry){
+    var found=[], seen={};
+    entry.features.forEach(function(f){
+      var m, re=/\{\{([a-z0-9]+)(?:\|[^}]+)?\}\}/g;
+      while((m=re.exec(f.body))){ if(!seen[m[1]] && TERMS[m[1]]){ seen[m[1]]=1; found.push(m[1]); } }
+    });
+    // a term this page changes must always be reachable, even when the body
+    // never names it — otherwise the modification note has no way in
+    Object.keys(entry.mods).forEach(function(k){
+      if(!seen[k] && TERMS[k]){ seen[k]=1; found.push(k); }
+    });
+    found.sort(function(a,b){ return TERMS[a].n.localeCompare(TERMS[b].n); });
+    return found;
+  }
+
+  function renderRail(){
+    var cls = CLASSES[currentClass];
+    railEl.innerHTML = '<div class="rail-scroll">' + cls.groups.map(function(g){
+      return '<div class="rail-group" data-many="'+(g.keys.length>3)+'">'+
+        '<span class="rail-k">'+esc(g.label)+'<span class="rail-n">'+g.keys.length+"</span></span>"+
+        '<div class="rail-list">'+
+        g.keys.map(function(k){
+          var e = ENTRIES[k];
+          return '<button type="button" class="rail-btn" data-entry="'+k+'" aria-current="'+(k===currentEntry)+'">'+
+            '<span class="rail-name">'+esc(e.nav)+'</span><span class="rail-sub">'+esc(e.navSub)+'</span></button>';
+        }).join("")+"</div></div>";
+    }).join("") + "</div>";
+
+    var sc = railEl.querySelector(".rail-scroll");
+    function fades(){
+      railEl.setAttribute("data-up", String(sc.scrollTop > 4));
+      railEl.setAttribute("data-down", String(sc.scrollTop + sc.clientHeight < sc.scrollHeight - 4));
+    }
+    sc.addEventListener("scroll", fades, { passive:true });
+    var live = sc.querySelector('.rail-btn[aria-current="true"]');
+    if (live && live.scrollIntoView) { live.scrollIntoView({ block:"nearest" }); }
+    fades();
+    window.setTimeout(fades, 0);
+  }
+
+  function renderEntry(){
+    var e = ENTRIES[currentEntry];
+    var html='<div class="entry-head"><span class="entry-kicker">'+esc(e.kicker)+'</span>'+
+      '<h2 class="entry-name">'+esc(e.name)+'</h2>'+
+      '<p class="entry-tag">'+esc(e.tag)+'</p>'+
+      '<p class="entry-flavor">'+esc(e.flavor)+'</p>'+
+      '<p class="entry-src">'+esc(e.src)+'</p></div><div class="features">';
+    e.features.forEach(function(f){
+      html+='<article class="feature"><div class="lvl">'+esc(f.lvl)+'</div><div><h3>'+esc(f.name)+"</h3>"+markup(f.body,e.mods)+"</div></article>";
+    });
+    html+="</div>";
+    var terms=usedTerms(e);
+    if(terms.length){
+      html+='<div class="termindex"><span class="termindex-k">Terms on this page &mdash; '+terms.length+" total, "+
+        terms.filter(function(k){return e.mods[k];}).length+' changed here</span><div class="termrow">';
+      terms.forEach(function(k){
+        html+='<button type="button" class="term" data-term="'+k+'"'+(e.mods[k]?' data-mod="true"':'')+' aria-expanded="false">'+esc(TERMS[k].n)+"</button>";
+      });
+      html+="</div></div>";
+    }
+    entryEl.innerHTML=html;
+  }
+
+  var pickEl = document.getElementById("classpick");
+
+  function renderPicker(){
+    var official=[], home=[];
+    Object.keys(CLASSES).forEach(function(k){
+      (CLASSES[k].src==="homebrew"?home:official).push(
+        '<option value="'+k+'"'+(k===currentClass?" selected":"")+">"+esc(CLASSES[k].name)+"</option>");
+    });
+    pickEl.innerHTML =
+      '<optgroup label="Player’s Handbook 2024">'+official.join("")+"</optgroup>"+
+      (home.length?'<optgroup label="Homebrew">'+home.join("")+"</optgroup>":"");
+  }
+
+  function render(){
+    var cls=CLASSES[currentClass];
+    document.body.setAttribute("data-src", cls.src);
+    noteEl.innerHTML=cls.note;
+    footEl.textContent=cls.foot;
+    renderPicker(); renderRail(); renderEntry();
+  }
+
+  pickEl.addEventListener("change", function(){
+    goto(CLASSES[pickEl.value].groups[0].keys[0]);
+  });
+
+  function goto(entryKey){
+    var e=ENTRIES[entryKey];
+    if(!e) return;
+    closeChip();
+    currentClass=e.cls; currentEntry=entryKey;
+    render();
+    window.scrollTo({top:0,behavior:"instant"});
+  }
+
+  /* ================= chip ================= */
+  var chip=document.createElement("div");
+  chip.className="chip"; chip.setAttribute("role","tooltip"); chip.id="term-chip"; chip.hidden=true;
+  document.body.appendChild(chip);
+
+  var openTimer=null, closeTimer=null, activeTerm=null, pinned=false;
+  var canHover = window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  var OPEN_DELAY=180, CLOSE_DELAY=1000;
+
+  function fillChip(key){
+    var t=TERMS[key], mod=ENTRIES[currentEntry].mods[key];
+    var html='<span class="chip-term">'+esc(t.n)+'</span><p class="chip-def">'+esc(t.d)+"</p>";
+    if(mod){ html+='<div class="chip-mod"><span class="chip-mod-k">In '+esc(ENTRIES[currentEntry].name)+'</span><p>'+esc(plain(mod))+"</p></div>"; }
+    if(pinned){ html+='<p class="chip-pin">Pinned &mdash; Esc to dismiss</p>'; }
+    chip.innerHTML=html;
+  }
+
+  function place(){
+    if(!activeTerm||chip.hidden) return;
+    var r=activeTerm.getBoundingClientRect(), w=chip.offsetWidth, h=chip.offsetHeight, gap=8, pad=12;
+    var top=r.bottom+gap;
+    if(top+h>window.innerHeight-pad && r.top-gap-h>pad){ top=r.top-gap-h; }
+    top=Math.max(pad,Math.min(top,window.innerHeight-h-pad));
+    var left=r.left+r.width/2-w/2;
+    left=Math.max(pad,Math.min(left,window.innerWidth-w-pad));
+    chip.style.top=top+"px"; chip.style.left=left+"px";
+  }
+
+  function openChip(term, asPinned){
+    clearTimeout(openTimer); clearTimeout(closeTimer);
+    if(activeTerm&&activeTerm!==term){ activeTerm.setAttribute("aria-expanded","false"); activeTerm.removeAttribute("aria-describedby"); }
+    activeTerm=term; pinned=!!asPinned;
+    fillChip(term.getAttribute("data-term"));
+    chip.hidden=false; place();
+    requestAnimationFrame(function(){ chip.setAttribute("data-shown","true"); });
+    term.setAttribute("aria-expanded","true"); term.setAttribute("aria-describedby","term-chip");
+  }
+
+  function closeChip(){
+    clearTimeout(openTimer); clearTimeout(closeTimer);
+    chip.removeAttribute("data-shown"); chip.hidden=true;
+    if(activeTerm){ activeTerm.setAttribute("aria-expanded","false"); activeTerm.removeAttribute("aria-describedby"); }
+    activeTerm=null; pinned=false;
+  }
+
+  function scheduleClose(){ if(pinned) return; clearTimeout(closeTimer); closeTimer=setTimeout(closeChip,CLOSE_DELAY); }
+
+  document.addEventListener("pointerover",function(e){
+    var term=e.target.closest?e.target.closest(".term"):null;
+    if(!term||!canHover||e.pointerType==="touch"||pinned) return;
+    clearTimeout(closeTimer); clearTimeout(openTimer);
+    if(activeTerm===term) return;
+    openTimer=setTimeout(function(){ openChip(term,false); },OPEN_DELAY);
+  });
+  document.addEventListener("pointerout",function(e){
+    var term=e.target.closest?e.target.closest(".term"):null;
+    if(!term) return;
+    if(chip.contains(e.relatedTarget)) return;
+    clearTimeout(openTimer); scheduleClose();
+  });
+  chip.addEventListener("pointerenter",function(){ clearTimeout(closeTimer); });
+  chip.addEventListener("pointerleave",scheduleClose);
+
+  document.addEventListener("focusin",function(e){
+    var term=e.target.closest?e.target.closest(".term"):null;
+    if(term&&!pinned){ clearTimeout(closeTimer); openChip(term,false); }
+  });
+  document.addEventListener("focusout",function(e){
+    var term=e.target.closest?e.target.closest(".term"):null;
+    if(term) scheduleClose();
+  });
+
+  /* ================= search palette ================= */
+  var veil=document.getElementById("veil");
+  var qEl=document.getElementById("q");
+  var resEl=document.getElementById("results");
+  var rows=[], activeRow=0, lastFocus=null;
+
+  function buildIndex(){
+    var idx=[];
+    Object.keys(CLASSES).forEach(function(ck){
+      var c=CLASSES[ck];
+      c.groups.forEach(function(g){
+        g.keys.forEach(function(k){
+          var e=ENTRIES[k];
+          var featureNames = e.features.map(function(f){ return f.name; }).join(" ");
+          idx.push({kind:"entry",key:k,name:e.name,
+            meta:c.name+" · "+g.label.split(" — ")[0],
+            hay:(e.name+" "+e.nav+" "+e.tag+" "+e.flavor+" "+featureNames+" "+c.name).toLowerCase()});
+        });
+      });
+    });
+    Object.keys(TERMS).forEach(function(tk){
+      var t=TERMS[tk];
+      idx.push({kind:"term",key:tk,name:t.n,meta:t.s==="core"?"Term":"Term · "+t.s.charAt(0).toUpperCase()+t.s.slice(1),def:t.d,hay:(t.n+" "+t.d).toLowerCase()});
+    });
+    return idx;
+  }
+  var INDEX=buildIndex();
+
+  function hi(name,q){
+    if(!q) return esc(name);
+    var i=name.toLowerCase().indexOf(q);
+    if(i<0) return esc(name);
+    return esc(name.slice(0,i))+"<mark>"+esc(name.slice(i,i+q.length))+"</mark>"+esc(name.slice(i+q.length));
+  }
+
+  function renderResults(){
+    var q=qEl.value.trim().toLowerCase();
+    var hits=INDEX.filter(function(r){ return !q || r.hay.indexOf(q)>-1; });
+    hits.sort(function(a,b){
+      if(!q) return 0;
+      var ai=a.name.toLowerCase().indexOf(q), bi=b.name.toLowerCase().indexOf(q);
+      if(ai<0) ai=99; if(bi<0) bi=99;
+      return ai-bi;
+    });
+    hits=hits.slice(0,40);
+    rows=hits; activeRow=0;
+    if(!hits.length){ resEl.innerHTML='<p class="res-empty">Nothing matches that.</p>'; return; }
+    var html="", lastKind="";
+    hits.forEach(function(r,i){
+      if(r.kind!==lastKind){ html+='<div class="res-group">'+(r.kind==="entry"?"Pages":"Glossary")+"</div>"; lastKind=r.kind; }
+      html+='<button type="button" class="res" data-i="'+i+'" data-active="'+(i===0)+'">'+
+        '<span class="res-name">'+hi(r.name,q)+'</span><span class="res-meta">'+esc(r.meta)+"</span>"+
+        (r.kind==="term"?'<span class="res-def">'+esc(r.def)+"</span>":"")+"</button>";
+    });
+    resEl.innerHTML=html;
+  }
+
+  function setActiveRow(i){
+    if(!rows.length) return;
+    activeRow=(i+rows.length)%rows.length;
+    Array.prototype.forEach.call(resEl.querySelectorAll(".res"),function(el){
+      var on=Number(el.getAttribute("data-i"))===activeRow;
+      el.setAttribute("data-active",String(on));
+      if(on&&el.scrollIntoView) el.scrollIntoView({block:"nearest"});
+    });
+  }
+
+  function choose(i){
+    var r=rows[i];
+    if(!r) return;
+    if(r.kind==="entry"){ closePalette(); goto(r.key); return; }
+    // a term: go to a page that uses it if we can, then pin it there
+    var target=null;
+    Object.keys(ENTRIES).some(function(k){
+      if(usedTerms(ENTRIES[k]).indexOf(r.key)>-1){ target=k; return true; }
+      return false;
+    });
+    closePalette();
+    if(target) goto(target);
+    setTimeout(function(){
+      var el=document.querySelector('.term[data-term="'+r.key+'"]');
+      if(el){ el.scrollIntoView({block:"center"}); openChip(el,true); }
+    },60);
+  }
+
+  function openPalette(){
+    lastFocus=document.activeElement;
+    closeChip();
+    veil.hidden=false;
+    qEl.value=""; renderResults();
+    qEl.focus();
+  }
+  function closePalette(){
+    veil.hidden=true;
+    if(lastFocus&&lastFocus.focus) lastFocus.focus();
+  }
+
+  document.getElementById("searchbtn").addEventListener("click",openPalette);
+  qEl.addEventListener("input",renderResults);
+  resEl.addEventListener("click",function(e){
+    var row=e.target.closest?e.target.closest(".res"):null;
+    if(row) choose(Number(row.getAttribute("data-i")));
+  });
+  resEl.addEventListener("pointermove",function(e){
+    var row=e.target.closest?e.target.closest(".res"):null;
+    if(row) setActiveRow(Number(row.getAttribute("data-i")));
+  });
+  veil.addEventListener("mousedown",function(e){ if(e.target===veil) closePalette(); });
+
+  qEl.addEventListener("keydown",function(e){
+    if(e.key==="ArrowDown"){ e.preventDefault(); setActiveRow(activeRow+1); }
+    else if(e.key==="ArrowUp"){ e.preventDefault(); setActiveRow(activeRow-1); }
+    else if(e.key==="Enter"){ e.preventDefault(); choose(activeRow); }
+    else if(e.key==="Escape"){ e.preventDefault(); closePalette(); }
+  });
+
+  /* ================= global input ================= */
+  document.addEventListener("click",function(e){
+    var term=e.target.closest?e.target.closest(".term"):null;
+    if(term){ e.preventDefault(); if(pinned&&activeTerm===term){ closeChip(); } else { openChip(term,true); } return; }
+    var rail=e.target.closest?e.target.closest(".rail-btn"):null;
+    if(rail){ goto(rail.getAttribute("data-entry")); return; }
+    if(!chip.contains(e.target)) closeChip();
+  });
+
+  document.addEventListener("keydown",function(e){
+    if(e.key==="Escape"&&activeTerm&&veil.hidden){ var t=activeTerm; closeChip(); if(t.focus) t.focus(); return; }
+    if(veil.hidden&&(e.key==="/"||((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==="k"))){
+      var tag=(document.activeElement&&document.activeElement.tagName)||"";
+      if(tag==="INPUT"||tag==="TEXTAREA") return;
+      e.preventDefault(); openPalette();
+    }
+  });
+
+  window.addEventListener("scroll",place,{passive:true});
+  window.addEventListener("resize",place);
+
+  render();
+})();
+</script>

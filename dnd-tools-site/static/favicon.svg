@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Twenty-sided die">
+  <style>
+    .bg { fill: #E4E1D8; }
+    .ink { fill: none; stroke: #1B1E23; stroke-width: 1.6; stroke-linejoin: round; }
+    .face { fill: #9A5A15; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #131619; }
+      .ink { stroke: #E7E4DB; }
+      .face { fill: #D9903F; }
+    }
+  </style>
+  <rect class="bg" width="32" height="32" rx="5"/>
+  <!-- d20 silhouette: outer hexagon, inner upright triangle, three spokes -->
+  <path class="face" d="M16 10.5 L22 21 L10 21 Z"/>
+  <path class="ink" d="M16 3.2 L28 10.1 v13.8 L16 30.8 L4 23.9 V10.1 Z"/>
+  <path class="ink" d="M16 10.5 L22 21 L10 21 Z"/>
+  <path class="ink" d="M16 3.2 V10.5 M28 10.1 L22 21 M4 10.1 L10 21"/>
+</svg>

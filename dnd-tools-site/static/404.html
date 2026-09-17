@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Not found</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap">
+<style>
+  :root { --ground:#E4E1D8; --ink:#1B1E23; --ink-soft:#5B626C; --ink-faint:#8A9099; --accent:#9A5A15; }
+  @media (prefers-color-scheme: dark) {
+    :root { --ground:#131619; --ink:#E7E4DB; --ink-soft:#A0A7B0; --ink-faint:#6E757E; --accent:#D9903F; }
+  }
+  body {
+    margin:0; min-height:100dvh; display:grid; place-items:center; padding:24px;
+    background:var(--ground); color:var(--ink);
+    font-family:"IBM Plex Sans", system-ui, sans-serif; line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  main { max-width:34rem; }
+  p.k { font-family:"IBM Plex Mono", monospace; font-size:.74rem; letter-spacing:.14em;
+        text-transform:uppercase; color:var(--ink-faint); margin:0; }
+  h1 { font-family:Fraunces, Georgia, serif; font-weight:600; font-size:clamp(1.7rem,1.3rem + 1.6vw,2.4rem);
+       line-height:1.1; margin:8px 0 0; letter-spacing:-.015em; }
+  p.b { color:var(--ink-soft); margin:12px 0 0; }
+  .links { margin-top:26px; display:flex; flex-wrap:wrap; gap:10px 22px; }
+  a { color:var(--accent); font-weight:500; }
+  a:focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
+</style>
+</head>
+<body>
+<main>
+  <p class="k">404</p>
+  <h1>Nothing rolled on that one</h1>
+  <p class="b">That page doesn't exist — or it moved when the compendium was reorganised.</p>
+  <div class="links">
+    <a href="/">Start over</a>
+    <a href="/finder/">Class Finder</a>
+    <a href="/compendium/">Subclass Compendium</a>
+  </div>
+</main>
+</body>
+</html>
