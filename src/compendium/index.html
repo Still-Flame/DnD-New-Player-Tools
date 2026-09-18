@@ -145,6 +145,23 @@
     letter-spacing:.07em; text-transform:uppercase; color: var(--ink-faint); margin-top:2px;
   }
 
+  /* Homebrew additions to an official class collapse away by default, so the
+     rail reads as the official list until you ask for more. A group holding the
+     page you are on opens itself; anything you open by hand stays open. */
+  .rail-group + .rail-group--home { margin-top:16px; }
+  .rail-group--home { border-top:1px dashed var(--rule); padding-top:13px; }
+  .rail-group--home > .rail-k { cursor:pointer; list-style:none; color: var(--accent); }
+  .rail-group--home > .rail-k::-webkit-details-marker { display:none; }
+  .rail-group--home:not([open]) > .rail-k { margin-bottom:0; }
+  .rail-group--home > .rail-k:hover .rail-label { text-decoration:underline; }
+  .rail-group--home > .rail-k:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+  .rail-chev {
+    font-family:"IBM Plex Mono",monospace; line-height:1; transform-origin:45% 55%;
+    transition: transform .15s ease; flex:none;
+  }
+  .rail-group--home[open] > .rail-k .rail-chev { transform: rotate(90deg); }
+  .rail-label { min-width:0; overflow:hidden; text-overflow:ellipsis; }
+
   /* ---------- entry ---------- */
   .entry-head { border-bottom:2px solid var(--accent); padding-bottom:16px; }
   .entry-kicker { font-family:"IBM Plex Mono",monospace; font-size: var(--step--1); letter-spacing:.14em; text-transform:uppercase; color: var(--accent); }
@@ -249,6 +266,8 @@
       content:""; position:absolute; right:0; bottom:1px; width:44px; top:1.9em;
       background: linear-gradient(to left, var(--ground), transparent); pointer-events:none;
     }
+    .rail-group--home:not([open])::after { display:none; }
+    .rail-group + .rail-group--home { margin-top:14px; }
     .rail-list { flex-direction:row; overflow-x:auto; border-top:0; border-bottom:1px solid var(--rule); scrollbar-width:thin; }
     .rail-btn { border-bottom:0; border-left:0; border-top:3px solid transparent; white-space:nowrap; padding:9px 14px; }
     .rail-btn[aria-current="true"] { border-top-color: var(--accent); }
@@ -262,9 +281,9 @@
 <div class="wrap">
 
   <header>
-    <p class="eyebrow">12 official classes &middot; 6 homebrew classes &middot; 200 pages</p>
+    <p class="eyebrow">12 official classes &middot; 6 homebrew classes &middot; 305 pages</p>
     <h1>Subclass Compendium</h1>
-    <p class="lede">Every feature in plain language, with the rules terms underlined. Hover one to read what it means; click or tap to pin it open, <kbd>Esc</kbd> to dismiss. A <em>doubled</em> underline means this page changes how that term works.</p>
+    <p class="lede">Every feature in plain language, with the rules terms underlined. Hover one to read what it means; click or tap to pin it open, <kbd>Esc</kbd> to dismiss. A <em>doubled</em> underline means this page changes how that term works. Homebrew additions to an official class sit in a dropdown at the foot of the list.</p>
   </header>
 
   <div class="toolbar">
@@ -353,18 +372,62 @@
     return found;
   }
 
+  /* A group is homebrew if the data says so, or if its label names a homebrew
+     book — so a group added later collapses without the renderer changing. */
+  function isHomebrewGroup(g){
+    return g.homebrew === true || /homebrew/i.test(g.label);
+  }
+
+  /* Which collapsed groups the reader has opened by hand, remembered between
+     visits. Storage is unavailable in a few contexts, so every access is
+     guarded and the rail works identically when it throws. */
+  var OPEN_KEY = "compendium.railopen";
+  var opened = (function(){
+    try { return JSON.parse(localStorage.getItem(OPEN_KEY)) || {}; } catch(_){ return {}; }
+  })();
+  function rememberOpen(id, on){
+    if(on) opened[id]=1; else delete opened[id];
+    try { localStorage.setItem(OPEN_KEY, JSON.stringify(opened)); } catch(_){}
+  }
+
+  function railList(keys){
+    return '<div class="rail-list">'+keys.map(function(k){
+      var e = ENTRIES[k];
+      return '<button type="button" class="rail-btn" data-entry="'+k+'" aria-current="'+(k===currentEntry)+'">'+
+        '<span class="rail-name">'+esc(e.nav)+'</span><span class="rail-sub">'+esc(e.navSub)+'</span></button>';
+    }).join("")+"</div>";
+  }
+
   function renderRail(){
     var cls = CLASSES[currentClass];
-    railEl.innerHTML = '<div class="rail-scroll">' + cls.groups.map(function(g){
-      return '<div class="rail-group" data-many="'+(g.keys.length>3)+'">'+
-        '<span class="rail-k">'+esc(g.label)+'<span class="rail-n">'+g.keys.length+"</span></span>"+
-        '<div class="rail-list">'+
-        g.keys.map(function(k){
-          var e = ENTRIES[k];
-          return '<button type="button" class="rail-btn" data-entry="'+k+'" aria-current="'+(k===currentEntry)+'">'+
-            '<span class="rail-name">'+esc(e.nav)+'</span><span class="rail-sub">'+esc(e.navSub)+'</span></button>';
-        }).join("")+"</div></div>";
+    railEl.innerHTML = '<div class="rail-scroll">' + cls.groups.map(function(g, i){
+      var many = ' data-many="'+(g.keys.length>3)+'"';
+      var count = '<span class="rail-n">'+g.keys.length+"</span>";
+
+      if(!isHomebrewGroup(g)){
+        return '<div class="rail-group"'+many+'>'+
+          '<span class="rail-k">'+esc(g.label)+count+"</span>"+railList(g.keys)+"</div>";
+      }
+
+      var id = currentClass+":"+i;
+      // the group holding the open page must be visible, whatever was remembered
+      var here = g.keys.indexOf(currentEntry) >= 0;
+      var open = here || !!opened[id];
+      return '<details class="rail-group rail-group--home"'+many+' data-group="'+id+'"'+
+        (here?' data-here="1"':"")+(open?" open":"")+">"+
+        '<summary class="rail-k"><span class="rail-chev" aria-hidden="true">&#9656;</span>'+
+        '<span class="rail-label">'+esc(g.label)+"</span>"+count+"</summary>"+
+        railList(g.keys)+"</details>";
     }).join("") + "</div>";
+
+    railEl.querySelectorAll(".rail-group--home").forEach(function(d){
+      d.addEventListener("toggle", function(){
+        // a group forced open because it holds the current page was not a choice,
+        // so it is not remembered — otherwise every visit quietly un-collapses one
+        if (d.open && d.getAttribute("data-here") === "1") return;
+        rememberOpen(d.getAttribute("data-group"), d.open);
+      });
+    });
 
     var sc = railEl.querySelector(".rail-scroll");
     function fades(){

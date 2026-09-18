@@ -107,6 +107,25 @@ lives in `src/compendium/data.js`:
 - `ENTRIES` — one object per subclass page: `cls`, `nav`, `flavor`, `src`,
   `mods` (what this subclass changes about a glossary term) and `features`
 
+### Homebrew groups in the sidebar
+
+A group in `CLASSES[x].groups` carrying `homebrew: true` renders as a collapsed
+dropdown instead of an open list, so an official class reads as its four official
+subclasses until the reader asks for more. A label containing the word "homebrew"
+is treated the same way even without the flag. A group is force-opened when it
+holds the page you are on — so search still lands on a hidden entry — and
+whatever you open or close by hand is remembered in `localStorage`.
+
+One group per homebrew book, so the source is legible from the sidebar:
+
+```js
+CLASSES.monk.groups.push({
+  homebrew: true,
+  label: "Homebrew subclasses (Retia)",
+  keys: ["mo-brokenchain", "mo-deep", "mo-freezingsoul"],
+});
+```
+
 Feature bodies use `{{term}}` or `{{term|display text}}`, which the page turns
 into a hoverable chip at render time. A term listed in `mods` is always reachable
 from the page's term index even if the body never mentions it.

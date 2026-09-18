@@ -4885,7 +4885,7 @@ ENTRIES["mo-freezingsoul"] = { cls:"monk", nav:"Way of the Freezing Soul", navSu
     {lvl:"Level 17",name:"Rime Coffin",body:"<p>3 Ki on a hit coats the target in ice on a failed Constitution {{savingthrow|save}}: half {{speed}}, one action or {{bonusaction}} per turn but not both, and a {{martialartsdie|Martial Arts die}} plus Wisdom in cold damage each turn, with a save at the end of each of theirs.</p>"}
   ]};
 
-CLASSES.monk.groups.push({ label:"Homebrew subclasses (Retia)", keys:["mo-brokenchain","mo-deep","mo-freezingsoul"] });
+CLASSES.monk.groups.push({ homebrew:true, label:"Homebrew subclasses (Retia)", keys:["mo-brokenchain","mo-deep","mo-freezingsoul"] });
 CLASSES.monk.foot = "Sources: Player's Handbook (2024), Chapter 3 — Monk, pp. 100–107. Homebrew: Lyre's Guide to Retia — Land of Industry, Ch. 8.";
 
 
@@ -5753,9 +5753,9 @@ ENTRIES["bd-wilderudite"] = { cls:"bard", nav:"Wild Erudite", navSub:"Levels 3 �
     {lvl:"Level 14",name:"Complete Certainty",body:"<p>Light armour, shields and martial weapons — and when you or an ally within 60 feet hits, a {{reaction}} and a {{bardicinspiration}} die locks that attack and the ones following it in.</p>"}
   ]};
 
-CLASSES.rogue.groups.push({ label:"Homebrew subclasses (Retia)", keys:["ro-versatilebeast","ro-deadshot"] });
+CLASSES.rogue.groups.push({ homebrew:true, label:"Homebrew subclasses (Retia)", keys:["ro-versatilebeast","ro-deadshot"] });
 CLASSES.rogue.foot = "Sources: Player's Handbook (2024), Chapter 3 — Rogue, pp. 114–121. Homebrew: Lyre's Guide to Retia — Land of Industry, Ch. 8.";
-CLASSES.bard.groups.push({ label:"Homebrew colleges (Retia)", keys:["bd-wilderudite"] });
+CLASSES.bard.groups.push({ homebrew:true, label:"Homebrew colleges (Retia)", keys:["bd-wilderudite"] });
 CLASSES.bard.foot = "Sources: Player's Handbook (2024), Chapter 3 — Bard, pp. 60–67. Homebrew: Lyre's Guide to Retia — Land of Industry, Ch. 8.";
 
 
@@ -6006,6 +6006,2403 @@ ENTRIES["is-wakefield"] = { cls:"inscriptor", nav:"Wakefield", navSub:"Levels 1 
 
 CLASSES.inscriptor.note = "<strong>The heaviest bookkeeping in the Retia set, and the most fun for a DM.</strong> You cast by describing. Many of the class's best options need a number of inscription marks rather than a level, so the marks are the real progression — and there are twelve Intents, each with its own Chapter Spells at levels 1, 3, 5, 7 and 9.";
 CLASSES.inscriptor.groups[1].keys = ["is-adventure","is-comedy","is-cosmichorror","is-fantasy","is-forbiddance","is-history","is-mystery","is-mythology","is-playwright","is-romance","is-vestiasscribe","is-wakefield"];
+
+/* ============================================================================
+   Lyre's Guide to Retia — subclasses for the twelve official classes.
+   Appended after the core data so these keys are additive; the group wiring at
+   the foot of this file attaches each set to its class as a collapsed homebrew
+   group. Page numbers are the printed page, verified against the PDF.
+   ========================================================================= */
+
+/* ---------------------------------- Barbarian ---------------------------- */
+
+ENTRIES["b-mortuous"] = { cls:"barbarian", nav:"Champion of Mortuous", navSub:"Levels 3 · 6 · 10 · 14", kicker:"Barbarian path · homebrew",
+  name:"Champion of Mortuous",
+  tag:"Name the one you are going to kill, then go and do it",
+  flavor:"Arena warriors from the Lopoint Ring, where Mortuous was worshipped as the patron of the sand. Their training is to disregard their own safety entirely: pick a target, announce it, and terrorise them until one of you is down. The cost is paid in sanity and in scars.",
+  src:"Lyre's Guide to Retia, pp. 431–432",
+  mods:{
+    rage:"Every Rage opens with a declaration against one named enemy, and Rage is when your fear aura and your improved crits are live.",
+    ragedamage:"Your Rage damage bonus is added to attack rolls against your declared target, not just to damage.",
+    frightened:"From level 10, standing next to you while you Rage is a Wisdom save or be frightened.",
+    temporaryhp:"Killing your declared target before the Rage ends pays 1d10 + Barbarian level.",
+    exhaustion:"A Rampage Moment scrubs 1d4 Combat Fatigue or a whole level of exhaustion."
+  },
+  features:[
+    {lvl:"Level 3",name:"Bloody Declaration",body:"<p>When you {{rage|Rage}}, name one creature within 60 feet that can see or hear you. Until the Rage ends you add your {{ragedamage|Rage damage bonus}} to attack rolls against it, and you may Dash immediately so long as the movement carries you toward it.</p><p>Drop that target and you gain {{temporaryhp|temporary hit points}} equal to 1d10 + your Barbarian level. Once it is down you can name a new one with a {{bonusaction}}, up to half your {{proficiencybonus|proficiency bonus}} times per Rage.</p>"},
+    {lvl:"Level 6",name:"Rampage Moments",body:"<p>A pool of adrenaline bursts equal to half your Barbarian level, refilled on a {{longrest|long rest}}. Spend them on:</p><ul><li><b>Bloodlust</b> — after a kill or a {{criticalhit|critical hit}}, two Moments as a {{bonusaction}} move you 15 feet toward someone else and buy another Attack action.</li><li><b>Crunch Damage</b> — roll the maximum on a damage die and one Moment rerolls it and adds it, again and again on further maximums.</li><li><b>Fatigue Resist</b> — a {{bonusaction}} clears 1d4 Combat Fatigue or one level of {{exhaustion}}.</li><li><b>Survival</b> — a {{reaction}} when a hit would drop you, reducing the damage by your Barbarian level.</li></ul>"},
+    {lvl:"Level 10",name:"Fearful Rage",body:"<p>While you {{rage|Rage}}, hostile creatures starting their turn within 10 feet of you, or entering that space, make a Wisdom {{savingthrow|save}} or are {{frightened}} of you until their next turn. A success grants immunity for 24 hours, or until you Rage again.</p>"},
+    {lvl:"Level 14",name:"Extra Attack Improvement",body:"<p>Your {{extraattack|Attack action}} is three attacks rather than two.</p>"}
+  ]};
+
+ENTRIES["b-gladiator"] = { cls:"barbarian", nav:"Gladiator", navSub:"Levels 3 · 6 · 10 · 14", kicker:"Barbarian path · homebrew",
+  name:"Gladiator",
+  tag:"Play to the crowd, fight dirty, call your shots",
+  flavor:"The arena fighter who wants the roar as much as the win. Gladiators make sport of single opponents, challenge them out loud, and knock them flat in front of an audience. Flashy, loud, and unexpectedly disciplined about honour.",
+  src:"Lyre's Guide to Retia, p. 432",
+  mods:{
+    rage:"Competitive Rampage is a second, mutually exclusive version of Rage — using one ends the other, and it has its own uses-per-day cap.",
+    ragedamage:"Your Rage damage bonus becomes a flat attack bonus while Rampaging, and it also sets how many enemies you can challenge.",
+    prone:"Beatdown Attack knocks a target prone once a turn, with disadvantage on the save if you are raging.",
+    resistance:"While Rampaging you have resistance to physical damage from the creatures you challenged, and nobody else.",
+    deathsavingthrow:"A Rampage lets you act while dying, and eats one failed death save outright.",
+    reaction:"Uproarious Retaliation spends your reaction to soak damage and swing back, at the risk of Combat Fatigue."
+  },
+  features:[
+    {lvl:"Level 3",name:"Beatdown Attack",body:"<p>Once a turn, a melee hit forces a Strength {{savingthrow|save}} or the target is knocked {{prone}} as well as damaged, unless it is two size categories larger. {{rage|Raging}} gives it {{disadvantage}} on the save.</p>"},
+    {lvl:"Level 6",name:"Competitive Rampage",body:"<p>A {{bonusaction}} and one use of {{rage|Rage}} starts a Rampage instead: for a minute you gain 1d10 + your Barbarian level in {{temporaryhp|temporary hit points}}, add your {{ragedamage|Rage damage bonus}} to Strength attack rolls, reduce all damage taken by your Charisma modifier, gain {{advantage}} on Strength checks and saves and Constitution saves, and ignore Combat Fatigue penalties. You can also act while dying, and your third failed {{deathsavingthrow|death save}} is negated once.</p><p>Opening a Rampage also challenges up to <em>Rage damage bonus</em> creatures who can hear you — a Wisdom {{savingthrow|save}} against your passive Intimidation. Those who fail have {{disadvantage}} attacking anyone but you; you gain {{resistance}} to their bludgeoning, piercing and slashing damage.</p><p>It ends if you fall {{unconscious}}, end a turn with no enemy in sight, or end a turn having dealt no damage. Uses per {{longrest|long rest}} equal your {{proficiencybonus|proficiency bonus}}, regardless of Rages left.</p>"},
+    {lvl:"Level 10",name:"Uproarious Retaliation",body:"<p>A {{reaction}} to a hit you can see reduces its damage by 1d10 + your Barbarian level and lets you swing back if the attacker is in range. Then a DC 10 Constitution {{savingthrow|save}}: fail and you take a point of Combat Fatigue. The DC climbs by 2 on each success and resets when you fail or rest.</p>"},
+    {lvl:"Level 14",name:"Extra Attack Improvement",body:"<p>Your {{extraattack|Attack action}} is three attacks rather than two.</p>"}
+  ]};
+
+ENTRIES["b-obsidian"] = { cls:"barbarian", nav:"Sacred Obsidian", navSub:"Levels 3 · 6 · 10 · 14", kicker:"Barbarian path · homebrew",
+  name:"Sacred Obsidian",
+  tag:"Tattooed in arcane ink that turns skin to stone",
+  flavor:"Warriors who work expoentrum — a charged arcane ink — into their skin, then move it around by instinct. The marks harden on impact, carbonising flesh into something closer to steel. Mastery makes the defence nearly automatic.",
+  src:"Lyre's Guide to Retia, p. 433",
+  mods:{
+    unarmedstrike:"While raging yours deal 1d8 + Strength, and an Attack action buys two more as a bonus action.",
+    armorclass:"Carbon Shielding adds your proficiency bonus to AC as a reaction, late enough to turn a hit into a miss.",
+    rage:"Raging is what switches on both the upgraded unarmed strikes and the once-per-rest temporary hit points.",
+    evasion:"Level 14 gives you a stronger version: no damage on a success, half on a failure.",
+    temporaryhp:"Twice your Barbarian level once per rest, tied to the Rage that grants it."
+  },
+  features:[
+    {lvl:"Level 3",name:"Raging Pummel",body:"<p>While {{rage|Raging}}, your {{unarmedstrike|unarmed strikes}} deal 1d8 + Strength bludgeoning, and taking the Attack action lets you spend a {{bonusaction}} on two more of them.</p>"},
+    {lvl:"Level 6",name:"Carbon Shielding",body:"<p>A {{reaction}} to being hit hardens the ink at the point of impact for a bonus to {{armorclass|AC}} equal to your {{proficiencybonus|proficiency bonus}} until end of turn — which can retroactively turn the triggering attack into a miss. Half your Barbarian level uses per {{longrest|long rest}}.</p>"},
+    {lvl:"Level 10",name:"Steel Resilience",body:"<p>Once per {{shortrest|short}} or {{longrest|long rest}}, {{rage|Raging}} grants {{temporaryhp|temporary hit points}} equal to twice your Barbarian level, lasting a minute or until the Rage ends.</p>"},
+    {lvl:"Level 14",name:"Feral Avoidance",body:"<p>The charms answer threats before you notice them. On any {{savingthrow|save}} for half damage you take none on a success and half on a failure — {{evasion|Evasion}}, but on every save rather than Dexterity ones.</p>"}
+  ]};
+
+ENTRIES["b-grandstander"] = { cls:"barbarian", nav:"The Grandstander", navSub:"Levels 3 · 6 · 10 · 14", kicker:"Barbarian path · homebrew",
+  name:"The Grandstander",
+  tag:"Announce the victory first, then make everyone look at you",
+  flavor:"A warrior who makes the fight about themselves on purpose. The Grandstander boasts, postures and lures, punishing anyone who ignores them and getting a genuine chemical rush out of the performance.",
+  src:"Lyre's Guide to Retia, p. 433",
+  mods:{
+    rage:"Grand Distractor can be declared as part of entering Rage, and Headrush pays out when the Rage ends rather than while it lasts.",
+    frightened:"You are immune, and anyone within 20 feet saves against it with advantage.",
+    criticalhit:"While raging you crit on 19–20, and at 14 a crit on 19 or 20 refunds its damage as temporary hit points.",
+    advantage:"Your protected ally gets it on their first attack each turn near you; you get extra damage on any attack you have it on.",
+    temporaryhp:"Equal to the damage of a 19–20 critical hit, at level 14."
+  },
+  features:[
+    {lvl:"Level 3",name:"Grand Distractor",body:"<p>A {{bonusaction}}, or part of entering {{rage|Rage}}, marks one ally within 60 feet for a minute. Creatures have {{disadvantage}} attacking them while you are within 30 feet of either the ally or the attacker, and your ally has {{advantage}} on their first attack each turn against anything within 20 feet of you.</p><p>Ends if you are {{incapacitated}} or reuse it. Uses equal your {{proficiencybonus|proficiency bonus}} per {{longrest|long rest}}; at level 10 you may mark two allies at once.</p>"},
+    {lvl:"Level 6",name:"Fearlessness",body:"<p>You cannot be {{frightened}} or enraged, and while you are not {{incapacitated}} everyone within 20 feet saves against fear with {{advantage}}.</p>"},
+    {lvl:"Level 6",name:"Headrush",body:"<p>When your {{rage|Rage}} ends you get the comedown backwards: until the end of that turn your {{speed}} is 10 feet higher and every weapon attack has {{advantage}}.</p>"},
+    {lvl:"Level 10",name:"Improved Critical (Rage)",body:"<p>While {{rage|Raging}} you score a {{criticalhit|critical hit}} on a {{d20test|d20}} result of 19 or 20.</p>"},
+    {lvl:"Level 14",name:"Shroud of the Champion",body:"<p>Any weapon attack you have {{advantage}} on deals an extra d6 of its damage type, and a {{criticalhit|critical hit}} on a 19 or 20 gives {{temporaryhp|temporary hit points}} equal to that attack's damage. You also gain proficiency in Charisma {{savingthrow|saves}} and add half your {{proficiencybonus|proficiency bonus}} to Charisma {{abilitycheck|checks}} that do not already include it.</p>"}
+  ]};
+
+/* ------------------------------------ Bard ------------------------------- */
+
+ENTRIES["bd-terpsichore"] = { cls:"bard", nav:"College of Terpsichore", navSub:"Levels 3 · 6 · 14", kicker:"Bard college · homebrew",
+  name:"College of Terpsichore",
+  tag:"The body is the instrument; the dance is the spell",
+  flavor:"Bards who relay lore through movement rather than words, training the body like an instrument until interpretive dance does the work song usually does. They follow an ancient celestial muse, often without knowing it, and are unnervingly good at holding a room's attention.",
+  src:"Lyre's Guide to Retia, pp. 434–435",
+  mods:{
+    bardicinspiration:"Handing one out also buys you half your movement, free of opportunity attacks; at 14 you can add one to your own weapon attack.",
+    charmed:"Dance of Coercion charms several creatures at once and taxes everything they roll while charmed.",
+    spellsavedc:"Both the dance and the interruption run off it.",
+    reaction:"Twisting Intervention spends yours to cancel someone else's action before it resolves.",
+    opportunityattack:"The movement from Inspired Moment does not provoke them."
+  },
+  features:[
+    {lvl:"Level 3",name:"Inspired Moment",body:"<p>When you spend a {{bonusaction}} to grant {{bardicinspiration|Bardic Inspiration}}, move up to half your {{speed}} as part of the same action. It provokes no {{opportunityattack|opportunity attacks}} and does not count against your movement that turn.</p>"},
+    {lvl:"Level 3",name:"Interpretive Expression",body:"<p>Performance checks may use Dexterity instead of Charisma. You also cast Bard spells with movement rather than voice or focus — no verbal components and no focus needed, so long as you are not {{restrained}} and your {{speed}} is above 0.</p>"},
+    {lvl:"Level 6",name:"Dance of Coercion",body:"<p>A {{bonusaction}} forces one creature that can see you to make a Wisdom {{savingthrow|save}} against your {{spellsavedc|spell save DC}} or be {{charmed}} for a minute. You can hold half your {{proficiencybonus|proficiency bonus}} of them at once.</p><p>A creature charmed this way subtracts 1d4 from every attack roll, {{abilitycheck|check}} and save (a d6 from level 14). It may repeat the save at the end of its turns, but with {{disadvantage}} while it can see you. A success grants 24 hours' immunity, and falling {{unconscious}} releases everyone. Acting directly against a charmed creature frees it at once.</p>"},
+    {lvl:"Level 6",name:"Twisting Intervention",body:"<p>A {{reaction}} when a creature within 60 feet casts a spell, takes the Attack action or uses anything needing an attack roll. It makes a Charisma {{savingthrow|save}} against your {{spellsavedc|spell save DC}} — with {{disadvantage}} if you have it {{charmed}} — and on a failure must take a different action instead. You must call it before any roll is made. Uses equal your {{proficiencybonus|proficiency bonus}} per {{longrest|long rest}}.</p>"},
+    {lvl:"Level 14",name:"Masterful Terpsichorean",body:"<p>Casting a spell with a {{spellslot|spell slot}} also buys one weapon attack in the same action, with a finesse, light, one-handed ranged or thrown weapon. You may roll a {{bardicinspiration|Bardic Inspiration}} die and add it to that attack roll.</p>"}
+  ]};
+
+ENTRIES["bd-divineminstral"] = { cls:"bard", nav:"College of the Divine Minstral", navSub:"Levels 3 · 6 · 14", kicker:"Bard college · homebrew",
+  name:"College of the Divine Minstral",
+  tag:"T'quinn's duality — one voice singing twice",
+  flavor:"Students of T'quinn's legacy in the Itonian Capital, remixing her liturgical music into their own. They tend to sound as though they are harmonising with themselves, and their magic leans on duality: splitting gifts in two, and hurrying everyone along.",
+  src:"Lyre's Guide to Retia, pp. 435–436",
+  mods:{
+    bardicinspiration:"You can split one die between two allies at a reduced size, and allies can cash theirs in for an extra attack.",
+    bonusaction:"Splitting Sync moves the handout to an action instead, and the two cannot both happen in one turn.",
+    disadvantage:"Sympathetic Presence imposes it on anyone attacking you while a conscious ally stands near either of you.",
+    advantage:"A Celestial Chord holder can declare it on one saving throw before rolling."
+  },
+  features:[
+    {lvl:"Level 3",name:"Splitting Sync",body:"<p>You may grant {{bardicinspiration|Bardic Inspiration}} with your action instead of a {{bonusaction}}, giving it to two creatures for the price of one — at a smaller die: d6 becomes d4, d8 or d10 becomes d6, d12 becomes d8. You cannot use both the action and the bonus action version on the same turn.</p>"},
+    {lvl:"Level 6",name:"Celestial Chord",body:"<p>An action and an instrument summon a phantom orchestra, giving <em>{{proficiencybonus|proficiency bonus}}</em> creatures within 30 feet a single Celestial Chord, good for a minute. One at a time per creature. A holder who is not {{incapacitated}} may spend it to gain {{advantage}} on one {{savingthrow|save}} (declared before rolling), to add a {{bardicinspiration|Bardic Inspiration}} die of thunder damage to a weapon hit, or to Dash as a {{bonusaction}}.</p><p>Half your Bard level uses per {{longrest|long rest}}.</p>"},
+    {lvl:"Level 14",name:"Inspired Strike",body:"<p>An ally holding one of your {{bardicinspiration|Bardic Inspiration}} dice who takes the Attack action may spend it as a {{bonusaction}} for one extra weapon attack, applying the die to that attack roll.</p>"},
+    {lvl:"Level 14",name:"Sympathetic Presence",body:"<p>While a conscious friendly creature stands within 5 feet of you or of your attacker, attacks against you are made with {{disadvantage}} — you simply read as less of a threat.</p>"}
+  ]};
+
+ENTRIES["bd-oldworld"] = { cls:"bard", nav:"College of the Old World", navSub:"Levels 3 · 6 · 14", kicker:"Bard college · homebrew",
+  name:"College of the Old World",
+  tag:"Songs about the Age of Sunderance, and they hurt",
+  flavor:"Bards whose research took them into the near-extinction of mortalkind and the death of the old gods, and who never quite came back out. The grief goes into the music, and the music lands as psychic force.",
+  src:"Lyre's Guide to Retia, p. 436",
+  mods:{
+    bardicinspiration:"Holders can spend nothing at all to add it to fear and charm saves, and can Disengage or break a grapple with it.",
+    charmed:"A held Inspiration die is added to saves against it, for free.",
+    frightened:"Same — Song of Courage covers both without spending the die.",
+    grappled:"Song of Freedom lets a holder shrug it off as a bonus action.",
+    stunned:"Cosmic Annihilation can stun one creature already suffering the visions."
+  },
+  features:[
+    {lvl:"Level 3",name:"Song of Courage",body:"<p>Anyone carrying your {{bardicinspiration|Bardic Inspiration}} may roll and add it to {{savingthrow|saves}} against being {{charmed}} or {{frightened}} — without spending the die.</p>"},
+    {lvl:"Level 3",name:"Tragic Influence",body:"<p>When a spell of yours deals damage you may recast it as an illusory scene from the Age of Sunderance: the damage becomes psychic and you add your Bard level to it. Only one instance against one target if the spell damages repeatedly. Half your {{proficiencybonus|proficiency bonus}} uses per {{shortrest|short}} or {{longrest|long rest}}.</p>"},
+    {lvl:"Level 6",name:"Song of Freedom",body:"<p>A creature carrying your {{bardicinspiration|Bardic Inspiration}} may use a {{bonusaction}} to Disengage, or to free itself from being {{grappled}} or {{restrained}}.</p>"},
+    {lvl:"Level 14",name:"Song of Cosmic Annihilation",body:"<p>An action; every creature you choose within 30 feet makes a Charisma {{savingthrow|save}}. Failures take {{bardicinspiration|Bardic Inspiration}} die psychic damage at the start of each of their turns for a minute, repeating the save at the end of their turns to end it.</p><p>A {{bonusaction}} sharpens the visions on one sufferer within 30 feet: Wisdom save or {{stunned}} until the end of its next turn. Once per {{shortrest|short}} or {{longrest|long rest}}.</p>"}
+  ]};
+
+ENTRIES["bd-gambler"] = { cls:"bard", nav:"Gambler", navSub:"Levels 3 · 6 · 14", kicker:"Bard college · homebrew",
+  name:"Gambler",
+  tag:"Maximum or nothing, and never spoil the suspense",
+  flavor:"Storytellers who cannot resist a make-or-break roll. The Gambler bends luck toward the better outcome while making very sure the drama survives intact — which means sometimes the die comes up nothing at all.",
+  src:"Lyre's Guide to Retia, p. 437",
+  mods:{
+    bardicinspiration:"Wild Odds gambles the die: maximum result or nothing. At 14 an unspent die also removes disadvantage from its holder.",
+    d20test:"What Goes Around banks a running bonus off every low d20 result until you roll a 20.",
+    disadvantage:"A creature holding an unspent Inspiration die of yours never rolls with it — but cannot gain advantage there either.",
+    proficiencybonus:"Applies to any game of chance, wits or strategy, whether or not the skill would normally allow it."
+  },
+  features:[
+    {lvl:"Level 3",name:"Game Master",body:"<p>Add your {{proficiencybonus|proficiency bonus}} to {{abilitycheck|checks}} in any game of chance, wits or strategy where it did not already apply, and work out the rules of any game after watching one round.</p>"},
+    {lvl:"Level 3",name:"Wild Odds",body:"<p>When someone within 60 feet applies your {{bardicinspiration|Bardic Inspiration}}, roll 1d100 + your Bard level before the outcome is known. On 55 or higher the die counts as its maximum; below that it is negated entirely. Not while {{incapacitated}}.</p>"},
+    {lvl:"Level 6",name:"What Goes Around",body:"<p>Each time a {{d20test|d20 test}} of yours comes up 5 or lower, every later d20 test treats its result as 1 higher (twice as much on a natural 1), capped at half your Bard level. The bank empties when you roll a 20, score a {{criticalhit|critical hit}}, or rest.</p>"},
+    {lvl:"Level 14",name:"Game the System",body:"<p>A creature holding an unspent {{bardicinspiration|Bardic Inspiration}} of yours never rolls an attack, {{abilitycheck|check}} or {{savingthrow|save}} with {{disadvantage}} — though a roll that would have had it cannot gain {{advantage}} either.</p>"}
+  ]};
+
+/* ----------------------------------- Cleric ------------------------------ */
+
+ENTRIES["cl-ages"] = { cls:"cleric", nav:"Ages Domain", navSub:"Levels 1 · 2 · 6 · 8 · 17", kicker:"Cleric domain · homebrew",
+  name:"Ages Domain",
+  tag:"History is a pattern, and patterns can be exploited",
+  flavor:"Clerics who sift inconsistent accounts for what actually happened, and hold fact and fiction firmly apart. All that pattern-reading turns out to apply equally to healing, to craft and to the fight in front of them.",
+  src:"Lyre's Guide to Retia, p. 440",
+  mods:{
+    channeldivinity:"Two of them: one renews an expiring effect of yours, one edits someone else's damage or healing roll.",
+    concentration:"Regressive Account can resume it after you have already lost it.",
+    reaction:"Exploiting Patterns spends yours to blunt a creature that has already hurt you this round.",
+    d20test:"Mental Bookmark rerolls one, keeping whichever you prefer, half your Cleric level times per rest.",
+    advantage:"Exploiting Patterns hands it to you on every save against that one creature until your next turn."
+  },
+  features:[
+    {lvl:"Level 1",name:"Bonus Proficiencies",body:"<p>History and Investigation.</p>"},
+    {lvl:"Level 1",name:"Mental Bookmark",body:"<p>On a skill {{abilitycheck|check}} you can decide you have read about this, roll a second {{d20test|d20}} and keep either result. Half your Cleric level (rounded up) uses per {{longrest|long rest}}.</p>"},
+    {lvl:"Level 2",name:"Channel Divinity: Regressive Account",body:"<p>A {{reaction}} when an effect of yours is about to end — dispelled, expired, or {{concentration}} broken — renews it, resuming concentration if needed. Anything with a duration over 10 minutes comes back for 10 minutes.</p>"},
+    {lvl:"Level 6",name:"Exploiting Patterns",body:"<p>A {{reaction}} when a creature that has already hit or damaged you since your last turn attacks you or forces a {{savingthrow|save}}. Until your next turn it has {{disadvantage}} on all attacks against you — the triggering one included — and you have {{advantage}} on all saves against it.</p>"},
+    {lvl:"Level 8",name:"Proficient Spellcasting",body:"<p>Add your Wisdom modifier to the damage dice of your Cleric spells.</p>"},
+    {lvl:"Level 17",name:"Channel Divinity: Recount the Tally",body:"<p>When anyone within 30 feet rolls dice for damage or healing, roll half that many dice yourself and add or subtract the total from their result.</p>"}
+  ]};
+
+ENTRIES["cl-bardbeloved"] = { cls:"cleric", nav:"Bard Beloved", navSub:"Levels 1 · 2 · 6 · 8 · 17", kicker:"Cleric domain · homebrew",
+  name:"Bard Beloved",
+  tag:"T'quinn's Idol Choir — sound, celebration, and a partner",
+  flavor:"Clergy of the Idol Choir, lightly armoured and dressed in T'quinn's green and gold, almost never travelling alone. They carry her authority over sound and festival: spreading inspiration on one hand, and taking away everyone else's ability to enjoy themselves on the other.",
+  src:"Lyre's Guide to Retia, p. 441",
+  mods:{
+    channeldivinity:"Two: a thunderclap that can be concentrated onto fewer targets for more damage, and a shared pool of Concordance dice.",
+    concentration:"Sound of Silence breaks it outright on anyone who fails.",
+    bonusaction:"Quick Swipes turns a light-weapon hit into two more attacks, Dexterity modifier times per rest.",
+    reaction:"You can spend an ally's Concordance die for them, stacking with one they spend themselves."
+  },
+  features:[
+    {lvl:"Level 1",name:"Bonus Proficiencies",body:"<p>Acrobatics and Performance.</p>"},
+    {lvl:"Level 1",name:"Quick Swipes",body:"<p>Hit with a light weapon and a {{bonusaction}} buys two more attacks with it. Uses per {{longrest|long rest}} equal your Dexterity modifier, minimum 1.</p>"},
+    {lvl:"Level 2",name:"Channel Divinity: Sound of Silence",body:"<p>An action strikes an object into a deafening ring. Half your Cleric level in creatures within 30 feet make a Constitution {{savingthrow|save}}: 4d8 thunder and deafened a minute on a failure, half and no deafness on a success. Failures also lose {{concentration}}. Deafened creatures repeat the save at the end of their turns.</p><p>You may halve the number of targets to add 1d8 per target dropped.</p>"},
+    {lvl:"Level 6",name:"Channel Divinity: Inspired Concordance",body:"<p>An action links you to up to four willing creatures within 30 feet for a minute, generating <em>{{proficiencybonus|proficiency bonus}}</em> Concordance dice they share. Any of them may spend one to add 1d6 to an attack roll or {{savingthrow|save}}; you may also spend one for them as a {{reaction}}, on top of one they spend. The link ends when the dice run out.</p>"},
+    {lvl:"Level 8",name:"Divine Strike (Thunder)",body:"<p>Once a turn a weapon hit deals an extra 1d8 thunder, rising to 2d8 at level 14.</p>"},
+    {lvl:"Level 17",name:"Greater Concordance",body:"<p>Concordance dice become d8s, and you may run Inspired Concordance once per {{longrest|long rest}} without spending {{channeldivinity|Channel Divinity}}.</p>"}
+  ]};
+
+ENTRIES["cl-chaos"] = { cls:"cleric", nav:"Chaos Domain", navSub:"Levels 1 · 2 · 6 · 8 · 17", kicker:"Cleric domain · homebrew",
+  name:"Chaos Domain",
+  tag:"Roll on the table, live with the result",
+  flavor:"Clerics who bathe in chaotic energy in order to understand it, siphoning strength off as it passes through them. They work hard to keep chaos in check in the world — and a fair number of them lose that argument with themselves.",
+  src:"Lyre's Guide to Retia, p. 442",
+  mods:{
+    channeldivinity:"Chaos Alignment rolls the table three times and lets you pick, which is the only time the effect is genuinely yours to choose.",
+    bonusaction:"Celestial Chaos is one, proficiency bonus times per long rest — a d8 table at level 1, d12 at 8, d20 at 14.",
+    temporaryhp:"Probability Siphon pays out temporary hit points equal to whatever number you rolled on the table.",
+    criticalhit:"A natural 1 or 20 on a save or attack triggers a free table roll.",
+    initiative:"From 17, rolling it while empty refunds a use of Celestial Chaos."
+  },
+  features:[
+    {lvl:"Level 1",name:"Celestial Chaos",body:"<p>A {{bonusaction}} rolls on the Celestial Chaos table and you must invoke whatever comes up — extra {{spellslot|spell slots}}, a {{flyspeed|fly speed}}, a duplicate that attacks with you, sudden {{vulnerability}}, a spell cast for free, losing language for a while, being sealed in a crystal ball. A d8 table at level 1, a d12 at 8, a d20 at 14. Uses equal your {{proficiencybonus|proficiency bonus}} per {{longrest|long rest}}.</p><p>A natural 1 or 20 on an attack roll or {{savingthrow|save}} gives you a free roll on the table. Some results persist until a <em>chaos sustenance check</em> — 1d100 minus your Cleric level, ending on 51 or higher.</p>"},
+    {lvl:"Level 2",name:"Probability Siphon",body:"<p>Every table result also gives you {{temporaryhp|temporary hit points}} equal to the number you rolled.</p>"},
+    {lvl:"Level 6",name:"Channel Divinity: Chaos Alignment",body:"<p>An action rolls the table three times — rerolling 1s and 20s — and you choose which of the three actually happens.</p>"},
+    {lvl:"Level 8",name:"Chaos Strike",body:"<p>Hit with a weapon not already carrying the effect and it burns with chaos for a minute: an extra d8 (2d8 at level 14) of a damage type set by a d10 roll, and only while you wield it.</p>"},
+    {lvl:"Level 17",name:"Persisting Chaos",body:"<p>Rolling {{initiative}} with no Celestial Chaos left refunds one use.</p>"}
+  ]};
+
+ENTRIES["cl-dawnwatcher"] = { cls:"cleric", nav:"Dawnwatcher", navSub:"Levels 1 · 2 · 6 · 8 · 17", kicker:"Cleric domain · homebrew",
+  name:"Dawnwatcher",
+  tag:"Harros's radiance, wielded like a paladin's",
+  flavor:"Agents of Harros the Golden Sun, sent against those who abuse authority. Straightforwardly heroic, dressed in gold and red with a marked left arm, and inclined to make themselves the obvious target so nobody else has to be.",
+  src:"Lyre's Guide to Retia, pp. 442–444",
+  mods:{
+    channeldivinity:"Burning Sun plants a sphere of real sunlight; Solar Weapon turns a blade into one and can be detonated.",
+    extraattack:"You get it at level 6, which a Cleric normally never sees.",
+    frightened:"Advantage on saves against it, and nothing can force you to move against your will.",
+    fiend:"Solar Weapon adds a second 1d8 radiant against fiends and undead.",
+    undead:"Same — the solar blade hits both harder."
+  },
+  features:[
+    {lvl:"Level 1",name:"Audacious Stand",body:"<p>{{advantage|Advantage}} on {{savingthrow|saves}} against being {{frightened}}, and no spell or effect can move you against your will.</p>"},
+    {lvl:"Level 2",name:"Channel Divinity: Burning Sun",body:"<p>An action hangs a burning globe at a point within 30 feet for a minute, or until you dismiss it. It sheds real sunlight in a 30-foot radius and dim light 30 feet past that.</p>"},
+    {lvl:"Level 6",name:"Extra Attack",body:"<p>{{extraattack|Attack twice}} when you take the Attack action.</p>"},
+    {lvl:"Level 8",name:"Divine Strike (Radiant)",body:"<p>Once a turn a weapon hit deals an extra 1d8 radiant, rising to 2d8 at level 14.</p>"},
+    {lvl:"Level 17",name:"Channel Divinity: Solar Weapon",body:"<p>An action charges a melee weapon for a minute: it cannot be disarmed, sheds sunlight to 30 feet, and adds 1d8 radiant to every hit — 2d8 against a {{fiend}} or the {{undead}}.</p><p>End it early with a {{bonusaction}} and the light bursts: creatures you choose within 30 feet make a Constitution {{savingthrow|save}} for 6d8 radiant and blindness until the end of your next turn, or half damage on a success. Once per {{longrest|long rest}}.</p>"}
+  ]};
+
+ENTRIES["cl-forbiddance"] = { cls:"cleric", nav:"Forbiddance Domain", navSub:"Levels 1 · 2 · 6 · 8 · 17", kicker:"Cleric domain · homebrew",
+  name:"Forbiddance Domain",
+  tag:"Some things stay buried, and you decide which",
+  flavor:"Keepers of the line between knowledge and the abuse of it — protective, reclusive, and often quietly hypocritical. Plenty of Spellbound Clergy claim they are putting Vestias's gifts back in the right hands while using the dogma as a licence to go looking.",
+  src:"Lyre's Guide to Retia, p. 445",
+  mods:{
+    channeldivinity:"Cheap Dominance is a reaction that stuns, and you can spend a second reaction to make the victim fail a save it just passed.",
+    stunned:"One minute, with repeat saves at end of turn and whenever it takes damage — which you can override once.",
+    savingthrow:"You gain Intelligence save proficiency at 6, and can add Intelligence to a failed Wisdom or Charisma save once per rest.",
+    teleport:"At 17 you have a teleport speed equal to your walking speed."
+  },
+  features:[
+    {lvl:"Level 1",name:"Bonus Proficiencies",body:"<p>Deception and Stealth.</p>"},
+    {lvl:"Level 1",name:"Layered Words",body:"<p>Say two things at once: one message for a chosen listener, another for everyone else, each hearing only theirs. A listener paying close attention to your lips, or noticing the two are mismatched in length, may make an Insight {{abilitycheck|check}} against your passive Deception.</p>"},
+    {lvl:"Level 2",name:"Channel Divinity: Cheap Dominance",body:"<p>A {{reaction}} when a creature moves within 30 feet: Wisdom {{savingthrow|save}} or {{stunned}} for a minute, repeating at the end of its turns and each time it takes damage. When damage would let it succeed, a second {{reaction}} makes it fail instead.</p>"},
+    {lvl:"Level 6",name:"Locked Mind",body:"<p>Proficiency in Intelligence {{savingthrow|saves}}. Once per {{shortrest|short}} or {{longrest|long rest}}, a {{reaction}} adds your Intelligence modifier to a failed Wisdom or Charisma save, possibly turning it around.</p>"},
+    {lvl:"Level 8",name:"Divine Strike (Lightning)",body:"<p>Once a turn a weapon hit deals an extra d8 lightning, rising to 2d8 at level 14.</p>"},
+    {lvl:"Level 17",name:"Teleporting Footprint",body:"<p>A {{teleport}} speed equal to your walking {{speed}}.</p>"}
+  ]};
+
+ENTRIES["cl-honor"] = { cls:"cleric", nav:"Honor Domain", navSub:"Levels 1 · 2 · 6 · 8 · 17", kicker:"Cleric domain · homebrew",
+  name:"Honor Domain",
+  tag:"A promise made out loud, and magically binding",
+  flavor:"Fire-wielding clergy who do not break vows and are sharp about those who do. Swear to fight beside someone and no spell can turn your blade on them; swear to destroy someone and the vow follows them while you are near.",
+  src:"Lyre's Guide to Retia, pp. 445–446",
+  mods:{
+    channeldivinity:"Champion's Promise picks one of six named vows against a target, live for a minute while you stay within 30 feet.",
+    charmed:"Advantage on saves against it, and nothing can compel you to harm an ally.",
+    armorclass:"Two features add to it — the Guardian promise and Pledge to Defend.",
+    reaction:"Pledge to Defend spends yours to sprint to an ally and add Wisdom to their AC or save.",
+    resistance:"The Shared Burden promise grants it to your target, and passes the damage to you."
+  },
+  features:[
+    {lvl:"Level 1",name:"Bonus Proficiencies",body:"<p>Heavy armour and Intimidation.</p>"},
+    {lvl:"Level 1",name:"Integrity",body:"<p>{{advantage|Advantage}} on {{savingthrow|saves}} against being {{charmed}} or enraged, and nothing can compel you to attack a creature you would call an ally.</p>"},
+    {lvl:"Level 2",name:"Channel Divinity: Champion's Promise",body:"<p>An action swears a promise about one creature within 30 feet, holding a minute while you are within 30 feet and not {{incapacitated}}. Choose one:</p><ul><li><b>Challenge</b> — it has {{disadvantage}} attacking anyone but you.</li><li><b>Defeat</b> — you have {{advantage}} attacking it.</li><li><b>Destruction</b> — your attacks on it deal extra damage equal to half your Cleric level.</li><li><b>Guardian</b> — it adds your {{proficiencybonus|proficiency bonus}} to {{armorclass|AC}} against the first attack each turn.</li><li><b>Shared Burden</b> — it has {{resistance}} to everything, but you take whatever damage it takes.</li><li><b>Unyielding</b> — if it drops you or an ally within 30 feet to 0, they go to 1 instead and the promise ends.</li></ul>"},
+    {lvl:"Level 6",name:"Pledge to Defend",body:"<p>A {{reaction}} when an ally within 60 feet is attacked or made to {{savingthrow|save}} moves you up to your {{speed}} toward them. End adjacent and you add your Wisdom modifier to their {{armorclass|AC}} or their save. Uses equal your {{proficiencybonus|proficiency bonus}} per {{longrest|long rest}}.</p>"},
+    {lvl:"Level 8",name:"Divine Strike (Fire)",body:"<p>Once a turn a weapon hit deals an extra d8 fire, rising to 2d8 at level 14.</p>"},
+    {lvl:"Level 17",name:"Truesight",body:"<p>Truesight out to 30 feet — your eyes cannot be deceived.</p>"}
+  ]};
+
+ENTRIES["cl-music"] = { cls:"cleric", nav:"Music Domain", navSub:"Levels 1 · 2 · 6 · 8 · 17", kicker:"Cleric domain · homebrew",
+  name:"Music Domain",
+  tag:"Understanding is the force underneath the song",
+  flavor:"Clerics who treat sound and communication as the fundamental thing, with language and culture as details layered on top. Their chords soothe, bolster and, at the top end, decide whether an attack lands at all.",
+  src:"Lyre's Guide to Retia, pp. 446–447",
+  mods:{
+    channeldivinity:"Heroic Regale raises six listeners' hit point maximums; Gain to 11 converts a hit into a critical or into a miss.",
+    criticalhit:"Gain to 11 can manufacture one and maximise its damage dice, or cancel someone else's hit entirely.",
+    reaction:"Gain to 11 is one, twice per long rest.",
+    hitpoints:"Heroic Regale raises maximums by 1d6 × proficiency bonus and heals as much, until the next rest.",
+    resistance:"One of the four Chord of Protection boons, good for the next instance of damage only.",
+    disadvantage:"Another boon imposes it on the next attack against each chosen creature."
+  },
+  features:[
+    {lvl:"Level 1",name:"Bonus Proficiencies",body:"<p>Performance and one instrument.</p>"},
+    {lvl:"Level 1",name:"Chord of Protection",body:"<p>An action on an instrument gives <em>Wisdom modifier</em> creatures within 30 feet, yourself included, one boon until the end of your next turn. Pick one for all of them: {{disadvantage}} on the next attack against them, a bonus to their next attack equal to your Wisdom modifier, +10 feet of {{speed}}, or {{resistance}} to the next instance of damage. Uses equal your {{proficiencybonus|proficiency bonus}} per {{longrest|long rest}}.</p>"},
+    {lvl:"Level 2",name:"Channel Divinity: Heroic Regale",body:"<p>A minute of playing and storytelling raises up to six listeners' maximum {{hitpoints|hit points}} by 1d6 × your {{proficiencybonus|proficiency bonus}}, and heals them as much. It lasts until they rest or another effect raises their maximum.</p>"},
+    {lvl:"Level 6",name:"Universal Medium",body:"<p>You understand any spoken language and are understood in any — intent carries where words do not. Creatures of Intelligence 3 or lower get only the gist. You also have {{advantage}} on Charisma {{abilitycheck|checks}} made through music or singing.</p>"},
+    {lvl:"Level 8",name:"Proficient Spellcasting",body:"<p>Add your Wisdom modifier to the damage of your Cleric spells.</p>"},
+    {lvl:"Level 17",name:"Channel Divinity: Gain to 11",body:"<p>A {{reaction}} when you or anyone within 30 feet hits with an attack. Either a sweeping orchestra turns the hit into a {{criticalhit|critical hit}} with maximised damage dice, or a cacophony turns it into a miss. Twice per {{longrest|long rest}}.</p>"}
+  ]};
+
+ENTRIES["cl-record"] = { cls:"cleric", nav:"Record Domain", navSub:"Levels 1 · 2 · 6 · 8 · 17", kicker:"Cleric domain · homebrew",
+  name:"Record Domain",
+  tag:"Every second is sacred, and a few of them are negotiable",
+  flavor:"Keepers of causality who count the passing seconds as holy. They can look a short way in both directions along the timeline, but looking forward risks fixing what they see in place — so they do it rarely, and carefully.",
+  src:"Lyre's Guide to Retia, p. 447",
+  mods:{
+    channeldivinity:"Chronal Instincts displaces you out of phase; Sight Beyond Time buys you two extra turns in a round.",
+    initiative:"Advantage on it, and you cannot be surprised.",
+    armorclass:"While displaced, a reaction adds your proficiency bonus to it — but being hit anyway ends the displacement.",
+    reaction:"Used twice over: once to enter the displaced state, then again inside it for the AC bonus.",
+    advantage:"On Dexterity saves for the whole minute you are displaced."
+  },
+  features:[
+    {lvl:"Level 1",name:"Time's Eye",body:"<p>You cannot be surprised, you have {{advantage}} on {{initiative}}, and you skip the crash that follows <em>haste</em>.</p>"},
+    {lvl:"Level 2",name:"Channel Divinity: Chronal Instincts",body:"<p>A {{reaction}} when you fail a Dexterity {{savingthrow|save}} or are hit puts you out of phase for a minute: {{advantage}} on Dexterity saves including the triggering one, and a further {{reaction}} on any hit adds your {{proficiencybonus|proficiency bonus}} to {{armorclass|AC}} until end of turn — retroactively covering the attack that displaced you. If that reaction fails to stop the hit, the displacement ends early.</p>"},
+    {lvl:"Level 6",name:"Precious Exchange",body:"<p>Pull a consumed spell component from an echo of yourself in another time, up to 100 gp × your Cleric level in value. Unused, it lingers a minute then vanishes. Once per {{shortrest|short}} or {{longrest|long rest}}.</p>"},
+    {lvl:"Level 8",name:"Radiant Strike",body:"<p>Once a turn a weapon hit deals an extra d8 radiant, rising to 2d8 at level 14.</p>"},
+    {lvl:"Level 17",name:"Channel Divinity: Sight Beyond Time",body:"<p>At the end of your turn, name two creatures on different {{initiative}} counts. After each of their turns you take an extra turn of your own, acting after legendary actions. Start- and end-of-turn effects do not fire on these turns, and ongoing saves keep their last result. Once per {{longrest|long rest}}.</p>"}
+  ]};
+
+ENTRIES["cl-resplendent"] = { cls:"cleric", nav:"Resplendent", navSub:"Levels 1 · 2 · 6 · 8 · 17", kicker:"Cleric domain · homebrew",
+  name:"Resplendent",
+  tag:"Vestias's tolerable ones, and they hunt casters",
+  flavor:"Clergy of the Sky-keeper who are only barely distinguishable from the Spawn of Vestias. Mostly they take magic away from those who would misuse it; occasionally the orders are darker than that. They fear the arcane exactly as much as they revere it.",
+  src:"Lyre's Guide to Retia, p. 448",
+  mods:{
+    channeldivinity:"Three of them: a free extra spell each turn, a no-slot dispel or counterspell, and — via Vestian Exception — spells nothing can counter.",
+    antimagic:"Vestian Exception takes your spells out of the category entirely, so magic resistance and counterspell no longer see them.",
+    armorclass:"Framework Barrier adds Wisdom to either it or a save, for yourself or an ally within 30 feet.",
+    reaction:"Framework Barrier is one, proficiency bonus times per long rest.",
+    darkvision:"Devilsight instead — 10 × proficiency bonus feet, and magical darkness is bright light to you."
+  },
+  features:[
+    {lvl:"Level 1",name:"Framework Barrier",body:"<p>A {{reaction}} when you or a creature within 30 feet is attacked or forced to {{savingthrow|save}} adds your Wisdom modifier to their {{armorclass|AC}} or their save until end of turn. Uses equal your {{proficiencybonus|proficiency bonus}} per {{longrest|long rest}}.</p>"},
+    {lvl:"Level 2",name:"Channel Divinity: Hasty Incantation",body:"<p>Cast one extra spell needing an action or {{bonusaction}}, on top of your usual ones. Once per turn.</p>"},
+    {lvl:"Level 6",name:"Devilsight",body:"<p>Out to 10 × your {{proficiencybonus|proficiency bonus}} feet, magical and nonmagical darkness reads as bright light.</p>"},
+    {lvl:"Level 8",name:"Channel Divinity: Countermagic",body:"<p>Produce <em>dispel magic</em>, <em>counterspell</em> or <em>vanquish magic</em> without casting a spell, using the action each normally takes. Wisdom is the ability, and it counts as a {{spellslot|slot}} one level higher than your {{proficiencybonus|proficiency bonus}}.</p>"},
+    {lvl:"Level 8",name:"Proficient Spellcasting",body:"<p>Add your Wisdom modifier to the damage dice of your Cleric spells.</p>"},
+    {lvl:"Level 17",name:"Vestian Exception",body:"<p>Your spells stop counting as magical effects and become miracles, walking straight past magic resistance, limited magic immunity, {{antimagic|counterspell and anything else keyed to spells}}.</p>"}
+  ]};
+
+ENTRIES["cl-sorcery"] = { cls:"cleric", nav:"Sorcery Domain", navSub:"Levels 1 · 2 · 6 · 8 · 17", kicker:"Cleric domain · homebrew",
+  name:"Sorcery Domain",
+  tag:"Sorcery granted by prayer rather than blood",
+  flavor:"Clerics who cast like Sorcerers but get there by petition rather than inheritance — some rekindling a thinning bloodline, some reaching for something never theirs. They tattoo their bodies in expoentrum with images of the magic they have learned, legible mostly to themselves. It has no domain spells.",
+  src:"Lyre's Guide to Retia, p. 449",
+  mods:{
+    channeldivinity:"Blast Casting fires a Sorcery spell free and uncounterable; at 17 it also buys a minute of immunity to low-level spells.",
+    metamagic:"You get two options and a small pool of Sorcery Points, usable on Cleric spells as well as Sorcery ones.",
+    sorcerypoints:"Equal to your proficiency bonus, back on a long rest — and nothing else refills them.",
+    preparedspells:"Your Sorcery Spells are always prepared and never count against the list.",
+    antimagic:"A Blast Cast spell resists counterspell unless a creature with truesight true-counterspells it."
+  },
+  features:[
+    {lvl:"Level 1",name:"Divine Sorcery",body:"<p>Learn two 1st-level Sorcerer spells and a {{cantrip}} as Cleric spells, always {{preparedspells|prepared}} and never counted against your list. One more at each odd Cleric level, and you may swap two whenever you gain an Ability Score Improvement.</p>"},
+    {lvl:"Level 1",name:"Memetic Overlap",body:"<p>Arcana proficiency, and anything that requires or targets a Sorcerer — an item only they can attune to, say — may count you as one, using your Cleric level.</p>"},
+    {lvl:"Level 2",name:"Channel Divinity: Blast Casting",body:"<p>Cast one Sorcery spell without a {{spellslot|slot}}, at a level equal to half your Cleric level (max 9th), with no verbal or somatic components. It cannot be {{antimagic|counterspelled}} unless a creature with truesight true-counterspells it. Still takes the spell's usual action.</p>"},
+    {lvl:"Level 6",name:"Lesser Metamagic",body:"<p>Two {{metamagic|Metamagic}} options and {{sorcerypoints|Sorcery Points}} equal to your {{proficiencybonus|proficiency bonus}}, refilled on a {{longrest|long rest}}. They apply to Cleric spells as well as Sorcery ones, and you may swap one option each Cleric level.</p>"},
+    {lvl:"Level 8",name:"Potent Sorcery",body:"<p>Add your Wisdom modifier to the damage dice of any Cleric {{cantrip}} or Sorcery Spell.</p>"},
+    {lvl:"Level 17",name:"Channel Divinity: Limited Magic Immunity",body:"<p>An action veils you for a minute: spells of 5th level or lower cannot affect or target you unless you allow it, and you have {{advantage}} on {{savingthrow|saves}} against magical effects. Fall {{unconscious}} and you count as willing for anything that would heal you. Artifacts and deities are not covered.</p>"}
+  ]};
+
+/* ------------------------------------ Druid ------------------------------ */
+
+ENTRIES["dr-deadwood"] = { cls:"druid", nav:"Circle of Deadwood", navSub:"Levels 2 · 6 · 10 · 14", kicker:"Druid circle · homebrew",
+  name:"Circle of Deadwood",
+  tag:"Rott's necrotic roots, worn as armour and used as strings",
+  flavor:"The Tree of Decay sends its roots out of the Realm of Shadows and corrupts whatever they touch. Druids who learn to channel that plant-borne necromancy sometimes serve Rott and sometimes try to turn its treachery to something better.",
+  src:"Lyre's Guide to Retia, p. 451",
+  mods:{
+    wildshape:"Darkwood Transformation spends a use on fiendish bark instead of a beast — Large, armoured, with necrotic unarmed strikes.",
+    unarmedstrike:"In bark form these deal 1d6 + half your Druid level necrotic, half your proficiency bonus of them as a bonus action.",
+    resistance:"Rott's Blessing gives you necrotic resistance permanently.",
+    armorclass:"The bark form sets it to 10 + half your Druid level, if that is better.",
+    speed:"Woodrot Shell drops a target's to 0 for a round; Barkskin Puppeteer then drags them around.",
+    restrained:"One of the puppeteer options, lasting as long as the Woodrot Shell holds."
+  },
+  features:[
+    {lvl:"Level 2",name:"Darkwood Transformation",body:"<p>Once per {{shortrest|short}} or {{longrest|long rest}}, spend a {{wildshape|Wild Shape}} on fiendish bark rather than a beast, for 10 minutes or until you end it with a {{bonusaction}}. You become Large, your weapon attacks use your spellcasting ability, your {{armorclass|AC}} becomes 10 + half your Druid level if that is higher, and you gain {{temporaryhp|temporary hit points}} equal to twice your Druid level.</p><p>Each turn a {{bonusaction}} makes half your {{proficiencybonus|proficiency bonus}} in {{unarmedstrike|unarmed strikes}} dealing 1d6 + half your Druid level necrotic.</p>"},
+    {lvl:"Level 2",name:"Rott's Blessing",body:"<p>{{resistance|Resistance}} to necrotic damage.</p>"},
+    {lvl:"Level 6",name:"Woodrot Shell",body:"<p>When a creature starts its turn within 30 feet or first moves into that range, vines take its limbs: Constitution {{savingthrow|save}} or {{speed}} 0 until its next turn. Half your Druid level uses per {{longrest|long rest}}.</p>"},
+    {lvl:"Level 10",name:"Barkskin Puppeteer",body:"<p>A {{bonusaction}} forces a creature within 60 feet held by your Woodrot Shell to make a Strength {{savingthrow|save}} or suffer one of: moved 30 feet to a space you choose, {{restrained}} while the Shell holds, knocked {{prone}}, or made to swing once at a creature you pick within its reach. You cannot make it spend anything else.</p>"},
+    {lvl:"Level 14",name:"Grotesque Reach",body:"<p>Anything you drop to 0 keeps a seed of decay. While you can see the body you may treat it as the origin point of your spells and effects — and in Darkwood form you can make your {{bonusaction}} strikes out of it, at its reach but with your modifiers.</p>"}
+  ]};
+
+ENTRIES["dr-radiation"] = { cls:"druid", nav:"Circle of Radiation", navSub:"Levels 2 · 6 · 10 · 14", kicker:"Druid circle · homebrew",
+  name:"Circle of Radiation",
+  tag:"Eidomantic radiation, and a crack in the world",
+  flavor:"Beneath everything sits the Truth that caused the Age of Sunderance, still leaking as eidomantic radiation. These Druids channel it without understanding it, which makes them powerful and a little detached from consequences.",
+  src:"Lyre's Guide to Retia, p. 452",
+  mods:{
+    concentration:"Lattice of Primal Focus lets you auto-succeed on the check, half your proficiency bonus times per rest.",
+    preparedspells:"Two eidomancy spells sit outside your prepared count, and the list grows as your proficiency bonus does.",
+    advantage:"On eidomantic checks from level 2, and on every save against magic from level 10.",
+    wildshape:"Magic Resistance follows you into whatever form you take.",
+    temporaryhp:"The Restoration sphere hands out half your Druid level each turn to anyone standing in it."
+  },
+  features:[
+    {lvl:"Level 2",name:"Eidomantic Proficiency",body:"<p>Two eidomancy spells become Druid spells always {{preparedspells|prepared}} outside your normal count, swappable each level and joined by another whenever your {{proficiencybonus|proficiency bonus}} rises. You have {{advantage}} on eidomantic checks and add your proficiency bonus to their save if you did not already.</p>"},
+    {lvl:"Level 2",name:"Lattice of Primal Focus",body:"<p>Charms prepared over a rest let you declare a {{concentration}} check an automatic success, before rolling. Half your {{proficiencybonus|proficiency bonus}} uses per {{shortrest|short}} or {{longrest|long rest}}.</p>"},
+    {lvl:"Level 6",name:"Radiant Genes",body:"<p>An action floods a willing creature within 60 feet with radiation for a minute. It takes 1d6 irreducible damage at the start of its turns — never below 1 hit point — and adds your {{proficiencybonus|proficiency bonus}} to damage rolls and {{savingthrow|saves}}. Once, it may spend a {{reaction}} to negate an effect it saved against, or to maximise a damage roll it just hit with; that ends the state. Once per {{shortrest|short}} or {{longrest|long rest}}.</p>"},
+    {lvl:"Level 10",name:"Magic Resistance",body:"<p>{{advantage|Advantage}} on {{savingthrow|saves}} against spells and magical effects, in any form you take.</p>"},
+    {lvl:"Level 14",name:"Circle of Truth's Influence",body:"<p>An action opens a 20-foot sphere within 120 feet — a crack in reality that holds for a minute (except Burn-Out), optionally centred on you and moving with you. Choose one:</p><ul><li><b>Burn-Out</b> — Intelligence {{savingthrow|save}} for Xd6 force, X being your Druid level.</li><li><b>True Strikes</b> — your allies inside have {{advantage}} on attacks and saves even when they would have {{disadvantage}}.</li><li><b>Logic Shift</b> — one chosen condition simply does not exist inside.</li><li><b>Barrier</b> — Charisma save to cross or be pushed back 10 feet; ranged attacks through it fail and saving-throw effects cannot cross.</li><li><b>Restoration</b> — friendly creatures starting a turn inside heal 1d6 and gain {{temporaryhp|temporary hit points}} equal to half your Druid level.</li></ul><p>Once per {{longrest|long rest}}.</p>"},
+    {lvl:"Level 14",name:"Evolutionary Axiom",body:"<p>All damage you deal counts as eidolic and magical.</p>"}
+  ]};
+
+ENTRIES["dr-shadows"] = { cls:"druid", nav:"Circle of Shadows", navSub:"Levels 2 · 6 · 10 · 14", kicker:"Druid circle · homebrew",
+  name:"Circle of Shadows",
+  tag:"Wild Shape that arrives invisible and leaves by teleport",
+  flavor:"The Realm of Shadows has its own native life, and a Druid can attune to the forces that bleach its landscape. Using that magic drains the colour out of the caster too, which is why they tend to be grim and unusually hard to startle.",
+  src:"Lyre's Guide to Retia, p. 453",
+  mods:{
+    wildshape:"Transforming also turns you invisible, and from 6 you can become monstrosities as well as beasts.",
+    invisible:"A minute on every transformation, refreshable as a bonus action while shaped.",
+    teleport:"Up to 60 feet as a bonus action while shaped, landing in dim light or half shadow.",
+    bonusaction:"Hide as one even when only lightly obscured, and reinvisible or teleport while Wild Shaped.",
+    challengerating:"Monstrosities are capped at half your proficiency bonus, once per rest regardless of Wild Shape uses."
+  },
+  features:[
+    {lvl:"Level 2",name:"As in Darkness",body:"<p>Hide as a {{bonusaction}} while only lightly obscured, or in dim light or darkness. Seen doing it, you simply blend into the background until something reveals you.</p>"},
+    {lvl:"Level 2",name:"Bonus Proficiencies",body:"<p>Stealth.</p>"},
+    {lvl:"Level 6",name:"Monstrous Shape",body:"<p>{{wildshape|Wild Shape}} into monstrosities as well as beasts, at a {{challengerating|CR}} cap of half your {{proficiencybonus|proficiency bonus}}. Once per {{shortrest|short}} or {{longrest|long rest}} however many Wild Shapes you have left.</p>"},
+    {lvl:"Level 6",name:"Predatory Shadow",body:"<p>Transforming also turns you {{invisible}} for a minute, or until you do something that would break <em>invisibility</em>. While shaped, a {{bonusaction}} either restores that invisibility or {{teleport|teleports}} you 60 feet into dim light or half shadow. Half your Druid level uses per {{longrest|long rest}}.</p>"},
+    {lvl:"Level 10",name:"Dark Portent",body:"<p>Casting with a {{spellslot|slot}} shows you or a creature within 30 feet a vague coming tragedy: a bonus equal to the slot's level on their next {{savingthrow|save}} within a minute. Uses equal your {{proficiencybonus|proficiency bonus}} per {{shortrest|short}} or {{longrest|long rest}}.</p>"},
+    {lvl:"Level 14",name:"Shadow Roost",body:"<p>A {{longrest|long rest}} can be spent inside a 20-foot sphere of swirling shadow, taking 10 minutes to form and holding until the rest ends. Living creatures inside are {{invisible}} to anyone outside; a Medium or larger creature that walks in still cannot see them for a minute, or until each individually acts in a way that would break invisibility.</p>"}
+  ]};
+
+ENTRIES["dr-primevalglade"] = { cls:"druid", nav:"Circle of the Primeval Glade", navSub:"Levels 2 · 6 · 10 · 14", kicker:"Druid circle · homebrew",
+  name:"Circle of the Primeval Glade",
+  tag:"Dinosaurs — handed out, summoned, and finally worn",
+  flavor:"Druids in tune with the spirits of ancient saurians, common around the Cauldron and among the kaijou. They hold that predators earn the top of the food chain by keeping the whole thing standing, and that the strong should act when they can.",
+  src:"Lyre's Guide to Retia, p. 454",
+  mods:{
+    wildshape:"Wild Fury applies Ferocity to yourself automatically; King of Beasts triggers an emergency one at 0 hit points.",
+    temporaryhp:"Half your Druid level whenever you grant Ferocity, and your full Druid level on a summoned echo.",
+    frightened:"One Primeval Call boon makes you and the echo immune while it is out.",
+    resistance:"Another gives the echo resistance to nonmagical physical damage.",
+    spellslot:"Primeval Call casts conjure bestial echo at half your Druid level without spending one."
+  },
+  features:[
+    {lvl:"Level 2",name:"Touch of Ferocity",body:"<p>An action grants a willing creature Ferocity for a minute: +1d6 on its first weapon attack each turn, all its attacks count as magical, and it gains {{temporaryhp|temporary hit points}} equal to half your Druid level. Uses equal your {{proficiencybonus|proficiency bonus}} per {{longrest|long rest}}.</p>"},
+    {lvl:"Level 6",name:"Primeval Call",body:"<p>Once per {{longrest|long rest}}, cast <em>conjure bestial echo</em> as a dinosaur at a {{spellslot|slot level}} of half your Druid level, max 9th. Apply half that level in boons: Ferocity on the echo, Large or Huge size, bigger damage dice, an extra damage die, +10 feet of {{speed}}, immunity to {{frightened|fear}} for you both, {{resistance}} to nonmagical physical damage, {{temporaryhp|temporary hit points}} equal to your Druid level, or a trait and movement mode borrowed from another echo type.</p>"},
+    {lvl:"Level 6",name:"Wild Fury",body:"<p>{{wildshape|Wild Shape}} and you automatically carry your own Touch of Ferocity into the new form.</p>"},
+    {lvl:"Level 10",name:"Greater Ferocity",body:"<p>Touch of Ferocity reaches 30 feet, and creatures under it add your Wisdom modifier to weapon damage rolls.</p>"},
+    {lvl:"Level 14",name:"King of Beasts",body:"<p>Dropping to 0 or dying outright instead transforms you into any beast with <em>-saurus</em> in its name, following {{wildshape|Wild Shape}} rules but ignoring its restrictions — and the triggering damage hits that form instead. Changing back takes a minute of {{concentration}} or 0 hit points. Once per {{longrest|long rest}}.</p>"}
+  ]};
+
+/* ----------------------------------- Fighter ----------------------------- */
+
+ENTRIES["fi-academyagent"] = { cls:"fighter", nav:"Academy Agent", navSub:"Levels 3 · 7 · 10 · 15 · 18", kicker:"Fighter subclass · homebrew",
+  name:"Academy Agent",
+  tag:"Trained to find the caster and take the magic off them",
+  flavor:"Academy warriors whose whole technique turns a spellcaster's own energy against them. They guard their minds carefully, because everything they hunt reaches for the mind first.",
+  src:"Lyre's Guide to Retia, p. 457",
+  mods:{
+    concentration:"You see anyone holding it through darkness and invisibility, hit them harder, and set the break DC yourself.",
+    antimagic:"Vanquishing Strike trades a hit's damage for a dispel magic that strips every effect at once.",
+    savingthrow:"Intelligence proficiency at 3, an automatic success on Indomitable rerolls against magic at 10.",
+    invisible:"Casters and concentrators are visible to you regardless — darkness, invisibility, even the ethereal plane.",
+    advantage:"Magic Resistance at 18 gives it on every save against a spell."
+  },
+  features:[
+    {lvl:"Level 3",name:"Charmed Eyes",body:"<p>Anyone holding {{concentration}} or who has cast since your last turn is plainly visible to you — through magical and nonmagical darkness, while {{invisible}}, on the ethereal plane, even while you are blinded. Not through solid matter.</p>"},
+    {lvl:"Level 3",name:"Unburdened Mind",body:"<p>Proficiency in Intelligence {{savingthrow|saves}}.</p>"},
+    {lvl:"Level 7",name:"Shredding Blade",body:"<p>Attacks against a creature holding {{concentration}} or that has cast since your last turn add your Intelligence modifier to damage, and any concentration check you force uses a DC of 8 + your {{proficiencybonus|proficiency bonus}} + Intelligence, if that is higher.</p>"},
+    {lvl:"Level 10",name:"Arcane Buffer",body:"<p>Failing a {{savingthrow|save}} against a spell and spending Indomitable to reroll it turns into an automatic success.</p>"},
+    {lvl:"Level 15",name:"Vanquishing Strike",body:"<p>Give up a hit's damage to fire <em>dispel magic</em> at every effect on the target at once, setting the DC from the highest-level one. Use the attack's ability or Intelligence, your choice. Twice per {{shortrest|short}} or {{longrest|long rest}}, then only by spending Combat Mastery.</p>"},
+    {lvl:"Level 18",name:"Magic Resistance",body:"<p>{{advantage|Advantage}} on {{savingthrow|saves}} against spells and magical effects.</p>"}
+  ]};
+
+ENTRIES["fi-brawler"] = { cls:"fighter", nav:"Brawler", navSub:"Levels 3 · 7 · 10 · 15 · 18", kicker:"Fighter subclass · homebrew",
+  name:"Brawler",
+  tag:"Hands, feet, shoulders, knees and teeth",
+  flavor:"Fighters who consider bare hands the honest weapon and a grapple the proper way to settle things. Hearty risk-takers who only really come alive once they have taken enough of a beating to get excited about it.",
+  src:"Lyre's Guide to Retia, pp. 457–458",
+  mods:{
+    unarmedstrike:"1d6 at level 3, climbing to 1d12 at 16, usable as an off-hand weapon with your modifier on the damage.",
+    criticalhit:"Weave and Strike makes your next unarmed strike after an Action Surge count as one, without a natural 20.",
+    actionsurge:"It also buys 10 feet of speed and the guaranteed critical above.",
+    grappled:"Winning a shove or grapple contest lets you deal your unarmed strike damage on top.",
+    reaction:"Distracting Blow takes a target's away until your next turn.",
+    advantage:"Shake Defense hands it to everyone attacking your target until someone connects."
+  },
+  features:[
+    {lvl:"Level 3",name:"Knuckle to Knuckle",body:"<p>Your {{unarmedstrike|unarmed strikes}} deal 1d6 bludgeoning, rising to 1d8 at 6, 1d10 at 11 and 1d12 at 16. You may treat one as an off-hand weapon and add your ability modifier to that damage. Any weapon with the knuckles property can borrow your unarmed strike die.</p>"},
+    {lvl:"Level 7",name:"Overwhelming Strength",body:"<p>Unarmed damage counts as magical, and winning a shove or {{grappled|grapple}} contest lets you deal your {{unarmedstrike|unarmed strike}} damage as well.</p>"},
+    {lvl:"Level 10",name:"Expert Combat Strategy",body:"<p>On an unarmed hit, spend a point of Combat Mastery or sacrifice a remaining attack for one of:</p><ul><li><b>Blow Back</b> — pushed 5 × your {{proficiencybonus|proficiency bonus}} feet, taking 1d6 per unused 5 feet if they hit a wall, 10 feet less per size category above you.</li><li><b>Distracting Blow</b> — no {{reaction}} until your next turn.</li><li><b>Double Down</b> — {{speed}} 0 until your next turn, if no more than one size larger.</li><li><b>Shake Defense</b> — attacks against them have {{advantage}} until your next turn or until one lands.</li></ul>"},
+    {lvl:"Level 15",name:"Weave and Strike",body:"<p>{{actionsurge|Action Surge}} also gives +10 feet of {{speed}} until end of turn, and your next {{unarmedstrike|unarmed strike}} that hits this turn counts as a {{criticalhit|critical hit}} without being a natural 20. Miss and the benefit is gone.</p>"},
+    {lvl:"Level 18",name:"Punch Drunk",body:"<p>Below half {{hitpoints|hit points}}, melee hits add your Constitution modifier to damage.</p>"}
+  ]};
+
+ENTRIES["fi-chaosblade"] = { cls:"fighter", nav:"Chaos Blade", navSub:"Levels 3 · 7 · 10 · 15 · 18", kicker:"Fighter subclass · homebrew",
+  name:"Chaos Blade",
+  tag:"Surrender to instinct and something answers",
+  flavor:"Warriors who fall entirely onto their instincts and find a chaotic power waiting there. It seems to come most often to people who have dissociated or been through something bad, and it expresses their confusion physically — which somehow puts them back in their body.",
+  src:"Lyre's Guide to Retia, p. 459",
+  mods:{
+    actionsurge:"Using it triggers a Chaos Surge, as does any natural 1 or 20 on an attack or save.",
+    d20test:"A 1 or a 20 on an attack roll or saving throw is a surge trigger in itself.",
+    initiative:"From 18 you surge on rolling it, even while surprised.",
+    evasion:"Impossible Avoidance is the stronger version — none on a success, half on a failure, on any half-damage save.",
+    teleport:"Illogical Leap moves you 10 × proficiency bonus feet as a bonus action.",
+    savingthrow:"Every surge effect uses Constitution as both the save and your spellcasting ability."
+  },
+  features:[
+    {lvl:"Level 3",name:"Chaos Surge",body:"<p>A natural 1 or 20 on a {{d20test|d20 test}}, or using {{actionsurge|Action Surge}}, rolls 1d10 on the Chaos Surge table. Results run from a forcefield and free extra attacks to blindness, a slashed {{proficiencybonus|proficiency bonus}}, invisibility, growing a size, a damaging aura, truesight, or being restricted to one attack a turn.</p><p>All its {{savingthrow|saves}} are Constitution-based and Constitution is your spellcasting ability. Multiple surges in a turn cannot repeat a result, and the same effect never stacks with itself.</p>"},
+    {lvl:"Level 7",name:"Illogical Leap",body:"<p>A {{bonusaction}} {{teleport|teleports}} you to a space you can see within 10 × your {{proficiencybonus|proficiency bonus}} feet. Once per {{shortrest|short}} or {{longrest|long rest}}, or again for a point of Combat Mastery.</p>"},
+    {lvl:"Level 10",name:"Controlled Chaos",body:"<p>You may reroll your first Chaos Surge result once, unless it is a 1, and must keep the new one. The table also becomes a d20 rather than a d10.</p>"},
+    {lvl:"Level 15",name:"Impossible Avoidance",body:"<p>On any {{savingthrow|save}} for half damage you take none on a success and half on a failure — {{evasion|Evasion}}, but not limited to Dexterity.</p>"},
+    {lvl:"Level 18",name:"Endless Chaos",body:"<p>Rolling {{initiative}} triggers a Chaos Surge, even while surprised.</p>"}
+  ]};
+
+ENTRIES["fi-guardian"] = { cls:"fighter", nav:"Guardian", navSub:"Levels 3 · 7 · 10 · 15 · 18", kicker:"Fighter subclass · homebrew",
+  name:"Guardian",
+  tag:"A walking wall, with the shield as the weapon",
+  flavor:"The most defence-oriented archetype in the book: a Fighter whose job is to stand between things. The shield stops being equipment and becomes the point.",
+  src:"Lyre's Guide to Retia, p. 461",
+  mods:{
+    fightingstyle:"Defense and Protection at level 7, and if you already hold either it advances a stage instead.",
+    armorclass:"Full Deflect adds a d10 to it as a reaction, late enough to turn a hit into a miss.",
+    bonusaction:"Shield Strike attacks with the shield whenever you take the Attack action.",
+    prone:"One of the three Shield Strike riders, or 5 feet of push instead.",
+    reaction:"Full Deflect is one, and a successful deflect within 5 feet buys a free Shield Strike with it.",
+    resistance:"Ultimate Defense leaves you resistant to everything for the rest of the turn."
+  },
+  features:[
+    {lvl:"Level 3",name:"Shield Strike",body:"<p>Taking the Attack action with a shield buys a shield attack as a {{bonusaction}} — treated as a heavy weapon you are proficient with, using Strength and the shield's enhancement bonus. On a hit choose one: knocked {{prone}} or pushed 5 feet (if no more than one size larger), bludgeoning damage equal to (1d4 × the shield's {{armorclass|AC}} bonus) + Strength, or {{disadvantage}} on their next attack before your next turn.</p>"},
+    {lvl:"Level 7",name:"Guardian Fighting Styles",body:"<p>Defense and Protection {{fightingstyle|fighting styles}}; any you already have advances a stage instead.</p>"},
+    {lvl:"Level 7",name:"Imposing Sentinel",body:"<p>When you or a creature within 5 feet drops to 0 from a source you can see, spend Combat Mastery to reduce the damage by 1d10 + your Fighter level — and if it would still drop them, they go to 1 instead. Once per turn per protected target.</p>"},
+    {lvl:"Level 10",name:"Exceptional Armor Master",body:"<p>In heavy armour, all bludgeoning, piercing and slashing damage you take is reduced by half your Fighter level.</p>"},
+    {lvl:"Level 15",name:"Full Deflect",body:"<p>A {{reaction}} to a weapon hit while holding a shield adds 1d10 to your {{armorclass|AC}}, possibly turning it into a miss — and if it does and the attacker is within 5 feet, you get a Shield Strike in the same reaction. Twice per {{shortrest|short}} or {{longrest|long rest}}, then for Combat Mastery.</p>"},
+    {lvl:"Level 18",name:"Ultimate Defense",body:"<p>Once per turn, in heavy armour or behind a shield, spend Combat Mastery to cut damage from one visible source by three times your Fighter level — then gain {{resistance}} to everything until the end of the turn.</p>"}
+  ]};
+
+ENTRIES["fi-redlion"] = { cls:"fighter", nav:"Red Lion Knight", navSub:"Levels 3 · 7 · 10 · 15 · 18", kicker:"Fighter subclass · homebrew",
+  name:"Red Lion Knight",
+  tag:"Country first, people second, self third — and mounted",
+  flavor:"The Land Away's finest, trained for the Lion's Council or its errands. A symbol of honour, diligence and endurance, usually on horseback, and usually closer to that horse than to most people.",
+  src:"Lyre's Guide to Retia, pp. 461–462",
+  mods:{
+    criticalhit:"19–20 in melee from level 3, 18–20 with an extra damage die from 15.",
+    reaction:"Call to Action spends your allies' reactions rather than yours; yours goes on protecting your mount's AC.",
+    initiative:"You cannot be surprised and have advantage on it from level 10.",
+    actionsurge:"From 10, using it fires Call to Action for free — no action and no use spent.",
+    temporaryhp:"2d10 to everyone who answers the Call, from level 18.",
+    advantage:"Answering the Call at 18 can be a weapon attack made with it instead of movement."
+  },
+  features:[
+    {lvl:"Level 3",name:"Call to Action",body:"<p>An action rallies half your Fighter level in creatures within 60 feet who can see or hear you: each may spend a {{reaction}} to move half their {{speed}} without provoking {{opportunityattack|opportunity attacks}}. Uses equal your {{proficiencybonus|proficiency bonus}} per {{longrest|long rest}}.</p>"},
+    {lvl:"Level 3",name:"Improved Critical (Melee)",body:"<p>Melee attacks score a {{criticalhit|critical hit}} on 19 or 20.</p>"},
+    {lvl:"Level 7",name:"Mounted Combat Expert",body:"<p>A controlled mount can Dash or Dodge as a {{bonusaction}}, and can take the Attack action or anything else in its stat block at your command. Your own {{bonusaction}} orders one weapon attack from it, and a {{reaction}} adds your {{proficiencybonus|proficiency bonus}} to its {{armorclass|AC}} until end of turn.</p>"},
+    {lvl:"Level 7",name:"Royal Envoy",body:"<p>Riding and Persuasion. Already proficient? Take {{expertise|Expertise}} in it, or proficiency in Animal Handling, Insight, Intimidation or Performance.</p>"},
+    {lvl:"Level 10",name:"Knight's Initiative",body:"<p>You cannot be surprised unless {{incapacitated}}, and have {{advantage}} on {{initiative}}. {{actionsurge|Action Surge}} also fires Call to Action for free.</p>"},
+    {lvl:"Level 15",name:"Superior Critical (Melee)",body:"<p>Melee {{criticalhit|critical hits}} land on 18–20 and carry an extra weapon damage die.</p>"},
+    {lvl:"Level 18",name:"Call of the Lion",body:"<p>Anyone answering your Call to Action may make a weapon attack with {{advantage}} instead of moving. Everyone who answers also stands from {{prone}} free of charge and gains 2d10 {{temporaryhp|temporary hit points}}.</p>"}
+  ]};
+
+/* ------------------------------------ Monk ------------------------------- */
+
+ENTRIES["mo-belovedtribute"] = { cls:"monk", nav:"Beloved Tribute", navSub:"Levels 3 · 6 · 11 · 17", kicker:"Monk subclass · homebrew",
+  name:"Beloved Tribute",
+  tag:"Idol Choir martial arts — hypnotic, and it multiplies",
+  flavor:"Monks attached so closely to the Idol Choir that they answer to its name, running religious services for T'quinn's faithful. Their art is built on grace, hypnotic movement and personal expression, and ends with them fighting as a crowd of themselves.",
+  src:"Lyre's Guide to Retia, pp. 463–464",
+  mods:{
+    focuspoints:"Retia calls this Ki. Charming Conduct spends 1 per hit — but riders on Flurry of Blows attacks are free.",
+    flurryofblows:"Every attack in it carries a free Charming Conduct rider, which is where this subclass makes its money.",
+    charmed:"Two ways: an attack rider until your next turn, and Soothing Diva's protective charm that blocks other people's.",
+    martialartsdie:"Two of them as thunder damage on a rider, and one extra on every duplicate's strike at 17.",
+    prone:"A Dexterity save rider on any qualifying hit.",
+    teleport:"Move more than 20 feet and the rest of your movement becomes a teleport."
+  },
+  features:[
+    {lvl:"Level 3",name:"Charming Conduct",body:"<p>Hit with an {{unarmedstrike|unarmed strike}} or Monk weapon and spend 1 Ki for one of: a Charisma {{savingthrow|save}} or {{charmed}} until your next turn, a Dexterity save or knocked {{prone}}, or two {{martialartsdie|Martial Arts dice}} of thunder damage. Hits from {{flurryofblows|Flurry of Blows}} carry a rider free.</p><p>You also gain Performance, usable on Dexterity when the performance is physical.</p>"},
+    {lvl:"Level 3",name:"Monk Weapons",body:"<p>Twinblades count as Monk weapons, and the secondary attack adds thunder damage equal to your {{proficiencybonus|proficiency bonus}}.</p>"},
+    {lvl:"Level 6",name:"Soothing Diva",body:"<p>An action, while not {{restrained}} or {{incapacitated}}, gives <em>{{proficiencybonus|proficiency bonus}}</em> willing creatures within 60 feet {{temporaryhp|temporary hit points}} equal to two {{martialartsdie|Martial Arts dice}} plus your Monk level. For a minute they are {{charmed}} by you — and while they are, nothing else can charm or {{frightened|frighten}} them. Ends early if you fall {{unconscious}}. Once per {{longrest|long rest}}, then for 3 Ki.</p>"},
+    {lvl:"Level 11",name:"Beloved Guidance",body:"<p>Below half {{hitpoints|hit points}}, add 1d4 to every attack roll and {{savingthrow|save}} until you climb back above it.</p>"},
+    {lvl:"Level 11",name:"Victorious Echo",body:"<p>Move more than 20 feet on your turn and any remaining movement becomes a {{teleport}} to a space you can see within that distance.</p>"},
+    {lvl:"Level 17",name:"Waltz of One",body:"<p>An action and 3+ Ki sends out invisible duplicates — 2 plus half the Ki spent — at creatures within your movement range, whether or not you have moved. Each mirrors one of your {{unarmedstrike|unarmed strikes}} or Monk weapon attacks as though {{invisible}}, for its normal damage plus an extra {{martialartsdie|Martial Arts die}} of thunder.</p>"}
+  ]};
+
+ENTRIES["mo-convergentsoul"] = { cls:"monk", nav:"Convergent Soul", navSub:"Levels 3 · 6 · 11 · 17", kicker:"Monk subclass · homebrew",
+  name:"Convergent Soul",
+  tag:"Every possible outcome, filed as a technique",
+  flavor:"Monks who let every plausible future wash over them like drops in a waterfall, then shove the current where they want it. Awareness of alternate paths grows into genuine foresight, and eventually into navigating between outcomes the way others pick strikes.",
+  src:"Lyre's Guide to Retia, pp. 464–465",
+  mods:{
+    focuspoints:"Retia calls this Ki, and here it is convertible: 2 Ki stands in for an Arcane Charge anywhere one is called for.",
+    d20test:"Doorway to Success upgrades a 19 into a 20; Double Save replaces a failed one outright.",
+    teleport:"Flash Retreat jumps you clear of an area effect you saved against; Wave Motion Strike jumps you into melee from 30 feet.",
+    reaction:"Double Save and Flash Retreat both spend one.",
+    criticalhit:"Doorway to Success turns a 19 into a 20, which does mean a crit.",
+    evasion:"Flash Retreat goes further — you end up outside the area and take nothing, even from effects that still hurt on a success."
+  },
+  features:[
+    {lvl:"Level 3",name:"Chaos Concordance",body:"<p>You run on Arcane Charges — {{proficiencybonus|proficiency bonus}} of them, back on a {{longrest|long rest}} — and alone among creatures you may spend 2 Ki in place of one anywhere. Spend them on:</p><ul><li><b>Doorway to Success</b> — a 19 on an attack {{d20test|d20}} becomes a 20.</li><li><b>Double Save</b> — a {{reaction}} rerolls a failed {{savingthrow|save}} and takes the new d20.</li><li><b>Flash Retreat</b> — a {{reaction}} after saving against an area effect {{teleport|teleports}} you just outside it, taking nothing at all.</li></ul>"},
+    {lvl:"Level 6",name:"Split Fist",body:"<p>Miss with a Monk weapon or {{unarmedstrike|unarmed strike}} and an Arcane Charge calls in another timeline's version of you: 1d6 for nothing, two attacks on the same target, an automatic 20 (not a {{criticalhit|crit}}), a free Dodge or Dash that also dodges {{opportunityattack|opportunity attacks}} from that target, or {{temporaryhp|temporary hit points}} equal to your Monk level that stack within a turn.</p>"},
+    {lvl:"Level 11",name:"Wave Motion Strike",body:"<p>An Arcane Charge extends a melee Monk attack to 30 feet, {{teleport|teleporting}} you adjacent first — and for the rest of that turn every qualifying attack repeats the trick for free.</p>"},
+    {lvl:"Level 17",name:"Divert the Currents of Fate",body:"<p>A {{bonusaction}} casts <em>foresight</em> on yourself for 10 minutes. Once per {{shortrest|short}} or {{longrest|long rest}}, then for 5 Ki.</p>"},
+    {lvl:"Level 17",name:"Splintering Will",body:"<p>Split Fist fires free once a turn, and a charged use that rolls a 1 or 2 refunds the Arcane Charge.</p>"}
+  ]};
+
+/* ----------------------------------- Paladin ----------------------------- */
+
+ENTRIES["pa-preservation"] = { cls:"paladin", nav:"Oath of Preservation", navSub:"Levels 3 · 7 · 15 · 20", kicker:"Paladin oath · homebrew",
+  name:"Oath of Preservation",
+  tag:"Patient, deliberate, and willing to stop the clock",
+  flavor:"Paladins who find value in each step rather than the arrival, and accept losing time to a task. What they preserve is whatever would otherwise be lost to carelessness — including, eventually, the moment itself.",
+  src:"Lyre's Guide to Retia, pp. 469–470",
+  mods:{
+    paladinchanneldivinity:"Ghost Escape blinks a group into a demiplane to dodge an effect; Zero Traction stuns anyone who walks up to you.",
+    auraofprotection:"Enemies inside it make Dexterity saves with disadvantage; allies inside get advantage on concentration and on end-of-turn saves.",
+    concentration:"Protective Enchantment hands advantage on it to everyone in your aura, yourself included.",
+    stunned:"Zero Traction's outcome on a failed Wisdom save, repeated at the end of each of their turns.",
+    reaction:"Both Channel Divinity options are reactions rather than actions."
+  },
+  features:[
+    {lvl:"Level 3",name:"Channel Divinity",body:"<p><b>Ghost Escape</b> — a {{reaction}} when you or a friendly creature within 30 feet is targeted blinks them, plus half your Paladin level in willing creatures in range, into a harmless demiplane. The effect misses; they return at the start of their next turn.</p><p><b>Zero Traction</b> — a {{reaction}} when a creature moves within 30 feet forces a Wisdom {{savingthrow|save}}: {{stunned}} for a minute on a failure, all remaining movement lost on a success. Repeat saves at the end of their turns.</p>"},
+    {lvl:"Level 7",name:"Aura of Lacking Reflexes",body:"<p>Hostile creatures inside your {{auraofprotection|Aura of Protection}} make Dexterity {{savingthrow|saves}} with {{disadvantage}}.</p>"},
+    {lvl:"Level 15",name:"Protective Enchantment",body:"<p>Friendly creatures in your {{auraofprotection|aura}}, you included, have {{advantage}} on {{concentration}} checks and on the end-of-turn {{savingthrow|saves}} that shake off ongoing effects.</p>"},
+    {lvl:"Level 20",name:"Sealed in Time",body:"<p>Once each per {{longrest|long rest}}, cast <em>power word stillness</em> and <em>time stop</em> as Paladin spells with no {{spellslot|slot}} or materials. Inside <em>time stop</em> you may make one weapon attack against each creature in range without breaking it — a second attack on anyone ends it — and none of that damage lands until the spell does.</p>"}
+  ]};
+
+ENTRIES["pa-remembrance"] = { cls:"paladin", nav:"Oath of Remembrance", navSub:"Levels 3 · 7 · 15 · 20", kicker:"Paladin oath · homebrew",
+  name:"Oath of Remembrance",
+  tag:"Carry everything forward — including other people's actions",
+  flavor:"Idol Choir paladins who swear to carry it all with them: every name, every place, every enemy put down. Their minds are blessed to hold it. The tenets are written on the front of a journal they are expected to actually keep.",
+  src:"Lyre's Guide to Retia, pp. 470–471",
+  mods:{
+    paladinchanneldivinity:"Recall Sacrament prepares spells you skipped; Shard of Remembrance copies someone else's action for an hour.",
+    preparedspells:"Recall Sacrament adds proficiency bonus worth of unprepared Paladin spells until your next rest.",
+    auraofprotection:"Aura of Diligence turns its save bonus into a Perception bonus for deliberate checks — not passive.",
+    reaction:"Shard of Remembrance spends one to bottle an action you just watched.",
+    temporaryhp:"Heroic Melody gives 2d12 + 5 and picks allies up off 0 hit points.",
+    advantage:"On any save against effects targeting your memory, Intelligence or Wisdom."
+  },
+  features:[
+    {lvl:"Level 3",name:"Channel Divinity",body:"<p><b>Recall Sacrament</b> — a {{bonusaction}} treats <em>{{proficiencybonus|proficiency bonus}}</em> unprepared Paladin spells you have {{spellslot|slots}} for as {{preparedspells|prepared}}, until your next {{longrest|long rest}} or next use.</p><p><b>Shard of Remembrance</b> — a {{reaction}} when a creature within 30 feet acts stores that action as a divine memory for an hour. Replay it at the same action cost. It must be an action or bonus action (including one that grants extra actions you could use); a spell must be of a level you have slots for, though it costs none; a non-spell must be unlimited, recharge 4–6 or faster, or recharge on a {{shortrest|short rest}}; and nothing from an item or artifact qualifies. Replays use your spell attack and {{spellsavedc|save DC}}, last at most a minute, and cost you whatever resource the original cost.</p>"},
+    {lvl:"Level 3",name:"Keeper's Memory",body:"<p>Names, details, codes and patterns come back whenever you reach for them, and you have {{advantage}} on {{savingthrow|saves}} against anything targeting your memory or your Intelligence and Wisdom.</p>"},
+    {lvl:"Level 7",name:"Aura of Diligence",body:"<p>Creatures in your {{auraofprotection|Aura of Protection}} add its save bonus to deliberate Wisdom (Perception) {{abilitycheck|checks}} — not to passive Perception.</p>"},
+    {lvl:"Level 15",name:"Sonic Blade",body:"<p>Hits with a weapon you are proficient with deal extra thunder damage equal to your {{proficiencybonus|proficiency bonus}}.</p>"},
+    {lvl:"Level 20",name:"Heroic Melody",body:"<p>A {{bonusaction}} sings within 30 feet: chosen allies gain 2d12 + 5 {{temporaryhp|temporary hit points}} and rise from 0 to 1 {{hitpoints|hit point}}; chosen enemies make a Constitution {{savingthrow|save}} for 5d12 thunder, half on a success. Once per {{longrest|long rest}}, then for {{paladinchanneldivinity|Channel Divinity}}.</p>"}
+  ]};
+
+ENTRIES["pa-sacrifice"] = { cls:"paladin", nav:"Oath of Sacrifice", navSub:"Levels 3 · 7 · 15 · 20", kicker:"Paladin oath · homebrew",
+  name:"Oath of Sacrifice",
+  tag:"Take the hit meant for someone else, every time",
+  flavor:"Harros's Red Hand, who put everyone under their care ahead of themselves and wear a red arm in memory of the one he lost saving mankind. The tenets are tattooed in crimson around the neck, as a collar of reminders aimed at everyone else.",
+  src:"Lyre's Guide to Retia, p. 472",
+  mods:{
+    paladinchanneldivinity:"Golden Shell buffers a group; Seal of Protection puts one ally behind resistance and a single total negation.",
+    auraofprotection:"Aura of Shielding lets you halve damage to anyone inside it — by taking the other half yourself, unreducible.",
+    resistance:"Both Channel Divinity options grant it against bludgeoning, piercing and slashing.",
+    temporaryhp:"A d10 per level of your highest Paladin slot, held until you drop or a minute passes.",
+    deathsavingthrow:"Rise and Fall keeps you acting at 0, at the cost of rolling them with disadvantage whenever you take damage.",
+    reaction:"Three uses: halving an ally's damage, zeroing a sealed ally's damage, and stepping in front of a dying one."
+  },
+  features:[
+    {lvl:"Level 3",name:"Channel Divinity",body:"<p><b>Golden Shell</b> — an action gives <em>{{proficiencybonus|proficiency bonus}}</em> creatures within 30 feet, never yourself, {{temporaryhp|temporary hit points}} equal to a d10 × your highest Paladin {{spellslot|slot}} level. While they hold them they have {{resistance}} to bludgeoning, piercing and slashing. They last a minute, or until you hit 0.</p><p><b>Seal of Protection</b> — a {{bonusaction}} gives one creature within 60 feet that same {{resistance}} for a minute. Once during it, either of you may spend a {{reaction}} to reduce one instance of damage to 0, ending the seal.</p>"},
+    {lvl:"Level 7",name:"Aura of Shielding",body:"<p>A {{reaction}} halves damage to a creature in your {{auraofprotection|aura}} from an effect targeting only them — and you take the other half, unreducible. It also cannot drop them below 1 {{hitpoints|hit point}}.</p>"},
+    {lvl:"Level 15",name:"Reckless Sentinel",body:"<p>While a friendly creature within 30 feet is dying, at 0, or dead within the last minute, your attacks and {{abilitycheck|checks}} have {{advantage}}. Within 5 feet of a creature at 0, you may make yourself the target of a single-target attack or spell aimed at them — a {{reaction}}, or free of charge at the price of {{advantage}} on the attack and {{disadvantage}} on your saves. Not while at 0 or {{incapacitated}}.</p>"},
+    {lvl:"Level 20",name:"Rise and Fall",body:"<p>At 0 {{hitpoints|hit points}} you keep moving and acting. Damage does not auto-fail {{deathsavingthrow|death saves}}, but each instance forces one with {{disadvantage}}; a {{criticalhit|critical hit}} fails one outright, and three still kills you. Three successes or a natural 20 restores 10 hit points.</p><p>Healing while down is spent clearing failures first — 10 points each — and anything under 10 while a failure remains becomes {{temporaryhp|temporary hit points}}.</p>"}
+  ]};
+
+ENTRIES["pa-sorcery"] = { cls:"paladin", nav:"Oath of Sorcery", navSub:"Levels 3 · 7 · 15 · 20", kicker:"Paladin oath · homebrew",
+  name:"Oath of Sorcery",
+  tag:"Vestias's, and not entirely trusted for it",
+  flavor:"Spellborne Clergy paladins, less openly welcome than other oaths. They hold that magic is neither dangerous nor good nor evil in itself, and are usually the ones sent to keep the worst casters in line while backing the best. Their oaths are written on their backs in arcane ink.",
+  src:"Lyre's Guide to Retia, pp. 472–473",
+  mods:{
+    paladinchanneldivinity:"Arcane Miracle casts anything free at your top slot level; at 20 unspent uses double as 9th-level slots.",
+    spellslot:"Perfect Ritual turns leftover Channel Divinity into 9th-level slots for casting — Arcane Miracle excepted.",
+    preparedspells:"From 7 you may fill proficiency bonus of your prepared slots from the Sorcerer list.",
+    concentration:"Saint's Shroud gives advantage on it for a minute, extendable to the aura a round at a time.",
+    auraofprotection:"Saint's Shroud can be pushed out to everyone inside it, and at 15 it also boosts their spell attacks.",
+    advantage:"On saves against magical effects from 15, on top of what Saint's Shroud already grants."
+  },
+  features:[
+    {lvl:"Level 3",name:"Channel Divinity",body:"<p><b>Arcane Miracle</b> — cast any spell you know or any Paladin spell, prepared or not, with no {{spellslot|slot}}, at your highest Paladin slot level.</p><p><b>Saint's Shroud</b> — a {{bonusaction}} grants {{advantage}} on {{savingthrow|saves}} against magic and on {{concentration}} checks for a minute. During it a {{reaction}} extends the same to any creature in your {{auraofprotection|aura}} until your next turn, even if they leave it.</p>"},
+    {lvl:"Level 7",name:"Sorcery",body:"<p>On each {{longrest|long rest}} you may draw <em>{{proficiencybonus|proficiency bonus}}</em> of your {{preparedspells|prepared spells}} from the Sorcerer list, treated as Paladin spells. They count against your total.</p>"},
+    {lvl:"Level 15",name:"Magic Resistance",body:"<p>{{advantage|Advantage}} on {{savingthrow|saves}} against magical effects. While Saint's Shroud is up, friendly creatures in your {{auraofprotection|aura}} also have it on spell attacks and {{concentration}} checks.</p>"},
+    {lvl:"Level 20",name:"Perfect Ritual",body:"<p>Unspent {{paladinchanneldivinity|Channel Divinity}} counts as 9th-level {{spellslot|spell slots}} for casting — though Arcane Miracle still does not consume real slots. You also prepare one extra spell of 9th level or lower from the Sorcerer list.</p>"}
+  ]};
+
+ENTRIES["pa-dawn"] = { cls:"paladin", nav:"Oath of the Dawn", navSub:"Levels 3 · 7 · 15 · 20", kicker:"Paladin oath · homebrew",
+  name:"Oath of the Dawn",
+  tag:"Everything is at its worst just before it isn't",
+  flavor:"Paladins who take the rising sun as the whole argument: new beginnings, cycles of renewal, and the insistence that anyone starting over after a disaster will find their feet. The tenets go on their favourite weapon.",
+  src:"Lyre's Guide to Retia, p. 474",
+  mods:{
+    paladinchanneldivinity:"Blinding Cascade turns a weapon into a blinding, 19–20-critting light source; Revealing Light drags the ethereal and invisible into view.",
+    criticalhit:"An imbued weapon crits on 19–20, and a crit blinds everyone within 10 feet of the target too.",
+    invisible:"Revealing Light simply undoes it inside the sphere, and pulls ethereal creatures into reach.",
+    auraofprotection:"Aura of Illumination fills it with sunlight; Blessing of the Sun can double its radius for a minute.",
+    savingthrow:"Blessing of the Sun rerolls a failed one with your Charisma modifier added.",
+    undead:"Champion of Renewal burns them and fiends for 2d10 radiant each turn they start in the light."
+  },
+  features:[
+    {lvl:"Level 3",name:"Channel Divinity",body:"<p><b>Blinding Cascade</b> — a {{bonusaction}} lights a held weapon for a minute: an extra weapon die of radiant damage, and the first hit on each creature each turn is a Constitution {{savingthrow|save}} or blinded until it ends. The weapon also {{criticalhit|crits}} on 19–20, and a crit forces the same save on everyone you choose within 10 feet of the target.</p><p><b>Revealing Light</b> — a {{bonusaction}} fills a 30-foot sphere within 60 feet with sunlight. Ethereal creatures can be seen, touched and attacked from either side, and anything {{invisible}} is simply visible.</p>"},
+    {lvl:"Level 7",name:"Aura of Illumination",body:"<p>A {{bonusaction}} fills your {{auraofprotection|Aura of Protection}} with bright sunlight and an equal radius of dim light beyond. Dismissed with a {{bonusaction}}, or when you fall {{unconscious}}.</p>"},
+    {lvl:"Level 15",name:"Blessing of the Sun",body:"<p>Half your {{proficiencybonus|proficiency bonus}} times per {{longrest|long rest}}, choose one: turn a missed weapon attack into a hit, reroll a failed {{savingthrow|save}} adding your Charisma modifier, cast any Paladin spell from a {{spellslot|slot}} whether or not it is prepared, or double your {{auraofprotection|aura}}'s range for a minute.</p>"},
+    {lvl:"Level 20",name:"Champion of Renewal",body:"<p>An action pours sunlight out of you for a minute: bright to 60 feet, dim for 60 more. Any {{fiend}} or {{undead}} starting its turn in the bright light takes 2d10 radiant, your attacks against anything in it have {{advantage}}, and allies you choose who are at 0 {{hitpoints|hit points}} when it starts immediately regain 10.</p>"}
+  ]};
+
+/* ------------------------------------ Rogue ------------------------------ */
+
+ENTRIES["ro-academyduller"] = { cls:"rogue", nav:"Academy Duller", navSub:"Levels 3 · 9 · 13 · 17", kicker:"Rogue subclass · homebrew",
+  name:"Academy Duller",
+  tag:"Find the seam in someone's magic and pull",
+  flavor:"Academy-trained magic hunters who work the openings in other people's spellwork. Where the Academy Agent hits casters harder, the Duller simply takes the spell apart.",
+  src:"Lyre's Guide to Retia, p. 476",
+  mods:{
+    sneakattack:"Landing it on a creature under a spell forces a second, separate concentration check — which can end effects that never needed concentration.",
+    concentration:"Spell Splitter forces an extra check on the originator, and failure ends the effect outright.",
+    teleport:"Shimmering Pursuit jumps you next to anyone who has touched magic since your last turn.",
+    evasion:"Arcanist Avoidance is the magical version, and adds a reaction to reroll a failed save.",
+    advantage:"Your first attack after a Shimmering Pursuit, and every save against magic from 17."
+  },
+  features:[
+    {lvl:"Level 3",name:"Spell Splitter",body:"<p>Applying {{sneakattack|Sneak Attack}} to a creature concentrating on or benefiting from a spell forces the originator into a {{concentration}} check separate from the one your damage causes. Fail and the effect ends — even if it never required concentration.</p>"},
+    {lvl:"Level 9",name:"Shimmering Pursuit",body:"<p>A {{bonusaction}} {{teleport|teleports}} you beside any creature within 60 feet that has cast, is under a magical effect, has taken magical damage, or has saved against one since your last turn. Your first attack on it this turn has {{advantage}}. Half your {{proficiencybonus|proficiency bonus}} uses per {{shortrest|short}} or {{longrest|long rest}}.</p>"},
+    {lvl:"Level 13",name:"Arcanist Avoidance",body:"<p>{{evasion|Evasion}} against magical effects — none on a success, half on a failure — and a {{reaction}} to reroll the {{d20test|d20}} on any failed {{savingthrow|save}} against magic.</p>"},
+    {lvl:"Level 17",name:"Magic Resistance",body:"<p>{{advantage|Advantage}} on {{savingthrow|saves}} against magical effects.</p>"}
+  ]};
+
+ENTRIES["ro-dregletter"] = { cls:"rogue", nav:"Dreg Letter", navSub:"Levels 3 · 9 · 13 · 17", kicker:"Rogue subclass · homebrew",
+  name:"Dreg Letter",
+  tag:"Anatomy, applied badly on purpose",
+  flavor:"Rogues who base their fighting on a working knowledge of biology. They open people up and leave them bleeding, which means their damage keeps arriving long after they have moved on.",
+  src:"Lyre's Guide to Retia, p. 477",
+  mods:{
+    sneakattack:"Any hit that qualifies can instead plant a lasting wound — you do not have to spend the dice to use it.",
+    expertise:"Medicine, from level 3 — and a victim's own Medicine check against your DC is how the wound closes.",
+    extraattack:"You get one at level 9, restricted to light or finesse weapons.",
+    criticalhit:"Eviscerate converts a wound into a guaranteed one, spending the wound to do it.",
+    advantage:"Hitting a wounded target with it makes the ongoing damage worse by your proficiency bonus."
+  },
+  features:[
+    {lvl:"Level 3",name:"Medical Knowledge",body:"<p>Proficiency and {{expertise|Expertise}} in Medicine.</p>"},
+    {lvl:"Level 3",name:"Surgical Gouging",body:"<p>On a hit that qualifies for {{sneakattack|Sneak Attack}} — whether or not you spend it — the target makes a Constitution {{savingthrow|save}} or carries a wound for a minute. It takes extra damage on every weapon hit and at the start of each of its turns: 1d6 at level 3, 1d8 at 7, 1d10 at 11, 1d12 at 15, 2d8 at 19.</p><p>Repeat saves at end of turn. Only one wound at a time. Incorporeal creatures, elementals and constructs always succeed. A victim can close it with an action and a Medicine {{abilitycheck|check}} against your save DC, or by healing at least your Rogue level in one go.</p>"},
+    {lvl:"Level 9",name:"Extra Attack (Light)",body:"<p>{{extraattack|Attack twice}}, so long as both attacks use light or finesse weapons.</p>"},
+    {lvl:"Level 13",name:"Expose Wounds",body:"<p>Hit a wounded creature with {{advantage}} and its start-of-turn damage rises by your {{proficiencybonus|proficiency bonus}}.</p>"},
+    {lvl:"Level 17",name:"Eviscerate",body:"<p>A {{sneakattack|Sneak Attack}}-qualifying hit on a wounded creature forces a Constitution {{savingthrow|save}}: on a failure the wound closes and the attack becomes an automatic {{criticalhit|critical hit}}.</p>"}
+  ]};
+
+ENTRIES["ro-potentialchainer"] = { cls:"rogue", nav:"Potential Chainer", navSub:"Levels 3 · 9 · 13 · 17", kicker:"Rogue subclass · homebrew",
+  name:"Potential Chainer",
+  tag:"Act on instinct before the thought arrives",
+  flavor:"Rogues who trust their reflexes over their reasoning and take chances a more careful fighter would not. It is partly luck and partly opportunity, and it gets them moving faster than anyone with the same training.",
+  src:"Lyre's Guide to Retia, pp. 477–478",
+  mods:{
+    reaction:"Every reaction you take also buys a weapon attack on whatever triggered it, and a missed Sneak Attack can spend one to hit anyway.",
+    sneakattack:"Lost Burden Strike converts a miss into a hit for half the dice, and counts as having used your Sneak Attack that turn.",
+    d20test:"Rebound turns your first natural 1 each turn into a 10.",
+    extraattack:"At 13, with matching light, finesse or ranged weapons.",
+    bonusaction:"Efficient Actor lets you swap it for an action, or take two of either."
+  },
+  features:[
+    {lvl:"Level 3",name:"Ferocious Reaction",body:"<p>Any {{reaction}} triggered by a creature also lets you attack that creature with a weapon you hold, if it is in range. Your attack resolves after theirs, and only if you can still act.</p>"},
+    {lvl:"Level 3",name:"Lost Burden Strike",body:"<p>Miss with a {{sneakattack|Sneak Attack}}-qualifying attack and a {{reaction}} adds a bonus equal to your number of Sneak Attack dice. If that lands it, roll half those dice and add them to the damage. It counts as your Sneak Attack for the turn, and cannot follow one.</p>"},
+    {lvl:"Level 9",name:"Rebound",body:"<p>The first natural 1 each turn on an attack, {{abilitycheck|check}} or {{savingthrow|save}} counts as a {{d20test|10}} instead.</p>"},
+    {lvl:"Level 13",name:"Extra Attack",body:"<p>{{extraattack|Attack twice}}, both with the same weapon: a light or finesse melee weapon, or a ranged one.</p>"},
+    {lvl:"Level 17",name:"Efficient Actor",body:"<p>Treat your action as a {{bonusaction}} or the reverse — so you may take two of either on a turn.</p>"}
+  ]};
+
+ENTRIES["ro-vigilante"] = { cls:"rogue", nav:"Vigilante", navSub:"Levels 3 · 9 · 13 · 17", kicker:"Rogue subclass · homebrew",
+  name:"Vigilante",
+  tag:"Thrown knives, and a reputation that does half the work",
+  flavor:"Rogues who took the law into their own hands and made fear part of the method. They work at range with thrown weapons, and move from body to body fast enough that nobody gets to regroup.",
+  src:"Lyre's Guide to Retia, pp. 478–479",
+  mods:{
+    frightened:"A kill or a natural 20 frightens everyone near the victim, and frightened targets give you +1d4 to hit and damage.",
+    sneakattack:"Seizing Strike trades it for paralysis; Twist the Knife adds half the dice again after it is spent.",
+    fightingstyle:"Thrown Weapon Fighting at level 3, advancing a stage at 9.",
+    extraattack:"At 13, with light weapons — on top of the extra thrown attack from level 3.",
+    criticalhit:"A natural 20 against a creature triggers the fear aura even without killing it.",
+    stunned:"Twist the Knife also applies to stunned and paralyzed targets, not only frightened ones."
+  },
+  features:[
+    {lvl:"Level 3",name:"Fear of Slaughter",body:"<p>Drop a creature to 0, or roll a natural 20 against one, and every hostile creature within 30 feet of it makes a Wisdom {{savingthrow|save}} or is {{frightened}} of you until the end of your next turn. Attacking anything frightened of you adds 1d4 to the attack and the damage.</p>"},
+    {lvl:"Level 3",name:"Thrown Weapon Expert",body:"<p>The Thrown Weapon Fighting {{fightingstyle|fighting style}}. If every attack in your Attack action is a ranged attack with a light thrown weapon, you get one more.</p>"},
+    {lvl:"Level 9",name:"Fighting Style Advancement",body:"<p>Your Thrown Weapon Fighting {{fightingstyle|style}} advances a stage.</p>"},
+    {lvl:"Level 9",name:"Seizing Strike",body:"<p>Instead of {{sneakattack|Sneak Attack}} damage on a qualifying hit, force a Constitution {{savingthrow|save}}: on a failure the target is paralyzed until your next turn and your Sneak Attack counts as spent. On a success it takes the Sneak Attack damage as normal. Half your {{proficiencybonus|proficiency bonus}} uses per {{longrest|long rest}}, spent only when the save fails.</p>"},
+    {lvl:"Level 13",name:"Extra Attack (Light)",body:"<p>{{extraattack|Attack twice}} with light weapons.</p>"},
+    {lvl:"Level 13",name:"From One to Another",body:"<p>Once a turn, dropping a creature with a weapon attack lets you move your full {{speed}} toward another and make an extra light-weapon attack against it.</p>"},
+    {lvl:"Level 17",name:"Twist the Knife",body:"<p>Hitting a creature that is {{stunned}}, paralyzed or {{frightened}} of you after spending {{sneakattack|Sneak Attack}} still adds half as many dice. Once per target per turn.</p>"}
+  ]};
+
+/* ---------------------------------- Sorcerer ----------------------------- */
+
+ENTRIES["so-crystalbearer"] = { cls:"sorcerer", nav:"Crystal Bearer", navSub:"Levels 1 · 6 · 14 · 18", kicker:"Sorcerer origin · homebrew",
+  name:"Crystal Bearer",
+  tag:"A sepherite shard that stores what you pour into it",
+  flavor:"Sorcerers who condense their power into a floating shard of sepherite and use it as a conduit — storing ambient energy to release later, and siphoning incoming magic to blunt it. Usually people with an unusual tolerance for eidomantic radiation, or descended from something that had one.",
+  src:"Lyre's Guide to Retia, p. 481",
+  mods:{
+    metamagic:"The Focus can fire one option for free, without spending Sorcery Points.",
+    sorcerypoints:"Empowered Spellshield converts 1 into slot-level d6s of temporary hit points on every cast.",
+    temporaryhp:"Slot level in d6s per cast, lasting until your next rest rather than the end of the fight.",
+    immunity:"At 18 you are immune to spell damage outright, and resistant to everything else magical.",
+    resistance:"The 18th-level cap: artifacts, deities and eidolic damage get through as resistance only.",
+    reaction:"One Crystal Focus option halves an incoming hit."
+  },
+  features:[
+    {lvl:"Level 1",name:"Crystal Focus",body:"<p>Manifest a floating sepherite shard that serves as your spell focus and leaves your hands free; lost, it regrows on a rest. Once per {{shortrest|short}} or {{longrest|long rest}} it produces one of: a free {{metamagic|Metamagic}} option, a free casting of a spell of half your {{proficiencybonus|proficiency bonus}} in level or lower, a bonus to one attack or {{savingthrow|save}} equal to half your Sorcerer level, or a {{reaction}} halving an incoming hit's damage.</p>"},
+    {lvl:"Level 1",name:"Empowered Spellshield",body:"<p>Casting from a Sorcerer {{spellslot|slot}} and spending 1 {{sorcerypoints|sorcery point}} rolls slot-level d6s as {{temporaryhp|temporary hit points}}, held until your next rest.</p>"},
+    {lvl:"Level 6",name:"Crystal Purity",body:"<p>One more Crystal Focus use per {{longrest|long rest}} — and if that extra one is spent, a natural 20 on any {{savingthrow|save}} refunds it immediately.</p>"},
+    {lvl:"Level 14",name:"Rainbow Conduit",body:"<p><em>Prismatic spray</em> free of your spells known, castable for 4 {{sorcerypoints|sorcery points}} with no {{spellslot|slot}}. You roll its d8 twice per target hit and take your pick.</p>"},
+    {lvl:"Level 18",name:"Crystal Soul Lattice",body:"<p>The shard eats magical energy: {{immunity|immunity}} to all damage from spells, and {{resistance}} to damage from magical effects and magic items. Artifacts, deities and eidolic damage drop you back to resistance.</p>"}
+  ]};
+
+ENTRIES["so-eidoliccosmologus"] = { cls:"sorcerer", nav:"Eidolic Cosmologus", navSub:"Levels 1 · 6 · 14 · 18", kicker:"Sorcerer origin · homebrew",
+  name:"Eidolic Cosmologus",
+  tag:"Eidolon blood, refined into Disaster Dice",
+  flavor:"Born with the blood of an eidolos in their veins and a permanent connection to it — what they call their cosmological shard. Magical energy and physical punishment both get processed into a refined strain of eidomantic radiation they can spend.",
+  src:"Lyre's Guide to Retia, pp. 481–482",
+  mods:{
+    resistance:"Your Cosmological Shard picks the damage type, and that same type is what charges your Disaster Dice.",
+    sorcerypoints:"Creation Matrix turns a Disaster Die into temporary points, spent first and gone at end of turn.",
+    metamagic:"Spending points on one is what triggers Creation Matrix in the first place.",
+    armorclass:"Shielding Aura adds a Disaster Die to it as a reaction until your next turn.",
+    temporaryhp:"Return to Form cashes your whole pool in at 0 hit points, and keeps you up if it holds.",
+    difficultterrain:"The Obliterating Vortex makes its whole cylinder into it."
+  },
+  features:[
+    {lvl:"Level 1",name:"Cosmological Shard",body:"<p>Pick an Eidolon: Aymere (poison, <em>entangle</em>), Harros (force, <em>heroism</em>), T'quinn (thunder, <em>thunderwave</em>) or Vestias (lightning, <em>seizing bolt</em>). You gain {{resistance}} to that type and the spell free of your spells known, castable once per {{shortrest|short}} or {{longrest|long rest}} without a {{spellslot|slot}}.</p>"},
+    {lvl:"Level 1",name:"Disaster Dice",body:"<p>Casting a spell of your shard's damage type, taking that damage, or taking 5+ damage from one source earns a d6 Disaster Die, up to your {{proficiencybonus|proficiency bonus}}. They clear on a {{longrest|long rest}}. Spend them on <b>Spell Upgrade</b> (added to a spell attack roll), <b>Shielding Aura</b> (a {{reaction}} adding it to your {{armorclass|AC}} until your next turn), or <b>Restorative Power</b> (rolled alongside hit dice on a {{shortrest|short rest}}).</p>"},
+    {lvl:"Level 6",name:"Creation Matrix",body:"<p>Spending {{sorcerypoints|sorcery points}} on {{metamagic|Metamagic}} lets you roll a Disaster Die for that many temporary sorcery points — spent before your real ones, gone at end of turn. They cannot earn you Disaster Dice or convert into {{spellslot|slots}}.</p>"},
+    {lvl:"Level 14",name:"Greater Capacity",body:"<p>Disaster Dice become d8s, and your Eidolon grants one more thing: <b>Vestias</b> — 1d4 dice on every {{shortrest|short rest}}. <b>T'quinn</b> — 1 {{sorcerypoints|sorcery point}} reduces a {{savingthrow|save}} against your spell by 1d8. <b>Harros</b> — maximum {{hitpoints|hit points}} up by your Sorcerer level, plus one more each level. <b>Aymere</b> — <em>lesser</em> or <em>greater restoration</em> for 1 or 2 sorcery points.</p>"},
+    {lvl:"Level 14",name:"Return to Form",body:"<p>At 0 {{hitpoints|hit points}}, spend every Disaster Die you held before that damage as {{temporaryhp|temporary hit points}}. If they survive the hit, you drop to 1 hit point instead.</p>"},
+    {lvl:"Level 18",name:"Obliterating Vortex",body:"<p>An action opens a 10-foot-radius, 30-foot-high cylinder within 60 feet for a minute. Entering or starting a turn inside is a Dexterity {{savingthrow|save}} for 3d12 of your shard's type and {{speed}} 0 until next turn, half on a success; the space is {{difficultterrain}}.</p><p>Damage there adds a d8 per Disaster Die you currently hold — but you lose one at the start of each of your turns, and with none left you must {{concentration|concentrate}} on it. Once per {{shortrest|short}} or {{longrest|long rest}}, then for 4 {{sorcerypoints|sorcery points}}.</p>"}
+  ]};
+
+ENTRIES["so-freezingtorment"] = { cls:"sorcerer", nav:"Freezing Torment", navSub:"Levels 1 · 6 · 14 · 18", kicker:"Sorcerer origin · homebrew",
+  name:"Freezing Torment",
+  tag:"Cold in the soul, and it only gets colder",
+  flavor:"Sorcerers with frost worked into the soul — an elemental strain in the bloodline, a quirk of a plane, or a curse. Their body temperature drops as their power grows, and they feel the chill in the warmest room in the world.",
+  src:"Lyre's Guide to Retia, p. 483",
+  mods:{
+    resistance:"Cold, plus advantage on saves against freezing conditions and free movement over ice.",
+    difficultterrain:"Ice and snow stop being it for you, and Ice Trail creates a field of it around any cold spell.",
+    temporaryhp:"Frost Grave Shield catches you at 0 with 1d10 + Sorcerer level, and burns anyone who hits you.",
+    restrained:"Bursting Frost Cage freezes creatures in place until the ice breaks on your next turn.",
+    sorcerypoints:"Embodied Blizzard runs once per long rest, then costs 5.",
+    disadvantage:"Inside your own blizzard, everything attacking you has it."
+  },
+  features:[
+    {lvl:"Level 1",name:"At Home in Ice",body:"<p>{{resistance|Resistance}} to cold, {{advantage}} on {{savingthrow|saves}} against freezing conditions, and ice and snow are not {{difficultterrain}} to you.</p>"},
+    {lvl:"Level 1",name:"Frost Grave Shield",body:"<p>Hitting 0 {{hitpoints|hit points}} coats you in frost: {{temporaryhp|temporary hit points}} equal to 1d10 + your Sorcerer level, and anything striking you from within 5 feet while they last takes 1d10 cold. Once per {{longrest|long rest}}.</p>"},
+    {lvl:"Level 6",name:"Ice Trail",body:"<p>A cold spell can freeze the ground around you or a target into {{difficultterrain}} until it thaws, filling a sphere of 5 + (spell level × 5) feet.</p>"},
+    {lvl:"Level 14",name:"Bursting Frost Cage",body:"<p>A {{bonusaction}} spikes ice from a point within 60 feet into every adjacent space: Dexterity {{savingthrow|save}} or 2d8 cold and {{restrained}}. The ice breaks at the start of your next turn, or on an action and a Strength {{abilitycheck|check}} against your {{spellsavedc|spell save DC}}. Half your {{proficiencybonus|proficiency bonus}} uses per {{shortrest|short}} or {{longrest|long rest}}.</p>"},
+    {lvl:"Level 18",name:"Embodied Blizzard",body:"<p>An action wraps you in a 10-foot blizzard that moves with you for a minute. You are unaffected, heavily obscured, and everything attacking you has {{disadvantage}}. Others entering or starting a turn inside make a Constitution {{savingthrow|save}} for 4d10 cold and sluggishness, half and nothing on a success.</p><p>Each turn a {{bonusaction}} fires a 30-foot cone or 60-foot line: Dexterity save for 4d10 cold, half on a success. Once per {{longrest|long rest}}, then for 5 {{sorcerypoints|sorcery points}}.</p>"}
+  ]};
+
+ENTRIES["so-phantomsoul"] = { cls:"sorcerer", nav:"Phantom Soul", navSub:"Levels 1 · 6 · 14 · 18", kicker:"Sorcerer origin · homebrew",
+  name:"Phantom Soul",
+  tag:"The spirit never quite settled back into the body",
+  flavor:"A past possession, an undead's curse, a near-death experience — something left this Sorcerer's soul loose in its housing. They vanish, they see the dead, and eventually they move into other people.",
+  src:"Lyre's Guide to Retia, pp. 483–484",
+  mods:{
+    invisible:"Invisibility and greater invisibility cost 1 and 3 sorcery points, self-only, no slot.",
+    sorcerypoints:"They buy invisibility at 1 and 3, and Full Possession at 5.",
+    resistance:"Psychic damage, plus advantage on saves against fear and charm.",
+    charmed:"Advantage on saves against it — and at 18, a dominate monster you inhabit from the inside.",
+    flyspeed:"A hover speed equal to your walking speed at 14, with advantage on Stealth as a side effect.",
+    stunned:"Losing concentration on Full Possession leaves you stunned until the end of your next turn."
+  },
+  features:[
+    {lvl:"Level 1",name:"Transparent Form",body:"<p>Cast <em>invisibility</em> for 1 {{sorcerypoints|sorcery point}} and <em>greater invisibility</em> for 3, no {{spellslot|slot}}, yourself only. You take on a spectral look while {{invisible}}.</p>"},
+    {lvl:"Level 1",name:"Unknowable Mind",body:"<p>{{resistance|Resistance}} to psychic damage and {{advantage}} on {{savingthrow|saves}} against being {{frightened}} or {{charmed}}.</p>"},
+    {lvl:"Level 6",name:"Spirit Eyes",body:"<p>Ethereal and {{invisible}} creatures are plainly visible to you, and you can tell whether anything you see within 10 feet is {{undead}} or a construct.</p>"},
+    {lvl:"Level 14",name:"Weightless Body",body:"<p>A hovering {{flyspeed|fly speed}} equal to your walking {{speed}}, and {{advantage}} on Stealth {{abilitycheck|checks}} from weighing nothing.</p>"},
+    {lvl:"Level 18",name:"Full Possession",body:"<p>An action and 5 {{sorcerypoints|sorcery points}} cast <em>dominate monster</em> on a creature you touch — and your body and gear vanish inside it. You speak with either voice, see with either set of senses, and use either's movement. On your turn you may drive its body directly, taking as many actions as you could, from its list or yours.</p><p>Conditions pass both ways. A {{bonusaction}} produces a magic item from your person into its hands, usable by it if you are attuned or attunement is not required. When it ends you appear beside the creature; if {{concentration}} broke it, you are {{stunned}} until the end of your next turn.</p>"}
+  ]};
+
+ENTRIES["so-vestianinheritor"] = { cls:"sorcerer", nav:"Vestian Inheritor", navSub:"Levels 1 · 6 · 14 · 18", kicker:"Sorcerer origin · homebrew",
+  name:"Vestian Inheritor",
+  tag:"Vestias answered, and it came out as lightning",
+  flavor:"Sorcerers who asked the goddess of magic to raise their power, and either received it or simply woke up what was already in the blood. It arrives as lightning — thrown at people, or wrapped around yourself.",
+  src:"Lyre's Guide to Retia, p. 484",
+  mods:{
+    armorclass:"Add Charisma to it in light armour or none, on top of Dexterity.",
+    resistance:"Lightning from level 1, and damage from spells and magical effects while in your cosmic form.",
+    teleport:"Blink Step buys a teleport speed for a sorcery point — free as a bonus action from level 10, at double range.",
+    sorcerypoints:"They power Shock Punishment, Blink Step, Lightning Burst and the 18th-level form.",
+    reaction:"Shock Punishment answers melee hits, and the cosmic form casts counterspell with one for free.",
+    immunity:"Lightning immunity for the minute your cosmic form holds."
+  },
+  features:[
+    {lvl:"Level 1",name:"Shock Punishment",body:"<p>A {{reaction}} and 1 {{sorcerypoints|sorcery point}} when something within 20 feet hits you: Dexterity {{savingthrow|save}} for half your Sorcerer level in d6s of lightning, half on a success.</p>"},
+    {lvl:"Level 1",name:"Sky-Keeper's Teachings",body:"<p>Add Charisma to your {{armorclass|AC}} in light armour or none, gain {{resistance}} to lightning, learn new spells from the Sky-Keeper's Arcana group, and roll eidomantic checks for Sorcerer spells with {{advantage}}.</p>"},
+    {lvl:"Level 6",name:"Blink Step",body:"<p>1 {{sorcerypoints|sorcery point}} at any point on your turn grants a {{teleport}} speed equal to your walking {{speed}} until end of turn. From level 10 it is doubled, and free if you spend a {{bonusaction}}.</p>"},
+    {lvl:"Level 14",name:"Lightning Burst",body:"<p>A {{bonusaction}} throws a 10-foot burst at a point within 120 feet: Dexterity {{savingthrow|save}} for 2d10 lightning, plus a d10 per {{sorcerypoints|sorcery point}} spent up to 3, half on a success. Three times per {{shortrest|short}} or {{longrest|long rest}}.</p>"},
+    {lvl:"Level 18",name:"Aspect of the Cosmos",body:"<p>An action turns you into a subcosmos emissary for a minute — golden wings, galaxy for skin. {{immunity|Immunity}} to lightning, {{resistance}} to spell and magical damage, a 60-foot hovering {{flyspeed|fly speed}}, 1 {{sorcerypoints|sorcery point}} to cast an action spell as a {{bonusaction}}, and a {{reaction}} to cast <em>counterspell</em> free whether or not you know it.</p><p>Dropping to 0 or dying ends the form instead — the damage becomes 0 and you live. Once per {{longrest|long rest}}, then for 6 sorcery points.</p>"}
+  ]};
+
+ENTRIES["so-witchcraft"] = { cls:"sorcerer", nav:"Witchcraft", navSub:"Levels 1 · 6 · 14 · 18", kicker:"Sorcerer origin · homebrew",
+  name:"Witchcraft",
+  tag:"Karma is a resource and you have a ladle",
+  flavor:"Hag magic, or magic learned from one: bending natural energy and karma to suit the caster. Exposure, ancestry or a link to the spirits that run those forces is enough. What it does is move luck and vitality from one person to another.",
+  src:"Lyre's Guide to Retia, pp. 485–486",
+  mods:{
+    sorcerypoints:"Everything here costs them — curses at 1, the Witchcraft options at 1 or 2, and kills at 18 refund 1d4.",
+    poisoned:"Arcane Curdling halves someone's healing and poisons them on a failed Constitution save.",
+    d20test:"Gregarious Luck gives an ally a stored reroll; Abjurative Curse taxes an enemy's by a d4 or d8.",
+    reaction:"Arcane Curdling interrupts healing anywhere within 120 feet.",
+    flyspeed:"A hover speed at 14, and you can tow one willing creature with a dedicated hand.",
+    opportunityattack:"With a fly speed already better than the one this grants, your flight stops provoking them."
+  },
+  features:[
+    {lvl:"Level 1",name:"Abjurative Curse",body:"<p>When a creature fails a {{savingthrow|save}} against, or is hit by, a Sorcerer spell of 1st level or higher, 1 {{sorcerypoints|sorcery point}} curses it until your next turn: it subtracts a d4 from every attack roll and save, a d8 from level 12.</p>"},
+    {lvl:"Level 1",name:"Curse of Infliction",body:"<p><em>Inflict wounds</em> free of your spells known, and castable as a 60-foot ranged spell attack rather than a melee one.</p>"},
+    {lvl:"Level 6",name:"Witchcraft",body:"<p>Spend {{sorcerypoints|sorcery points}} on:</p><ul><li><b>Arcane Curdling</b> (1, {{reaction}}) — halve healing on a creature within 120 feet, then a Constitution {{savingthrow|save}} or {{poisoned}} until your next turn.</li><li><b>Gregarious Luck</b> (2, action) — touch a creature to store one reroll of a missed attack or failed save, held until used or until they rest. One at a time.</li><li><b>Joint Misfortune</b> (2, action) — two creatures within 60 feet and 40 feet of each other make Charisma saves; a failure is cursed for a minute and suffers everything happening to the other. Identical effects do not stack. Repeat saves at end of turn.</li><li><b>Panacea</b> (1+, action) — <em>cure wounds</em> with no {{spellslot|slot}} at the level you paid for, capped at your best slot. One more point each also clears {{poisoned}}, temporary blindness or deafness, ongoing petrification saves, paralysis, a spell curse, or a nonmagical disease.</li></ul>"},
+    {lvl:"Level 14",name:"Dancing on the Wind",body:"<p>A hovering {{flyspeed|fly speed}} equal to your walking {{speed}} — and if you already had a better one, flying no longer provokes {{opportunityattack|opportunity attacks}}. You may also tow one willing creature no more than a size larger, at the cost of a dedicated hand.</p>"},
+    {lvl:"Level 18",name:"Harvest Fortune",body:"<p>Dropping a hostile creature to 0 {{hitpoints|hit points}} refunds 1d4 {{sorcerypoints|sorcery points}}. Once per turn.</p>"}
+  ]};
+
+/* ----------------------------------- Warlock ----------------------------- */
+
+ENTRIES["wl-damocles"] = { cls:"warlock", nav:"Damocles", navSub:"Levels 1 · 6 · 10 · 14", kicker:"Warlock patron · homebrew",
+  name:"Damocles",
+  tag:"A mecha that grows with you, and eventually you get in",
+  flavor:"A pact built around a D.G.ANCHOR — a robotic miniature of a D.G.R. that fights alongside you and is rebuilt at every tier. At the top of the pact you stop commanding it and start piloting it.",
+  src:"Lyre's Guide to Retia, p. 490",
+  mods:{
+    familiar:"The D.G.ANCHOR is nothing like one: it has its own stat block, your proficiency bonus, and ability score increases at 6, 10 and 14.",
+    bonusaction:"Commanding it to do anything other than Dodge costs one — which is what makes piloting so strong.",
+    invocations:"A whole private list: Armor of the Avatar, Dynamic Save, Extra Ability Boost, Evasive Maneuvers, Guardian Sentry.",
+    cover:"While piloting, you have total cover and everything aimed at you hits the machine instead.",
+    teleport:"An action orders it to jump to a space within 30 feet of you.",
+    resistance:"Physical resistance at 10, and your choice of a physical immunity as an option."
+  },
+  features:[
+    {lvl:"Level 1",name:"D.G.ANCHOR",body:"<p>An action summons a robotic D.G.R. within 30 feet, sharing your {{initiative}} and your {{proficiencybonus|proficiency bonus}}. It moves and uses its own {{reaction}} freely, but Dodge is the only action it takes unsupervised — a {{bonusaction}} orders anything else, and if you are {{incapacitated}} it acts on its own. An action teleports it 30 feet. After 10 minutes or at 0 {{hitpoints|hit points}} it vanishes until you rest.</p>"},
+    {lvl:"Level 6",name:"Greater D.G.ANCHOR",body:"<p>+2 and +1 to ability scores, a {{savingthrow|save}} proficiency, an optional Large frame, +1d8 slam, magical attacks, and its DGR Armament and Blaster come online. Plus one option: +10 feet {{speed}} (and +30 to 0-G Acceleration), a hovering {{flyspeed|fly speed}}, 60-foot {{blindsight}} with +5 passive Perception, or the Excel Reactor {{bonusaction}}.</p>"},
+    {lvl:"Level 10",name:"Advanced D.G.ANCHOR",body:"<p>Another +2 and +1, its Missile Pod, another save proficiency, {{resistance}} to bludgeoning, piercing and slashing, and +2 on its armament bonuses. Plus another option — the ones above, or {{immunity}} to one physical type, +10 feet to every speed, {{armorclass|AC}} of 15 + Dexterity + proficiency, or +1d12 and +1d10 on its two weapons.</p>"},
+    {lvl:"Level 14",name:"Major D.G.ANCHOR",body:"<p>Another +2 and +1, another save proficiency, an optional Huge frame with 10-foot armament reach, and +3 on its armament bonuses.</p><p><b>Piloting</b> — summon it at Large or bigger into your own space and climb in. You have total {{cover}} and everything targeting you targets it; you attack through it with your own weapons; if you only spent a {{bonusaction}} commanding it you may attack through it as if using its Multiattack; you see and hear through its senses and cast Warlock spells through it. If it dies you are shunted into the nearest free space and take the damage that killed it.</p>"}
+  ]};
+
+ENTRIES["wl-falsegod"] = { cls:"warlock", nav:"False God", navSub:"Levels 1 · 6 · 10 · 14", kicker:"Warlock patron · homebrew",
+  name:"False God",
+  tag:"Divinity borrowed from something that is not divine",
+  flavor:"A pact with a False Eidolon, sometimes without the Warlock knowing. The powers vary with whichever one holds the contract, but the fiendish underneath always shows through the divine veneer.",
+  src:"Lyre's Guide to Retia, p. 492",
+  mods:{
+    mysticarcanum:"Casting one makes you immune to damage until your next turn and refunds a pact slot.",
+    pactspellslots:"False Lord's Commandment gives one back on every Mystic Arcanum cast.",
+    temporaryhp:"Overkill damage on a kill, or half the damage of a critical hit, held for a minute.",
+    criticalhit:"Fiendish Drain pays out half the total damage of one as temporary hit points.",
+    immunity:"A round of total damage immunity after each Mystic Arcanum, excluding the Arcanum's own effects.",
+    invocations:"Its own list: Celestialbane, Dominating Voice, Eidolic Weapon, Expanded Eidolic Spells, Patron's Resilience, Mind of False Report, Uncanny Regeneration."
+  },
+  features:[
+    {lvl:"Level 1",name:"False Blessing",body:"<p>Your patron's artificial divinity lets you pick Warlock spells and {{mysticarcanum|Mystic Arcanum}} from the Cleric list.</p>"},
+    {lvl:"Level 1",name:"Fiendish Drain",body:"<p>Dropping a creature to 0 gives {{temporaryhp|temporary hit points}} equal to the overkill; a {{criticalhit|critical hit}} gives half its total damage. Either way they last a minute.</p>"},
+    {lvl:"Level 6",name:"Yokai's Eyes",body:"<p>Devilsight out to 10 × your Warlock level in feet — magical and nonmagical darkness read as bright light. Already have devilsight? Add half this range to it, or use this one, whichever is better.</p>"},
+    {lvl:"Level 10",name:"Shadow Intervention",body:"<p>An action and 1d100: roll at or under twice your Warlock level and your patron grants a {{shortrest|short rest}} on the spot, outside your usual allowance. Once per {{longrest|long rest}} whether or not it works.</p>"},
+    {lvl:"Level 14",name:"False Lord's Commandment",body:"<p>Casting a {{mysticarcanum|Mystic Arcanum}} makes you {{immunity|immune}} to all damage until the end of your next turn — bar the Arcanum's own — and refunds one spent {{pactspellslots|pact slot}}.</p>"}
+  ]};
+
+ENTRIES["wl-feathereddragon"] = { cls:"warlock", nav:"Feathered Dragon", navSub:"Levels 1 · 6 · 10 · 14", kicker:"Warlock patron · homebrew",
+  name:"Feathered Dragon",
+  tag:"The beasts that gifted mankind magic, and their claws",
+  flavor:"Feathered dragons spread eidomantic radiation and, with it, the web that makes mortal magic possible — they are why anyone casts anything. Borrowing their power means borrowing their draconic qualities, starting with the claws.",
+  src:"Lyre's Guide to Retia, p. 494",
+  mods:{
+    resistance:"Your mantle type, chosen with your patron's colour — and at 14 your mantle damage ignores everyone else's.",
+    criticalhit:"An extra 1d10 of mantle damage on any crit, with an invocation pushing the claws to 19–20.",
+    spellsavedc:"Eidolic Emanation runs off it, in a cone, line or sphere sized by your Warlock level.",
+    bonusaction:"One claw attack, versus half your proficiency bonus of them with your action — you cannot do both.",
+    advantage:"On eidomantic checks from 10, and on every save against magic from 14.",
+    invocations:"Its own list: Dragon Eyes, Dragonmind Scales, Emanation Spear, Enhanced Claws, Mantle of Immunity, Tools of the Patron."
+  },
+  features:[
+    {lvl:"Level 1",name:"Ancient Claws",body:"<p>An action makes half your {{proficiencybonus|proficiency bonus}} in melee spell attacks within 10 feet, each dealing 1d10 slashing plus mantle damage equal to your Charisma modifier or half your Warlock level, whichever is higher, all magical. A {{bonusaction}} makes one instead — never both in a turn.</p>"},
+    {lvl:"Level 1",name:"Mantle of Inheritance",body:"<p>Your patron's colour sets a mantle type — acid, cold, fire, force, lightning, necrotic, poison, psychic, radiant or thunder. You gain {{resistance}} to it, add 1d10 of it on any {{criticalhit|critical hit}}, and may recolour <em>eldritch blast</em> to it.</p>"},
+    {lvl:"Level 6",name:"Eidolic Emanation",body:"<p>An action fires a cone, a 5-foot-wide line, or a sphere within 120 feet, each sized at 5 feet × your Warlock level and shortenable in 5-foot steps. Dexterity {{savingthrow|save}} against your {{spellsavedc|spell save DC}} for 2d6 × your {{proficiencybonus|proficiency bonus}} of eidolic mantle damage, half on a success. Once per {{shortrest|short}} or {{longrest|long rest}}, then for a {{spellslot|spell slot}} each time.</p>"},
+    {lvl:"Level 10",name:"Eidolic Pact",body:"<p>Eidomancy spells count as Warlock spells for you. Casting them with {{pactspellslots|pact slots}} needs no eidomantic check, and you have {{advantage}} on the ones you do make.</p>"},
+    {lvl:"Level 14",name:"Magic Resistance",body:"<p>{{advantage|Advantage}} on {{savingthrow|saves}} against spells and magical effects.</p>"},
+    {lvl:"Level 14",name:"Uncanny Inheritance",body:"<p>Your mantle damage ignores {{resistance}} outright, and {{immunity|immunity}} to it only halves the damage instead of stopping it.</p>"}
+  ]};
+
+ENTRIES["wl-gorgon"] = { cls:"warlock", nav:"Gorgon", navSub:"Levels 1 · 6 · 10 · 14", kicker:"Warlock patron · homebrew",
+  name:"Gorgon",
+  tag:"Petrification, slowly, and skin that traps weapons",
+  flavor:"Gorgons were once the summit of wisdom and beauty and are now reclusive monsters collecting worshippers to feed an ancient ego. They hand out power freely to anyone who will serve, and what they hand out is stone.",
+  src:"Lyre's Guide to Retia, pp. 496–497",
+  mods:{
+    blindsight:"Out to 10 feet × your proficiency bonus from level 1, which is how a gorgon's servant sees without looking.",
+    armorclass:"Two Path options touch it, and Stone Mask Shield blunts damage regardless of it.",
+    reaction:"Stone Mask Shield soaks 1d10 + Warlock level; Stone Fibre Patchtrap swallows the weapon that hit you.",
+    restrained:"A creature whose weapon is caught in your skin is restrained by you until it lets go or breaks free.",
+    invocations:"Its own list: Gaze of Influence, Grounded Stand, Legendary Health, Split Path of Hardening, Stone Cells, Tremorsense.",
+    tremorsense:"Available at 9th level through the Tremorsense invocation, out to 10 × proficiency bonus feet."
+  },
+  features:[
+    {lvl:"Level 1",name:"Gifts of the Gorgon",body:"<p>{{blindsight|Blindsight}} out to 10 feet × your {{proficiencybonus|proficiency bonus}}, and Stealth — or, if you have it, any other Dexterity or Charisma skill.</p>"},
+    {lvl:"Level 1",name:"Stone Mask Shield",body:"<p>A {{reaction}} hardens your skin against one instance of damage, reducing it by 1d10 + your Warlock level. Uses equal your {{proficiencybonus|proficiency bonus}} per {{longrest|long rest}}.</p>"},
+    {lvl:"Level 6",name:"Path of Hardening",body:"<p>Pick one, permanently:</p><ul><li><b>Crystakinetic Enchantment</b> — a {{bonusaction}} petrifies your weapon into enchanted quartz until end of turn: magical, using your spellcasting modifier, plus half your {{proficiencybonus|proficiency bonus}} to hit. Twice per rest, a third use at 10 and a fourth at 15.</li><li><b>Crystal Pattern Hide</b> — unarmoured {{armorclass|AC}} of 10 + Dexterity + Constitution, and while using it, physical damage is reduced by half your Warlock level.</li><li><b>Quartz Endurance</b> — once per {{longrest|long rest}}, dropping to 0 leaves you at half your Warlock level instead, with your spellcasting modifier added to {{armorclass|AC}} until your next turn.</li></ul>"},
+    {lvl:"Level 10",name:"Curse of Petrification",body:"<p>An action turns your patron's eyes on up to <em>{{proficiencybonus|proficiency bonus}}</em> creatures within 60 feet that can see you. Constitution {{savingthrow|save}} or: {{speed}} down 10 feet, no {{reaction|reactions}}, only an action or a {{bonusaction}} each turn but not both, and {{disadvantage}} on every attack after the first.</p><p>Repeat saves at end of turn; each failure drops their speed another 10 feet, a natural 1 counts as two failures, and three failures with 0 speed means petrified outright. Once per {{longrest|long rest}}.</p>"},
+    {lvl:"Level 14",name:"Stone Fibre Patchtrap",body:"<p>A {{reaction}} to a melee hit from within 5 feet: Strength {{savingthrow|save}} or the weapon is caught in your hardened skin. While holding it the attacker is {{restrained}} by you and cannot attack with it; letting go frees them, otherwise it takes an action and a Strength {{abilitycheck|check}} against your {{spellsavedc|spell save DC}}. You cannot leave them while you hold it, but you can move alongside them.</p>"}
+  ]};
+
+ENTRIES["wl-gunghuth"] = { cls:"warlock", nav:"Gun Ghuth", navSub:"Levels 1 · 6 · 10 · 14", kicker:"Warlock patron · homebrew",
+  name:"Gun Ghuth",
+  tag:"An arcane internship, with the paperwork filed",
+  flavor:"Tribunal-approved aides to the Masters of the College of Gun Ghuth, working as scouts, guards and assistants in exchange for power. The relationship is frankly transactional, and a fair few of them are people who could not hack it as full students.",
+  src:"Lyre's Guide to Retia, p. 498",
+  mods:{
+    pactspellslots:"Curriculum Spell casts off the expanded list for free, and an invocation adds a whole extra slot.",
+    antimagic:"Protected Craft gives dispel and counterspell attempts disadvantage, and blocks automatic successes.",
+    mysticarcanum:"At 14 you draw them from the Sorcerer or Wizard list, and may swap your existing ones over.",
+    temporaryhp:"Eldritch Tutor spreads 1d10 + the spell's level to you and proficiency bonus allies on every slot you spend.",
+    reaction:"Neutralizing Hex converts a failed save against magic into a success, twice per rest.",
+    invocations:"Its own list: Extra Credit Training, Graduated Caster, Guardian Training, Passing Grade, School of Specialization, Thesis Spells."
+  },
+  features:[
+    {lvl:"Level 1",name:"Curriculum Spell",body:"<p>Once per {{longrest|long rest}}, cast any spell on the Gun Ghuth expanded list whether or not you know it, with no {{spellslot|slot}}, as if from a {{pactspellslots|pact slot}} — provided yours reach that level.</p>"},
+    {lvl:"Level 1",name:"Protected Craft",body:"<p>{{abilitycheck|Checks}} made to end or dispel your spells — <em>dispel magic</em>, <em>counterspell</em>, <em>vanquish magic</em> — are rolled with {{disadvantage}}, and {{antimagic|anything that would succeed automatically}} at its cast level treats your spell as too high for that.</p>"},
+    {lvl:"Level 6",name:"Stinging Spell",body:"<p>Casting from a {{pactspellslots|pact slot}} lets you fire a 1-action {{cantrip}} as a {{bonusaction}}.</p>"},
+    {lvl:"Level 10",name:"Eldritch Tutor",body:"<p>Casting from a {{spellslot|slot}} gives you and <em>{{proficiencybonus|proficiency bonus}}</em> creatures within 30 feet {{temporaryhp|temporary hit points}} equal to 1d10 + the spell's level.</p>"},
+    {lvl:"Level 14",name:"Master Signature",body:"<p>Pick Sorcerer or Wizard: your {{mysticarcanum|Mystic Arcanum}} spells may come from that list, and you may swap each existing one for a same-level option now.</p>"},
+    {lvl:"Level 14",name:"Neutralizing Hex",body:"<p>A {{reaction}} turns a failed {{savingthrow|save}} against a spell or magical effect into a success — and where success would mean half damage, you take none, with half on a failure. Twice per {{shortrest|short}} or {{longrest|long rest}}.</p>"}
+  ]};
+
+ENTRIES["wl-paleshadow"] = { cls:"warlock", nav:"Pale Shadow", navSub:"Levels 1 · 6 · 10 · 14", kicker:"Warlock patron · homebrew",
+  name:"Pale Shadow",
+  tag:"Extreme moments crystallised and spent later",
+  flavor:"White shadows of Mnemosyne walk the amniatic miasma collecting memories and steering mecite animations. Occasionally one of those networks wants something outside itself and offers a mortal power in exchange.",
+  src:"Lyre's Guide to Retia, pp. 499–500",
+  mods:{
+    d20test:"Every natural 1 and 20 you roll crystallises into a Mecite Recall you can spend for a second d20 later.",
+    expertise:"Perception and Investigation both, at level 6, along with never being surprised.",
+    stunned:"Intrusive Thought stuns for a minute and reads one implanted question out of the victim's mind.",
+    pactspellslots:"Memoriacraft casts a chosen 5th-level-or-lower spell as if from one without spending it.",
+    invocations:"Its own list: Dreamstep, Enhanced Mecite Weapon, Experience Referral, Ingrained Recall, Memetic Arcanum."
+  },
+  features:[
+    {lvl:"Level 1",name:"Mecite Recall",body:"<p>Every natural 1 or 20 on a {{d20test|d20 test}} becomes a crystal — up to your {{proficiencybonus|proficiency bonus}} at a time, cleared on a {{longrest|long rest}}. Spend one to roll a second d20 on any test and take it instead, declared before the outcome is known.</p>"},
+    {lvl:"Level 6",name:"Waking Dreamwatcher",body:"<p>Your mind never fully rests — you cannot be surprised, you stay aware of your surroundings while asleep, and you gain proficiency and {{expertise|Expertise}} in Perception and Investigation.</p>"},
+    {lvl:"Level 10",name:"Memoriacraft",body:"<p>Pick any Warlock spell of 5th level or lower, learned or not — or one from another spellcasting class you have multiclassed into. Once per {{shortrest|short}} or {{longrest|long rest}} cast it as if from a {{pactspellslots|pact slot}} without spending one. Repick each Warlock level.</p>"},
+    {lvl:"Level 14",name:"Intrusive Thought",body:"<p>An action against a creature within 60 feet: Intelligence {{savingthrow|save}} or {{stunned}} for a minute while you plant one thought or question and watch its mind answer — the GM describes the short vision that comes back. Repeat saves at end of turn. Once per {{shortrest|short}} or {{longrest|long rest}}, then for a {{pactspellslots|pact slot}} or 3 Mecite Recalls.</p>"}
+  ]};
+
+ENTRIES["wl-temptation"] = { cls:"warlock", nav:"Temptation", navSub:"Levels 1 · 6 · 10 · 14", kicker:"Warlock patron · homebrew",
+  name:"Temptation",
+  tag:"Charm as the weapon, and the attack sent somewhere else",
+  flavor:"A pact with something defined by desire — a succubus, a covetous angel, a powerful spirit. These Warlocks work through natural charm with a magical thumb on the scale, and eventually nobody can bring themselves to swing at them properly.",
+  src:"Lyre's Guide to Retia, pp. 501–502",
+  mods:{
+    charmed:"A charmed target has to save even to register the Kiss of Death as hostile.",
+    temporaryhp:"Half the psychic damage a Kiss of Death deals, which scales with your proficiency bonus.",
+    reaction:"Galvanizing Ego redirects an attack aimed at you, possibly teleporting the attacker to reach its new target.",
+    flyspeed:"Unimpeded Approach grants one a round at a time, and leaving a creature's space stops provoking.",
+    opportunityattack:"Winged movement out of a creature's space no longer provokes them.",
+    invocations:"Its own list: Agent of No Invitation, Blinded in Hubris, Compulsive Behavior, Egobuster, Telepathic Hotline."
+  },
+  features:[
+    {lvl:"Level 1",name:"Shifting Canvas",body:"<p><em>Alter self</em> and <em>disguise self</em> at will, with no {{spellslot|slots}} or materials, as Warlock spells.</p>"},
+    {lvl:"Level 6",name:"Kiss of Death",body:"<p>A {{bonusaction}} melee spell attack within 5 feet, dressed as a caress: 1d10 × your {{proficiencybonus|proficiency bonus}} psychic damage, and {{temporaryhp|temporary hit points}} equal to half of it. A target {{charmed}} by you must pass a Charisma {{savingthrow|save}} even to read it as hostile. Twice per {{longrest|long rest}}, plus one more at 12 and at 17.</p>"},
+    {lvl:"Level 10",name:"Unimpeded Approach",body:"<p>A {{bonusaction}} summons wings for a {{flyspeed|fly speed}} equal to your walking {{speed}} until your next turn, renewable with another bonus action. Leaving a creature's space on them provokes no {{opportunityattack|opportunity attacks}}.</p>"},
+    {lvl:"Level 14",name:"Galvanizing Ego",body:"<p>A {{reaction}} before an attack from within 30 feet resolves: Charisma {{savingthrow|save}} or the attack is redirected at someone else within 30 feet of you — {{teleport|teleporting}} the attacker into reach if necessary — and they reroll the {{d20test|d20}}. Half your {{proficiencybonus|proficiency bonus}} uses per {{longrest|long rest}}, then for a {{pactspellslots|pact slot}}.</p>"}
+  ]};
+
+ENTRIES["wl-valkyrie"] = { cls:"warlock", nav:"Valkyrie", navSub:"Levels 1 · 6 · 10 · 14", kicker:"Warlock patron · homebrew",
+  name:"Valkyrie",
+  tag:"Read the next few seconds and hold them to it",
+  flavor:"Agents of the nephilim Valkyries: combat-first Warlocks who use time magic to look a little way ahead and act on what they find. Nothing slows them down, and nothing they have already seen surprises them.",
+  src:"Lyre's Guide to Retia, pp. 503–504",
+  mods:{
+    blindsight:"Out to 10 feet × your proficiency bonus, alongside a proficiency-bonus boost to passive Perception.",
+    speed:"Undialable: 5 feet of movement escapes any grapple or restraint, and nothing can slow you without stopping you.",
+    grappled:"Spend 5 feet of movement and you are out, whatever held you.",
+    extraattack:"Blessing of Time's Daughter grants one for its minute; the Master of Arms invocation grants another.",
+    advantage:"On all weapon attacks and on saves against magic, for the minute the Blessing lasts.",
+    invocations:"Its own list: Bizarre Recall, Chronocast, Chronomastery, Faithful Weapon, Master of Arms, Prismatic Wings, Rite of Insistence."
+  },
+  features:[
+    {lvl:"Level 1",name:"Peacekeeper's Preparations",body:"<p>{{blindsight|Blindsight}} out to 10 feet × your {{proficiencybonus|proficiency bonus}}, Insight proficiency, and your proficiency bonus added to passive Perception if nothing else is already doing that.</p>"},
+    {lvl:"Level 1",name:"Valkyrian Proficiencies",body:"<p>Medium armour and three martial weapons.</p>"},
+    {lvl:"Level 6",name:"Undialable",body:"<p><em>Slow</em> does not touch you and <em>haste</em> has no comedown. Five feet of movement escapes any {{grappled|grapple}} or {{restrained|restraint}}, and nothing can reduce your {{speed}} without reducing it to 0. If a hostile creature freezes time to take extra turns, you act through it as though the spell were yours too.</p>"},
+    {lvl:"Level 10",name:"Mystic Forward",body:"<p>A {{bonusaction}} reads one creature's near future within 60 feet: Charisma {{savingthrow|save}} or it must declare its actions, bonus actions and movement before your next turn. Deviating movement costs double, and every roll inconsistent with the declaration has {{disadvantage}} — including reacting to something it could not have known about. An undeclared spell gives its targets {{advantage}} on their saves and {{abilitycheck|checks}}.</p><p>The use is only spent when the save fails. Once per {{shortrest|short}} or {{longrest|long rest}}, then for a {{pactspellslots|pact slot}} — also only spent on a failure.</p>"},
+    {lvl:"Level 14",name:"Blessing of Time's Daughter",body:"<p>A {{bonusaction}} takes on the Valkyries' talents for a minute: {{temporaryhp|temporary hit points}} equal to 1d10 + your Warlock level, {{advantage}} on all weapon attacks, one {{extraattack|extra attack}} with a weapon you are proficient with, and {{advantage}} on {{savingthrow|saves}} against magical effects. Once per {{longrest|long rest}}.</p>"}
+  ]};
+
+/* ----------------------------------- Wizard ------------------------------ */
+
+ENTRIES["wi-armedarcanist"] = { cls:"wizard", nav:"Armed Arcanist", navSub:"Levels 2 · 6 · 10 · 14", kicker:"Wizard school · homebrew",
+  name:"Armed Arcanist",
+  tag:"A spellsword who can actually hold the line",
+  flavor:"Wizards who took up the sword alongside the spellbook. They will never match a dedicated duellist, but they keep up with one — which is enough to stop being a studious target standing at the back.",
+  src:"Lyre's Guide to Retia, p. 507",
+  mods:{
+    concentration:"Deft Focus turns a failed check into a success as a reaction, for anything targeting or affecting you.",
+    extraattack:"You get it at level 10 — on a Wizard.",
+    armorclass:"Mental Armor adds Intelligence to it outside heavy armour.",
+    spellslot:"Rich Metalcraft burns one for slot-level d8s of force damage on a weapon hit, once a turn.",
+    hitpoints:"Your maximum goes up by 2 at once and by 1 more every Wizard level.",
+    bonusaction:"Tempest Spellcraft casts a 1-action Wizard spell with it, whenever you take the Attack action."
+  },
+  features:[
+    {lvl:"Level 2",name:"Proficiencies of the Spellsword",body:"<p>Light and medium armour and all simple and martial weapons. Your maximum {{hitpoints|hit points}} rise by 2 now, and by 1 more each Wizard level.</p>"},
+    {lvl:"Level 2",name:"Tempest Spellcraft",body:"<p>Taking the Attack action lets you spend a {{bonusaction}} casting a 1-action Wizard spell. If the weapon's range beats the spell's, the spell borrows it — for targeting and for where you place a cone, cube, cylinder or radius, not for the size of the area.</p>"},
+    {lvl:"Level 6",name:"Deft Focus",body:"<p>A {{reaction}} turns a failed {{concentration}} check into a success, for any effect targeting or affecting you.</p>"},
+    {lvl:"Level 6",name:"Rich Metalcraft",body:"<p>Your weapon attacks are always magical. Once a turn, a hit with a weapon you are proficient with can burn a {{spellslot|spell slot}} for slot-level d8s of force damage — not stackable with a smite or anything else that spends a slot for damage dice.</p>"},
+    {lvl:"Level 10",name:"Bonus Save Proficiency",body:"<p>Strength, Dexterity or Constitution {{savingthrow|saves}}, your pick.</p>"},
+    {lvl:"Level 10",name:"Extra Attack",body:"<p>{{extraattack|Attack twice}} when you take the Attack action.</p>"},
+    {lvl:"Level 14",name:"Mental Armor",body:"<p>Outside heavy armour and while not {{incapacitated}}, add your Intelligence modifier to {{armorclass|AC}}.</p>"}
+  ]};
+
+ENTRIES["wi-eidomancer"] = { cls:"wizard", nav:"Eidomancer", navSub:"Levels 2 · 6 · 10 · 14", kicker:"Wizard school · homebrew",
+  name:"Eidomancer",
+  tag:"Magic without the safety rails, and it burns",
+  flavor:"Eidomancy is what mortals had before the eidomantic web made spellcasting safe — raw Age of Sunderance radiation, channelled without filters. It hits harder and it backfires. Rare enough that most who learn it never understand what they are doing.",
+  src:"Lyre's Guide to Retia, pp. 507–508",
+  mods:{
+    exhaustion:"Master Eidomancer swaps it for a point of Combat Fatigue on a failed burn check.",
+    spellbook:"Eidomancy spells cost half the gold and time to copy in.",
+    spellslot:"Unlimited Arcana casts a spell a level higher than the slot spent — two higher at 14 — at the price of a burn check.",
+    preparedspells:"Radiant Preparation adds proficiency bonus more, so long as they are eidomancy.",
+    resistance:"Eidolic Saturation makes all your spell damage eidolic, so most resistances stop applying.",
+    advantage:"Creatures with advantage on saves against magic lose it against your spells, unless it names eidolic ones."
+  },
+  features:[
+    {lvl:"Level 2",name:"Eidolic Burn Resilience",body:"<p>Add your Intelligence modifier to eidomancy burn checks.</p>"},
+    {lvl:"Level 2",name:"Eidomancy Savant",body:"<p>Learn spells from the Eidomancy group as Wizard spells, at half the usual gold and time to copy into your {{spellbook|spellbook}}. A spell in several groups may need a teacher or a sighting first.</p>"},
+    {lvl:"Level 6",name:"Unlimited Arcana",body:"<p>Casting a non-eidomancy spell with a {{spellslot|slot}} can treat it as eidomancy and raise its effective level by one — two at level 14 — without spending a bigger slot, up to 9th. The spell becomes eidomancy and forces a burn check at DC 10 + the raised level. Uses equal your {{proficiencybonus|proficiency bonus}} per {{longrest|long rest}}.</p>"},
+    {lvl:"Level 10",name:"Eidolic Saturation",body:"<p>All your spell damage counts as eidolic for beating {{resistance}}, and creatures whose {{advantage}} on saves covers spells but not eidolic effects lose it against you. Deities and anything that deals eidolic damage natively are exempt.</p>"},
+    {lvl:"Level 10",name:"Radiant Preparation",body:"<p>Prepare <em>{{proficiencybonus|proficiency bonus}}</em> extra {{preparedspells|spells}}, all eidomancy.</p>"},
+    {lvl:"Level 14",name:"Master Eidomancer",body:"<p>Burn-check DCs stop climbing with rounds of {{concentration}}, and failing one costs a point of Combat Fatigue rather than {{exhaustion}}.</p>"}
+  ]};
+
+ENTRIES["wi-ghuthian"] = { cls:"wizard", nav:"Ghuthian Associate", navSub:"Levels 2 · 6 · 10 · 14", kicker:"Wizard school · homebrew",
+  name:"Ghuthian Associate",
+  tag:"Faculty support staff, angling for a Mastership",
+  flavor:"Associates run Masters' classes, private work and errands at the College of Gun Ghuth, hoping the work ethic gets noticed. What the faculty teach them in return is efficiency: cheaper, more practical, better recovered.",
+  src:"Lyre's Guide to Retia, p. 508",
+  mods:{
+    arcanerecovery:"Greater Arcane Recovery raises the recoverable total by half your proficiency bonus.",
+    cantrip:"One extra from any list, free of your Wizard count and treated as a Wizard spell.",
+    preparedspells:"Word of recall, teleportation circle and sword of the archmage are all always prepared and outside your limit.",
+    teleport:"At 10 you hold word of recall and teleportation circle permanently, with a free casting of each per rest.",
+    ritual:"Making a teleportation circle permanent takes a week of daily castings rather than a year."
+  },
+  features:[
+    {lvl:"Level 2",name:"Excellent Training",body:"<p>One extra {{cantrip}} from any list, outside your Wizard count and Wizard for you.</p>"},
+    {lvl:"Level 2",name:"Greater Arcane Recovery",body:"<p>{{arcanerecovery|Arcane Recovery}} returns half your {{proficiencybonus|proficiency bonus}} more in combined {{spellslot|slot}} levels.</p>"},
+    {lvl:"Level 6",name:"Fiscal Application",body:"<p>Half your Wizard level in uses per {{longrest|long rest}}. Spend as many as the component's gp cost divided by 250 and the material component is simply not needed.</p>"},
+    {lvl:"Level 10",name:"Teleportation Network",body:"<p><em>Word of recall</em> and <em>teleportation circle</em>, always {{preparedspells|prepared}}, outside your limit, and free once each per {{longrest|long rest}}. <em>Word of recall</em> can {{teleport}} you to any circle whose sigils you know, or any temple of a deity whose portfolio covers magic. A permanent circle takes a week of daily castings, not longer.</p>"},
+    {lvl:"Level 14",name:"Master's Spectral Sword",body:"<p><em>Sword of the archmage</em>, always {{preparedspells|prepared}}, outside your limit, and free once per {{longrest|long rest}}. Cast free, you may use your action each turn for extra attacks as well as your {{bonusaction}} — and taking hold of it against a creature within 5 feet adds a d10 to each hit.</p>"}
+  ]};
+
+ENTRIES["wi-specialist"] = { cls:"wizard", nav:"Specialist", navSub:"Levels 2 · 6 · 10 · 14", kicker:"Wizard school · homebrew",
+  name:"Specialist",
+  tag:"One spell group, known down to its founders",
+  flavor:"Wizards who pick a spell group and learn everything about it — who wrote it, what rituals underlie it, which techniques it shares. The understanding gets deep enough that they cast from memory and shave complexity off as they go.",
+  src:"Lyre's Guide to Retia, p. 509",
+  mods:{
+    preparedspells:"Favorite Subjects keeps half your proficiency bonus of specialist spells permanently prepared, outside your count.",
+    spellbook:"Spells from your group cost half the time and gold to copy in.",
+    spellslot:"Fruits of my Labor casts your specialist spells at 3rd level minimum or one level higher, and can refund a slot.",
+    expertise:"History and Investigation, if you already had proficiency in them.",
+    ritual:"Talented Recall runs arcane lucubration once per long rest at your proficiency bonus as its level."
+  },
+  features:[
+    {lvl:"Level 2",name:"Bonus Proficiencies",body:"<p>History and Investigation — or {{expertise|Expertise}} in whichever of them you already had.</p>"},
+    {lvl:"Level 2",name:"Specialization",body:"<p>Pick one spell group. Its spells count as Wizard spells when you learn new ones, and copying them into your {{spellbook|spellbook}} takes half the usual time and gold.</p>"},
+    {lvl:"Level 6",name:"Favorite Subjects",body:"<p>Half your {{proficiencybonus|proficiency bonus}} of your specialist spells are always {{preparedspells|prepared}} and do not count against your limit. Swap one each Wizard level, and top the list up whenever your proficiency bonus rises.</p>"},
+    {lvl:"Level 10",name:"Talented Recall",body:"<p>Once per {{longrest|long rest}}, cast <em>arcane lucubration</em> with no {{spellslot|slot}} at a level equal to your {{proficiencybonus|proficiency bonus}}.</p>"},
+    {lvl:"Level 14",name:"Fruits of my Labor",body:"<p>Specialist spells are either cast as though from a 3rd-level {{spellslot|slot}} whatever you actually spent, or one level higher than the slot used, up to 9th.</p><p>After one of 8th level or lower, roll 1d100: at or under 20 minus the spell's level you gain a Wizard slot of half the level you spent, which lasts until your next {{longrest|long rest}}.</p>"}
+  ]};
+
+ENTRIES["wi-vestianadvocate"] = { cls:"wizard", nav:"Vestian Advocate", navSub:"Levels 2 · 6 · 10 · 14", kicker:"Wizard school · homebrew",
+  name:"Vestian Advocate",
+  tag:"A Wizard trying very hard to be a Sorcerer",
+  flavor:"Study of Vestias's forbidden magic in an attempt to understand innate power and copy it. Without an origin to draw on, a Wizard never quite gets there — but enriching the blood and catching the magical energy their craft normally wastes gets close. Deeply taboo among anyone who fears sorcery.",
+  src:"Lyre's Guide to Retia, pp. 509–510",
+  mods:{
+    spellbook:"Sorcerer spells can be copied in, at half the gold and time, and count as Wizard spells.",
+    temporaryhp:"Sky-Keeper's Ward is five times your Wizard level of them, and it is also a weapon.",
+    armorclass:"While the ward holds, it and your saves gain half your proficiency bonus.",
+    reaction:"Halve the ward to return that many points as lightning damage — and at 14 it stops costing the halving.",
+    teleport:"Gatestepping turns leftover energy from a 5th-level spell into a teleport speed for a round.",
+    spellslot:"At 14 a bonus action and a slot refills the ward by five times the slot's level."
+  },
+  features:[
+    {lvl:"Level 2",name:"Empowered Magical Blood",body:"<p>The first creature a Wizard spell of yours damages takes your Charisma modifier on top. A spell hitting several picks <em>{{proficiencybonus|proficiency bonus}}</em> of them, declared before rolling.</p>"},
+    {lvl:"Level 2",name:"Sorcery Savant",body:"<p>Each level, one of your new spells may come from the Sorcerer list as a Wizard spell, and Sorcerer scrolls copy into your {{spellbook|spellbook}} at half the gold and time.</p>"},
+    {lvl:"Level 6",name:"Sky-Keeper's Ward",body:"<p>Once per {{longrest|long rest}}, an action raises a ward worth five times your Wizard level in {{temporaryhp|temporary hit points}}, adding half your {{proficiencybonus|proficiency bonus}} to your {{armorclass|AC}} and {{savingthrow|saves}} while it holds. Before an attack from within 10 feet deals damage, a {{reaction}} halves the ward and deals its pre-halving value in lightning to the attacker.</p>"},
+    {lvl:"Level 10",name:"Gatestepping",body:"<p>Casting a spell of 5th level or higher gives you a {{teleport}} speed equal to your walking {{speed}} until your next turn.</p>"},
+    {lvl:"Level 14",name:"Empowered Ward",body:"<p>The ward's {{reaction}} no longer halves it, and a {{bonusaction}} plus a {{spellslot|spell slot}} restores five times the slot's level in {{temporaryhp|temporary hit points}}, up to its original size.</p>"}
+  ]};
+
+/* ------------------------- sidebar wiring & fixes ------------------------ */
+
+/* Each official class gets one collapsed homebrew group per book. The groups
+   already present for Monk, Rogue and Bard are replaced so the new Retia pages
+   join them rather than sitting in a second group of their own. */
+CLASSES.barbarian.groups.push({ homebrew:true, label:"Homebrew paths (Retia)",
+  keys:["b-mortuous","b-gladiator","b-grandstander","b-obsidian"] });
+CLASSES.bard.groups[2] = { homebrew:true, label:"Homebrew colleges (Retia)",
+  keys:["bd-divineminstral","bd-oldworld","bd-terpsichore","bd-gambler","bd-wilderudite"] };
+CLASSES.cleric.groups.push({ homebrew:true, label:"Homebrew domains (Retia)",
+  keys:["cl-ages","cl-bardbeloved","cl-chaos","cl-dawnwatcher","cl-forbiddance","cl-honor","cl-music","cl-record","cl-resplendent","cl-sorcery"] });
+CLASSES.druid.groups.push({ homebrew:true, label:"Homebrew circles (Retia)",
+  keys:["dr-deadwood","dr-radiation","dr-shadows","dr-primevalglade"] });
+CLASSES.fighter.groups.push({ homebrew:true, label:"Homebrew subclasses (Retia)",
+  keys:["fi-academyagent","fi-brawler","fi-chaosblade","fi-guardian","fi-redlion"] });
+CLASSES.monk.groups[2] = { homebrew:true, label:"Homebrew subclasses (Retia)",
+  keys:["mo-belovedtribute","mo-brokenchain","mo-convergentsoul","mo-deep","mo-freezingsoul"] };
+CLASSES.paladin.groups.push({ homebrew:true, label:"Homebrew oaths (Retia)",
+  keys:["pa-preservation","pa-remembrance","pa-sacrifice","pa-sorcery","pa-dawn"] });
+CLASSES.rogue.groups[2] = { homebrew:true, label:"Homebrew subclasses (Retia)",
+  keys:["ro-academyduller","ro-deadshot","ro-dregletter","ro-potentialchainer","ro-versatilebeast","ro-vigilante"] };
+CLASSES.sorcerer.groups.push({ homebrew:true, label:"Homebrew origins (Retia)",
+  keys:["so-crystalbearer","so-eidoliccosmologus","so-freezingtorment","so-phantomsoul","so-vestianinheritor","so-witchcraft"] });
+CLASSES.warlock.groups.push({ homebrew:true, label:"Homebrew patrons (Retia)",
+  keys:["wl-damocles","wl-falsegod","wl-feathereddragon","wl-gorgon","wl-gunghuth","wl-paleshadow","wl-temptation","wl-valkyrie"] });
+CLASSES.wizard.groups.push({ homebrew:true, label:"Homebrew traditions (Retia)",
+  keys:["wi-armedarcanist","wi-eidomancer","wi-ghuthian","wi-specialist","wi-vestianadvocate"] });
+
+/* The six Retia pages added earlier cited page numbers taken from a text dump
+   whose pagination did not match the book. Corrected against the PDF. */
+ENTRIES["mo-brokenchain"].src = "Lyre's Guide to Retia, p. 465";
+ENTRIES["mo-deep"].src        = "Lyre's Guide to Retia, p. 466";
+ENTRIES["mo-freezingsoul"].src= "Lyre's Guide to Retia, p. 467";
+ENTRIES["ro-deadshot"].src    = "Lyre's Guide to Retia, p. 476";
+ENTRIES["ro-versatilebeast"].src = "Lyre's Guide to Retia, p. 478";
+ENTRIES["bd-wilderudite"].src = "Lyre's Guide to Retia, pp. 437–438";
+
+/* ============================================================================
+   Kibbles' Compendium of Legends and Legacies — subclasses for the twelve
+   official classes, plus the Psion's eighth archetype. Appended after the Retia
+   block; page numbers are the printed page, which matches the PDF page here.
+   ========================================================================= */
+
+/* ---------------------------------- Barbarian ---------------------------- */
+
+ENTRIES["b-bladestorm"] = { cls:"barbarian", nav:"Path of the Bladestorm", navSub:"Levels 3 · 6 · 10 · 14", kicker:"Barbarian path · homebrew",
+  name:"Path of the Bladestorm",
+  tag:"Throw the knife, leave it spinning, throw another",
+  flavor:"A Barbarian who fights by letting go of the weapon. Thrown blades hang in the air where they landed, still furious, and come back to hand when called — until the whole armoury goes into a vortex around you.",
+  src:"Kibbles' Legends and Legacies, pp. 102–103",
+  mods:{
+    rage:"Everything keys off it: weapons only animate while you rage, and the Bladestorm is once per rage.",
+    ragedamage:"It applies to thrown weapons too, which it normally does not.",
+    recklessattack:"Usable on ranged attacks with light melee weapons — normally a melee-only feature.",
+    reaction:"A whirling weapon gives you an opportunity attack against anything leaving its reach.",
+    opportunityattack:"Whirling blades make them for you, though only one per round since it spends your reaction.",
+    bonusaction:"Calls loose weapons to your hands from 20 feet, or 60 from level 10."
+  },
+  features:[
+    {lvl:"Level 3",name:"Walking Armory",body:"<p>Light melee weapons gain thrown (20/60) for you unless they already throw further. Throwing also lets you draw a weapon — before the throw or immediately after it.</p>"},
+    {lvl:"Level 3",name:"Furious Hurl",body:"<p>Add your {{ragedamage|Rage damage bonus}} to thrown weapon damage, use {{recklessattack|Reckless Attack}} on ranged attacks with light melee weapons, and stop taking {{disadvantage}} for shooting next to an enemy.</p>"},
+    {lvl:"Level 6",name:"Whirling Death",body:"<p>A weapon thrown while {{rage|raging}} stays spinning where it landed until the end of your next turn, attacking the first hostile creature to end its turn within 5 feet using the modifiers you threw it with — once per turn per creature, so a miss can be followed by a second swing but a hit cannot.</p><p>You can also spend a {{reaction}} on an {{opportunityattack|opportunity attack}} with any animated weapon something walks away from.</p>"},
+    {lvl:"Level 6",name:"Endless Blades",body:"<p>While {{rage|raging}}, any unattended weapon within 20 feet is yours: a {{bonusaction}} calls one or more into your open hands. Thrown blades also count as magical.</p>"},
+    {lvl:"Level 10",name:"Winds of Rage",body:"<p>You learn <em>manipulate wind</em> and can cast it as a {{bonusaction}} while {{rage|raging}}. Endless Blades reaches 60 feet.</p>"},
+    {lvl:"Level 14",name:"Bladestorm",body:"<p>An action while {{rage|raging}} flings two light melee weapons and pulls in every blade already animated by Whirling Death. Creatures you choose within 20 feet make a Dexterity {{savingthrow|save}} (DC 8 + {{proficiencybonus|proficiency bonus}} + Strength) for 3d6 + Strength + {{ragedamage|Rage damage}}, plus 1d6 per Whirling Death weapon up to +3d6, half on a success.</p><p>Spend your action on later turns to keep it spinning, for up to Strength-modifier turns. Once per rage; the weapons drop around you when it ends.</p>"}
+  ]};
+
+ENTRIES["b-lldragon"] = { cls:"barbarian", nav:"Path of the Dragon", navSub:"Levels 3 · 6 · 10 · 14", kicker:"Barbarian path · homebrew",
+  name:"Path of the Dragon",
+  tag:"Claws, a breath weapon, and eventually the whole dragon",
+  flavor:"The oldest primal rage there is. Some say the path was born when mortals caught the rage of dragons as it swept the world; others insist you need the blood. Either way the result is worth fearing, and it tends toward chaos.",
+  src:"Kibbles' Legends and Legacies, pp. 103–105",
+  mods:{
+    rage:"Raging is what grows the claws, recolours your damage and, at 14, turns you into a dragon.",
+    ragedamage:"Retyped to your colour's element for the duration.",
+    resistance:"Your colour's element while raging, and physical plus elemental at all times from level 10.",
+    unarmedstrike:"Claws 1d4, fangs 1d8, tail 1d6 with reach — and a free bonus-action claw when empty-handed.",
+    bonusaction:"One claw strike per turn after an Attack action, if you carry no weapon or shield.",
+    flyspeed:"From 14, raging sprouts wings — walking speed in the air, out of heavy armour."
+  },
+  features:[
+    {lvl:"Level 3",name:"Draconic Wrath",body:"<p>Pick a colour — black (acid), blue (lightning), green (poison), red (fire), white (cold). {{rage|Raging}} lets you retype your {{ragedamage|Rage damage}} to it and grants {{resistance}} to it.</p><p>Raging also grows natural weapons: claws for 1d4 slashing, fangs for 1d8 piercing, a tail for 1d6 bludgeoning with reach. Attacking with one while carrying no weapon or shield buys a claw {{unarmedstrike|strike}} as a {{bonusaction}}.</p>"},
+    {lvl:"Level 6",name:"Unleashed Savagery",body:"<p>Once per {{rage|rage}}, one attack from your Attack action becomes a breath weapon: a 15-foot cone, Dexterity {{savingthrow|save}} at DC 8 + {{proficiencybonus|proficiency bonus}} + Strength, 6d6 of your element. It grows to 8d6 in 30 feet at level 10, 10d6 in 45 at 14, and 12d6 in 60 at 18.</p>"},
+    {lvl:"Level 6",name:"Primal Weapons",body:"<p>Your natural weapons count as magical.</p>"},
+    {lvl:"Level 10",name:"Dragonhide",body:"<p>The scales stay on outside the {{rage|rage}}: {{resistance}} to nonmagical bludgeoning, piercing and slashing, and to your colour's element, permanently.</p>"},
+    {lvl:"Level 14",name:"Tyrant of the Skies",body:"<p>Entering a {{rage|rage}} grows wings for a {{flyspeed|fly speed}} equal to your walking {{speed}}, outside heavy armour. Take wings and natural weapons together and you may go the whole way — a Large draconic form, with your gear falling, merging or worn as you choose.</p>"}
+  ]};
+
+ENTRIES["b-instinct"] = { cls:"barbarian", nav:"Path of Instinct", navSub:"Levels 3 · 6 · 10 · 14", kicker:"Barbarian path · homebrew",
+  name:"Path of Instinct",
+  tag:"Rage as cold focus rather than a tantrum",
+  flavor:"Some Barbarians go the other way entirely: a void-like calm, acting before thought, shrugging off hits by reflex. Less frightening to look at than the frothing kind, right up until you see what perfect focus can do.",
+  src:"Kibbles' Legends and Legacies, pp. 105–106",
+  mods:{
+    rage:"It becomes a focus state, and a focus die can refuse to let it end.",
+    blindsight:"10 feet while raging at level 6, rising to 20 at 10 and 30 at 14.",
+    expertise:"Insight, if you already had proficiency in it.",
+    evasion:"Standard, at level 10.",
+    reaction:"Perfect Parry soaks a weapon hit, and Instinctive Strike closes and swings at anything that ends a turn in your blindsight.",
+    savingthrow:"A focus die can be added to Dexterity and Wisdom ones after the roll but before the outcome."
+  },
+  features:[
+    {lvl:"Level 3",name:"Focused Rage",body:"<p>{{rage|Raging}} grants d8 focus dice equal to your {{proficiencybonus|proficiency bonus}}, lost when it ends. Spend them on:</p><ul><li><b>Perfect Dodge</b> — add one to a Dexterity {{savingthrow|save}} or {{abilitycheck|check}}, after the d20 but before the outcome.</li><li><b>Perfect Intuition</b> — the same for Wisdom; on a Search it also makes Search a {{bonusaction}}.</li><li><b>Perfect Parry</b> — a {{reaction}} reducing a weapon hit by the die plus Strength or Dexterity.</li><li><b>Perfect Strike</b> — add one to a weapon attack roll after rolling.</li><li><b>Perfect Focus</b> — stop your Rage ending, for anything short of falling {{unconscious}}.</li></ul>"},
+    {lvl:"Level 3",name:"Instinctive Insight",body:"<p>Insight proficiency, or {{expertise|Expertise}} if you already had it.</p>"},
+    {lvl:"Level 6",name:"Blind Fighting",body:"<p>{{blindsight|Blindsight}} out to 10 feet while {{rage|raging}}, 20 at level 10, 30 at 14.</p>"},
+    {lvl:"Level 10",name:"Evasion",body:"<p>{{evasion|Evasion}} — no damage on a successful Dexterity {{savingthrow|save}} for half, half on a failure.</p>"},
+    {lvl:"Level 14",name:"Instinctive Strike",body:"<p>A creature ending its turn inside your {{blindsight}} while you {{rage|rage}} can be answered with a focus die and a {{reaction}}: move up to your {{speed}} toward it, provoking no {{opportunityattack|opportunity attacks}}, and swing once if you get there.</p>"}
+  ]};
+
+ENTRIES["b-mutation"] = { cls:"barbarian", nav:"Path of Mutation", navSub:"Levels 3 · 6 · 10 · 14", kicker:"Barbarian path · homebrew",
+  name:"Path of Mutation",
+  tag:"The rage is physical, and you get much bigger",
+  flavor:"Rage that manifests in the body rather than the mind. Ancient blood waking up, an alchemical mistake, astral interference, or an old dose of radiant damage — whatever the cause, the Barbarian grows into something hulking.",
+  src:"Kibbles' Legends and Legacies, pp. 106–108",
+  mods:{
+    rage:"Raging makes you Large, grants temporary hit points, upgrades your damage to dice and picks two adaptations.",
+    ragedamage:"It becomes +2d4 rather than +2, and every later increase is a d4 rather than a point.",
+    temporaryhp:"Your full Barbarian level, every rage.",
+    resistance:"One damage type of your choice, as one of the two adaptations.",
+    prone:"Hulking Smash knocks the target down and shockwaves everyone beside it.",
+    grappled:"A creature you have grappled can be used as the improvised weapon, and eats the 6d6 as well."
+  },
+  features:[
+    {lvl:"Level 3",name:"Transforming Rage",body:"<p>{{rage|Raging}} mutates you: Large size with double damage to objects, {{temporaryhp|temporary hit points}} equal to your Barbarian level, and {{ragedamage|Rage damage}} of +2d4 rather than +2 — every later increase becomes a d4 rather than a point.</p>"},
+    {lvl:"Level 3",name:"Collateral Damage",body:"<p>Improvised weapon proficiency; anything over 20 pounds without weapon stats deals 1d8 rather than 1d4. Strength {{abilitycheck|checks}} against objects that would cost an action — breaking a door, smashing a table, tearing free of restraints — become object interactions.</p>"},
+    {lvl:"Level 6",name:"Adaptive Rage",body:"<p>Each {{rage|rage}}, take two of: {{resistance}} to a damage type, proficiency in a {{savingthrow|save}}, a swim or climb {{speed}} equal to your walking speed, or regeneration of half your Constitution modifier at the start of your turns. Each option once.</p>"},
+    {lvl:"Level 10",name:"Building Frustration",body:"<p>Miss an attack or fail a Strength {{savingthrow|save}} or {{abilitycheck|check}} while {{rage|raging}} and your next attempt at the same thing adds your Strength modifier. A failed save also holds the rage together until the end of your next turn.</p>"},
+    {lvl:"Level 14",name:"Hulking Smash",body:"<p>An action while {{rage|raging}} makes one enormous weapon attack: normal damage plus 6d6 of the same type, and the target is knocked {{prone}}. Everyone else within 5 feet of the impact takes 1d6 + Strength bludgeoning from the shockwave.</p><p>Swing a creature you have {{grappled|grappled}} as the improvised weapon and it takes the 6d6 too — half of it even on a miss.</p>"}
+  ]};
+
+/* ------------------------------------ Bard ------------------------------- */
+
+ENTRIES["bd-fools"] = { cls:"bard", nav:"College of Fools", navSub:"Levels 3 · 6 · 14", kicker:"Bard college · homebrew",
+  name:"College of Fools",
+  tag:"Hiding in plain sight, in the loudest possible outfit",
+  flavor:"Beggars and court eyesores in eye-bleeding frippery. Nobody takes them seriously, which is the point — underneath is a sharp mind, quick hands and a very good read on the room. Tolerated the way an assassins' guild is tolerated.",
+  src:"Kibbles' Legends and Legacies, pp. 108–109",
+  mods:{
+    bardicinspiration:"Fool's Fumble spends one to reroll your own failure; at 14 it buys an extra reaction on an ordinary hit.",
+    reaction:"Energetic Encore fires off someone else's critical hit, or your own crit, or a save failed by 5 or more.",
+    bonusaction:"Fatal Flourish attaches a light-weapon or dart attack to an ability check, a vicious mockery or a melee swing.",
+    difficultterrain:"Tumble ignores it, and walks through occupied spaces including hostile ones.",
+    opportunityattack:"Tumble provokes none.",
+    prone:"You choose to land on your feet from any fall, and have advantage on saves against being knocked down."
+  },
+  features:[
+    {lvl:"Level 3",name:"Jester's Juggling",body:"<p>Performance proficiency, or another skill if you had it. Draw or stow any number of items on your turn, and hold more than your hands allow — at the cost of a Dexterity (Performance) {{abilitycheck|check}} at the end of your turn, DC 5 per extra hand needed. Fail and you drop whatever you cannot hold.</p>"},
+    {lvl:"Level 3",name:"Fool's Fumble",body:"<p>Fail an {{abilitycheck|ability check}} or attack roll and spend a {{bardicinspiration|Bardic Inspiration}} to pass it off as deliberate: reroll and add the die.</p>"},
+    {lvl:"Level 6",name:"Acrobatic Antics",body:"<p>Acrobatics proficiency, or another skill. Plus a 20-foot climbing {{speed}} and no damage from falls of 20 feet or less, landing on your feet rather than {{prone}}; a {{bonusaction}} Tumble spending up to 10 feet that ignores {{difficultterrain}}, provokes no {{opportunityattack|opportunity attacks}} and moves through anyone's space; and {{advantage}} on {{savingthrow|saves}} and checks against falling or being knocked down.</p>"},
+    {lvl:"Level 6",name:"Fatal Flourish",body:"<p>Using your action on an {{abilitycheck|ability check}}, <em>vicious mockery</em> or a melee weapon attack buys a {{bonusaction}} attack with a light melee weapon or a dart.</p>"},
+    {lvl:"Level 14",name:"Energetic Encore",body:"<p>When anyone within 60 feet scores a {{criticalhit|critical hit}}, a {{reaction}} lets you attack the same target. When you crit, or a creature fails a {{savingthrow|save}} against your spell by 5 or more, a reaction takes the Help action instead. Spend a {{bardicinspiration|Bardic Inspiration}} and either reaction works off an ordinary hit or failure.</p>"}
+  ]};
+
+/* ----------------------------------- Cleric ------------------------------ */
+
+ENTRIES["cl-dream"] = { cls:"cleric", nav:"Dream Domain", navSub:"Levels 1 · 2 · 6 · 8 · 17", kicker:"Cleric domain · homebrew",
+  name:"Dream Domain",
+  tag:"Guard the sleeping, trance the waking, walk in both",
+  flavor:"Clerics of gods of dreams, creativity, art, music and the moon, drawing on the ethereal realm of sleep. They mend and steer the dreams of the people around them, and drag the people they do not like into a dream they did not ask for.",
+  src:"Kibbles' Legends and Legacies, pp. 109–111",
+  mods:{
+    channeldivinity:"Dream Trance drags a mind into the dreamscape, then ends it as either psychic damage and fear, or healing and a cleanse.",
+    preparedspells:"The domain list is always prepared and never counts against your total.",
+    incapacitated:"A creature in the trance is incapacitated, blinded and deafened to the real world.",
+    longrest:"Dreamweaver reshapes everyone's: guidance charges, extra hit dice back, or temporary hit points.",
+    temporaryhp:"1d4 + Cleric level from Tranquil Dreams, or four times your Cleric level from a Tranquil Vision.",
+    frightened:"Terrifying Visions leaves the target frightened of you until your next turn.",
+    charmed:"A creature immune to it passes the trance save automatically; Tranquil Visions clears it."
+  },
+  features:[
+    {lvl:"Level 1",name:"Domain Spells",body:"<p>Always {{preparedspells|prepared}}, outside your limit: <em>hideous laughter</em> and <em>sleep</em>; <em>disorient</em> and <em>enthrall</em>; <em>hypnotic pattern</em> and <em>major image</em>; <em>banishment</em> and <em>confusion</em>; <em>dream</em> and <em>modify memory</em>.</p>"},
+    {lvl:"Level 1",name:"Dreamweaver",body:"<p>Up to 4 + your Cleric level sleepers within 120 feet have {{advantage}} on {{savingthrow|saves}} against anything intruding on their dreams. Over a {{longrest|long rest}} you also shape those dreams — one option for all of them:</p><ul><li><b>Focused Dreams</b> — <em>guidance</em> on {{proficiencybonus|proficiency bonus}} checks of their choosing, until their next long rest.</li><li><b>Restful Dreams</b> — a quarter of your Cleric level in extra hit dice back.</li><li><b>Tranquil Dreams</b> — 1d4 + your Cleric level in {{temporaryhp|temporary hit points}}.</li></ul>"},
+    {lvl:"Level 2",name:"Channel Divinity: Dream Trance",body:"<p>An action pulls a creature within 60 feet into the dreamscape for up to 10 minutes; an unwilling one gets a Wisdom {{savingthrow|save}}, and repeat saves at end of turn. While there it is {{incapacitated}}, blind and deaf to the real world. Anything already asleep fails automatically; anything immune to being {{charmed}} succeeds automatically; damage breaks it.</p><p>A {{bonusaction}} ends it your way: <b>Terrifying Visions</b> for psychic damage equal to four times your Cleric level and {{frightened}} until your next turn, or <b>Tranquil Visions</b> to clear charm and fear and grant {{temporaryhp|temporary hit points}} equal to four times your Cleric level.</p>"},
+    {lvl:"Level 6",name:"Dream Manifestation",body:"<p>An action pulls a piece of a dream into a 20-foot cube within 30 feet — an object, a structure, or an illusory creature behaving as <em>major image</em>. Real things made this way are visibly magical, crumble after a minute, are worthless, cannot leave the cube, cannot hold information you do not have, have {{armorclass|AC}} equal to your Cleric level and crumble if damaged or if they would deal damage. Once per {{longrest|long rest}}, or again for a 3rd-level {{spellslot|slot}}.</p>"},
+    {lvl:"Level 8",name:"Potent Spellcasting",body:"<p>Add your Wisdom modifier to the damage of your Cleric {{cantrip|cantrips}}.</p>"},
+    {lvl:"Level 17",name:"Dream Walker",body:"<p>Falling asleep, or an action while awake, puts you bodily into the realm of dreams for an hour; a {{bonusaction}} leaves, within 120 feet of where you entered or beside a sleeper. Inside you may <b>Dream Passage</b> to somewhere you have been or someone you know (exiting there needs a sleeper as a conduit), cast <em>dream</em> once without a {{spellslot|slot}}, or <b>Search Dreams</b> with a Wisdom (Insight) {{abilitycheck|check}}, contested if you are targeting a particular person — and a failure locks that piece of information away from you for good. Once per {{longrest|long rest}}.</p>"}
+  ]};
+
+ENTRIES["cl-judgment"] = { cls:"cleric", nav:"Judgment Domain", navSub:"Levels 1 · 2 · 6 · 8 · 17", kicker:"Cleric domain · homebrew",
+  name:"Judgment Domain",
+  tag:"Punish whoever hurt somebody since your last turn",
+  flavor:"Clerics who oversee the distribution of law and order — for justice itself, for an aspect of it, or for an institution that claims it. Almost always lawful to the extreme, and answerable only to their own higher ideal, which is why hiring one takes some thought.",
+  src:"Kibbles' Legends and Legacies, pp. 111–113",
+  mods:{
+    channeldivinity:"Invoke Judgment floors a target and opens it up to Sacred Judgment regardless of what it has done.",
+    cantrip:"You get sacred flame free, and from 8 you may add Wisdom to cantrip damage.",
+    prone:"Invoke Judgment knocks the target down with speed 0 for a minute, repeat saves at end of turn.",
+    preparedspells:"The domain list is always prepared and outside your limit.",
+    spellslot:"Rebuke fires hellish rebuke without spending one, Wisdom-modifier times per rest.",
+    reaction:"Rebuke answers an ally dropping to 0, or an attack on someone under your sanctuary."
+  },
+  features:[
+    {lvl:"Level 1",name:"Domain Spells",body:"<p>Always {{preparedspells|prepared}}, outside your limit: <em>hellish rebuke</em> and <em>sanctuary</em>; <em>detect thoughts</em> and <em>zone of truth</em>; <em>counterspell</em> and <em>fear</em>; <em>banishment</em> and <em>locate creature</em>; <em>dispel evil and good</em> and <em>geas</em>.</p>"},
+    {lvl:"Level 1",name:"Bonus Cantrip",body:"<p><em>Sacred flame</em>, if you do not already have it.</p>"},
+    {lvl:"Level 1",name:"Sacred Judgment",body:"<p>Damaging a creature with a Cleric spell adds your Wisdom modifier if that creature has hurt someone since the end of your last turn. Wisdom-modifier uses per {{longrest|long rest}} — and a spell hitting several targets may apply it to each, at one use apiece.</p>"},
+    {lvl:"Level 2",name:"Channel Divinity: Invoke Judgment",body:"<p>An action crushes a target within 60 feet under the weight of its sins: Wisdom {{savingthrow|save}} or knocked {{prone}} with {{speed}} 0 for a minute, with repeat saves at end of turn — at {{disadvantage}} if it has dealt damage since its turn began.</p><p>For that minute, Sacred Judgment applies to it whether or not it has hurt anyone, save or no save.</p>"},
+    {lvl:"Level 6",name:"Rebuke",body:"<p>When an ally within 60 feet drops to 0, or takes damage while under a <em>sanctuary</em> you cast, a {{reaction}} casts <em>hellish rebuke</em> at the attacker without a {{spellslot|slot}}. Wisdom-modifier uses per {{longrest|long rest}}.</p>"},
+    {lvl:"Level 8",name:"Divine Empowerment",body:"<p>Pick one: <b>Divine Strike</b>, once a turn adding 1d8 radiant to a weapon hit — 2d8 at 11, 3d8 at 17 — or <b>Potent Spellcasting</b>, adding your Wisdom modifier to Cleric {{cantrip|cantrip}} damage.</p>"},
+    {lvl:"Level 17",name:"Eternal Judgment",body:"<p>Sacred Judgment stops having a limit.</p>"}
+  ]};
+
+ENTRIES["cl-martyr"] = { cls:"cleric", nav:"Martyr Domain", navSub:"Levels 1 · 2 · 6 · 8 · 17", kicker:"Cleric domain · homebrew",
+  name:"Martyr Domain",
+  tag:"Take the condition off them and wear it yourself",
+  flavor:"Followers of gods who believe in carrying other people's suffering. Stalwart and unflinching, usually altruistic — though some belong to stranger cults of pain and acceptance than that suggests.",
+  src:"Kibbles' Legends and Legacies, pp. 113–114",
+  mods:{
+    channeldivinity:"Bear the Burden roots you and routes all your allies' damage through you for a round.",
+    armorclass:"Clad in Grace makes it 10 + Constitution + Wisdom, unarmoured, shield allowed.",
+    hitpoints:"Relieve Suffering spends your own to top up someone else's healing, up to your Cleric level a cast.",
+    poisoned:"One of the conditions you can lift off someone and take on yourself.",
+    concentration:"At 17 damage cannot break it on any spell protecting you or your allies.",
+    resistance:"Allies inside Bear the Burden have it against everything; you have it against warding bond's backlash.",
+    temporaryhp:"Twice your Cleric level while you hold the burden."
+  },
+  features:[
+    {lvl:"Level 1",name:"Domain Spells",body:"<p>Always {{preparedspells|prepared}}, outside your limit: <em>cure wounds</em> and <em>shield of faith</em>; <em>lesser restoration</em> and <em>warding bond</em>; <em>invest life</em> and <em>revivify</em>; <em>death ward</em> and <em>resilient sphere</em>; <em>greater restoration</em> and <em>mass cure wounds</em>.</p>"},
+    {lvl:"Level 1",name:"Clad in Grace",body:"<p>Unarmoured {{armorclass|AC}} of 10 + Constitution + Wisdom. A shield is fine.</p>"},
+    {lvl:"Level 1",name:"Relieve Suffering",body:"<p>A healing spell of 1st level or higher can be topped up out of your own {{hitpoints|hit points}} — spend up to your Cleric level, one creature heals that much more.</p><p>You can also touch a creature and take a disease, or the blinded, deafened, paralysed or {{poisoned}} condition, onto yourself. From level 9 that extends to {{exhaustion}} one level at a time, petrified, {{stunned}}, a curse, or any ability score reduction. You suffer it exactly as they did. Wisdom-modifier uses per {{longrest|long rest}}.</p>"},
+    {lvl:"Level 2",name:"Channel Divinity: Bear the Burden",body:"<p>An action drops your {{speed}} to zero and grants {{temporaryhp|temporary hit points}} equal to twice your Cleric level until your next turn. While it holds, allies within 30 feet have {{resistance}} to all damage they take — and you take what they take.</p>"},
+    {lvl:"Level 6",name:"Overcome Adversity",body:"<p>Taking a condition with Relieve Suffering lets you repeat its original {{savingthrow|save}}: succeed and the condition simply ends rather than moving to you. You also have {{resistance}} to damage passed to you by <em>warding bond</em>.</p>"},
+    {lvl:"Level 8",name:"Divine Empowerment",body:"<p>Pick one: <b>Divine Strike</b>, once a turn adding 1d8 radiant to a weapon hit — 2d8 at 11, 3d8 at 17 — or <b>Potent Spellcasting</b>, adding your Wisdom modifier to Cleric {{cantrip|cantrip}} damage.</p>"},
+    {lvl:"Level 17",name:"Unyielding Concentration",body:"<p>Damage cannot break your {{concentration}} on a Cleric spell that targets you or your allies.</p>"}
+  ]};
+
+/* ------------------------------------ Druid ------------------------------ */
+
+ENTRIES["dr-aspects"] = { cls:"druid", nav:"Circle of the Aspects", navSub:"Levels 2 · 6 · 10 · 14", kicker:"Druid circle · homebrew",
+  name:"Circle of the Aspects",
+  tag:"Wild Shape the soul instead of the body",
+  flavor:"Spirit shifters, attuned to the spiritual aspects of beasts rather than their shapes. The body stays put; the essence fills you. It is easy to go too far into those savage states of mind, which is the line the circle walks.",
+  src:"Kibbles' Legends and Legacies, pp. 114–116",
+  mods:{
+    wildshape:"Spent as a bonus action on a Spirit Aspect instead of a beast form — two at once from 6, three from 10.",
+    preparedspells:"The circle list is always prepared and outside your total.",
+    temporaryhp:"Twice your Druid level plus Wisdom, from the Aspect of the Turtle.",
+    bonusaction:"Assumes an aspect, and under the Tiger buys a melee weapon attack after a spell.",
+    savingthrow:"Each aspect grants proficiency in its own: Strength, Dexterity or Constitution.",
+    flyspeed:"The Aspect of the Eagle adds 30 feet of it on top of any other aspect, from level 14."
+  },
+  features:[
+    {lvl:"Level 2",name:"Circle Spells",body:"<p>The <em>impact</em> {{cantrip}} now, then always-{{preparedspells|prepared}}: <em>alacrity</em> and <em>iron wind strike</em>; <em>haste</em> and <em>spirit guardians</em>; <em>fire shield</em> and <em>freedom of movement</em>; <em>flickering strikes</em> and <em>commune with nature</em>.</p>"},
+    {lvl:"Level 2",name:"Spirit Shape",body:"<p>A {{bonusaction}} and a {{wildshape|Wild Shape}} take on a bestial aspect for 10 minutes, without changing your body. Each grants a {{savingthrow|save}} proficiency:</p><ul><li><b>Bear</b> — Strength becomes your Wisdom score if it was lower, and you add Strength to melee spell attack damage. Strength saves.</li><li><b>Tiger</b> — a melee spell attack or a cast spell as your action buys a melee weapon attack as a {{bonusaction}}. Dexterity saves.</li><li><b>Turtle</b> — {{temporaryhp|temporary hit points}} equal to twice your Druid level plus Wisdom. Constitution saves.</li></ul><p>The beasts are flavour: pick whatever animal fits the power.</p>"},
+    {lvl:"Level 6",name:"Twin Soul",body:"<p>Take two different aspects at once.</p>"},
+    {lvl:"Level 6",name:"Spiritual Regrowth",body:"<p>Casting a spell while an aspect is active heals you twice the spell's level.</p>"},
+    {lvl:"Level 10",name:"Chimera Soul",body:"<p>Three different aspects at once.</p>"},
+    {lvl:"Level 14",name:"Aspect of the Eagle",body:"<p>Any other aspect may be joined by ethereal wings for a 30-foot {{flyspeed|fly speed}}, lasting as long as the aspect does.</p>"}
+  ]};
+
+ENTRIES["dr-city"] = { cls:"druid", nav:"Circle of the City", navSub:"Levels 2 · 6 · 10 · 14", kicker:"Druid circle · homebrew",
+  name:"Circle of the City",
+  tag:"A city is an ecosystem, and the rats are the wildlife",
+  flavor:"Druids who tune into a subtler frequency: the adaptation of nature to cities and of cities to nature. They feel kinship with whatever stays wild in the middle of a town — rats, pigeons, cats — and other druids sniff at them for it.",
+  src:"Kibbles' Legends and Legacies, pp. 116–118",
+  mods:{
+    wildshape:"Spend one to reshape your familiar into another form as a bonus action, without resummoning.",
+    familiar:"Yours can talk to creatures of its own kind and rolls Animal Handling with advantage among them.",
+    charmed:"Animal friendship on tiny animals reaches a dozen at once, and charmed ones understand simple requests.",
+    preparedspells:"The circle list is always prepared and outside your total.",
+    immunity:"Poison and disease, permanently, from level 10.",
+    expertise:"At 14, in any skill your beast form is proficient in that you are too."
+  },
+  features:[
+    {lvl:"Level 2",name:"Circle Spells",body:"<p>Always {{preparedspells|prepared}}, outside your limit: <em>animal friendship</em> and <em>find familiar</em>; <em>detect thoughts</em> and <em>lesser restoration</em>; <em>clairvoyance</em> and <em>glyph of warding</em>; <em>fabricate</em> and <em>stone shape</em>; <em>mislead</em> and <em>wall of stone</em>.</p>"},
+    {lvl:"Level 2",name:"Living Eyes of the City",body:"<p><em>Animal friendship</em> can take up to a dozen tiny animals of the same type at once. Anything {{charmed}} that way understands you in a limited way and you it, and will help with simple, safe tasks — more with an Animal Handling {{abilitycheck|check}}.</p><p>Your {{familiar}} can speak with creatures resembling its form and has {{advantage}} on Animal Handling with them, and a {{wildshape|Wild Shape}} reshapes it into another form as a {{bonusaction}}.</p>"},
+    {lvl:"Level 2",name:"Controlled Magic",body:"<p>An area spell can exclude a 10-foot cube, or shrink anywhere between its normal area and a 5-foot radius — and spells that physically would not fit cast anyway, adapting to the room.</p>"},
+    {lvl:"Level 6",name:"Civilized Beasts",body:"<p>{{wildshape|Wild Shaped}} into a beast, you keep your voice if the body can make the sounds, use paws and talons for fiddly work, and keep casting spells.</p>"},
+    {lvl:"Level 10",name:"Urban Adaptation",body:"<p>{{immunity|Immunity}} to poison and disease, plus one of Insight, Perception, Persuasion, Sleight of Hand or Stealth — or any skill if you hold them all.</p>"},
+    {lvl:"Level 14",name:"Keen Skills",body:"<p>Another skill from that list. And in a beast form proficient in a skill you are proficient in, you have {{expertise|Expertise}} in it.</p>"},
+    {lvl:"Level 14",name:"Tiny Tributes",body:"<p>Finish a {{longrest|long rest}} inside a city and the crows and rats bring you things: a probably-edible ration, 1d4 copper, silver or gold, a random piece of gear, a platinum piece — or, at the DM's call, a key or a letter that happens to matter.</p>"}
+  ]};
+
+ENTRIES["dr-elements"] = { cls:"druid", nav:"Circle of Elements", navSub:"Levels 2 · 6 · 10 · 14", kicker:"Druid circle · homebrew",
+  name:"Circle of Elements",
+  tag:"Plant an element on the battlefield and move it around",
+  flavor:"Nature as the thing civilisation spends its time keeping out. These druids burn, freeze and break what has been built, not out of spite but because they see it as the world returning to itself so it can grow again.",
+  src:"Kibbles' Legends and Legacies, pp. 118–120",
+  mods:{
+    wildshape:"Spent as a bonus action to plant an elemental manifestation within 60 feet, for a minute.",
+    bonusaction:"Invokes an element, then each turn moves it 20 feet, grows it 5 feet, or fires the lightning again.",
+    difficultterrain:"The Icy Blizzard, a destroyed Stone Pillar, and the Mud Mire — which costs double.",
+    cover:"A Stone Pillar gives three-quarters of it to whatever stands behind.",
+    resistance:"From 14, one of cold, fire or lightning per rest — and it lets you see through matching obscurement.",
+    preparedspells:"Elemental Spells raises your prepared count by one at levels 2, 3, 5, 7 and 9.",
+    savingthrow:"Primal Sculpting hands automatic successes to proficiency-bonus allies caught in your own effects."
+  },
+  features:[
+    {lvl:"Level 2",name:"Invoke Element",body:"<p>A {{bonusaction}} and a {{wildshape|Wild Shape}} plant an element at a point within 60 feet for a minute:</p><ul><li><b>Air — Coalesced Lightning</b>: on creation and each turn after, a {{bonusaction}} forces one creature within 30 feet into a Dexterity {{savingthrow|save}} for 1d6 + Wisdom.</li><li><b>Earth — Stone Pillar</b>: a 10-foot pillar at {{armorclass|AC}} 16 with Wisdom + Druid level hit points, three-quarters {{cover}}, becoming {{difficultterrain}} when broken.</li><li><b>Fire — Wildfire</b>: 1d6 fire to anything starting its turn within 5 feet.</li><li><b>Water — Icy Blizzard</b>: sleet within 5 feet, {{difficultterrain}}.</li></ul><p>Each turn a {{bonusaction}} moves it 20 feet, or grows a Wildfire or Blizzard by 5 feet, up to {{proficiencybonus|proficiency bonus}} times. You are never caught by your own.</p>"},
+    {lvl:"Level 2",name:"Elemental Spells",body:"<p>An expanded elemental list to pick Druid spells from, and one more {{preparedspells|prepared spell}} now and again at levels 3, 5, 7 and 9.</p>"},
+    {lvl:"Level 6",name:"Primal Sculpting",body:"<p>Dealing bludgeoning, cold, fire or lightning damage with Invoke Element or a Druid spell lets you exempt {{proficiencybonus|proficiency bonus}} creatures you can see — they pass any {{savingthrow|save}} automatically and take nothing.</p>"},
+    {lvl:"Level 10",name:"Paraelemental Manifestations",body:"<p>Invoke two elements at once. Air+Earth is <b>Dust</b> — heavily obscured within 10 feet, with a Constitution {{savingthrow|save}} or you cannot speak. Fog, Smoke and Steam layer both parents' effects and heavily obscure a Wildfire or Blizzard. <b>Magma</b> is a Stone Pillar that burns anyone within 5 feet or striking it for 2d6. <b>Mud</b> is {{difficultterrain}} that costs an extra foot per foot.</p>"},
+    {lvl:"Level 10",name:"Empowered Manifestations",body:"<p>Coalesced Lightning and Wildfire each deal an extra 1d6, when not folded into a paraelemental.</p>"},
+    {lvl:"Level 14",name:"Elemental Adaptation",body:"<p>Each {{shortrest|short}} or {{longrest|long rest}}, take {{resistance}} to cold, fire or lightning. Cold lets you see through steam and fog, fire through steam and smoke, lightning through dust, smoke and steam.</p>"}
+  ]};
+
+ENTRIES["dr-growth"] = { cls:"druid", nav:"Circle of Growth", navSub:"Levels 2 · 6 · 10 · 14", kicker:"Druid circle · homebrew",
+  name:"Circle of Growth",
+  tag:"Grow a sapling and feed it your spell slots",
+  flavor:"The most direct emissaries of nature, speaking for the forest to everyone else. Some are gentle presences easing the suffering of living things; some are militant wardens who intend to stop the extraction by whatever means.",
+  src:"Kibbles' Legends and Legacies, pp. 120–122",
+  mods:{
+    wildshape:"Spent as a bonus action to sprout a Sapling within 30 feet rather than taking a beast form.",
+    bonusaction:"Sprouts the Sapling and commands it; without one it only ever Dodges.",
+    difficultterrain:"The Sapling's Grasping Roots make it for hostile creatures, and Reposition leaves a trail of it.",
+    grappled:"Entangling Roots grapples anything ending its turn in the root area; Grasp of Nature then hurts it each turn.",
+    spellslot:"Every one you spend can be converted into Sapling multiattacks, an aura, or repositioning.",
+    temporaryhp:"Twice the slot's level to every ally within 30 feet of the Sapling, via Verdant Aura.",
+    cover:"Sheltering Branches gives allies within 5 feet of the Sapling half of it."
+  },
+  features:[
+    {lvl:"Level 2",name:"Circle Spells",body:"<p>Always {{preparedspells|prepared}}, outside your limit: <em>bramble binding</em> and <em>entangle</em>; <em>barkskin</em> and <em>sprout tree</em>; <em>plant growth</em> and <em>speak with plants</em>; <em>grasping vine</em> and <em>carnivorous garden</em>; <em>tree stride</em> and <em>wild evocation</em>.</p>"},
+    {lvl:"Level 2",name:"Sprout Sapling",body:"<p>A {{bonusaction}} and a {{wildshape|Wild Shape}} grow a Sapling within 30 feet for 10 minutes. It has {{armorclass|AC}} 12 + {{proficiencybonus|proficiency bonus}}, 10 + five times your Druid level in {{hitpoints|hit points}}, no {{speed}}, {{blindsight}} 30 feet, {{resistance}} to bludgeoning and immunity to being {{charmed}}, {{frightened}}, {{prone}} or {{restrained}}.</p><p>It roots the ground within 5 feet into {{difficultterrain}} for enemies and gives allies half {{cover}}, and attacks with a 10-foot Slam or 30-foot Lashing Vines that drag a target 15 feet closer. It shares your {{initiative}}, Dodges unless commanded with a {{bonusaction}}, and acts freely if you are {{incapacitated}}. Your spells may originate from it.</p>"},
+    {lvl:"Level 6",name:"Verdant Power",body:"<p>Spending a {{spellslot|spell slot}} of 1st level or higher while the Sapling is out buys one of: <b>Multiattack</b> for half the slot level in extra attacks, <b>Verdant Aura</b> giving allies within 30 feet {{temporaryhp|temporary hit points}} equal to twice the slot level, or <b>Reposition</b> for 5 + 5 × slot level feet of movement, leaving {{difficultterrain}} behind it.</p>"},
+    {lvl:"Level 10",name:"Entangling Roots",body:"<p>A creature ending its turn in the Sapling's root area makes a Dexterity {{savingthrow|save}} or is {{grappled}} by it.</p>"},
+    {lvl:"Level 10",name:"Grasp of Nature",body:"<p>Anything starting its turn {{grappled}} or {{restrained}} by you, your spells, your summons or your Sapling takes your Wisdom modifier in damage.</p>"},
+    {lvl:"Level 14",name:"Nourishing Magic",body:"<p>Every Verdant Power also heals the Sapling 1d10 per slot level and can grow it a size, up to Huge, adding 5 feet of reach per step above Medium.</p>"}
+  ]};
+
+ENTRIES["dr-llroots"] = { cls:"druid", nav:"Circle of Roots", navSub:"Levels 2 · 6 · 10 · 14", kicker:"Druid circle · homebrew",
+  name:"Circle of Roots",
+  tag:"Become the tree, and grapple with all of it",
+  flavor:"A connection that runs deeper than most, to the point where it is hard to say where the will of the primordial woods ends and the druid's begins. They have more in common with dryads and treants than with other mortals, and tend to stay out of mortal causes.",
+  src:"Kibbles' Legends and Legacies, pp. 122–123",
+  mods:{
+    wildshape:"Spent as a bonus action on a Large tree form for an hour, rather than a beast.",
+    armorclass:"In tree form it is 10 + Constitution + Wisdom, and armour and shields stop applying.",
+    grappled:"Wisdom (Athletics) initiates and contests it, with Wisdom-modifier grasping limbs; at 14 you crush for 2d6 a turn.",
+    temporaryhp:"Wisdom + twice your Druid level on transforming, topped up each turn from level 10, and boostable with a slot.",
+    extraattack:"At level 6, on a Druid.",
+    concentration:"With temporary hit points left, damage-triggered checks are made with advantage.",
+    speed:"Tree form caps it at 15 feet — but standing still grants advantage against forced movement and being knocked down."
+  },
+  features:[
+    {lvl:"Level 2",name:"Circle Spells",body:"<p><em>Shillelagh</em> now, then always-{{preparedspells|prepared}}: <em>bramble binding</em> and <em>grasping roots</em>; <em>barkskin</em> and <em>sprout tree</em>; <em>bramble barrier</em> and <em>plant growth</em>; <em>carnivorous garden</em> and <em>guardian of nature</em>; <em>commune with nature</em> and <em>tree stride</em>.</p>"},
+    {lvl:"Level 2",name:"Tree Shape",body:"<p>A {{bonusaction}} and a {{wildshape|Wild Shape}} bark you over for an hour. You may be Large with 10 feet of reach; you {{grappled|grapple}} using Wisdom (Athletics) with Wisdom-modifier limbs, each a natural weapon under <em>shillelagh</em>; your {{armorclass|AC}} becomes 10 + Constitution + Wisdom with no armour or shield; and you gain {{temporaryhp|temporary hit points}} equal to Wisdom + twice your Druid level, plus 1d8 per level of any {{spellslot|slot}} you spend on the transformation.</p><p>Your {{speed}} drops to 15 feet, but standing still gives {{advantage}} against being moved or knocked {{prone}}. You cast spells as normal.</p>"},
+    {lvl:"Level 6",name:"Extra Attack",body:"<p>{{extraattack|Attack twice}} when you take the Attack action.</p>"},
+    {lvl:"Level 10",name:"Ancient Fortitude",body:"<p>In tree form, starting a turn with no {{temporaryhp|temporary hit points}} grants your Wisdom modifier in them, plus 1d8 per {{spellslot|slot}} level you spend. While you hold any, damage-triggered {{concentration}} checks are made with {{advantage}} — whether or not the damage got through them.</p>"},
+    {lvl:"Level 14",name:"Crushing Grasp",body:"<p>Anything starting its turn {{grappled}} or {{restrained}} by you — a hold or a spell like <em>entangle</em> — can be crushed for 2d6 bludgeoning, no action needed.</p>"}
+  ]};
+
+ENTRIES["dr-wild"] = { cls:"druid", nav:"Circle of the Wild", navSub:"Levels 2 · 6 · 10 · 14", kicker:"Druid circle · homebrew",
+  name:"Circle of the Wild",
+  tag:"One beast companion, permanently, and it comes back",
+  flavor:"Druids whose friends are the furred and fanged. They roam, hunt and explore, and the longer they spend out there the more their habits blur into their companions' — sometimes cooking for the animals, sometimes eating what the animals eat.",
+  src:"Kibbles' Legends and Legacies, pp. 123–126",
+  mods:{
+    primalcompanion:"Kibbles' version: one permanent form chosen at level 2, recalled and resurrected with Wild Shape.",
+    wildshape:"An action calls the companion back at full health, free of conditions — including after it has died.",
+    expertise:"Perception at level 10, and you and the companion pool your darkvision and blindsight ranges.",
+    spellslot:"3rd level or higher gives the companion an extra action; at 14 any slot empowers it for that many turns.",
+    temporaryhp:"Five times the slot's level, on the companion, under Empowered Frenzy.",
+    darkvision:"You gain whatever range it has and it gains yours — and two existing ranges add together.",
+    bonusaction:"Commands the companion; without one it Dodges, and acts freely only if you are incapacitated."
+  },
+  features:[
+    {lvl:"Level 2",name:"Circle Spells",body:"<p>Always {{preparedspells|prepared}}, outside your limit: <em>animal friendship</em> and <em>speak with animals</em>; <em>animal messenger</em> and <em>darkvision</em>; <em>conjure animals</em> and <em>spider bite</em>; <em>dominate beast</em> and <em>polymorph</em>; <em>commune with nature</em> and <em>hold monster</em>.</p>"},
+    {lvl:"Level 2",name:"Primal Companion",body:"<p>An action and a {{wildshape|Wild Shape}} call a bonded beast into a space within 10 feet, at full {{hitpoints|hit points}} and free of anything affecting it — even if it died. Its form is chosen once and is permanent, built from a customisation table.</p><p>It has {{armorclass|AC}} 10 + {{proficiencybonus|proficiency bonus}} and 5 + four times your Druid level in hit points, shares your {{initiative}}, and Dodges unless a {{bonusaction}} commands it — or acts freely while you are {{incapacitated}}. It stays until a {{longrest|long rest}}, or until it drops. A {{bonusaction}} sends it back to spirit form.</p>"},
+    {lvl:"Level 6",name:"Magical Bond",body:"<p>Its attacks count as magical, and spending a {{spellslot|slot}} of 3rd level or higher gives it one extra action — Attack (one weapon attack), Dash, Disengage or Hide.</p>"},
+    {lvl:"Level 10",name:"Beast Senses",body:"<p>{{expertise|Expertise}} in Perception. You gain any {{darkvision}} or {{blindsight}} range it has, and it gains yours; two ranges of the same kind add together.</p>"},
+    {lvl:"Level 14",name:"Empowered Frenzy",body:"<p>While it is within 60 feet, spend a {{spellslot|spell slot}} — no action — to empower it for that many turns: {{temporaryhp|temporary hit points}} equal to five times the slot level, <em>freedom of movement</em>, and an extra 1d8 on its hits.</p>"}
+  ]};
+
+/* ----------------------------------- Fighter ----------------------------- */
+
+ENTRIES["fi-adventurer"] = { cls:"fighter", nav:"Adventurer", navSub:"Levels 3 · 7 · 10 · 15 · 18", kicker:"Fighter subclass · homebrew",
+  name:"Adventurer",
+  tag:"Made two healing potions out of things in your pockets",
+  flavor:"The well-rounded fighter who wins by being prepared. Resourceful survivors from any walk of life, sharing nothing but a taste for going places and a knack for being the useful one.",
+  src:"Kibbles' Legends and Legacies, pp. 126–128",
+  mods:{
+    longrest:"Each one produces potions, scrolls or gear assembled from whatever you picked up that day.",
+    bonusaction:"From level 7, any potion that would cost an action can be drunk with one.",
+    initiative:"Heightened Awareness gives +5; Survival Skills adds half your proficiency bonus on top.",
+    savingthrow:"From 15, half your proficiency bonus on any you are not already proficient in.",
+    d20test:"Adventurer's Intuition replaces one with your Fighter level, after rolling, once per rest.",
+    ritual:"The Ritual Dabbler knack lets you record and cast them from one class's list."
+  },
+  features:[
+    {lvl:"Level 3",name:"Improvised Resources",body:"<p>Each {{longrest|long rest}}, build two items from the day's scavenging: potions of healing, 1st-level scrolls from the Druid or Wizard list, or gear worth under 5 gp. They expire at your next long rest, cannot be copied or crafted with, and you cast the scrolls without a check using Intelligence or Wisdom.</p><p>Three items at level 9, four at 15; the quality climbs at 7, 10, 13, 16 and 19, up to any rare potion and 4th-level scrolls.</p>"},
+    {lvl:"Level 3",name:"Well Rounded",body:"<p>Two more skills, tools or languages, and one more at each of levels 9 and 15.</p>"},
+    {lvl:"Level 7",name:"Resourceful Talents",body:"<p>Drink any potion as a {{bonusaction}}. You can also attempt scrolls that should be unintelligible to you: automatic success below DC 10 + your {{proficiencybonus|proficiency bonus}}, otherwise roll 1d20 + proficiency bonus, or your real check if it is better.</p>"},
+    {lvl:"Level 10",name:"Acquired Knack",body:"<p>Pick one:</p><ul><li><b>Heightened Awareness</b> — +5 {{initiative}}, no being surprised unless {{incapacitated}}, and unseen attackers gain no {{advantage}}.</li><li><b>Perfected Athletics</b> — standing from {{prone}} costs 5 feet, a climbing {{speed}} equal to your walking speed, and running jumps after only 5 feet.</li><li><b>Ritual Dabbler</b> — record and cast {{ritual|rituals}} from one class's list, up to half your Fighter level.</li><li><b>Dungeon Veteran</b> — {{advantage}} to spot secret doors, resist traps, and half damage from them.</li><li><b>Shadow Lurker</b> — hide while lightly obscured, miss without revealing yourself, and no {{disadvantage}} on sight-based Perception in dim light.</li></ul>"},
+    {lvl:"Level 15",name:"Survival Skills",body:"<p>Half your {{proficiencybonus|proficiency bonus}} on {{initiative}} and on any {{savingthrow|save}} you are not already proficient in, plus climbing and swimming {{speed|speeds}} equal to your walking speed.</p>"},
+    {lvl:"Level 18",name:"Adventurer's Intuition",body:"<p>Replace one attack roll, {{savingthrow|save}} or {{abilitycheck|check}} with your Fighter level — after the {{d20test|d20}}, before you know the outcome. Once per {{shortrest|short}} or {{longrest|long rest}}.</p>"}
+  ]};
+
+ENTRIES["fi-llbrawler"] = { cls:"fighter", nav:"Brawler", navSub:"Levels 3 · 7 · 10 · 15 · 18", kicker:"Fighter subclass · homebrew",
+  name:"Brawler",
+  tag:"Fists, chairs, and the goblin you are holding",
+  flavor:"Not a martial artist — a fighter who takes a holistic approach to hitting things. Brutish thugs and quick-witted chaps alike, always armed because everything is a weapon, and not too proud to use an actual sword if it is nearest.",
+  src:"Kibbles' Legends and Legacies, p. 128",
+  mods:{
+    fightingstyle:"Flexible Style applies any style you know to any attack, unarmed and improvised included, and is swappable each rest.",
+    grappled:"A creature you hold is a thrown (5/10) improvised weapon — light, if it is smaller than you.",
+    unarmedstrike:"Covered by Weapon is a State of Mind: proficiency bonus applies and the die floor is 1d8, 1d10 at 15.",
+    secondwind:"Using it grants resistance to bludgeoning, piercing and slashing until your next turn.",
+    resistance:"Physical damage, for one round, off the back of Second Wind.",
+    d20test:"Legendary Feat adds your Fighter level to one roll, declared before it, once per rest."
+  },
+  features:[
+    {lvl:"Level 3",name:"Weapon is a State of Mind",body:"<p>Add your {{proficiencybonus|proficiency bonus}} to improvised weapon attacks, and their damage floor becomes 1d8 of whatever type fits. A creature you have {{grappled|grappled}} is an improvised weapon with thrown (5/10) — light if it is a size or more smaller. You may also choose to deal your Strength modifier to whatever you are swinging.</p>"},
+    {lvl:"Level 3",name:"Flexible Style",body:"<p>Apply any {{fightingstyle|Fighting Style}} you know to any weapon attack, {{unarmedstrike|unarmed strikes}} and improvised weapons included, picking one per attack. Swap your selection on a {{longrest|long rest}}.</p>"},
+    {lvl:"Level 7",name:"Endurance",body:"<p>{{secondwind|Second Wind}} also grants {{resistance}} to bludgeoning, piercing and slashing until your next turn.</p>"},
+    {lvl:"Level 10",name:"Additional Fighting Style",body:"<p>A second {{fightingstyle|Fighting Style}}.</p>"},
+    {lvl:"Level 15",name:"Brutal Blows",body:"<p>Your damage die floor becomes 1d10. When you choose to hurt whatever you are swinging, it now takes the attack's full damage.</p>"},
+    {lvl:"Level 18",name:"Legendary Feat",body:"<p>Before an attack roll, {{savingthrow|save}}, or Strength, Dexterity or Constitution {{abilitycheck|check}}, declare it legendary and add your Fighter level to the {{d20test|roll}}. Once per {{shortrest|short}} or {{longrest|long rest}}.</p>"}
+  ]};
+
+ENTRIES["fi-llchampion"] = { cls:"fighter", nav:"Champion (Kibbles)", navSub:"Levels 3 · 7 · 10 · 15 · 18", kicker:"Fighter subclass · homebrew",
+  name:"Champion (Kibbles)",
+  tag:"The official Champion, rebuilt around Fighting Styles",
+  flavor:"Exemplars of form and fitness, masters of straightforward martial prowess. Kibbles' version keeps the expanding crit range and hangs the rest of the subclass off whichever Fighting Style you picked.",
+  src:"Kibbles' Legends and Legacies, pp. 128–130",
+  mods:{
+    criticalhit:"19–20 at level 3, 18–20 at 7, 17–20 at 15.",
+    fightingstyle:"Improved Fighting Style upgrades whichever one you took, a second at 10 gets the upgrade too, and at 18 you know them all.",
+    expertise:"Athletics at level 7, if you already had proficiency.",
+    reaction:"An improved Protection style grants a second one, usable only for that style.",
+    bonusaction:"An improved Two Weapon Fighting stops needing it, once a turn.",
+    hitpoints:"Survivor regenerates 5 + Constitution at the start of your turns below half, but not at 0."
+  },
+  features:[
+    {lvl:"Level 3",name:"Improved Critical",body:"<p>{{criticalhit|Critical hits}} on 19–20, rising to 18–20 at level 7 and 17–20 at 15.</p>"},
+    {lvl:"Level 3",name:"Improved Fighting Style",body:"<p>Your {{fightingstyle|Fighting Style}} is sharpened: <b>Archery</b> +1 damage; <b>Defense</b> reduces all damage by 1 in armour; <b>Dueling</b> +1 to hit; <b>Great Weapon Fighting</b> adds half your Strength to two-handed damage; <b>Protection</b> grants a second {{reaction}} usable only for it; <b>Two Weapon Fighting</b> stops costing a {{bonusaction}}, once a turn.</p>"},
+    {lvl:"Level 7",name:"Athletic Champion",body:"<p>Athletics proficiency, or {{expertise|Expertise}} if you had it. Climbing and swimming {{speed|speeds}} equal to your walking speed, and double jump distance.</p>"},
+    {lvl:"Level 10",name:"Additional Fighting Style",body:"<p>A second {{fightingstyle|Fighting Style}}, which also gets Improved Fighting Style.</p>"},
+    {lvl:"Level 15",name:"Determination",body:"<p>An action and a Strength (Athletics) {{abilitycheck|check}} against the caster's {{spellsavedc|spell save DC}} forces you bodily through a magical barrier, at four feet of movement per foot travelled.</p>"},
+    {lvl:"Level 18",name:"Survivor",body:"<p>At the start of your turns below half {{hitpoints|hit points}}, regain 5 + your Constitution modifier. Not at 0.</p>"},
+    {lvl:"Level 18",name:"Fighting Mastery",body:"<p>You know every {{fightingstyle|Fighting Style}} the Fighter has.</p>"}
+  ]};
+
+ENTRIES["fi-crusader"] = { cls:"fighter", nav:"Crusader", navSub:"Levels 3 · 7 · 10 · 15 · 18", kicker:"Fighter subclass · homebrew",
+  name:"Crusader",
+  tag:"A Paladin's power without a Paladin's oath",
+  flavor:"Fighters in the service of a faith, an order, or a cause of their own — and zealous about it. Mistaking one for a Paladin can be fatal: a Crusader enacts the will of the higher power without the fetters an oath would impose.",
+  src:"Kibbles' Legends and Legacies, pp. 130–132",
+  mods:{
+    spellsavedc:"Wisdom-based, and from level 10 you add half your Strength or Dexterity to it as well.",
+    concentration:"Holding a Cleric spell gives advantage on saves against spells at 15, and becomes unbreakable by damage at 18.",
+    bonusaction:"Fervent Zeal buys a weapon attack whenever a spell you cast includes you as a target.",
+    spellslot:"A third-caster Cleric list — two cantrips at 3, a third at 10, and Wisdom as the ability.",
+    advantage:"On saves against spells while concentrating on a Cleric spell, from level 15."
+  },
+  features:[
+    {lvl:"Level 3",name:"Spellcasting",body:"<p>Third-caster {{spellslot|spellcasting}} from the Cleric list: two {{cantrip|cantrips}} and three 1st-level spells to start, a third cantrip at level 10, and one swap each Fighter level. Wisdom is the ability — {{spellsavedc|save DC}} 8 + {{proficiencybonus|proficiency bonus}} + Wisdom.</p>"},
+    {lvl:"Level 3",name:"Devout Doctrine",body:"<p>Religion proficiency — or another skill if you had it — and a holy symbol as your focus.</p>"},
+    {lvl:"Level 7",name:"Fervent Zeal",body:"<p>Casting a spell that targets you, among others, buys one weapon attack as a {{bonusaction}}.</p>"},
+    {lvl:"Level 10",name:"Strength of Faith",body:"<p>Add half your Strength or Dexterity modifier to your Cleric {{spellsavedc|spell save DC}} and spell attack bonus.</p>"},
+    {lvl:"Level 15",name:"Purifying Powers",body:"<p>While {{concentration|concentrating}} on a Cleric spell, you have {{advantage}} on {{savingthrow|saves}} against spells.</p>"},
+    {lvl:"Level 18",name:"Unbreakable Conviction",body:"<p>Damage cannot break your {{concentration}} on a Cleric spell that includes you as a target.</p>"}
+  ]};
+
+ENTRIES["fi-greenknight"] = { cls:"fighter", nav:"Green Knight", navSub:"Levels 3 · 7 · 10 · 15 · 18", kicker:"Fighter subclass · homebrew",
+  name:"Green Knight",
+  tag:"Druid magic, a shillelagh'd greatsword, and refusing to die",
+  flavor:"A fighter who draws on the earth to weight their swings, sworn to the natural world and inclined to defend it at whatever cost the people cutting it down would prefer not to pay.",
+  src:"Kibbles' Legends and Legacies, pp. 132–134",
+  mods:{
+    secondwind:"An extra use at 7, an extra 1d10 at 15, and usable while incapacitated.",
+    spellslot:"A third-caster Druid list on Wisdom, with two cantrips at 3 and a third at 10.",
+    savingthrow:"Ancient Warding adds your proficiency bonus to an Indomitable reroll against magic — twice it, if you were proficient.",
+    cantrip:"Shillelagh free of your known count, usable on any weapon and upgrading a greatclub to 1d12.",
+    incapacitated:"Immortal Regeneration lets you Second Wind through it.",
+    bonusaction:"Primal Command drops a 1-action Druid spell to one, once per short rest."
+  },
+  features:[
+    {lvl:"Level 3",name:"Spellcasting",body:"<p>Third-caster {{spellslot|spellcasting}} from the Druid list: two {{cantrip|cantrips}} and three 1st-level spells, a third cantrip at level 10, Wisdom as the ability, and one swap each Fighter level.</p>"},
+    {lvl:"Level 3",name:"Nature's Blessing",body:"<p>Nature proficiency — or another skill if you had it — and a druidic focus.</p>"},
+    {lvl:"Level 3",name:"Verdant Weapon",body:"<p><em>Shillelagh</em> free of your {{cantrip|cantrips}} known, castable on any weapon — though only a club, quarterstaff or greatclub changes its damage die, and a greatclub becomes 1d12.</p>"},
+    {lvl:"Level 7",name:"Regrowth",body:"<p>One more use of {{secondwind|Second Wind}} before you need a rest.</p>"},
+    {lvl:"Level 10",name:"Ancient Warding",body:"<p>An Indomitable reroll against a magical effect adds your {{proficiencybonus|proficiency bonus}} — twice it, if you were already proficient in that {{savingthrow|save}}.</p>"},
+    {lvl:"Level 15",name:"Immortal Regeneration",body:"<p>{{secondwind|Second Wind}} restores an extra 1d10, and works while you are {{incapacitated}} and otherwise unable to act.</p>"},
+    {lvl:"Level 18",name:"Primal Command",body:"<p>A 1-action Druid spell can be cast as a {{bonusaction}} instead. Once per {{shortrest|short rest}}.</p>"}
+  ]};
+
+ENTRIES["fi-spiritsworn"] = { cls:"fighter", nav:"Spiritsworn", navSub:"Levels 3 · 7 · 10 · 15 · 18", kicker:"Fighter subclass · homebrew",
+  name:"Spiritsworn",
+  tag:"One bonded spirit that is whichever weapon you need",
+  flavor:"A fighter permanently bonded to a spirit that manifests as any weapon they are proficient with. Where it came from is up to you — your own aura, a fey bond, an heirloom with an ancestor in it, an infernal contract, a piece of your shadow.",
+  src:"Kibbles' Legends and Legacies, pp. 134–138",
+  mods:{
+    fightingstyle:"Bonded Fighting Style re-picks itself to match whatever form the weapon takes, and reverts when you dismiss it.",
+    bonusaction:"Manifests and reshapes the weapon — until 18, when it becomes free and grants advantage once a turn.",
+    spellslot:"A third-caster list on Wisdom; Empowered Strike converts one into 2d6 + 1d6 per level of aspect damage.",
+    expertise:"Perception at level 10, plus Dexterity save proficiency against anything you can see.",
+    concentration:"At 15 your weapon's attack bonus, minimum +2, is added to those checks and to your spell save DC.",
+    armorclass:"Shield Form turns the spirit's attack bonus into an AC bonus, and you can hold weapon and shield at once."
+  },
+  features:[
+    {lvl:"Level 3",name:"Spirit Weapon",body:"<p>A bonded spirit, invisible to everyone else until you manifest it with a {{bonusaction}} as any weapon or pair you are proficient with, reshapeable with another. It returns to you past 300 feet or across planes. On a {{longrest|long rest}} it can absorb one non-sentient magic weapon, taking its attack and damage bonus and imitating it exactly.</p>"},
+    {lvl:"Level 3",name:"Bonded Fighting Style",body:"<p>Manifesting the spirit lets you re-pick your {{fightingstyle|Fighting Style}} to suit the form it took, reverting when you dismiss it.</p>"},
+    {lvl:"Level 3",name:"Spirit Magic",body:"<p>The weapon is an arcane focus worth whatever it currently looks like. Third-caster {{spellslot|spellcasting}} on Wisdom from the Spiritsworn list, plus spells fixed by the spirit's aspect — fire, ice, storm, illusion, gravity, nature or time — which cannot be swapped out.</p>"},
+    {lvl:"Level 7",name:"Advanced Weapon Formation",body:"<p>Each manifestation or reshape may take one exotic property: <b>Enlarged Form</b> for a size up and +1d4 damage; <b>Extended Form</b> for Reach, or +5 feet if it already had it; <b>Shield Form</b>, turning its attack bonus into an {{armorclass|AC}} bonus and letting you hold weapon and shield together.</p>"},
+    {lvl:"Level 7",name:"Empowered Strike",body:"<p>Manifesting or reshaping it can burn a {{spellslot|spell slot}}: the first damage you deal before dismissing or changing it again adds 2d6 of your aspect's type, +1d6 per slot level above 1st. Expires after a minute.</p>"},
+    {lvl:"Level 10",name:"Second Senses",body:"<p>Perception proficiency, or {{expertise|Expertise}} if you had it, plus proficiency in Dexterity {{savingthrow|saves}} against effects you can see.</p>"},
+    {lvl:"Level 15",name:"Empowering Bond",body:"<p>Casting through the weapon adds its attack bonus — minimum +2 — to your {{spellsavedc|spell save DC}} and to {{concentration}} checks on that spell.</p>"},
+    {lvl:"Level 18",name:"Synchronized Assault",body:"<p>Manifesting and reshaping cost no action at all. Once a turn, doing so grants {{advantage}} on your next attack that turn.</p>"}
+  ]};
+
+/* ------------------------------------ Monk ------------------------------- */
+
+ENTRIES["mo-llelements"] = { cls:"monk", nav:"Way of the Elements (Kibbles)", navSub:"Levels 3 · 6 · 11 · 17", kicker:"Monk subclass · homebrew",
+  name:"Way of the Elements (Kibbles)",
+  tag:"A menu of elemental techniques, paid for in Ki",
+  flavor:"Monks who braid the primal forces into their martial art. Kibbles rebuilds the elemental monk as a technique list you pick from and keep swapping, rather than a fixed ladder of spells.",
+  src:"Kibbles' Legends and Legacies, pp. 138–140",
+  mods:{
+    focuspoints:"Called Ki here. Techniques cap out at proficiency bonus of Ki per turn, and from 11 one point a turn is free.",
+    focustechnique:"Three techniques at level 3 and two more at 6, 11 and 17, swappable one per Monk level.",
+    spellsavedc:"Techniques that call for a save use your Ki Save DC rather than a spell save DC.",
+    unarmedstrike:"Attack-roll techniques only work through these or Monk weapons; Fangs of the Fire Snake stretches them to 15 feet.",
+    bonusaction:"Several techniques run off one, and casting an Elemental Power spell with your action buys an unarmed strike.",
+    armorclass:"Arms of Stone raises it and your melee damage by the Ki you spend, until your next turn."
+  },
+  features:[
+    {lvl:"Level 3",name:"Elemental Techniques",body:"<p>Three {{focustechnique|techniques}} now, two more at 6, 11 and 17, and one swap each Monk level. They spend {{focuspoints|Ki}} up to your {{proficiencybonus|proficiency bonus}} per turn, use your Ki Save {{spellsavedc|DC}}, and only work through {{unarmedstrike|unarmed strikes}} or Monk weapons where an attack roll is involved.</p><p>The list runs from <b>Arms of Stone</b> (1+ Ki for melee damage and {{armorclass|AC}}) and <b>Fangs of the Fire Snake</b> (15-foot fiery reach) to <b>Elemental Power</b>, which buys a spell off the elemental list at a Ki cost equal to its level — and a {{bonusaction}} strike when you cast it with your action.</p>"},
+    {lvl:"Level 6",name:"Force of Nature",body:"<p>Bend the Earth, Control the Flames, Gust the Wind and Shape the River free of your {{focustechnique|technique}} count; duplicates are replaced with new picks.</p>"},
+    {lvl:"Level 11",name:"Empowered Techniques",body:"<p>One free {{focuspoints|Ki}} point at the start of each turn, spendable only on techniques and lost if unused.</p>"},
+    {lvl:"Level 17",name:"Elemental Avatar",body:"<p><em>Form of fire</em>, <em>ice</em>, <em>stone</em>, <em>water</em> and <em>wind</em>, each for 6 {{focuspoints|Ki}} and using your Ki Save {{spellsavedc|DC}} — or all at once as <em>form of the elements</em>, for nothing at all. Once per {{longrest|long rest}}.</p>"}
+  ]};
+
+ENTRIES["mo-outcast"] = { cls:"monk", nav:"Way of the Outcast", navSub:"Levels 3 · 6 · 11 · 17", kicker:"Monk subclass · homebrew",
+  name:"Way of the Outcast",
+  tag:"Expelled, self-taught, and fights like a bar regular",
+  flavor:"A monk whose training stopped early — a mentor who died or left, an order that threw them out, or simple disenchantment. What they have instead is armour, improvised weapons, and a great deal of practical experience with bar stools.",
+  src:"Kibbles' Legends and Legacies, pp. 140–142",
+  mods:{
+    focuspoints:"Ki here. Meditation to regain it can be cards, ale or a smoke, and two extra Pragmatic Techniques spend it.",
+    unarmoreddefense:"Replaced in practice: you get light and medium armour proficiency and keep Martial Arts and Unarmored Movement in it.",
+    spellsavedc:"Your Ki Save DC may run on Strength instead of Wisdom.",
+    martialartsdie:"Two rolls of it on a prone, restrained or incapacitated target; one added to a grapple contest after the roll.",
+    temporaryhp:"Constitution + proficiency bonus on rolling initiative, refreshed by every Dodge.",
+    stunned:"Where It Hurts gives disadvantage on the save after a critical hit or an attack from concealment.",
+    proficiencybonus:"At 17 you may drop it from an attack roll to add twice it to the damage."
+  },
+  features:[
+    {lvl:"Level 3",name:"Off the Wagon",body:"<p>Meditating to regain {{focuspoints|Ki}} can be cards, ale, a smoke, or anything else that takes the edge off all that punching.</p>"},
+    {lvl:"Level 3",name:"Bonus Proficiencies",body:"<p>Athletics, or another skill if you had it.</p>"},
+    {lvl:"Level 3",name:"Pragmatism",body:"<p>Improvised weapon proficiency, and improvised melee weapons count as Monk weapons. Light and medium armour proficiency with {{unarmoreddefense|Martial Arts and Unarmored Movement}} still working inside it. And your Ki Save {{spellsavedc|DC}} may use Strength rather than Wisdom.</p><p>Two extra techniques: <b>Kick 'em While They're Down</b> (1 Ki for two {{martialartsdie|Martial Arts dice}} against a {{prone}}, {{restrained}} or {{incapacitated}} target) and <b>Unexpected Technique</b> (1 Ki adds one to a {{grappled|grapple}} contest after the roll, and deals that much on a success).</p>"},
+    {lvl:"Level 6",name:"Soak It Up",body:"<p>Rolling {{initiative}} grants {{temporaryhp|temporary hit points}} equal to Constitution + {{proficiencybonus|proficiency bonus}}, refreshed every time you Dodge.</p>"},
+    {lvl:"Level 11",name:"Where It Hurts",body:"<p>Stunning Strike off a {{criticalhit|critical hit}} or an attack the target never saw gives {{disadvantage}} on the {{savingthrow|save}} against being {{stunned}}.</p>"},
+    {lvl:"Level 17",name:"Lean into It",body:"<p>Drop your {{proficiencybonus|proficiency bonus}} from an {{unarmedstrike|unarmed strike}} or melee Monk weapon attack roll and add twice it to the damage instead.</p>"}
+  ]};
+
+ENTRIES["mo-llswordsaint"] = { cls:"monk", nav:"Way of the Sword Saint", navSub:"Levels 3 · 6 · 11 · 17", kicker:"Monk subclass · homebrew",
+  name:"Way of the Sword Saint",
+  tag:"Weapon mastery past the point where physics objects",
+  flavor:"Monks who chase weapon expertise beyond normal limits — striking like wind, stepping into the sky, cutting stone. Most treat it as an art and look for spiritual understanding in martial perfection, which does not make it less lethal when pointed at something.",
+  src:"Kibbles' Legends and Legacies, pp. 142–144",
+  mods:{
+    focuspoints:"Ki here, capped at proficiency bonus per turn on techniques, with one free point a turn from level 11.",
+    focustechnique:"Three Mystical Techniques at 3, two more at 6, 11 and 17, one swap per Monk level.",
+    flurryofblows:"From 6, its extra attacks may be made with a Monk weapon.",
+    weaponmastery:"A different thing here: you adopt non-Monk weapons as Monk weapons, one at 3, 6, 11 and 17.",
+    armorclass:"Agile Defense rolls your Martial Arts die into it as a reaction, and softens a hit that lands anyway.",
+    reaction:"Agile Defense parries; Instant Strike answers anything stepping into your reach.",
+    spellsavedc:"Techniques with a DC use your Ki Save DC."
+  },
+  features:[
+    {lvl:"Level 3",name:"Mystical Techniques",body:"<p>Three {{focustechnique|techniques}} now, two more at 6, 11 and 17, one swap each Monk level, all through {{unarmedstrike|unarmed strikes}} or Monk weapons and capped at {{proficiencybonus|proficiency bonus}} {{focuspoints|Ki}} per turn.</p><p>They range from <b>Agile Defense</b> (a {{reaction}} parry adding your {{martialartsdie|Martial Arts die}} to {{armorclass|AC}}, then softening the hit) and <b>Instant Strike</b> (a reaction attack on anything entering your reach) to <b>Dancing Weapon</b>, <b>Dimension Slash</b>, <b>Cut the Weave</b> — a 5-foot <em>dispel magic</em>, or a hole punched in a magical barrier — and <b>Sever Soul</b> at 17.</p>"},
+    {lvl:"Level 3",name:"Weapon Mastery",body:"<p>Adopt a simple or martial melee weapon without heavy or special: you gain proficiency and it becomes a Monk weapon. Another at 6, 11 and 17.</p>"},
+    {lvl:"Level 6",name:"Perfect State",body:"<p>Monk weapon attacks count as magical, and {{flurryofblows|Flurry of Blows}} may use a Monk weapon for its extra attacks.</p>"},
+    {lvl:"Level 11",name:"Empowered Techniques",body:"<p>One free {{focuspoints|Ki}} at the start of each turn, spendable only on techniques and lost if unused.</p>"},
+    {lvl:"Level 17",name:"Flawless Form",body:"<p>Miss with a Monk weapon on your turn and reroll the attack. Once a turn.</p>"}
+  ]};
+
+/* ----------------------------------- Paladin ----------------------------- */
+
+ENTRIES["pa-silence"] = { cls:"paladin", nav:"Oath of Silence", navSub:"Levels 3 · 7 · 15 · 20", kicker:"Paladin oath · homebrew",
+  name:"Oath of Silence",
+  tag:"Take away the noise, and then the words",
+  flavor:"Paladins who keep the quiet. Some take it far enough to stop speaking at all, which the oath rewards rather than punishes — and which makes the moment they rebuke someone for opening their mouth land rather harder.",
+  src:"Kibbles' Legends and Legacies, pp. 144–145",
+  mods:{
+    paladinchanneldivinity:"Shroud of Silence mutes one creature for 10 minutes; Sanctuary of the Sacrosanct heals and grants a free save to everyone near.",
+    auraofprotection:"Aura of Serenity is a second aura: thunder resistance, quieter armour, and from 15 the zone where Rebuke works.",
+    reaction:"Rebuke punishes anyone in your aura for speaking, attacking or casting — and at 20 it stops costing one.",
+    temporaryhp:"Paladin level + Charisma to everyone you choose within 30 feet.",
+    resistance:"Thunder, to you and friendly creatures in the aura.",
+    advantage:"On Stealth for a shrouded creature, and at 20 on saves against charm, fear and spells."
+  },
+  features:[
+    {lvl:"Level 3",name:"Channel Divinity",body:"<p><b>Shroud of Silence</b> — a {{bonusaction}} makes a creature within 60 feet noiseless for 10 minutes: no speech, no verbal components, and {{advantage}} on Stealth. An unwilling one saves to resist and again at the end of its turns.</p><p><b>Sanctuary of the Sacrosanct</b> — an action gives creatures you choose within 30 feet {{temporaryhp|temporary hit points}} equal to your Paladin level + Charisma, and an immediate repeat of any end-of-turn {{savingthrow|save}} they are entitled to.</p>"},
+    {lvl:"Level 3",name:"Oath Spells",body:"<p><em>Sanctuary</em> and <em>sleep</em>; <em>blindness/deafness</em> and <em>silence</em>; <em>counterspell</em> and <em>dispel magic</em>; <em>banishment</em> and <em>commandment</em>; <em>hallow</em> and <em>mislead</em>.</p>"},
+    {lvl:"Level 7",name:"Aura of Serenity",body:"<p>Sound drops within 10 feet — 30 at level 18. You and friendly creatures inside gain {{resistance}} to thunder, and armour stops imposing {{disadvantage}} on Stealth {{abilitycheck|checks}}.</p>"},
+    {lvl:"Level 15",name:"Rebuke",body:"<p>A {{reaction}} when a creature inside your aura tries to speak, attack or cast: radiant damage equal to your Charisma modifier and a Wisdom {{savingthrow|save}} or the attempt fails and it is silenced until its next turn.</p>"},
+    {lvl:"Level 20",name:"Ordered World",body:"<p>An action doubles the aura for a minute and lets you Rebuke without a {{reaction}}, Charisma-modifier times, refilling each turn. Creatures you choose have {{advantage}} on {{savingthrow|saves}} against being {{charmed}}, {{frightened}} or spelled.</p><p><b>Vow of Silence</b> (optional) — never speak again and gain one-way telepathy within 60 feet in a shared language, with all verbal components becoming somatic. Speak once and it is gone.</p>"}
+  ]};
+
+ENTRIES["pa-goodestboi"] = { cls:"paladin", nav:"Oath of the Goodest Boi", navSub:"Levels 3 · 7 · 15 · 20", kicker:"Paladin oath · homebrew",
+  name:"Oath of the Goodest Boi",
+  tag:"Bark the evil away; leave no stick unfetched",
+  flavor:"Written for April Fools and kept in the book because the backers thought it was funny. It is a real oath with real numbers, and the book itself suggests asking your DM before bringing one to the table. Be Good, Be Happy, Be Diligent, Be Friendly, Be Vigilant.",
+  src:"Kibbles' Legends and Legacies, pp. 145–147",
+  mods:{
+    paladinchanneldivinity:"Bark the Evil turns everything nearby; To the Rescue sprints to a downed ally and heals in the same reaction.",
+    layonhands:"Lay on Paws here. From 7 any 5+ points of it also clears fear, paralysis or poison and grants a minute's immunity.",
+    turnundead:"Bark the Evil works like it but on everything non-allied — with disadvantage if they are on your property.",
+    reaction:"To the Rescue moves you your full speed to a creature at 0 and heals it.",
+    frightened:"Cleared by Lay on Paws from level 7, and your allies resist it inside My Yard.",
+    deathsavingthrow:"Unwavering Loyalty replaces dropping to 0 with a Charisma save, eased by every ally who called you a good boi."
+  },
+  features:[
+    {lvl:"Level 3",name:"Channel Divinity",body:"<p><b>Bark the Evil</b> — an action; non-allied creatures within 30 feet that can see or hear you make a Wisdom {{savingthrow|save}} or are {{turnundead|turned}} for a round or until damaged. On your own property they roll it with {{disadvantage}}.</p><p><b>To the Rescue</b> — a {{reaction}} when an ally drops to 0 moves you up to your {{speed}} toward them and spends {{layonhands|Lay on Paws}} if you arrive.</p>"},
+    {lvl:"Level 3",name:"Oath Spells",body:"<p><em>Alarm</em> and <em>charm person</em>; <em>calm emotions</em> and <em>find traps</em>; <em>dig</em> and <em>fear</em>; <em>heavenly ray</em> and <em>locate creature</em>; <em>dispel evil and good</em> and <em>thunderous barking</em>.</p><p><b>Doggo Magic</b> — oath spells need no material components, and verbal and somatic ones may be replaced with barks, tail wags and prancing patterns known only to your order.</p>"},
+    {lvl:"Level 7",name:"Therapy Doggo",body:"<p>Restoring at least 5 {{hitpoints|hit points}} with {{layonhands|Lay on Paws}} also removes {{frightened}}, paralysed or {{poisoned}}, and grants a minute's immunity to them.</p>"},
+    {lvl:"Level 15",name:"Unwavering Loyalty",body:"<p>Dropping to 0 while an ally who called you a good boi in the last 24 hours is within 60 feet gets a Charisma {{savingthrow|save}} — DC equal to the overkill damage minus the number of qualifying allies. Succeed and you are at 1 {{hitpoints|hit point}} instead.</p>"},
+    {lvl:"Level 20",name:"My Yard",body:"<p>An action claims 500 feet as your territory for a minute. Inside it your {{paladinchanneldivinity|Channel Divinity}} options cost nothing — and Bark the Evil becomes a {{bonusaction}} — your {{speed}} and jump distance double, your attacks have {{advantage}}, and allies have advantage on {{savingthrow|saves}} against being {{frightened}}.</p>"}
+  ]};
+
+/* ------------------------------------ Psion ------------------------------ */
+
+ENTRIES["ps-knowingmind"] = { cls:"psion", nav:"Knowing Mind", navSub:"Levels 1 \u00b7 3 \u00b7 6 \u00b7 10 \u00b7 14", kicker:"Psion archetype \u00b7 homebrew",
+  name:"Knowing Mind",
+  tag:"Bank the small moments, spend them on the big one",
+  flavor:"A psion who grasps the future as intuitively as the present, braiding causality and fate in ways that would break a lesser mind. Divine oracle lineage, a link to something on another temporal axis, or a mind that simply got flung forward \u2014 whatever the source, they live a step ahead and spend the advantage carefully.",
+  src:"Kibbles' Legends and Legacies, pp. 147\u2013148",
+  mods:{
+    psionicdiscipline:"Precognition arrives free at level 1, and its Prescience stops needing concentration.",
+    psipoints:"Influence points are spent as psi points and may break your per-power limit \u2014 but cannot be mixed with real ones.",
+    concentration:"Practiced Prescience takes it off the Precognition discipline's Prescience feature entirely.",
+    psionicpower:"Influence points empower one at the start of your turn; at 14 a Seeing can carry two beneficiaries.",
+    temporaryhp:"Twice your current Influence points each turn, transferable to whoever your powers are touching.",
+    reaction:"Window of Opportunity turns a miss against you into a weapon attack or an unempowered psionic power."
+  },
+  features:[
+    {lvl:"Level 1",name:"Forewarned",body:"<p>You gain the {{psionicdiscipline|discipline}} of Precognition.</p>"},
+    {lvl:"Level 1",name:"Practiced Prescience",body:"<p>Gazing ahead with Precognition's Prescience feature no longer requires {{concentration}}.</p>"},
+    {lvl:"Level 3",name:"Climactic Moment",body:"<p>Once a turn, using Seeing empowered with 1 or more {{psipoints|psi points}} while in {{initiative}} \u2014 or any similarly tense situation \u2014 earns an Influence point, up to your Intelligence modifier.</p><p>Start a turn holding any and you may spend the lot as {{psipoints|psi points}} to empower a {{psionicpower|psionic power}}. They can exceed your usual per-power limit but cannot be mixed with real psi points, and they evaporate after a minute or when the pressure ends \u2014 so you cannot bank them before a fight.</p>"},
+    {lvl:"Level 6",name:"Thread of Fate",body:"<p>Starting a turn with Influence points grants {{temporaryhp|temporary hit points}} equal to twice their number. While you hold them you can hand them to any creature your {{psionicpower|psionic powers}} target, or that benefits from your Seeing.</p>"},
+    {lvl:"Level 10",name:"Window of Opportunity",body:"<p>A {{reaction}} when a creature you can see misses you: make a weapon attack against it, or use a {{psionicpower|psionic power}} on it. That power cannot be empowered with {{psipoints|psi points}}, though Influence points still work.</p>"},
+    {lvl:"Level 14",name:"Mastermind",body:"<p>Once a turn, Seeing may name two beneficiaries, with {{psipoints|psi points}} spent separately for each rather than shared. A Glimpsed Future can still be doubled this way, but then neither target gets the bonus damage or the damage reduction.</p>"}
+  ]};
+
+/* ----------------------------------- Ranger ------------------------------ */
+
+ENTRIES["ra-bountyhunter"] = { cls:"ranger", nav:"Bounty Hunter", navSub:"Levels 3 · 7 · 11 · 15", kicker:"Ranger subclass · homebrew",
+  name:"Bounty Hunter",
+  tag:"Dead or alive, and the net is a real weapon",
+  flavor:"Adventurers leave a trail of slain dragons and burned-down taverns in roughly equal measure. Everyone needs someone to be afraid of, and the Bounty Hunter is what those people get. Tracks anywhere, including a city.",
+  src:"Kibbles' Legends and Legacies, pp. 148–150",
+  mods:{
+    huntersmark:"Free at level 3, and Dead or Alive can be applied as part of the same bonus action that places it.",
+    criticalhit:"A target marked Dead crits on 19–20, and its damage dice reroll 1s and 2s.",
+    expertise:"Intimidation at 3 if you already had it; urban tracking doubles your bonus on the relevant checks.",
+    restrained:"Deft Knots adds your proficiency bonus to escape DCs, and escaping provokes a Pin Down attack.",
+    opportunityattack:"Pin Down triggers on a marked creature moving 5 feet, standing up, or breaking free.",
+    reaction:"Pin Down is one, at disadvantage if you answer with a ranged weapon.",
+    preparedspells:"The subclass spells are free of your known count."
+  },
+  features:[
+    {lvl:"Level 3",name:"Bounty Hunter Spells",body:"<p>Free of your spells known: <em>{{huntersmark|hunter's mark}}</em>, <em>hold person</em>, <em>speak with dead</em>, <em>arcane eye</em>, <em>hold monster</em>.</p>"},
+    {lvl:"Level 3",name:"Urban Tracker",body:"<p>Intelligence and Wisdom {{abilitycheck|checks}} to track someone through a town double your {{proficiencybonus|proficiency bonus}}, so long as you know their race or have seen a likeness — a wanted poster counts.</p>"},
+    {lvl:"Level 3",name:"Fist of the Law",body:"<p>Intimidation proficiency, or {{expertise|Expertise}} if you already had it.</p>"},
+    {lvl:"Level 3",name:"Dead or Alive",body:"<p>A {{bonusaction}} — or part of one placing {{huntersmark|hunter's mark}} — marks a creature within 120 feet for a minute. Choose:</p><ul><li><b>Dead</b> — reroll 1s and 2s on your damage dice, and {{criticalhit|crit}} on 19–20 against it.</li><li><b>Alive</b> — net attacks against it take no {{disadvantage}} at melee or long range, and your ranged attacks against it can be nonlethal.</li></ul>"},
+    {lvl:"Level 7",name:"Quick Throw",body:"<p>Using a net in your Attack action no longer costs you the rest of your attacks — though only one of them can be the net.</p>"},
+    {lvl:"Level 7",name:"Deft Knots",body:"<p>Add your {{proficiencybonus|proficiency bonus}} to the DC of escaping any {{restrained|restraint}} you applied — ropes, shackles, nets — where it did not already apply, and roll knot-tying {{abilitycheck|checks}} with {{advantage}}.</p>"},
+    {lvl:"Level 11",name:"Pin Down",body:"<p>A {{reaction}} when a marked creature within 60 feet moves 5 feet, stands from {{prone}} or escapes being {{restrained}}: an {{opportunityattack|opportunity attack}} if a weapon you hold reaches, at {{disadvantage}} with a ranged one.</p>"},
+    {lvl:"Level 15",name:"Unwavering Pursuit",body:"<p>Marking a creature gives you truesight against it, and its exact location within 300 feet, until the mark ends.</p>"}
+  ]};
+
+/* ------------------------------------ Rogue ------------------------------ */
+
+ENTRIES["ro-llassassin"] = { cls:"rogue", nav:"Assassin (Kibbles)", navSub:"Levels 3 · 9 · 13 · 17", kicker:"Rogue subclass · homebrew",
+  name:"Assassin (Kibbles)",
+  tag:"Pick a method, then a favoured approach",
+  flavor:"The grim art of dealing death, in a broad church: assassins, hired killers, spies, bounty hunters. Kibbles' rebuild swaps the official version's opening-round burst for a pair of choices about how you actually get to the target.",
+  src:"Kibbles' Legends and Legacies, pp. 150–151",
+  mods:{
+    advantage:"Backstab grants it against anything that has not acted yet, and whenever an ally flanks the target.",
+    sneakattack:"The Poisoner's Path retypes it to poison and attaches a save; at 17 it simply kills below your Rogue level.",
+    poisoned:"A Constitution save against your poisoned weapon, for a minute, with 24 hours' immunity after a success.",
+    expertise:"Each Killer's Method grants proficiency or Expertise in its tool or skill.",
+    cunningaction:"False Face lets you change into a prepared disguise with it.",
+    initiative:"Swift Blade gives advantage on it when you start hidden from everyone rolling."
+  },
+  features:[
+    {lvl:"Level 3",name:"Bonus Proficiency",body:"<p>A disguise kit or a poisoner's kit.</p>"},
+    {lvl:"Level 3",name:"Backstab",body:"<p>{{advantage|Advantage}} on attacks against any creature that has not taken a turn yet, and against a creature with one of your allies directly on the far side of it.</p>"},
+    {lvl:"Level 9",name:"Killer's Method",body:"<p>Pick one:</p><ul><li><b>False Face</b> — disguise kit proficiency or {{expertise|Expertise}}, and a prepared disguise assumed with {{cunningaction|Cunning Action}}.</li><li><b>Blade in the Dark</b> — Stealth proficiency or Expertise, and hiding while only lightly obscured by dim light.</li><li><b>Poisoner's Path</b> — poisoner's kit proficiency or Expertise, and a free long-lasting weapon poison each {{longrest|long rest}}: your {{sneakattack|Sneak Attack}} becomes poison damage and forces a Constitution {{savingthrow|save}} (DC 8 + {{proficiencybonus|proficiency bonus}} + Dexterity) or {{poisoned}} for a minute, with 24 hours' immunity after a success.</li></ul>"},
+    {lvl:"Level 13",name:"Favored Approach",body:"<p>Pick one: <b>Trusted Face</b> — seven days building an identity, or three hours studying a person, gives {{advantage}} on Deception to hold the disguise. <b>Swift Blade</b> — {{advantage}} on {{initiative}} when you start hidden from everyone rolling it. <b>Specialized Poisons</b> — name a creature type and your poison ignores its {{resistance}} and {{immunity}}.</p>"},
+    {lvl:"Level 17",name:"Lethal Blows",body:"<p>After {{sneakattack|Sneak Attack}} damage, a target left below your Rogue level in {{hitpoints|hit points}} simply dies — unless you are deliberately striking nonlethally.</p>"}
+  ]};
+
+ENTRIES["ro-divinehand"] = { cls:"rogue", nav:"Divine Hand", navSub:"Levels 3 · 9 · 13 · 17", kicker:"Rogue subclass · homebrew",
+  name:"Divine Hand",
+  tag:"Holy water in a flask, and a knife in the dark",
+  flavor:"Not all priests are clerics, and not everything is solved by preaching. A blade that commits the lesser evil for the greater good, or a quiet end for whoever sniffed too close. Good is not nice; evil is not stupid.",
+  src:"Kibbles' Legends and Legacies, pp. 151–153",
+  mods:{
+    cunningaction:"Throws or splashes holy water, or applies it to a weapon to retype your Sneak Attack to radiant.",
+    sneakattack:"Holy water on the blade makes it radiant for a minute.",
+    spellslot:"A third-caster Cleric list on Wisdom, three spells known at 3 and one swap per Rogue level.",
+    concentration:"At 17, 1st-level Cleric spells stop needing it unless upcast.",
+    undead:"Your holy water deals 4d6 radiant to them and to fiends from level 9.",
+    fiend:"The same — Divine Guidance sharpens the water against both.",
+    spellsavedc:"Piercing Gaze is rolled against the enemy caster's, not yours."
+  },
+  features:[
+    {lvl:"Level 3",name:"Spellcasting",body:"<p>Third-caster {{spellslot|spellcasting}} from the Cleric list on Wisdom: three spells known at 3rd level, more as you climb, one swap each Rogue level. {{spellsavedc|Save DC}} 8 + {{proficiencybonus|proficiency bonus}} + Wisdom.</p>"},
+    {lvl:"Level 3",name:"Sanctification",body:"<p>Martial weapon proficiency, and a {{longrest|long rest}} ritual that turns {{proficiencybonus|proficiency bonus}} flasks of water into holy water, good until your next long rest.</p><p>{{cunningaction|Cunning Action}} throws or splashes it — adding your proficiency bonus to the improvised attack — or applies it to a weapon, making your {{sneakattack|Sneak Attack}} radiant for a minute.</p>"},
+    {lvl:"Level 9",name:"Divine Guidance",body:"<p>Two Cleric {{cantrip|cantrips}}. Your holy water deals 4d6 radiant to {{fiend|fiends}} and the {{undead}}, and you can brew a fresh flask on a {{shortrest|short rest}} if you are out.</p>"},
+    {lvl:"Level 13",name:"Piercing Gaze",body:"<p>A creature within 60 feet hidden from you by magic — an illusion, magical darkness, anything — can be seen through with a Wisdom (Perception) {{abilitycheck|check}} against the caster's {{spellsavedc|spell save DC}}, no action needed. Fail once and that effect is closed to you for good.</p>"},
+    {lvl:"Level 17",name:"Conviction",body:"<p>1st-level Cleric spells no longer need {{concentration}}, unless you cast them higher.</p>"}
+  ]};
+
+ENTRIES["ro-surgeon"] = { cls:"rogue", nav:"Surgeon", navSub:"Levels 3 · 9 · 13 · 17", kicker:"Rogue subclass · homebrew",
+  name:"Surgeon",
+  tag:"Anatomy, applied in both directions",
+  flavor:"Rogues out of the bloodiest trade there is. Few have opened more creatures than a battlefield medic, and they have turned roper bites and bore holes in skulls into a complete understanding of what a body survives and what it does not. Some are selfless; some went numb a while ago.",
+  src:"Kibbles' Legends and Legacies, pp. 153–154",
+  mods:{
+    sneakattack:"Surgical Assessment lets you apply it without advantage, and rerolls dice when you use a dagger.",
+    cunningaction:"Quick Treatment administers a healing potion or a healer's kit with it.",
+    expertise:"Medicine at level 3, and Medicine checks may run on Intelligence instead of Wisdom.",
+    exhaustion:"Medical Miracle costs the revived creature one level of it.",
+    temporaryhp:"Twice your proficiency bonus on a creature you bring back.",
+    poisoned:"One of the conditions Patch Up clears, alongside blinded, deafened and paralysed.",
+    armorclass:"Surgical Assessment is a Medicine check against it, and tells you the number on a success."
+  },
+  features:[
+    {lvl:"Level 3",name:"Medic's Expertise",body:"<p>Medicine proficiency, {{expertise|Expertise}} if you had it, another tool or skill if you had that. Medicine {{abilitycheck|checks}} may use Intelligence rather than Wisdom. {{cunningaction|Cunning Action}} also administers a healing potion or a healer's kit.</p>"},
+    {lvl:"Level 3",name:"Surgical Assessment",body:"<p>A Wisdom (Medicine) {{abilitycheck|check}} against a visible creature's {{armorclass|AC}}. On a success you learn that AC and may use {{sneakattack|Sneak Attack}} against it without {{advantage}} for 10 minutes — and a dagger lets you reroll Sneak Attack dice up to your Intelligence or Wisdom modifier, keeping the new results.</p>"},
+    {lvl:"Level 9",name:"Patch Up",body:"<p>An action bandages a creature for 1d8 + {{proficiencybonus|proficiency bonus}} {{hitpoints|hit points}} and clears blinded, deafened, paralysed or {{poisoned}}. Once each per {{shortrest|short}} or {{longrest|long rest}} — and on a short rest you can work through six of them.</p>"},
+    {lvl:"Level 13",name:"Medical Miracle",body:"<p>An action returns a creature dead less than a minute to life at 1 {{hitpoints|hit point}} plus twice your {{proficiencybonus|proficiency bonus}} in {{temporaryhp|temporary hit points}}. It gains one level of {{exhaustion}} and cannot be revived this way again until it rests. Patch Up now also clears {{stunned}} and petrified.</p>"},
+    {lvl:"Level 17",name:"Carve Up",body:"<p>Once a turn, a melee hit on a creature under Surgical Assessment cripples it: <b>Hamstring</b> halves its {{speed}}; <b>Artery</b> deals 4d4 piercing at the start of its turns; <b>Larynx</b> mutes it, verbal components included; <b>Eyes</b> blinds it.</p><p>A Constitution {{savingthrow|save}} at the end of its turns (DC 8 + Wisdom or Intelligence + {{proficiencybonus|proficiency bonus}}) ends it, and grants 24 hours' immunity to that wound.</p>"}
+  ]};
+
+/* ---------------------------------- Sorcerer ----------------------------- */
+
+ENTRIES["so-feywarped"] = { cls:"sorcerer", nav:"Fey Warped", navSub:"Levels 1 · 6 · 14 · 18", kicker:"Sorcerer origin · homebrew",
+  name:"Fey Warped",
+  tag:"Illusions that bite, and eventually three of you",
+  flavor:"Magic from the touch of the fey — chaotic, varied, a blessing or a curse or both. How much it shows varies. Neither illusion nor enchantment is evil in itself, but few people are willing to trust someone obviously marked by them.",
+  src:"Kibbles' Legends and Legacies, pp. 154–155",
+  mods:{
+    bonusaction:"Fey Trickery spends one on an illusion, an invisibility, or a grander presence on a social check.",
+    invisible:"Obscuring Tricks turns a creature within 30 feet invisible or heavily obscured until its next turn.",
+    metamagic:"Fey Steps adds 5 feet of teleportation per sorcery point, before or after the spell.",
+    sorcerypoints:"They buy the teleport at 14, extra duplicates at 18, and an early reuse of the doppelgangers.",
+    teleport:"Up to 5 feet per sorcery point spent on Metamagic, and swapping places with a duplicate at 18.",
+    advantage:"Glamorous Presence on a social check; and Biting Illusions gives disadvantage on saves to see through them."
+  },
+  features:[
+    {lvl:"Level 1",name:"Fey Magic",body:"<p>At each spell tier, pick one of two free of your spells known: <em>charm person</em> or <em>faerie fire</em>; <em>mirror image</em> or <em>misty step</em>; <em>blink</em> or <em>hypnotic pattern</em>; <em>confusion</em> or <em>greater invisibility</em>; <em>dominate person</em> or <em>mislead</em>.</p>"},
+    {lvl:"Level 1",name:"Fey Trickery",body:"<p><em>Minor illusion</em> free of your {{cantrip|cantrips}} known. A {{bonusaction}} then does one of: cast it; make a creature within 30 feet {{invisible}} or heavily obscured until its next turn; or gain {{advantage}} on a Deception, Intimidation, Performance or Persuasion {{abilitycheck|check}}. {{proficiencybonus|Proficiency bonus}} uses per {{longrest|long rest}}.</p>"},
+    {lvl:"Level 1",name:"Dramatic Powers",body:"<p>Proficiency in Persuasion, Intimidation, Deception or Performance — or any skill if you hold all four.</p>"},
+    {lvl:"Level 6",name:"Biting Illusions",body:"<p>Once a turn, add your Charisma modifier to an illusion spell's damage. Once a turn, a creature interacting with one of your illusions — shattering a mirror image, inspecting a major image — takes psychic damage equal to your Charisma modifier, and any {{abilitycheck|check}} or {{savingthrow|save}} it makes that turn to see through that illusion is at {{disadvantage}}.</p>"},
+    {lvl:"Level 14",name:"Fey Steps",body:"<p>Spending {{sorcerypoints|sorcery points}} on {{metamagic|Metamagic}} also {{teleport|teleports}} you up to 5 feet per point, before or after the spell.</p>"},
+    {lvl:"Level 18",name:"Illusory Doppelgangers",body:"<p>A {{bonusaction}} makes a duplicate within 30 feet at {{armorclass|AC}} 10 + Dexterity, using your {{savingthrow|saves}}. A hit or a failed save destroys it; everything else is ignored, though it reveals the fake. It mimics you and is indistinguishable — even to blindsight and truesight — until you attack, cast or take damage.</p><p>Two more {{sorcerypoints|sorcery points}} buys another, up to three. At the end of each turn you may {{teleport|swap places}} with any duplicate within 120 feet. Once per {{shortrest|short}} or {{longrest|long rest}}, or again for 2 sorcery points.</p>"}
+  ]};
+
+ENTRIES["so-fiendish"] = { cls:"sorcerer", nav:"Fiendish Bloodline", navSub:"Levels 1 · 6 · 14 · 18", kicker:"Sorcerer origin · homebrew",
+  name:"Fiendish Bloodline",
+  tag:"Spend a sorcery point, wear a piece of the fiend",
+  flavor:"Blood tainted by the lower planes — an ancestor's pact, an actual fiend in the family tree, or a corruption that landed before you were born. Most visible in tieflings, but not restricted to them.",
+  src:"Kibbles' Legends and Legacies, pp. 155–157",
+  mods:{
+    sorcerypoints:"Spending any on your turn switches on a fiendish trait for a few rounds; one point alone buys an hour's worth.",
+    darkvision:"Eyes of the Fiend sees 120 feet through magical and nonmagical darkness, and becomes truesight at 18.",
+    resistance:"Skin of the Fiend takes one of poison, fire, lightning or cold — all four once ascended.",
+    reaction:"Touch of Damnation subtracts 1d6 from a creature's attack or save within 30 feet, once per rest.",
+    temporaryhp:"Equal to the spell's level, each time a target fails a save against one of your spells.",
+    immunity:"An ascended Blood of the Fiend ignores spells of 2nd level and below.",
+    savingthrow:"At 14 you can simply pass your own spells' saves, and take nothing where half would apply."
+  },
+  features:[
+    {lvl:"Level 1",name:"Fiend Origin Spells",body:"<p>Pick one of two at each tier, free of your spells known: <em>burning hands</em> or <em>hellish rebuke</em>; <em>darkness</em> or <em>infernal shackles</em>; <em>fireball</em> or <em>stinking cloud</em>; <em>iron garden</em> or <em>wall of fire</em>; <em>insect plague</em> or <em>pyroclastic lance</em>.</p>"},
+    {lvl:"Level 1",name:"Fiendish Legacy",body:"<p>Infernal or Abyssal, and new Sorcerer spells and {{cantrip|cantrips}} may be taken from the Warlock list.</p>"},
+    {lvl:"Level 1",name:"Touch of Damnation",body:"<p>A {{reaction}} when a creature within 30 feet makes an attack roll or {{savingthrow|save}}: roll 1d6 and subtract it, possibly turning the result. Once per {{shortrest|short}} or {{longrest|long rest}}.</p>"},
+    {lvl:"Level 6",name:"Embraced Heritage",body:"<p>Once a turn, spending {{sorcerypoints|sorcery points}} also switches on one trait for 1 + that many rounds — or 1 point as a {{bonusaction}} for an hour:</p><ul><li><b>Blood of the Fiend</b> — {{advantage}} on {{savingthrow|saves}} against spells and magic.</li><li><b>Eyes of the Fiend</b> — see through magical and nonmagical darkness to 120 feet.</li><li><b>Skin of the Fiend</b> — {{resistance}} to poison, fire, lightning or cold, your pick.</li></ul>"},
+    {lvl:"Level 14",name:"Soul Siphon",body:"<p>Each creature that fails a {{savingthrow|save}} against one of your spells gives {{temporaryhp|temporary hit points}} equal to the spell's level.</p>"},
+    {lvl:"Level 14",name:"Eye of Destruction",body:"<p>Pass your own spells' {{savingthrow|saves}} automatically — and where success would mean half damage, take none.</p>"},
+    {lvl:"Level 18",name:"Unleashed Heritage",body:"<p>An extra {{sorcerypoints|sorcery point}} ascends an Embraced Heritage trait: a minute per point, plus {{immunity}} to spells of 2nd level or lower, truesight to 120 feet, or {{resistance}} to all four elements at once.</p>"}
+  ]};
+
+ENTRIES["so-phoenixspark"] = { cls:"sorcerer", nav:"Phoenix Spark", navSub:"Levels 1 · 6 · 14 · 18", kicker:"Sorcerer origin · homebrew",
+  name:"Phoenix Spark",
+  tag:"Fire that heals as readily as it burns",
+  flavor:"Some say phoenix flame is the origin of all life and these sparks are fragments of it; others say they are ancient blessings, motes caught in the soul from an ancestor a phoenix healed. Either way it is life and destruction in the same fire.",
+  src:"Kibbles' Legends and Legacies, pp. 157–159",
+  mods:{
+    bonusaction:"Rekindles the spark, healing 1d6 and switching on wings, added Charisma and fire resistance.",
+    resistance:"Fire, for as long as the spark burns.",
+    sorcerypoints:"They pay for the spark once your uses are gone, and for the enhanced minute-long version at 14.",
+    flyspeed:"30 feet while a Blazing Soul spark burns; 60 with Flyby once you are reborn at 18.",
+    reaction:"A Flaming Aura burns anyone who hits you from within 5 feet for 2d6.",
+    prone:"Wings of Flame cut fall damage by your Charisma score, and you stay on your feet if it reaches 0.",
+    savingthrow:"Rejuvenating Flames turns your own fire spell into healing for chosen allies, who pass automatically."
+  },
+  features:[
+    {lvl:"Level 1",name:"Phoenix Magic",body:"<p>Pick one of two at each tier, free of your spells known: <em>burning hands</em> or <em>cure wounds</em>; <em>become fire</em> or <em>lesser restoration</em>; <em>fireball</em> or <em>revivify</em>; <em>fire shield</em> or <em>wall of fire</em>; <em>pyroclastic lance</em> or <em>greater restoration</em>.</p>"},
+    {lvl:"Level 1",name:"Phoenix Spark",body:"<p>A {{bonusaction}} rekindles the spark until your next turn, healing 1d6 and granting: <b>Wings of Flame</b>, jumping off Charisma and cutting fall damage by your Charisma score — reach 0 and you do not fall {{prone}}; <b>Phoenix Fire</b>, adding your Charisma modifier to one fire damage or healing roll; and {{resistance}} to fire.</p><p>{{proficiencybonus|Proficiency bonus}} uses per {{longrest|long rest}}, then 1 {{sorcerypoints|sorcery point}} each.</p>"},
+    {lvl:"Level 6",name:"Rejuvenating Flames",body:"<p>Casting a fire spell, spend a {{sorcerypoints|sorcery point}} per creature to spare them: they pass the {{savingthrow|save}} automatically and heal half the fire damage they would have taken instead. Once per {{shortrest|short}} or {{longrest|long rest}}.</p>"},
+    {lvl:"Level 14",name:"Blazing Soul",body:"<p>Spend a second use — or a {{sorcerypoints|sorcery point}} — when you kindle the spark and it lasts a minute, adding a 30-foot {{flyspeed|fly speed}}, 1d6 regeneration at the start of your turns, a {{reaction}} burning melee attackers within 5 feet for 2d6, and 20 feet of bright light.</p>"},
+    {lvl:"Level 18",name:"In Flames Reborn",body:"<p>Dropping to 0 {{hitpoints|hit points}}, or an action any time, explodes you for 8d6 fire within 30 feet — Rejuvenating Flames applies free — and rebirths you as a fire elemental by <em>shapechange</em> for an hour. It needs no {{concentration}}, gains a 60-foot {{flyspeed|fly speed}} with Flyby, adds Charisma to your Touch attack, and lets you speak. Once per {{longrest|long rest}}.</p>"}
+  ]};
+
+ENTRIES["so-seasoul"] = { cls:"sorcerer", nav:"Sea Soul", navSub:"Levels 1 · 6 · 14 · 18", kicker:"Sorcerer origin · homebrew",
+  name:"Sea Soul",
+  tag:"Water's strength is that it never stops",
+  flavor:"Water parts for a ship and leaves no mark, then reaches the sea anyway. A heritage traced to nereids, merfolk lords or elemental powers — and a call you never quite stop hearing until you are near the coast.",
+  src:"Kibbles' Legends and Legacies, pp. 159–161",
+  mods:{
+    savingthrow:"Part the Waves exempts 1 + the spell's level in allies from your own water and cold spells, damage included.",
+    speed:"A 30-foot swim speed at level 1, or +10 if you had one, with water breathing at 6.",
+    sorcerypoints:"2 casts become water; at 18 they cast form of water and discount water Metamagic by 1.",
+    reaction:"Wave Dash casts become water in answer to taking damage.",
+    concentration:"Form of water stops needing it, and can be dropped for free.",
+    advantage:"On spell attacks against anything rimed by your Misty Shroud.",
+    metamagic:"Inside form of water, every water or ice spell's Metamagic costs 1 point less."
+  },
+  features:[
+    {lvl:"Level 1",name:"Wave Magic",body:"<p>Pick one of two at each tier, free of your spells known: <em>crashing wave</em> or <em>water blast</em>; <em>become water</em> or <em>dancing wave</em>; <em>sleet storm</em> or <em>water cannon</em>; <em>ice storm</em> or <em>geyser</em>; <em>acid rain</em> or <em>pressure cutter</em>.</p>"},
+    {lvl:"Level 1",name:"Part the Waves",body:"<p><em>Manipulate water</em> free of your spells known. Casting a water or cold spell lets you exempt 1 + the spell's level in visible creatures: they pass the {{savingthrow|save}} automatically and take nothing where half would apply.</p>"},
+    {lvl:"Level 1",name:"Gift of the Depths",body:"<p>A 30-foot swimming {{speed}}, or +10 feet if you already had one. Water breathing at level 6.</p>"},
+    {lvl:"Level 6",name:"Turmoil of the Sea",body:"<p>Once a turn, a spell that moves, knocks {{prone}} or slows a creature also deals bludgeoning damage equal to your Charisma modifier.</p>"},
+    {lvl:"Level 6",name:"Wave Dash",body:"<p>Cast <em>become water</em> as a {{reaction}} to taking damage, and for 2 {{sorcerypoints|sorcery points}} instead of a {{spellslot|slot}}.</p>"},
+    {lvl:"Level 14",name:"Misty Shroud",body:"<p>A wispy fog follows you. Casting a spell of 1st level or higher thickens it — lightly obscuring 10 feet around you for that many rounds — and leaves a rime on creatures you choose inside. You have {{advantage}} on spell attacks against them, and while they stay in the fog they are under <em>bane</em> against your spells.</p>"},
+    {lvl:"Level 18",name:"One with the Waves",body:"<p><em>Form of water</em> free of your spells known — or another spell of 6th level or lower if you had it — needing no {{concentration}} and endable for free, castable for 4 {{sorcerypoints|sorcery points}}. Inside that form, {{metamagic|Metamagic}} on water and ice spells costs 1 point less.</p>"}
+  ]};
+
+ENTRIES["so-stoneheart"] = { cls:"sorcerer", nav:"Stoneheart", navSub:"Levels 1 · 6 · 14 · 18", kicker:"Sorcerer origin · homebrew",
+  name:"Stoneheart",
+  tag:"Conjure the weapon, then become the wall",
+  flavor:"Blood from a steadfast lineage touched by the earth — ancient dwarves first shaped from stone, or a dao line from another plane. It runs thicker and beats steadier than other people's. Common among genasi and dwarves without being limited to them.",
+  src:"Kibbles' Legends and Legacies, pp. 161–162",
+  mods:{
+    armorclass:"Stone Hide makes it 13 + Charisma unarmoured, and Stone Aegis cuts physical damage by your proficiency bonus.",
+    bonusaction:"Strength of Stone switches it all on for a minute, and can conjure a stone weapon in the same action.",
+    sorcerypoints:"They buy extra activations, 1d8-per-point damage reduction, and a bonus-action attack after a spell.",
+    extraattack:"While Strength of Stone holds, you attack twice.",
+    hitpoints:"Your maximum rises by 1 now and by 1 more every Sorcerer level.",
+    resistance:"At 18, physical damage while Strength of Stone is running.",
+    reaction:"Earthen Endurance spends sorcery points to soak damage on a protected creature, then repays it as damage."
+  },
+  features:[
+    {lvl:"Level 1",name:"Earth Magic",body:"<p>Pick one of two at each tier, free of your spells known: <em>create pit</em> or <em>stone fist</em>; <em>earth ripple</em> or <em>stone pillar</em>; <em>quicksand</em> or <em>seismic wave</em>; <em>stoneskin</em> or <em>stone coffin</em>; <em>fissure</em> or <em>wall of stone</em>.</p>"},
+    {lvl:"Level 1",name:"Boon of the Earth",body:"<p><em>Stone forming</em> and proficiency with the weapons it makes — which inherit any magic-item bonus you have to spell attacks and damage. Your maximum {{hitpoints|hit points}} rise by 1 now and by 1 more each Sorcerer level.</p>"},
+    {lvl:"Level 1",name:"Strength of Stone",body:"<p>A {{bonusaction}} — which may also cast <em>stone forming</em> — grants for a minute: Charisma in place of Strength on attacks, damage and {{abilitycheck|checks}}; unarmoured {{armorclass|AC}} of 13 + Charisma; and a Stone Aegis reducing bludgeoning, piercing and slashing by your {{proficiencybonus|proficiency bonus}}. {{proficiencybonus|Proficiency bonus}} uses per {{longrest|long rest}}, then 1 {{sorcerypoints|sorcery point}} each.</p>"},
+    {lvl:"Level 6",name:"Earthen Endurance",body:"<p>Share the Stone Aegis with one creature within 30 feet. When a protected creature takes any damage, a {{reaction}} and {{sorcerypoints|sorcery points}} reduce it by 1d8 each — and your next melee hit before the end of your next turn adds that many d8s to its damage.</p>"},
+    {lvl:"Level 6",name:"Earthen Onslaught",body:"<p>While Strength of Stone runs you {{extraattack|attack twice}}, and casting a spell with your action lets 1 {{sorcerypoints|sorcery point}} buy a melee attack as a {{bonusaction}}.</p>"},
+    {lvl:"Level 14",name:"Stonewalk",body:"<p>A 15-foot burrowing {{speed}}. You pass through soil and stone leaving no hole; end a turn inside stone and you are pushed back out where you entered.</p>"},
+    {lvl:"Level 18",name:"Skin of Stone",body:"<p>While Strength of Stone runs, {{resistance}} to bludgeoning, piercing and slashing.</p>"}
+  ]};
+
+/* ----------------------------------- Warlock ----------------------------- */
+
+ENTRIES["wl-lldragon"] = { cls:"warlock", nav:"The Dragon", navSub:"Levels 1 · 6 · 10 · 14", kicker:"Warlock patron · homebrew",
+  name:"The Dragon",
+  tag:"Eldritch Blast, but it is a breath weapon",
+  flavor:"A pact with a mighty dragon, on terms that vary enormously — a metallic one saving a life or building a force for good, a chromatic one buying service, or advancing a plan lesser minds would struggle to follow. Usually ancient ones; occasionally a younger partnership.",
+  src:"Kibbles' Legends and Legacies, pp. 162–166",
+  mods:{
+    invocations:"Agonizing Blast and friends apply to Draconic Blast, but only once, since it is one area rather than several beams. Eldritch Spear doubles the cone or line instead.",
+    pactspellslots:"One can be burned to empower a Draconic Blast for +1d8 per level, and to make it deal half damage on a success.",
+    resistance:"Your chosen element at level 10, becoming immunity inside Dragon Form.",
+    frightened:"Everyone within 30 feet who watches you transform makes a Wisdom save.",
+    temporaryhp:"1 per 100 gp you are carrying at the end of a long rest, capped at your Warlock level.",
+    armorclass:"Dragon Scales set it to a flat 17, with no Dexterity added.",
+    flyspeed:"40 feet for the minute Dragon Form lasts."
+  },
+  features:[
+    {lvl:"Level 1",name:"Dragon Expanded Spells",body:"<p><em>Aldricor's elemental rebuke</em> and <em>elemental orb</em>; <em>alter self</em> and <em>elemental exhalation</em>; <em>meteor jump</em> and <em>wind wall</em>; <em>fire shield</em> and <em>secret chest</em>; <em>control wind</em> and <em>summon dragon</em>.</p>"},
+    {lvl:"Level 1",name:"Draconic Blast",body:"<p>An action breathes a 15-foot cone or a 30-foot line. Pick acid, cold, fire, lightning or poison at level 1; creatures make a Dexterity {{savingthrow|save}} or take 1d8, rising to 2d8 at Warlock 5, 3d8 at 11 and 4d8 at 17.</p><p>Burn a {{pactspellslots|pact slot}} to add 1d8 per level — and an empowered blast deals half damage even on a success. It is not a spell, though {{invocations|invocations}} for <em>eldritch blast</em> still apply, once each.</p>"},
+    {lvl:"Level 6",name:"Elemental Devastation",body:"<p>Dealing your chosen element also inflicts an ailment: <b>acid</b> gives the next attack against them {{advantage}}; <b>cold</b> is a Strength {{savingthrow|save}} or {{restrained}}; <b>fire</b> burns for 1d6 a turn until someone spends an action dousing it; <b>lightning</b> is a Constitution save or {{stunned}}; <b>poison</b> is a Constitution save or {{poisoned}} for a minute. {{proficiencybonus|Proficiency bonus}} uses per {{longrest|long rest}}.</p>"},
+    {lvl:"Level 10",name:"Hoard Builder",body:"<p>Each {{longrest|long rest}} ends with 1 {{temporaryhp|temporary hit point}} per 100 gp you are carrying, capped at your Warlock level. You also gain {{resistance}} to your Draconic Blast's element.</p>"},
+    {lvl:"Level 14",name:"Dragon Form",body:"<p>An action turns you into a dragon for a minute — horns, scales, wings, claws, fangs, tail. Creatures you choose within 30 feet who see it make a Wisdom {{savingthrow|save}} or are {{frightened}} until your next turn.</p><p>You become Large, your Strength becomes your Charisma, your {{armorclass|AC}} is a flat 17, your horns, fangs and tail deal 1d10 piercing with a {{bonusaction}} claw attack for 1d6 after any of them, your Draconic Blast gains a die and doubles its range, you have a 40-foot {{flyspeed|fly speed}}, and you are {{immunity|immune}} to your element. Once per {{longrest|long rest}}.</p>"}
+  ]};
+
+ENTRIES["wl-llfey"] = { cls:"warlock", nav:"The Fey", navSub:"Levels 1 · 6 · 10 · 14", kicker:"Warlock patron · homebrew",
+  name:"The Fey",
+  tag:"Glamour as a resource, and charm turned back on the sender",
+  flavor:"Kibbles' take on the fey pact: a pool of small dazzling effects you spend from, an escape that leaves an illusion behind, and — at the top — the ability to take someone else's charm attempt and hand it straight back.",
+  src:"Kibbles' Legends and Legacies, pp. 166–167",
+  mods:{
+    charmed:"Immunity at 10, and a reaction turning an attempt back on its caster; at 14 you walk charmed creatures around.",
+    invisible:"Fey Trickery goes invisible and teleports 60 feet, holding until your next turn or until you cast.",
+    teleport:"60 feet as an action, or as a reaction to taking damage, optionally leaving a mirror image behind.",
+    spellsavedc:"Bedazzle, Beguiling Defenses and Hypnotic Charms all run off it.",
+    reaction:"Fey Trickery answers damage; Beguiling Defenses answers a charm attempt or an attack.",
+    frightened:"Bedazzle's alternative to charming a 10-foot cube of creatures.",
+    advantage:"Amplify grants it on a Persuasion, Intimidation or Performance check."
+  },
+  features:[
+    {lvl:"Level 1",name:"Expanded Spell List",body:"<p><em>Faerie fire</em> and <em>sleep</em>; <em>blur</em> and <em>phantasmal force</em>; <em>blink</em> and <em>plant growth</em>; <em>confusion</em> and <em>greater invisibility</em>; <em>dominate person</em> and <em>seeming</em>.</p>"},
+    {lvl:"Level 1",name:"Fey Burst",body:"<p>{{proficiencybonus|Proficiency bonus}} uses per {{longrest|long rest}}, spent on: <b>Fairy Lights</b>, making a creature you hit glow as <em>faerie fire</em> until your next turn; <b>Amplify</b>, {{advantage}} on a Persuasion, Intimidation or Performance {{abilitycheck|check}}; <b>Bedazzle</b>, an action forcing a 10-foot cube into a Wisdom {{savingthrow|save}} against your {{spellsavedc|spell save DC}} or be {{charmed}} or {{frightened}} until the end of your next turn; or <b>Glamour</b>, a free <em>disguise self</em>.</p>"},
+    {lvl:"Level 1",name:"Dazzling Tricks",body:"<p><em>Minor illusion</em>, <em>thaumaturgy</em> or <em>dancing lights</em>.</p>"},
+    {lvl:"Level 6",name:"Fey Trickery",body:"<p>An action, or a {{reaction}} to taking damage, turns you {{invisible}} and {{teleport|teleports}} you 60 feet, lasting until your next turn or until you cast. You may leave a mirror image behind, which vanishes into mist on any damage. Once per {{shortrest|short}} or {{longrest|long rest}}.</p>"},
+    {lvl:"Level 10",name:"Beguiling Defenses",body:"<p>You cannot be {{charmed}}. When a creature tries to charm or attack you, a {{reaction}} forces a Wisdom {{savingthrow|save}} against your {{spellsavedc|spell save DC}} or it is charmed by you for a minute instead, with repeat saves and an end on damage. Once per {{longrest|long rest}}, or again for a Fey Burst.</p>"},
+    {lvl:"Level 14",name:"Hypnotic Charms",body:"<p>A creature starting its turn {{charmed}} by you makes a Wisdom {{savingthrow|save}} or moves up to its {{speed}} where you point — never into hazards, and the movement ends if it takes damage.</p>"}
+  ]};
+
+ENTRIES["wl-knowledgekeeper"] = { cls:"warlock", nav:"The Knowledge Keeper", navSub:"Levels 1 · 6 · 10 · 14", kicker:"Warlock patron · homebrew",
+  name:"The Knowledge Keeper",
+  tag:"Cast anything, if you can remember it exists",
+  flavor:"A pact with something ancient that holds knowledge — a sentient library, an old spirit, a lost god of learning. This warlock wanted something other than power. The book warns that the subclass runs on the player's own spell knowledge, not the character's.",
+  src:"Kibbles' Legends and Legacies, pp. 167–168",
+  mods:{
+    pactspellslots:"Ancient Secrets burns one a level higher than the spell you want, to cast Abjuration, Divination or Transmutation from any list.",
+    concentration:"Automatic success on Divination spells at 10, and your spellcasting modifier added on everything else.",
+    reaction:"Magical Mechanics identifies a spell being cast with an Arcana check, and eases the save against it.",
+    invocations:"Eyes of the Rune Keeper free of your count at 10 — or Beast Speech or Eldritch Sight if you had it.",
+    advantage:"On a save against any spell you successfully identified as it was cast.",
+    spellsavedc:"At 14 a bonus action swaps your spellcasting modifier for Intelligence + Wisdom + Charisma combined."
+  },
+  features:[
+    {lvl:"Level 1",name:"Expanded Spell List",body:"<p><em>Induce headache</em> and <em>identify</em>; <em>detect thoughts</em> and <em>locate object</em>; <em>immutability</em> and <em>speak with dead</em>; <em>divination</em> and <em>secret chest</em>; <em>legend lore</em> and <em>field of stars</em>.</p>"},
+    {lvl:"Level 1",name:"Ancient Secrets",body:"<p>Burn a {{pactspellslots|pact slot}} at least one level above the spell you want — or a 1st-level slot for a {{cantrip}} — to cast any Abjuration, Divination or Transmutation spell from any class list, as a Warlock spell one level below the slot. Spellcasting-modifier uses per {{longrest|long rest}}. Material components and casting times still apply.</p>"},
+    {lvl:"Level 1",name:"Esoteric Knowledge",body:"<p>Arcana, History or Nature.</p>"},
+    {lvl:"Level 6",name:"Magical Mechanics",body:"<p>A {{reaction}} and an Arcana {{abilitycheck|check}} identify a spell as it is cast — and if it forces a {{savingthrow|save}} on you, you make it with {{advantage}}. You can also cast from a spell scroll off your list, adding your {{proficiencybonus|proficiency bonus}} to the check.</p>"},
+    {lvl:"Level 10",name:"Single-Minded Focus",body:"<p>{{concentration|Concentration}} checks on Divination spells succeed automatically; on any other school you add your spellcasting modifier.</p>"},
+    {lvl:"Level 10",name:"Seeped in Ancient Knowledge",body:"<p>Eyes of the Rune Keeper free of your {{invocations|invocations}} known — or Beast Speech or Eldritch Sight if you already have it.</p>"},
+    {lvl:"Level 14",name:"Fleeting Omniscience",body:"<p>A {{bonusaction}} replaces your spellcasting modifier with Intelligence + Wisdom + Charisma combined until the end of your turn. Once per {{longrest|long rest}}.</p>"}
+  ]};
+
+ENTRIES["wl-overseer"] = { cls:"warlock", nav:"The Overseer", navSub:"Levels 1 · 6 · 10 · 14", kicker:"Warlock patron · homebrew",
+  name:"The Overseer",
+  tag:"A spectral eye that fires a different ray each turn",
+  flavor:"A pact with an all-seeing thing from the outer planes, whose name coastal wizards will not print. Known for its eyes, its paranoia and its reality-warping dreams. The pact may be madness — yours, its, or both — or a scheme too clever for smaller minds.",
+  src:"Kibbles' Legends and Legacies, pp. 168–170",
+  mods:{
+    bonusaction:"Summons the eye and, from 6, fires it again each turn or takes the Search action through it.",
+    antimagic:"Suppressor's Sight opens a 150-foot cone of it for a round, once per long rest.",
+    frightened:"The Fear Ray, on a failed Wisdom save, until your next turn.",
+    initiative:"Patron's Paranoia adds your Charisma modifier to it.",
+    speed:"The Slowing Ray halves it; the Telekinetic Ray drags the target 10 feet.",
+    invocations:"Controlled Chaos rolls the ray table twice; Overseer's Sight grants truesight that doubles with the eye out.",
+    advantage:"On Wisdom (Perception) while the eye lingers beside you."
+  },
+  features:[
+    {lvl:"Level 1",name:"Expanded Spell List",body:"<p>Chosen from the Overseer's list when you learn a Warlock spell.</p>"},
+    {lvl:"Level 1",name:"Overseer's Gaze",body:"<p>A {{bonusaction}} summons a spectral eye that immediately fires one ray at a creature within 120 feet, rolled on a d6: <b>Fear</b> (Wisdom {{savingthrow|save}} or {{frightened}} until your next turn), <b>Telekinetic</b> (Strength save or moved 10 feet), <b>Slowing</b> ({{speed}} halved), <b>Petrification</b> (Constitution save or <em>slow</em>), <b>Enervation</b> (Constitution save or 1d8 + Charisma necrotic) or <b>Disintegration</b> (Constitution save or 1d10 + Charisma force). Then it fades. {{proficiencybonus|Proficiency bonus}} uses per {{longrest|long rest}}.</p>"},
+    {lvl:"Level 6",name:"Lingering Gaze",body:"<p>The eye stays a minute, travelling in your space, and a {{bonusaction}} fires it again each turn on a fresh roll — once per eye you may simply pick the ray. While it is with you, you have {{advantage}} on Wisdom (Perception) and may Search as a {{bonusaction}} instead of firing.</p>"},
+    {lvl:"Level 10",name:"Patron's Paranoia",body:"<p>You cannot be surprised, your passive Perception works while you sleep, and you add your Charisma modifier to {{initiative}}.</p>"},
+    {lvl:"Level 14",name:"Suppressor's Sight",body:"<p>An action manifests a giant eye in your space, projecting an {{antimagic|antimagic field}} in a 150-foot cone until your next turn. It does not move. Once per {{longrest|long rest}}.</p>"}
+  ]};
+
+ENTRIES["wl-ooze"] = { cls:"warlock", nav:"The Ooze", navSub:"Levels 1 · 6 · 10 · 14", kicker:"Warlock patron · homebrew",
+  name:"The Ooze",
+  tag:"Catch the weapon in your body and keep it",
+  flavor:"A pact with a powerful ooze, granting command over the primordial essence of slime. The longer it holds, the more you resemble it — the body turning slimy and gelatinous by degrees.",
+  src:"Kibbles' Legends and Legacies, pp. 170–172",
+  mods:{
+    reaction:"Adaptive Absorption takes resistance to whatever just hit you, and can glue the attacker's weapon into your body.",
+    resistance:"The triggering damage type until your next turn, plus acid permanently at 6 — immunity at 10.",
+    grappled:"A creature whose weapon sticks in you either lets go or is grappled; Flowing Form makes you immune to it.",
+    restrained:"Flowing Form grants immunity and frees you if you were already caught.",
+    immunity:"Acid at 10, and the grappled and restrained conditions while Flowing Form holds.",
+    bonusaction:"Flowing Form squeezes you through a one-inch gap until your next turn."
+  },
+  features:[
+    {lvl:"Level 1",name:"Expanded Spell List",body:"<p><em>Grease</em> and <em>summon ooze</em>; <em>acid arrow</em> and <em>alter self</em>; <em>erode</em> and <em>protection from energy</em>; <em>black tentacles</em> and <em>freedom of movement</em>; <em>acid rain</em> and <em>contagion</em>.</p>"},
+    {lvl:"Level 1",name:"Adaptive Absorption",body:"<p>A {{reaction}} to taking damage grants {{resistance}} to that type until your next turn. If it was a melee weapon attack, the attacker makes a Strength {{savingthrow|save}} against your {{spellsavedc|spell save DC}} or the weapon sticks — they let go or are {{grappled}} by you, their choice. An action and a repeat save frees it; you can let go for nothing. {{proficiencybonus|Proficiency bonus}} uses per {{longrest|long rest}}.</p>"},
+    {lvl:"Level 1",name:"Flowing Form",body:"<p>A {{bonusaction}} makes you and everything you carry amorphous until your next turn: you squeeze through a one-inch gap and are {{immunity|immune}} to being {{grappled}} or {{restrained}}, freeing you if you already were. Once per {{shortrest|short}} or {{longrest|long rest}}.</p>"},
+    {lvl:"Level 6",name:"Corrosive Conduit",body:"<p>{{resistance|Resistance}} to acid, and your acid spells add your Charisma modifier to one damage roll.</p>"},
+    {lvl:"Level 10",name:"Acidic Adaption",body:"<p>Acid {{resistance}} becomes {{immunity}}, and Adaptive Absorption against a melee attack burns the attacker for 3d6 acid.</p>"},
+    {lvl:"Level 14",name:"Division on Death",body:"<p>Dropping to 0 {{hitpoints|hit points}}, you may instead burst: creatures you choose within 10 feet make a Dexterity {{savingthrow|save}} or take 3d6 + Charisma acid, and you leave Charisma-modifier blobs at {{armorclass|AC}} 8 and 10 hit points each. They auto-fail Strength and Dexterity saves and use yours otherwise. At the start of your next turn the survivors recombine and you come back with their pooled hit points — or at 0 if none survived. Once per {{longrest|long rest}}.</p>"}
+  ]};
+
+ENTRIES["wl-tempest"] = { cls:"warlock", nav:"The Tempest", navSub:"Levels 1 · 6 · 10 · 14", kicker:"Warlock patron · homebrew",
+  name:"The Tempest",
+  tag:"Cast to build the storm, then spend the storm",
+  flavor:"A pact with an ancient entity of tempestuous power. The subclass is a storm meter: every pact slot you spend raises it, every quiet turn lowers it, and the height you keep it at decides what you can do.",
+  src:"Kibbles' Legends and Legacies, pp. 172–173",
+  mods:{
+    pactspellslots:"Spending one raises your storm level by that many; letting a turn pass without casting drops it by one.",
+    concentration:"You can hold the storm as if it were a spell, for up to a minute, to stop it decaying.",
+    flyspeed:"15 feet at storm level 3, and your full speed unrestricted at 5.",
+    reaction:"Storm level 2 imposes disadvantage on a nearby ranged attack; level 4 zaps anyone who ends a turn or strikes you.",
+    bonusaction:"Storm level 1 casts manipulate wind with one.",
+    resistance:"The Stormblessed invocation gives lightning and thunder — and bless inside a natural storm.",
+    spellslot:"At 14, feather fall and levitate cost none while the storm is up."
+  },
+  features:[
+    {lvl:"Level 1",name:"Expanded Spell List",body:"<p><em>Feather fall</em> and <em>thunderwave</em>; <em>dust cyclone</em> and <em>levitate</em>; <em>lightning bolt</em> and <em>vortex blast</em>; <em>aero barrage</em> and <em>ice storm</em>; <em>sky burst</em> and <em>tornado</em>.</p>"},
+    {lvl:"Level 1",name:"Building Storm",body:"<p>Casting a Warlock spell from a {{pactspellslots|pact slot}} raises a storm by that slot's level, capped at your Charisma modifier. What it gives you climbs with it:</p><ul><li><b>1</b> — <em>manipulate wind</em> as a {{bonusaction}}.</li><li><b>2</b> — a {{reaction}} imposing {{disadvantage}} on a ranged attack against anything within 15 feet.</li><li><b>3</b> — a 15-foot {{flyspeed|fly speed}}, no more than 15 feet off the ground.</li><li><b>4</b> — a {{reaction}} dealing 1d8 lightning to anything ending its turn within 15 feet or striking you in melee.</li><li><b>5</b> — a fly speed equal to your walking {{speed}}, unrestricted.</li></ul><p>It drops a level each turn you end without casting, unless you hold it with {{concentration}} for up to a minute.</p>"},
+    {lvl:"Level 6",name:"Rolling Thunder",body:"<p><em>Call lightning</em> free of your spells known. While your storm is at 1 or higher, an action calls bolts as the spell, using your own storm as the cloud even indoors — at level 2 or higher you count as being in stormy conditions. Casting it from a {{pactspellslots|pact slot}} stops your storm decaying while you concentrate.</p>"},
+    {lvl:"Level 6",name:"Tempestuous Blasts",body:"<p><em>Eldritch blast</em> may deal lightning or thunder damage instead.</p>"},
+    {lvl:"Level 10",name:"Whispering Winds",body:"<p>Predict weather 8 hours out and tell natural from magical. You may also cast <em>scrying</em> with no {{spellslot|slot}} or components, hearing but not seeing — with a −5 penalty to the target's {{savingthrow|save}} outdoors and a +5 bonus somewhere the wind cannot reach. Once per {{longrest|long rest}}.</p>"},
+    {lvl:"Level 14",name:"Everstorm",body:"<p>Your storm stops decaying, and an action either starts one or raises it a level; another action ends it. While it is up, <em>feather fall</em> and <em>levitate</em> cost no {{spellslot|slot}} on creatures within 15 feet inside it.</p>"}
+  ]};
+
+/* ----------------------------------- Wizard ------------------------------ */
+
+ENTRIES["wi-astronomical"] = { cls:"wizard", nav:"Astronomical Order", navSub:"Levels 2 · 6 · 10 · 14", kicker:"Wizard school · homebrew",
+  name:"Astronomical Order",
+  tag:"Cast to earn star motes, then wire them into constellations",
+  flavor:"Wizards who read meaning out of the movement of celestial bodies and draw magic from the reading. Usually found buried in star charts and old tomes, chasing whatever the sky has not told anyone yet.",
+  src:"Kibbles' Legends and Legacies, pp. 173–175",
+  mods:{
+    spellslot:"Every 1st-level-or-higher Wizard spell you cast generates a star mote, capped at your Intelligence modifier.",
+    bonusaction:"Fires motes for damage, spends them for temporary hit points, or wires them into a Constellation.",
+    temporaryhp:"1d4 per mote spent defensively.",
+    concentration:"A reaction spends motes to add +1 each to a failed concentration check, after the roll.",
+    reaction:"Motes can rescue a failed Wisdom, Intelligence or concentration save, one point per mote.",
+    ritual:"The Astral Orrery casts augury as one, without knowing or preparing it.",
+    darkvision:"The Constellation of Nightfall, for 2 motes, out to 60 feet.",
+    cover:"The Constellation of the Shield grants half of it, for 5 motes."
+  },
+  features:[
+    {lvl:"Level 2",name:"Astral Orrery",body:"<p>An action raises an ethereal real-time star chart around you, day or underground. It tells you north and the time, grants or gives {{advantage}} on Wisdom (Survival) {{abilitycheck|checks}} to locate yourself, and casts <em>augury</em> as a {{ritual}} without knowing it. It ends when you dismiss it or move.</p>"},
+    {lvl:"Level 2",name:"Star Shards",body:"<p>Casting a Wizard spell from a {{spellslot|slot}} of 1st level or higher generates a star mote, up to your Intelligence modifier; they fade on a {{longrest|long rest}}. Spend them as a {{bonusaction}} to fire them for 1d4 + 1 radiant each at a creature within 60 feet, or to take 1d4 {{temporaryhp|temporary hit points}} each — or as a {{reaction}} to add +1 each to a failed Wisdom or Intelligence {{savingthrow|save}}, or a {{concentration}} check, after the roll.</p>"},
+    {lvl:"Level 6",name:"Constellations",body:"<p>A {{bonusaction}} wires motes into one Constellation, broken apart at will and replaced by forming another:</p><ul><li><b>Nightfall</b> (2) — {{darkvision}} 60 feet.</li><li><b>Navigation</b> (2) — the Astral Orrery, which now survives your moving.</li><li><b>The Eye</b> (3) — {{advantage}} on Perception.</li><li><b>Mystery</b> (3) — advantage on Arcana.</li><li><b>Brilliance</b> (4) — retype any damaging spell to radiant.</li><li><b>The Void</b> (4) — {{resistance}} to radiant for chosen creatures within 20 feet.</li><li><b>The Messenger</b> (5) — a 30-foot {{flyspeed|fly speed}}.</li><li><b>The Shield</b> (5) — half {{cover}}.</li></ul><p>You shed 5 feet of dim light per mote in it, and it fades on a {{longrest|long rest}}.</p>"},
+    {lvl:"Level 10",name:"Nebula of Creation",body:"<p>An action makes Intelligence-modifier motes outright. Once per {{longrest|long rest}}.</p>"},
+    {lvl:"Level 14",name:"Celestial Canvas",body:"<p>Hold a second Constellation at the same time.</p>"}
+  ]};
+
+ENTRIES["wi-theurge"] = { cls:"wizard", nav:"Theurge", navSub:"Levels 2 · 6 · 10 · 14", kicker:"Wizard school · homebrew",
+  name:"Theurge",
+  tag:"Reverse-engineering divine magic, at a cost",
+  flavor:"Wizards prying into what other wizards consider untouchable: the mechanics of divine power, rebuilt through precision and study. Some are devout and want to understand their god better; some are just curious; some want it for reasons the clergy would object to.",
+  src:"Kibbles' Legends and Legacies, pp. 175–176",
+  mods:{
+    spellbook:"Cleric spells go into it in place of Wizard ones, capped at your proficiency bonus in level — and no other wizard can copy them out.",
+    arcanerecovery:"It can reset your Cleric-spell usage limit instead of returning spell slots.",
+    exhaustion:"Two levels of it whenever you use a borrowed divine spell to bring someone back from the dead.",
+    temporaryhp:"Intelligence + the spell's level, each time you cast from the Cleric list.",
+    bonusaction:"At 14, one list's spell as your action lets the other list's follow as one.",
+    proficiencybonus:"It caps both how high a Cleric spell you can learn and how many you can cast per rest."
+  },
+  features:[
+    {lvl:"Level 2",name:"Study of the Divine",body:"<p>Each Wizard level, one of the spells going into your {{spellbook|spellbook}} may come from the Cleric list instead — a Wizard spell for you, uncopyable by anyone else, and never above your {{proficiencybonus|proficiency bonus}} in level, so 7th and up stay closed.</p><p>You can cast proficiency-bonus of them per {{longrest|long rest}}, and {{arcanerecovery|Arcane Recovery}} may reset that limit rather than returning {{spellslot|slots}}. Raising the dead this way costs you two levels of {{exhaustion}}.</p>"},
+    {lvl:"Level 2",name:"Theologian",body:"<p>Religion, or another skill if you had it.</p>"},
+    {lvl:"Level 6",name:"Celestial Conduit",body:"<p>Casting from the Cleric list grants {{temporaryhp|temporary hit points}} equal to Intelligence + the spell's level.</p>"},
+    {lvl:"Level 10",name:"Divine Revelation",body:"<p>Copy Cleric spells into your {{spellbook|spellbook}} from scrolls and records. Half of any fire or lightning damage you deal may become radiant; half of any cold or poison may become necrotic.</p>"},
+    {lvl:"Level 14",name:"Divine Synthesis",body:"<p>Cast a spell of 1st level or higher from one of the two lists as your action, and a spell from the other follows as a {{bonusaction}} whatever its normal casting time — so long as the two levels together do not exceed half your Wizard level.</p>"}
+  ]};
+
+/* ------------------------- Blood Magic variant --------------------------- */
+
+ENTRIES["wl-bloodbound"] = { cls:"warlock", nav:"The Bloodbound", navSub:"Levels 1 \u00b7 6 \u00b7 10 \u00b7 14", kicker:"Warlock patron \u00b7 homebrew",
+  name:"The Bloodbound",
+  tag:"Pay for your magic in hit points, get them back by biting",
+  flavor:"From the book's optional Blood Magic rules. The patron is an ancient entity of blood \u2014 most often a vampire of great age, though blood is primordial enough to have made others with deep ties to the secrets of life and death. The pact hands over the working of blood and life force directly.",
+  src:"Kibbles' Legends and Legacies, pp. 288\u2013289",
+  mods:{
+    hitpoints:"They are a spending currency here: Sanguine Empowerment upcasts with them, Vital Reserves raises your maximum by your Warlock level, and Life Drain buys them back.",
+    pactspellslots:"A slot still pays the base cost \u2014 hit points only buy the extra level on top.",
+    bloodied:"Blood Frenzy gives advantage on attacks against anything below half its maximum.",
+    bonusaction:"Life Drain rides on a hit you already landed, for necrotic damage and an equal heal.",
+    cantrip:"3 hit points scale one to its next tier \u2014 and it keeps working past 17th, where cantrips normally stop.",
+    temporaryhp:"Inside The Hunger, every hit point you spend on Sanguine Empowerment comes back as these.",
+    resistance:"Nonmagical bludgeoning, piercing and slashing, for the minute The Hunger lasts."
+  },
+  features:[
+    {lvl:"Level 1",name:"The Bloodbound Expanded Spells",body:"<p><em>False life</em> and <em>inflict wounds</em>; <em>bloody burst</em> and <em>compelled convulsion</em>; <em>crimson tide</em> and <em>invest life</em>; <em>blood frenzy</em> and <em>vital surge</em>; <em>dominate person</em> and <em>life support</em>.</p>"},
+    {lvl:"Level 1",name:"Life Drain",body:"<p>Hit with any attack, weapon or spell, and a {{bonusaction}} drains it: extra necrotic damage equal to your Charisma modifier, and you regain that many {{hitpoints|hit points}}. {{proficiencybonus|Proficiency bonus}} uses per {{longrest|long rest}}.</p>"},
+    {lvl:"Level 1",name:"Beating Hearts",body:"<p>Use your spellcasting modifier rather than Wisdom for Perception and Insight {{abilitycheck|checks}} against living creatures with blood, passive scores included. Once per {{longrest|long rest}} you can sharpen it further with a free <em>sense blood</em>, no {{spellslot|slot}} or components.</p>"},
+    {lvl:"Level 6",name:"Sanguine Empowerment",body:"<p>Casting from a {{pactspellslots|pact slot}} a spell that scales, spend 1 + the spell's level in {{hitpoints|hit points}} to cast it one level higher. 3 hit points scale a {{cantrip}} to its next tier \u2014 and that keeps working at 17th level, where a cantrip would otherwise stop growing.</p><p>Your total spend per {{longrest|long rest}} is your Warlock level.</p>"},
+    {lvl:"Level 10",name:"Vital Reserves",body:"<p>Your maximum {{hitpoints|hit points}} rise by your Warlock level \u2014 which is also, not coincidentally, your spending budget.</p>"},
+    {lvl:"Level 14",name:"The Hunger",body:"<p>An action becomes a blood-devouring avatar for a minute: {{resistance}} to nonmagical bludgeoning, piercing and slashing; {{advantage}} on attacks against {{bloodied}} creatures; Life Drain every turn without spending uses; and Sanguine Empowerment refunding every spent hit point as {{temporaryhp|temporary hit points}}.</p><p>It ends early if you end a turn having neither dealt nor taken damage since your last one, or if you are {{incapacitated}}. Once per {{longrest|long rest}}.</p>"}
+  ]};
+
+/* ------------------------- sidebar wiring (L&L) -------------------------- */
+
+/* A second collapsed group per class, so the two books stay legible apart. */
+CLASSES.barbarian.groups.push({ homebrew:true, label:"Homebrew paths (Legends & Legacies)",
+  keys:["b-bladestorm","b-lldragon","b-instinct","b-mutation"] });
+CLASSES.bard.groups.push({ homebrew:true, label:"Homebrew colleges (Legends & Legacies)",
+  keys:["bd-fools"] });
+CLASSES.cleric.groups.push({ homebrew:true, label:"Homebrew domains (Legends & Legacies)",
+  keys:["cl-dream","cl-judgment","cl-martyr"] });
+CLASSES.druid.groups.push({ homebrew:true, label:"Homebrew circles (Legends & Legacies)",
+  keys:["dr-aspects","dr-city","dr-elements","dr-growth","dr-llroots","dr-wild"] });
+CLASSES.fighter.groups.push({ homebrew:true, label:"Homebrew subclasses (Legends & Legacies)",
+  keys:["fi-adventurer","fi-llbrawler","fi-llchampion","fi-crusader","fi-greenknight","fi-spiritsworn"] });
+CLASSES.monk.groups.push({ homebrew:true, label:"Homebrew subclasses (Legends & Legacies)",
+  keys:["mo-llelements","mo-outcast","mo-llswordsaint"] });
+CLASSES.paladin.groups.push({ homebrew:true, label:"Homebrew oaths (Legends & Legacies)",
+  keys:["pa-silence","pa-goodestboi"] });
+CLASSES.ranger.groups.push({ homebrew:true, label:"Homebrew subclasses (Legends & Legacies)",
+  keys:["ra-bountyhunter"] });
+CLASSES.rogue.groups.push({ homebrew:true, label:"Homebrew subclasses (Legends & Legacies)",
+  keys:["ro-llassassin","ro-divinehand","ro-surgeon"] });
+CLASSES.sorcerer.groups.push({ homebrew:true, label:"Homebrew origins (Legends & Legacies)",
+  keys:["so-feywarped","so-fiendish","so-phoenixspark","so-seasoul","so-stoneheart"] });
+CLASSES.warlock.groups.push({ homebrew:true, label:"Homebrew patrons (Legends & Legacies)",
+  keys:["wl-lldragon","wl-llfey","wl-knowledgekeeper","wl-overseer","wl-ooze","wl-tempest","wl-bloodbound"] });
+CLASSES.wizard.groups.push({ homebrew:true, label:"Homebrew traditions (Legends & Legacies)",
+  keys:["wi-astronomical","wi-theurge"] });
+
+/* Knowing Mind is an eighth archetype for a class that is already homebrew, so
+   it joins the Psion's own list rather than a collapsed group. */
+CLASSES.psion.groups[1].keys = CLASSES.psion.groups[1].keys.concat(["ps-knowingmind"]);
+
+/* ============================================================================
+   Legends and Legacies — the Blood Magic variant's subclasses for the homebrew
+   classes already in the compendium. These join their class's own list rather
+   than a collapsed homebrew group, since those classes are homebrew throughout.
+   ========================================================================= */
+
+ENTRIES["oc-bloodcultist"] = { cls:"occultist", nav:"Blood Cultist", navSub:"Levels 1 · 3 · 6 · 14", kicker:"Occultist tradition · blood magic",
+  name:"Blood Cultist",
+  tag:"Spend the spell slots on yourself, cast out of your own blood",
+  flavor:"A tradition that seeks power at any cost and is prepared to give up everything for it — ritual, taboo, forbidden technique, and eventually its own humanity. The trade is structural: you burn most of your spell slots into permanent boons, then pay for spells in hit points instead.",
+  src:"Kibbles' Legends and Legacies, pp. 280–284",
+  mods:{
+    occulttradition:"The one tradition that inverts the class's economy — slots become boons, and hit points become the casting resource.",
+    spellslot:"Sacrificed at the end of each long rest for a boon, and unrecoverable while that boon runs.",
+    hitpoints:"Your maximum rises by 1 every Occultist level, and the Hemomancer feat spends 5 per spell level cast.",
+    occultrite:"Six of its own, including one that changes your creature type away from humanoid.",
+    exhaustion:"Blood-casting a spell of 6th level or higher costs a level of it per level above 5th.",
+    temporaryhp:"6 + twice the sacrificed slot's level from the Boon of False Life, refreshed on every short rest.",
+    darkvision:"The Boon of Demonic Sight buys 60 feet for a 2nd-level slot, stacking with what you had.",
+    resistance:"Demonic Ascension grants it against nonmagical physical damage for the minute it lasts."
+  },
+  features:[
+    {lvl:"Level 1",name:"Blood Casting",body:"<p>The <em>blood bolt</em> {{cantrip}}, then blood magic spells as you climb: <em>crimson poison</em> and <em>sense blood</em>; <em>compelled convulsion</em> and <em>morbid puppet</em>; <em>corpse explosion</em> and <em>vampiric blade</em>; <em>exsanguinate</em> and <em>macabre marionette</em>; <em>explode heart</em> and <em>life link</em>.</p>"},
+    {lvl:"Level 1",name:"Dark Powers",body:"<p>Your maximum {{hitpoints|hit points}} rise by 1 per Occultist level. At the end of each {{longrest|long rest}} you sacrifice up to two {{spellslot|spell slots}} for boons — 3 at level 3, 4 at 6, 5 at 9, 6 at 12, 7 at 15, 8 at 18. A sacrificed slot stays spent while its boon runs, and returns on the long rest where you drop it.</p><p>The list runs from <b>False Life</b> ({{temporaryhp|temporary hit points}} that top up on every {{shortrest|short rest}}) and <b>Demonic Claws</b> (natural weapons scaling to 1d12 and +3, on your spellcasting modifier) through <b>Swiftness</b>, <b>Demonic Leaps</b>, <b>Demonic Sight</b> ({{darkvision}}), <b>Fiendish Talent</b> ({{expertise|Expertise}}), <b>Frenzy</b>, <b>Burning Eyes</b>, <b>Fiendish Vigor</b>, <b>Fury</b>, <b>Demonic Resistance</b>, <b>Telepathy</b>, <b>Unholy Strength</b>, <b>Resilience</b>, <b>Unholy Weapon</b> and <b>Demonic Wings</b>, up to <b>Demonic Ascension</b> at 9th-level slots.</p>"},
+    {lvl:"Level 3",name:"Sacrificial Casting",body:"<p>You gain the Hemomancer feat: cast any spell tagged <em>blood magic</em> for 5 {{hitpoints|hit points}} per spell level instead of a {{spellslot|slot}}, and those hit points also count toward the spell's blood component.</p><p>Your budget per {{longrest|long rest}} is your character level in spell levels. Casting 6th or higher this way costs {{exhaustion}} — one level per level above 5th — and you cannot do it at all while carrying any exhaustion.</p>"},
+    {lvl:"Level 6",name:"Sanguine Power",body:"<p>Deal piercing or slashing damage to something with blood, and your next <em>blood magic</em> spell before the end of your next turn costs that much less of your own {{hitpoints|hit points}}. You may take the biggest such hit you landed.</p>"},
+    {lvl:"Level 14",name:"Demonic Ascension",body:"<p>A {{bonusaction}} becomes a fiend for a minute: {{resistance}} to nonmagical bludgeoning, piercing and slashing, {{advantage}} on {{savingthrow|saves}} against magic, +10 feet of {{speed}}, and optionally Large size for +1d4 weapon damage. Every kill adds another minute. Once per {{longrest|long rest}}.</p>"},
+    {lvl:"Rites",name:"Cultist Rites",body:"<p>Six {{occultrite|rites}} of its own: <b>Abandoned Humanity</b> swaps your creature type for aberration, fiend or monstrosity; <b>Blood Leeching</b> turns leftover stored hit points into {{temporaryhp|temporary hit points}}; <b>Boon Seeker</b> buys another Dark Powers sacrifice; <b>Cultist's Touch</b> attaches a weapon attack to a touch {{cantrip}}; <b>Demon Within</b> triggers Demonic Ascension the first time you hit 0; and <b>Sacrificial Absolution</b>, <b>Unholy Gift</b>, <b>Wretched Resilience</b> and <b>Zealous Conviction</b> round it out.</p>"}
+  ]};
+
+ENTRIES["oc-redcoven"] = { cls:"occultist", nav:"Coven: Red Coven", navSub:"Witch option · Levels 1 · 3", kicker:"Occultist coven · blood magic",
+  name:"Coven: Red Coven",
+  tag:"A fourth coven for the Witch, and it moves damage around",
+  flavor:"Not a tradition of its own — an extra coven option layered onto the Tradition of the Witch by the Blood Magic rules, alongside Black, White and Green. Its familiar does not attack; it redirects harm from one body into another.",
+  src:"Kibbles' Legends and Legacies, pp. 283–284",
+  mods:{
+    coven:"The blood-stained fourth option, sitting beside Black, White and Green on the Witch's list.",
+    familiar:"The Red Coven bond makes yours a conduit: damage taken beside it can be pushed into someone else within 60 feet.",
+    reaction:"Spent when an ally within 5 feet of the familiar takes damage, to move up to four times your Occultist level of it.",
+    occultrite:"Seven of its own, from Malicious Transfusion to Witch's Fangs.",
+    concentration:"The Bathed in Blood rite stops blood-magic self-damage from threatening it.",
+    temporaryhp:"Bathed in Blood returns the hit points you spent on a blood component as these.",
+    hitpoints:"Sanguine Sacrifice trades yours one-for-one to boost an Occultist heal, up to your Occultist level."
+  },
+  features:[
+    {lvl:"Level 1",name:"Red Coven Spells",body:"<p>Free of your spells known: <em>sense blood</em> and <em>hemorrhaging curse</em>; <em>hold person</em> and <em>morbid puppet</em>; <em>corpse explosion</em> and <em>rupturing curse</em>; <em>exsanguinate</em> and <em>macabre marionette</em>; <em>bloodline curse</em> and <em>hold monster</em>.</p>"},
+    {lvl:"Level 3",name:"Familiar Bond: Red Coven",body:"<p>A {{reaction}} when an ally within 5 feet of your {{familiar}} takes damage moves up to four times your Occultist level of it — 12 at level 3 — into another willing creature within 60 feet. The transfer cannot exceed that creature's current {{hitpoints|hit points}}. Spellcasting-modifier uses per {{longrest|long rest}}.</p>"},
+    {lvl:"Rites",name:"Red Coven Rites",body:"<p><b>Malicious Transfusion</b> lets the redirect target an unwilling creature on a Charisma {{savingthrow|save}} — a success splits the damage with you. <b>Bathed in Blood</b> stops blood-magic self-damage threatening {{concentration}} and refunds the component cost as {{temporaryhp|temporary hit points}}. <b>Sanguine Sacrifice</b> boosts an Occultist heal by up to your Occultist level, paid in your own {{hitpoints|hit points}}. <b>Sanguine Secrets</b> extends Hemomancer to spells without the blood magic tag. <b>Sanguine Vitality</b> raises your maximum hit points by 1 per Occultist level. <b>Stolen Life</b> drains a fresh corpse for its CR in hit points and stores its appearance indefinitely. <b>Witch's Fangs</b> bites for 1d4 piercing and 1d4 necrotic, scaling to 4d4 each, healing you the necrotic.</p>"}
+  ]};
+
+ENTRIES["wd-bloodforger"] = { cls:"warden", nav:"Blood Forger", navSub:"Levels 1 · 3 · 7 · 14 · 17", kicker:"Warden bond · blood magic",
+  name:"Blood Forger",
+  tag:"Primal, but the primal force is blood",
+  flavor:"Wardens bonded to something more visceral than weather or stone: the essence of life beating in every creature. They think of themselves as gardeners of it — preserving, curating and pruning — which makes them unnerving company and very hard to kill your friends around.",
+  src:"Kibbles' Legends and Legacies, pp. 285–287",
+  mods:{
+    wardenbond:"The blood bond: armaments forged from your own blood, and innate spells cast without slots.",
+    bloodied:"Being it is an upgrade here — your weapons gain a necrotic die, and Reaper's Harvest starts paying out.",
+    endurancedice:"They buy repeat castings of your innate spells, at 1 + the spell's level each.",
+    primalinterdiction:"Life Bond turns its range into the area where you can take damage off other people.",
+    resistance:"Granted to anyone in your Interdiction — at the price of taking the reduced damage yourself.",
+    hitpoints:"Crimson Font lets you pay a blood component up to your Warden level for free.",
+    deathsavingthrow:"At 14 a reaction turns one within 60 feet into a natural 20.",
+    reaction:"Life Bond shares damage; Life Control rescues a dying creature."
+  },
+  features:[
+    {lvl:"Level 1",name:"Blood Forge",body:"<p>Rolling {{initiative}}, or a {{bonusaction}} any time, forges two weapons — or a weapon and a shield — out of your blood, equipped as they appear and dismissed for free. A plain one deals 1d4 slashing + 1d4 necrotic; light or reach is 1d6 slashing; two-handed is 1d6 slashing + 1d6 necrotic.</p><p>While {{bloodied}} they deal an extra 1d4 necrotic, rising to 1d6 at level 5, 1d8 at 11 and 1d10 at 17. Anything that grows a Warden's natural weapon dice grows these too.</p>"},
+    {lvl:"Level 1",name:"Crimson Font",body:"<p>Blood magic spells can take up to your Warden level in {{hitpoints|hit points}} of blood from you for free; anything beyond that hurts as normal. You are also immune to anything that drains your blood or damages you by bleeding — though not to the damage that opens the wound.</p>"},
+    {lvl:"Level 1",name:"Innate Magic",body:"<p>One free casting each per {{longrest|long rest}}, no components or {{spellslot|slots}}, on Wisdom: <em>blood transfusion</em>, <em>sense blood</em>, <em>morbid puppet</em>, <em>crimson tide</em>, <em>locate creature</em>, <em>ichorous blood</em>. Recast early for 1 + the spell's level in {{endurancedice|Endurance Dice}}.</p>"},
+    {lvl:"Level 3",name:"Life Bond",body:"<p>Once a turn, when a creature inside your {{primalinterdiction|Primal Interdiction}} takes damage, give it {{resistance}} — free of any action, and to several at once if they were hit together. You then take what they took, after the resistance.</p>"},
+    {lvl:"Level 7",name:"Restore Vitality",body:"<p><em>Blood transfusion</em> comes back on a {{shortrest|short rest}}, and cast on someone else it can take up to your Warden level in {{hitpoints|hit points}} rather than 5, healing them accordingly.</p>"},
+    {lvl:"Level 7",name:"Reaper's Harvest",body:"<p>Once a turn while {{bloodied}}, dealing necrotic damage restores your Constitution modifier in {{hitpoints|hit points}} — never past half your maximum.</p>"},
+    {lvl:"Level 14",name:"Life Control",body:"<p><em>Death ward</em> is permanently on you until it triggers, refreshing on a {{longrest|long rest}}. A {{reaction}} also turns any {{deathsavingthrow|death save}} within 60 feet into a 20, bringing that creature back at 1 {{hitpoints|hit point}}. Once per long rest.</p>"},
+    {lvl:"Level 17",name:"Blood Domain",body:"<p>A {{bonusaction}} takes the blood of everything within 20 feet for a minute. Allies you choose gain {{resistance}} to slashing and piercing; enemies bleed, taking 10 extra damage at the start of their turn if they took piercing or slashing since their last one.</p><p>Once during it, an action casts <em>hold person</em> or <em>hold monster</em> at 5th level without a {{spellslot|slot}} — and a creature that passes the {{savingthrow|save}} is slowed until your next turn instead. Bloodless creatures are unaffected. Once per {{longrest|long rest}}.</p>"}
+  ]};
+
+ENTRIES["sb-sanguinesword"] = { cls:"spellblade", nav:"Sanguine Sword", navSub:"Levels 3 · 7 · 15 · 20", kicker:"Spellblade technique · blood magic",
+  name:"Sanguine Sword",
+  tag:"Kills refill the meter, and the meter wants more kills",
+  flavor:"Blood seekers who fuel the rampage with what they spill, cutting through a crowd in one continuous motion. Not inherently evil — most would say so themselves — but the next kill is always offering to keep it going, and even allies tend to give them room.",
+  src:"Kibbles' Legends and Legacies, pp. 287–288",
+  mods:{
+    arcanesurge:"Sanguine Surge adds a blood-magic option, and Catharsis of Carnage refunds a use on every crit or kill.",
+    bloodied:"Being it pays: Catharsis also heals you, and at 20 you get truesight and advantage against anyone else who is.",
+    criticalhit:"19–20 from level 15, and every one refunds an Arcane Surge.",
+    temporaryhp:"Your spellcasting modifier plus half your Spellblade level, per blood magic spell surged.",
+    spellstrike:"Blood-coated weapons carry it on Intelligence rather than Strength or Dexterity.",
+    hitpoints:"One of your own, spent freely, bloods a blade and switches the whole technique on.",
+    advantage:"Against bloodied creatures for the minute Red Eyed Rampage lasts."
+  },
+  features:[
+    {lvl:"Level 3",name:"Sacrificial Blade Spells",body:"<p>Free of your spells known: <em>blood slash</em>, <em>bloody burst</em>, <em>vampiric blade</em>, <em>exsanguinate</em>, <em>explode heart</em>. Every spell tagged <em>blood magic</em> also joins your Spellblade list.</p>"},
+    {lvl:"Level 3",name:"Blood-Stained Blade",body:"<p>For a minute after a melee weapon draws blood from a living creature, you may use Intelligence rather than Strength or Dexterity for its attack and damage rolls, and it counts as magical. Spending 1 of your own {{hitpoints|hit points}} — free, any time — bloods a blade without waiting.</p>"},
+    {lvl:"Level 3",name:"Sanguine Surge",body:"<p>A new {{arcanesurge|Arcane Surge}} option: casting a <em>blood magic</em> spell can spend one for {{temporaryhp|temporary hit points}} equal to your spellcasting modifier + half your Spellblade level.</p>"},
+    {lvl:"Level 7",name:"Catharsis of Carnage",body:"<p>A {{criticalhit|critical hit}}, or a kill on anything CR 1/4 or higher, refunds an {{arcanesurge|Arcane Surge}} — and if you were {{bloodied}} when it triggered, restores your {{proficiencybonus|proficiency bonus}} in {{hitpoints|hit points}} too.</p>"},
+    {lvl:"Level 15",name:"Gore and Giblets",body:"<p>{{criticalhit|Critical hits}} on 19–20, and a kill raises your Splash Damage against nearby creatures to 2d8.</p>"},
+    {lvl:"Level 20",name:"Red Eyed Rampage",body:"<p>No action needed: a minute of blood-crazed trance granting truesight out to 120 feet against {{bloodied}} creatures and {{advantage}} on attacks against them. Once each turn, triggering Catharsis of Carnage gives you an immediate extra action.</p>"}
+  ]};
+
+/* Wire them into their classes' own lists — these classes are homebrew all the
+   way through, so there is no official list for them to clutter. */
+CLASSES.occultist.groups[1].keys = CLASSES.occultist.groups[1].keys.concat(["oc-bloodcultist","oc-redcoven"]);
+CLASSES.warden.groups[1].keys = CLASSES.warden.groups[1].keys.concat(["wd-bloodforger"]);
+CLASSES.spellblade.groups[1].keys = CLASSES.spellblade.groups[1].keys.concat(["sb-sanguinesword"]);
+
+/* The Witch's coven note predates the Blood Magic rules, which add a fourth. */
+ENTRIES["oc-witch"].mods.coven = "A second choice layered on the tradition — Black for pain and curses, White for binding and healing, Green for fey trickery, and Red for blood — each granting bonus spells at 1, 3, 5, 7 and 9 and a different familiar power.";
 
 /* ==APPEND CLASSES ABOVE THIS LINE== */
 })();
