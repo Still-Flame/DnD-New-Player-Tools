@@ -44,6 +44,7 @@ function nav(current) {
     ["/finder/", "Class Finder"],
     ["/stats/", "Ability Scores"],
     ["/compendium/", "Subclass Compendium"],
+    ["/spells/", "Spell Compendium"],
   ];
   const items = links
     .map(([href, label]) =>
@@ -123,6 +124,13 @@ const PAGES = [
     description:
       "Every D&D 2024 subclass plus six homebrew classes, with a hover glossary that shows what each subclass changes about the rules it touches.",
   },
+  {
+    src: "spells/index.html",
+    out: "spells/index.html",
+    path: "/spells/",
+    description:
+      "589 homebrew D&D spells from Legends & Legacies, Craft and Creation and Lyre's Guide to Retia \u2014 filter by class, level and school, or search the spell text itself.",
+  },
 ];
 
 await mkdir(OUT, { recursive: true });
@@ -140,6 +148,8 @@ for (const p of PAGES) {
    <script src>, so it just needs copying across unchanged. */
 await cp(join(SRC, "compendium/data.js"), join(OUT, "compendium/data.js"));
 console.log("copied compendium/data.js");
+await cp(join(SRC, "spells/spells.js"), join(OUT, "spells/spells.js"));
+console.log("copied spells/spells.js");
 
 /* Landing page, 404, favicon and the Cloudflare _headers file ship as-is. */
 await cp(join(HERE, "static"), OUT, { recursive: true });

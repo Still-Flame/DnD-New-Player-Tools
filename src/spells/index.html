@@ -1,0 +1,613 @@
+<title>Spell Compendium</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+
+<style>
+  :root {
+    --ground:#E4E1D8; --surface:#F1EFE9; --surface-2:#EAE7DF;
+    --ink:#1B1E23; --ink-soft:#5B626C; --ink-faint:#8A9099;
+    --rule:#C6C2B6; --rule-soft:#D6D2C7;
+    --accent:#1C6659; --accent-ink:#FFFFFF;
+    --chip-bg:#FFFFFF;
+    --chip-shadow: 0 2px 6px rgba(27,30,35,.10), 0 14px 34px -14px rgba(27,30,35,.42);
+
+    --step--2:.68rem;
+    --step--1: clamp(.74rem,.72rem + .12vw,.8rem);
+    --step-0:  clamp(.95rem,.92rem + .18vw,1.05rem);
+    --step-1:  clamp(1.05rem,1rem + .26vw,1.2rem);
+    --step-2:  clamp(1.25rem,1.12rem + .6vw,1.6rem);
+    --step-3:  clamp(1.7rem,1.35rem + 1.7vw,2.6rem);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:#131619; --surface:#1B1F24; --surface-2:#22272D;
+      --ink:#E7E4DB; --ink-soft:#A0A7B0; --ink-faint:#6E757E;
+      --rule:#2E343B; --rule-soft:#262B31;
+      --accent:#47AD99; --accent-ink:#131619;
+      --chip-bg:#232930;
+      --chip-shadow: 0 2px 6px rgba(0,0,0,.5), 0 16px 38px -14px rgba(0,0,0,.95);
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground:#131619; --surface:#1B1F24; --surface-2:#22272D;
+    --ink:#E7E4DB; --ink-soft:#A0A7B0; --ink-faint:#6E757E;
+    --rule:#2E343B; --rule-soft:#262B31;
+    --accent:#47AD99; --accent-ink:#131619;
+    --chip-bg:#232930;
+    --chip-shadow: 0 2px 6px rgba(0,0,0,.5), 0 16px 38px -14px rgba(0,0,0,.95);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--ground); color: var(--ink);
+    font-family: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: var(--step-0); line-height:1.6; -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width:76rem; margin-inline:auto; padding-inline:20px; padding-block: clamp(20px,3vw,32px) 64px; }
+
+  .eyebrow {
+    font-family:"IBM Plex Mono", ui-monospace, monospace; font-size: var(--step--1);
+    letter-spacing:.14em; text-transform:uppercase; color: var(--ink-faint); margin:0;
+  }
+  h1 {
+    font-family: Fraunces, Georgia, serif; font-optical-sizing:auto; font-weight:600;
+    font-size: var(--step-3); line-height:1.05; letter-spacing:-.015em; margin:6px 0 0;
+  }
+  .lede { color: var(--ink-soft); max-width:62ch; margin:8px 0 0; font-size: var(--step--1); }
+
+  /* ---------- filter bar ----------
+     Horizontal and sticky so the list keeps the page. Each facet is a details
+     popover of checkboxes: multi-select without a dependency, and it collapses
+     to a scrolling row on a phone. */
+  .bar {
+    position:sticky; top:0; z-index:30; margin-top:18px; padding:10px 0;
+    /* the popovers hang off this box, not off their own button, so a wrapped
+       filter row can never end up covering Clear or the toggles */
+    background: var(--ground); border-bottom:1px solid var(--rule);
+  }
+  /* .bar-in must NOT be positioned: on narrow screens it scrolls sideways, and
+     a popover whose containing block is inside an overflow box is clipped to
+     that box. Anchoring to .bar (sticky, never scrolls) lets them escape. */
+  .bar-in { display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+  .srch { flex:1 1 15rem; min-width:0; position:relative; display:flex; }
+  .srch input {
+    width:100%; font:inherit; font-size: var(--step--1); color: var(--ink);
+    background: var(--surface); border:1px solid var(--rule); padding:9px 30px 9px 11px;
+  }
+  .srch input:focus { outline:2px solid var(--accent); outline-offset:-2px; }
+  .srch input::placeholder { color: var(--ink-faint); }
+  .srch-x {
+    position:absolute; right:2px; top:50%; transform:translateY(-50%);
+    border:0; background:none; color: var(--ink-faint); cursor:pointer;
+    font:inherit; padding:4px 8px; line-height:1;
+  }
+  .srch-x:hover { color: var(--ink); }
+
+  .fil { position:static; }
+  .fil > summary {
+    list-style:none; cursor:pointer; display:flex; align-items:center; gap:7px;
+    font-family:"IBM Plex Mono",monospace; font-size: var(--step--2); letter-spacing:.1em;
+    text-transform:uppercase; color: var(--ink-soft); white-space:nowrap;
+    background: var(--surface); border:1px solid var(--rule); padding:10px 11px;
+  }
+  .fil > summary::-webkit-details-marker { display:none; }
+  .fil > summary:hover { border-color: var(--accent); color: var(--ink); }
+  .fil > summary:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+  .fil[open] > summary { border-color: var(--accent); color: var(--ink); }
+  .fil[data-on="1"] > summary { color: var(--accent); border-color: var(--accent); }
+  .fil-n {
+    background: var(--accent); color: var(--accent-ink); padding:0 5px;
+    font-variant-numeric: tabular-nums; font-size: var(--step--2);
+  }
+  .fil-pop {
+    position:absolute; top:calc(100% + 11px); left:0; z-index:40; min-width:12rem;
+    max-height:60vh; overflow:auto; padding:6px;
+    background: var(--chip-bg); border:1px solid var(--rule); box-shadow: var(--chip-shadow);
+  }
+  .fil-pop label {
+    display:flex; align-items:center; gap:8px; padding:6px 8px; cursor:pointer;
+    font-size: var(--step--1); white-space:nowrap;
+  }
+  .fil-pop label:hover { background: var(--surface-2); }
+  .fil-pop input { accent-color: var(--accent); margin:0; }
+  .fil-pop .fil-c { margin-left:auto; color: var(--ink-faint);
+    font-family:"IBM Plex Mono",monospace; font-size: var(--step--2); font-variant-numeric:tabular-nums; }
+
+  .tog {
+    font-family:"IBM Plex Mono",monospace; font-size: var(--step--2); letter-spacing:.1em;
+    text-transform:uppercase; color: var(--ink-soft); background: var(--surface);
+    border:1px solid var(--rule); padding:10px 11px; cursor:pointer; white-space:nowrap;
+  }
+  .tog:hover { border-color: var(--accent); color: var(--ink); }
+  .tog:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+  .tog[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+  .clr { margin-left:auto; background:none; border:0; cursor:pointer; color: var(--ink-faint);
+    font-family:"IBM Plex Mono",monospace; font-size: var(--step--2); letter-spacing:.1em;
+    text-transform:uppercase; padding:10px 4px; }
+  .clr:hover { color: var(--accent); text-decoration:underline; }
+
+  .status {
+    display:flex; gap:14px; align-items:baseline; flex-wrap:wrap; margin:12px 0 0;
+    font-family:"IBM Plex Mono",monospace; font-size: var(--step--2); letter-spacing:.1em;
+    text-transform:uppercase; color: var(--ink-faint);
+  }
+  .status b { color: var(--accent); font-weight:600; font-variant-numeric:tabular-nums; }
+
+  /* ---------- the list ---------- */
+  .cols, .sp-row {
+    display:grid; align-items:baseline; gap:0 14px;
+    grid-template-columns: minmax(0,2.4fr) 3rem 3.2rem minmax(0,1fr) minmax(0,1.1fr) minmax(0,1fr) minmax(0,1.3fr);
+  }
+  .cols {
+    margin-top:10px; padding:0 12px 7px; border-bottom:1px solid var(--rule);
+    font-family:"IBM Plex Mono",monospace; font-size: var(--step--2); letter-spacing:.11em;
+    text-transform:uppercase; color: var(--ink-faint);
+  }
+  .cols button {
+    font:inherit; letter-spacing:inherit; text-transform:inherit; color:inherit;
+    background:none; border:0; padding:0; cursor:pointer; text-align:left;
+  }
+  .cols button:hover { color: var(--accent); }
+  .cols button[data-sort="1"] { color: var(--accent); }
+  .cols button[data-sort="1"]::after { content:" \2193"; }
+  .cols button[data-sort="-1"] { color: var(--accent); }
+  .cols button[data-sort="-1"]::after { content:" \2191"; }
+
+  .sp { border-bottom:1px solid var(--rule-soft); }
+  .sp-row {
+    list-style:none; cursor:pointer; padding:11px 12px;
+    border-left:3px solid transparent; transition: background .12s ease;
+  }
+  .sp-row::-webkit-details-marker { display:none; }
+  .sp-row:hover { background: var(--surface); }
+  .sp-row:focus-visible { outline:2px solid var(--accent); outline-offset:-2px; }
+  .sp[open] > .sp-row { background: var(--surface); border-left-color: var(--accent); }
+  .sp-n { font-weight:500; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .sp[open] > .sp-row .sp-n { color: var(--accent); }
+  .sp-m {
+    font-family:"IBM Plex Mono",monospace; font-size: var(--step--2); letter-spacing:.06em;
+    color: var(--ink-soft); min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+  }
+  .sp-lvl { font-variant-numeric:tabular-nums; }
+  .sp-sch { color: var(--ink-faint); }
+  .sp-sub { display:none; }
+
+  .sp-open { padding:4px 12px 22px; }
+  .sp-open .stat {
+    display:grid; grid-template-columns: repeat(auto-fit, minmax(11rem,1fr)); gap:2px 20px;
+    border-top:1px solid var(--rule-soft); border-bottom:1px solid var(--rule-soft);
+    padding:11px 0; margin:0 0 14px;
+  }
+  .sp-open .stat div { font-size: var(--step--1); }
+  .sp-open .stat dt {
+    font-family:"IBM Plex Mono",monospace; font-size: var(--step--2); letter-spacing:.11em;
+    text-transform:uppercase; color: var(--ink-faint);
+  }
+  .sp-open .stat dd { margin:0; }
+  .sp-open p { margin:0 0 10px; max-width:70ch; }
+  .sp-open ul { margin:0 0 10px; padding-left:1.15em; max-width:70ch; }
+  .sp-open li { margin-bottom:5px; }
+  .sp-open h4 {
+    font-family: Fraunces, Georgia, serif; font-weight:600; font-size: var(--step-0);
+    margin:14px 0 6px;
+  }
+  .tags { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 0; }
+  .tag {
+    font-family:"IBM Plex Mono",monospace; font-size: var(--step--2); letter-spacing:.08em;
+    text-transform:uppercase; color: var(--ink-soft);
+    border:1px solid var(--rule-soft); background: var(--surface-2); padding:4px 8px;
+  }
+  .tag[data-kind="group"] { border-color: color-mix(in srgb, var(--accent) 45%, var(--rule-soft)); color: var(--accent); }
+  .tag[data-kind="src"] { color: var(--ink-faint); }
+  .note {
+    margin:12px 0 0; padding:9px 12px; border-left:3px solid var(--accent);
+    background: var(--surface-2); font-size: var(--step--1); color: var(--ink-soft); max-width:70ch;
+  }
+  .note[data-warn="1"] { border-left-color:#B4762A; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .note[data-warn="1"] { border-left-color:#D9A05B; } }
+  :root[data-theme="dark"] .note[data-warn="1"] { border-left-color:#D9A05B; }
+  .tbl {
+    border-collapse:collapse; margin:0 0 12px; font-size: var(--step--1);
+    font-variant-numeric: tabular-nums;
+  }
+  .tbl td { border-bottom:1px solid var(--rule-soft); padding:4px 16px 4px 0; vertical-align:top; }
+  /* no header styling: whether the first row is a header depends on whether
+     the book's header row survived extraction, and it often does not */
+  .cite {
+    margin:14px 0 0; font-family:"IBM Plex Mono",monospace; font-size: var(--step--2);
+    letter-spacing:.08em; text-transform:uppercase; color: var(--ink-faint);
+  }
+  .empty { padding:48px 12px; color: var(--ink-faint); text-align:center; }
+  mark { background: color-mix(in srgb, var(--accent) 26%, transparent); color:inherit; }
+
+  footer { margin-top:40px; border-top:1px solid var(--rule); padding-top:14px;
+    font-size: var(--step--1); color: var(--ink-faint); }
+  footer p { margin:0 0 6px; max-width:76ch; }
+
+  @media (max-width:64rem) {
+    .cols { display:none; }
+    .sp-row { grid-template-columns: minmax(0,1fr) auto; gap:2px 12px; padding:12px; }
+    .sp-row > .sp-m { display:none; }
+    .sp-row > .sp-lvl { display:block; text-align:right; }
+    .sp-sub { display:block; grid-column:1 / -1;
+      font-family:"IBM Plex Mono",monospace; font-size: var(--step--2); letter-spacing:.06em;
+      color: var(--ink-faint); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    /* On a phone the header and a wrapped filter bar between them eat half the
+       screen. The heading shrinks, the lede goes, and the facets become one
+       scrolling row so the list still opens with spells in view. */
+    h1 { font-size: var(--step-2); }
+    .lede { display:none; }
+    .wrap { padding-block: 14px 48px; }
+    .bar { margin-top:12px; padding:8px 0; }
+    .bar-in { gap:6px; flex-wrap:nowrap; overflow-x:auto; scrollbar-width:none;
+      padding-bottom:2px; }
+    .bar-in::-webkit-scrollbar { display:none; }
+    .bar-in > * { flex:none; }
+    .srch { flex:1 0 11rem; }
+    .clr { margin-left:0; }
+    .status { margin-top:9px; }
+    .fil-pop { max-height:50vh; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition:none !important; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <p class="eyebrow" id="eyebrow">589 spells &middot; 3 homebrew books</p>
+    <h1>Spell Compendium</h1>
+    <p class="lede">Every spell from Legends &amp; Legacies, Craft and Creation and Lyre's Guide to Retia, as printed. Filter by class, level and school; click a row to open it. Retia's spells carry no class — that book files them by spell group instead, and those groups change how the spells work.</p>
+  </header>
+
+  <div class="bar">
+    <div class="bar-in">
+      <label class="srch">
+        <input type="search" id="q" placeholder="Search names and spell text&hellip;" autocomplete="off" spellcheck="false" aria-label="Search spells">
+        <button type="button" class="srch-x" id="qx" hidden aria-label="Clear search">&times;</button>
+      </label>
+      <details class="fil" data-facet="c"><summary>Class</summary><div class="fil-pop"></div></details>
+      <details class="fil" data-facet="l"><summary>Level</summary><div class="fil-pop"></div></details>
+      <details class="fil" data-facet="s"><summary>School</summary><div class="fil-pop"></div></details>
+      <details class="fil" data-facet="bk"><summary>Book</summary><div class="fil-pop"></div></details>
+      <details class="fil" data-facet="g"><summary>Group</summary><div class="fil-pop"></div></details>
+      <button type="button" class="tog" id="t-con" aria-pressed="false">Concentration</button>
+      <button type="button" class="tog" id="t-rit" aria-pressed="false">Ritual</button>
+      <button type="button" class="clr" id="clr">Clear</button>
+    </div>
+  </div>
+
+  <p class="status"><span><b id="shown">0</b> of <b id="total">0</b> spells</span><span id="why"></span></p>
+
+  <div class="cols" aria-hidden="true">
+    <button type="button" data-k="n">Spell</button>
+    <button type="button" data-k="l">Lvl</button>
+    <span>School</span><span>Components</span><span>Casting</span><span>Range</span><span>Duration</span>
+  </div>
+
+  <div id="list"></div>
+
+  <footer>
+    <p id="foot"></p>
+    <p>Spell text is transcribed from the books named on each entry, with paragraphs and lists as printed. Page references are to the printed page, not the PDF page.</p>
+  </footer>
+</div>
+
+<script src="spells.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  var DATA   = window.SPELLDATA;
+  var SPELLS = DATA.spells;
+  var BOOKS  = DATA.books;
+  var GROUPS = DATA.groups;
+
+  var listEl = document.getElementById("list");
+  var qEl    = document.getElementById("q");
+
+  function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+  function lvl(n){ return n === 0 ? "Cantrip" : "Level " + n; }
+  function lvlShort(n){ return n === 0 ? "C" : String(n); }
+
+  /* Search matches names and the spell's own text, so "half as much damage"
+     finds spells whose name gives no hint. Built once.
+
+     The books set typographic quotes, and nobody types those — "adder's
+     stomach" has to find "adder’s stomach". Both sides are flattened. */
+  function flat(s){
+    return String(s).toLowerCase()
+      .replace(/[‘’ʼ]/g, "'")
+      .replace(/[“”]/g, '"')
+      .replace(/[‐-―]/g, "-");
+  }
+
+  SPELLS.forEach(function (s) {
+    function words(blocks){
+      return blocks.map(function (b) {
+        return b[0] === "tbl" ? b[1].map(function (r) { return r.join(" "); }).join(" ") : b[1];
+      }).join(" ");
+    }
+    var prose = words(s.b) + (s.h ? " " + words(s.h) : "");
+    s._hay = flat(s.n + " " + s.s + " " + s.c.join(" ") + " " + (s.g || []).join(" ") + " " +
+                  s.ct + " " + s.rg + " " + s.cp + " " + s.d + " " + prose);
+    s._sortName = s.n.toLowerCase();
+  });
+
+  /* ---------------- facets ---------------- */
+  /* Mechanical facets filter; descriptive ones only describe. Group is the one
+     exception — Retia files its spells by group instead of by class, so without
+     it those 281 spells would have nothing to narrow them by. */
+  var FACETS = {
+    c:  { label:"Class",  of:function(s){ return s.c; } },
+    l:  { label:"Level",  of:function(s){ return [String(s.l)]; }, name:function(v){ return lvl(+v); },
+          order:function(a,b){ return +a - +b; } },
+    s:  { label:"School", of:function(s){ return [s.s]; } },
+    bk: { label:"Book",   of:function(s){ return [s.bk]; }, name:function(v){ return BOOKS[v] ? BOOKS[v].t : v; } },
+    g:  { label:"Group",  of:function(s){ return s.g || []; } }
+  };
+  var picked = { c:{}, l:{}, s:{}, bk:{}, g:{} };
+  var toggles = { con:false, rit:false };
+  var sortKey = "n", sortDir = 1;
+
+  function facetValues(key) {
+    var f = FACETS[key], counts = {};
+    SPELLS.forEach(function (s) {
+      f.of(s).forEach(function (v) { counts[v] = (counts[v] || 0) + 1; });
+    });
+    var vals = Object.keys(counts);
+    vals.sort(f.order || function (a, b) { return a.localeCompare(b); });
+    return vals.map(function (v) { return { v:v, n:counts[v], label:(f.name ? f.name(v) : v) }; });
+  }
+
+  function buildFilters() {
+    document.querySelectorAll(".fil").forEach(function (d) {
+      var key = d.getAttribute("data-facet");
+      // Book collapses ll and llb — they are one book, printed in two places
+      var vals = facetValues(key).filter(function (x) { return key !== "bk" || x.v !== "llb"; });
+      if (key === "bk") {
+        var llb = facetValues("bk").filter(function (x) { return x.v === "llb"; })[0];
+        if (llb) vals.forEach(function (x) { if (x.v === "ll") x.n += llb.n; });
+      }
+      d.querySelector(".fil-pop").innerHTML = vals.map(function (x) {
+        return '<label><input type="checkbox" value="' + esc(x.v) + '">' +
+               '<span>' + esc(x.label) + '</span><span class="fil-c">' + x.n + "</span></label>";
+      }).join("");
+      d.querySelector(".fil-pop").addEventListener("change", function (e) {
+        var v = e.target.value;
+        if (e.target.checked) picked[key][v] = 1; else delete picked[key][v];
+        if (key === "bk" && v === "ll") {
+          if (e.target.checked) picked.bk.llb = 1; else delete picked.bk.llb;
+        }
+        sync(); render();
+      });
+    });
+  }
+
+  function countPicked(key) {
+    var n = Object.keys(picked[key]).length;
+    return key === "bk" && picked.bk.llb ? n - 1 : n;
+  }
+
+  function sync() {
+    document.querySelectorAll(".fil").forEach(function (d) {
+      var key = d.getAttribute("data-facet"), n = countPicked(key);
+      d.setAttribute("data-on", n ? "1" : "0");
+      var sum = d.querySelector("summary");
+      sum.innerHTML = esc(FACETS[key].label) + (n ? '<span class="fil-n">' + n + "</span>" : "");
+    });
+    document.getElementById("t-con").setAttribute("aria-pressed", String(toggles.con));
+    document.getElementById("t-rit").setAttribute("aria-pressed", String(toggles.rit));
+    document.getElementById("qx").hidden = !qEl.value;
+  }
+
+  function matches(s, q) {
+    if (q && s._hay.indexOf(q) < 0) return false;
+    if (toggles.con && !s.con) return false;
+    if (toggles.rit && !s.rit) return false;
+    for (var key in picked) {
+      var want = picked[key];
+      if (!Object.keys(want).length) continue;
+      var have = FACETS[key].of(s), hit = false;
+      for (var i = 0; i < have.length; i++) { if (want[have[i]]) { hit = true; break; } }
+      if (!hit) return false;
+    }
+    return true;
+  }
+
+  /* ---------------- rendering ----------------
+     Rows are rendered for everything that matches, but a spell's prose is only
+     built when it is first opened. At 589 spells the difference between that
+     and rendering every body up front is the difference between a page that
+     opens instantly and one that does not. */
+  function rowHTML(s, i) {
+    var comp = s.cp.replace(/\s*\(.*$/, "");
+    var flags = (s.con ? "C" : "") + (s.rit ? (s.con ? " R" : "R") : "");
+    return '<details class="sp" data-i="' + i + '">' +
+      '<summary class="sp-row">' +
+        '<span class="sp-n">' + esc(s.n) + "</span>" +
+        '<span class="sp-m sp-lvl">' + lvlShort(s.l) + "</span>" +
+        '<span class="sp-m sp-sch" title="' + esc(s.s) + '">' + esc(s.sa) + "</span>" +
+        '<span class="sp-m">' + esc(comp) + (flags ? " &middot; " + flags : "") + "</span>" +
+        '<span class="sp-m">' + esc(s.ct) + "</span>" +
+        '<span class="sp-m">' + esc(s.rg) + "</span>" +
+        '<span class="sp-m">' + esc(s.d) + "</span>" +
+        '<span class="sp-sub">' + esc(lvl(s.l)) + " &middot; " + esc(s.s) +
+          (s.c.length ? " &middot; " + esc(s.c.join(", ")) : "") + "</span>" +
+      "</summary></details>";
+  }
+
+  function blocksHTML(blocks) {
+    var out = "", inList = false;
+    blocks.forEach(function (b) {
+      if (b[0] === "li") {
+        if (!inList) { out += "<ul>"; inList = true; }
+        out += "<li>" + esc(b[1]) + "</li>";
+        return;
+      }
+      if (inList) { out += "</ul>"; inList = false; }
+      if (b[0] === "tbl") {
+        // the page sets these as tables; run together as a sentence they read
+        // as nonsense, so they are kept as rows
+        out += '<table class="tbl"><tbody>' + b[1].map(function (row) {
+          return "<tr>" + row.map(function (c) { return "<td>" + esc(c) + "</td>"; }).join("") + "</tr>";
+        }).join("") + "</tbody></table>";
+        return;
+      }
+      out += "<p>" + esc(b[1]) + "</p>";
+    });
+    return out + (inList ? "</ul>" : "");
+  }
+
+  function detailHTML(s) {
+    var book = BOOKS[s.bk] || { t:s.bk, s:s.bk };
+    var h = '<div class="sp-open"><dl class="stat">' +
+      stat("Level", lvl(s.l)) + stat("School", s.s) +
+      stat("Casting Time", s.ct) + stat("Range", s.rg) +
+      stat("Components", s.cp) + stat("Duration", s.d) +
+      (s.c.length ? stat("Classes", s.c.join(", ")) : "") +
+      "</dl>" + blocksHTML(s.b);
+
+    if (s.h) h += "<h4>At Higher Levels</h4>" + blocksHTML(s.h).replace(
+      /^<p>At Higher Levels\.\s*/, "<p>");
+
+    var tags = [];
+    if (s.leg) tags.push(tag("Legacy spell", "src"));
+    if (s.bm)  tags.push(tag("Blood magic", "src"));
+    (s.ms || []).forEach(function (m) { tags.push(tag(m, "src")); });
+    (s.g  || []).forEach(function (g) { tags.push(tag(g, "group")); });
+    if (tags.length) h += '<div class="tags">' + tags.join("") + "</div>";
+
+    (s.g || []).forEach(function (g) {
+      if (GROUPS[g]) h += '<p class="note"><b>' + esc(g) + ".</b> " + esc(GROUPS[g]) + "</p>";
+    });
+    if (s.ci) h += '<p class="note">The book prints no class list for this spell. It is filed under Psion because that is the class its school belongs to.</p>';
+    if (s.rv) h += '<p class="note" data-warn="1">On the page this entry surrounds a boxed stat block or table. The words are the book\'s, but the box has been flattened into the text and may have picked up something from the box beside it &mdash; check this one against the book before using it.</p>';
+
+    var cite = book.s + ", p. " + s.p;
+    (s.also || []).forEach(function (a) {
+      var b2 = BOOKS[a[0]] || { s:a[0] };
+      cite += " &middot; also printed in " + b2.s + ", p. " + a[1];
+    });
+    return h + '<p class="cite">' + cite + "</p></div>";
+  }
+  function stat(k, v){ return "<div><dt>" + esc(k) + "</dt><dd>" + esc(v) + "</dd></div>"; }
+  function tag(t, kind){ return '<span class="tag" data-kind="' + kind + '">' + esc(t) + "</span>"; }
+
+  var view = [];
+
+  function render() {
+    var q = flat(qEl.value.trim());
+    view = SPELLS.filter(function (s) { return matches(s, q); });
+    view.sort(function (a, b) {
+      var r = sortKey === "l" ? (a.l - b.l) || a._sortName.localeCompare(b._sortName)
+                              : a._sortName.localeCompare(b._sortName);
+      return r * sortDir;
+    });
+
+    document.getElementById("shown").textContent = view.length;
+    document.getElementById("total").textContent = SPELLS.length;
+    document.getElementById("why").textContent = describe(q);
+
+    listEl.innerHTML = view.length
+      ? view.map(rowHTML).join("")
+      : '<p class="empty">No spell matches those filters.</p>';
+
+    document.querySelectorAll(".cols button").forEach(function (b) {
+      if (b.getAttribute("data-k") === sortKey) b.setAttribute("data-sort", String(sortDir));
+      else b.removeAttribute("data-sort");
+    });
+  }
+
+  function describe(q) {
+    var bits = [];
+    for (var key in picked) {
+      var vals = Object.keys(picked[key]).filter(function (v) { return !(key === "bk" && v === "llb"); });
+      if (vals.length) bits.push(FACETS[key].label.toLowerCase() + ": " +
+        vals.map(function (v) { return FACETS[key].name ? FACETS[key].name(v) : v; }).join(", "));
+    }
+    if (toggles.con) bits.push("concentration");
+    if (toggles.rit) bits.push("ritual");
+    if (q) bits.push('"' + q + '"');
+    return bits.join("  ·  ");
+  }
+
+  /* a row's prose is built the first time it opens, then kept */
+  listEl.addEventListener("toggle", function (e) {
+    var d = e.target;
+    if (!d.classList || !d.classList.contains("sp") || !d.open) return;
+    if (d.querySelector(".sp-open")) return;
+    d.insertAdjacentHTML("beforeend", detailHTML(view[+d.getAttribute("data-i")]));
+  }, true);
+
+  /* ---------------- input ---------------- */
+  var tid = null;
+  qEl.addEventListener("input", function () {
+    clearTimeout(tid);
+    tid = setTimeout(function () { sync(); render(); }, 120);
+  });
+  document.getElementById("qx").addEventListener("click", function () {
+    qEl.value = ""; qEl.focus(); sync(); render();
+  });
+  ["con", "rit"].forEach(function (k) {
+    document.getElementById("t-" + k).addEventListener("click", function () {
+      toggles[k] = !toggles[k]; sync(); render();
+    });
+  });
+  document.getElementById("clr").addEventListener("click", function () {
+    picked = { c:{}, l:{}, s:{}, bk:{}, g:{} };
+    toggles.con = toggles.rit = false;
+    qEl.value = "";
+    document.querySelectorAll(".fil-pop input").forEach(function (i) { i.checked = false; });
+    sync(); render();
+  });
+  document.querySelectorAll(".cols button").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var k = b.getAttribute("data-k");
+      if (k === sortKey) sortDir = -sortDir; else { sortKey = k; sortDir = 1; }
+      render();
+    });
+  });
+
+  document.querySelectorAll(".fil").forEach(function (d) {
+    d.addEventListener("toggle", function () {
+      if (!d.open) return;
+      document.querySelectorAll(".fil[open]").forEach(function (o) {
+        if (o !== d) o.removeAttribute("open");
+      });
+      // measured against .bar, and from the rendered box rather than
+      // offsetLeft, so a sideways-scrolled filter row still lines up
+      var pop = d.querySelector(".fil-pop");
+      var bar = document.querySelector(".bar");
+      var x = d.querySelector("summary").getBoundingClientRect().left
+            - bar.getBoundingClientRect().left;
+      pop.style.left = Math.max(0, Math.min(x, bar.clientWidth - pop.offsetWidth)) + "px";
+    });
+  });
+
+  // one popover at a time, and clicking away closes it
+  document.addEventListener("click", function (e) {
+    document.querySelectorAll(".fil[open]").forEach(function (d) {
+      if (!d.contains(e.target)) d.removeAttribute("open");
+    });
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") {
+      var open = document.querySelector(".fil[open]");
+      if (open) { open.removeAttribute("open"); open.querySelector("summary").focus(); }
+    }
+    if (e.key === "/" && document.activeElement !== qEl) {
+      var t = (document.activeElement && document.activeElement.tagName) || "";
+      if (t === "INPUT" || t === "TEXTAREA") return;
+      e.preventDefault(); qEl.focus(); qEl.select();
+    }
+  });
+
+  document.getElementById("eyebrow").textContent =
+    SPELLS.length + " spells · 3 homebrew books";
+  document.getElementById("foot").textContent =
+    "Legends & Legacies and Craft and Creation by Kibbles Tasty; Lyre's Guide to Retia by Nat19. " +
+    "Where a spell is printed in both Kibbles books, the Legends & Legacies text is the one shown.";
+
+  buildFilters(); sync(); render();
+})();
+</script>

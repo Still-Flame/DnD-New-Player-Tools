@@ -8404,5 +8404,453 @@ CLASSES.spellblade.groups[1].keys = CLASSES.spellblade.groups[1].keys.concat(["s
 /* The Witch's coven note predates the Blood Magic rules, which add a fourth. */
 ENTRIES["oc-witch"].mods.coven = "A second choice layered on the tradition — Black for pain and curses, White for binding and healing, Green for fey trickery, and Red for blood — each granting bonus spells at 1, 3, 5, 7 and 9 and a different familiar power.";
 
+/* ============================================================================
+   Kibbles' Compendium of Craft and Creation — subclasses for the twelve
+   official classes. Page numbers are the printed page.
+   ========================================================================= */
+
+/* ---------------------------------- Barbarian ---------------------------- */
+
+ENTRIES["b-ragingmind"] = { cls:"barbarian", nav:"Path of the Raging Mind", navSub:"Levels 3 · 6 · 10 · 14", kicker:"Barbarian path · homebrew",
+  name:"Path of the Raging Mind",
+  tag:"Rage that throws the room around instead of you",
+  flavor:"A Barbarian whose fury comes out as telekinesis — a mind strong enough to warp the world while it is angry. The book notes it still runs on Strength, because what you are doing is lifting, not studying.",
+  src:"Kibbles' Craft and Creation, pp. 92–93",
+  mods:{
+    rage:"Everything hangs off it: thrown weapons, the orbiting armoury, the cover aura and the shove rider.",
+    ragedamage:"It applies to thrown weapons, and to Telekinetic Force damage while you rage.",
+    recklessattack:"Usable on thrown attacks, and at 10 a reckless throw ricochets into a second target.",
+    prone:"Telekinetic Force shoves 5 feet or knocks down, on a failed Strength save.",
+    cover:"Interference Field gives you and everyone within 10 feet half of it against ranged attacks.",
+    grappled:"You must hold a creature before you can throw it, and a thrown creature hurts whatever it lands on."
+  },
+  features:[
+    {lvl:"Level 3",name:"Telekinetic Fury",body:"<p>{{rage|Raging}} gives every melee weapon thrown 30/60 — 15/45 if heavy, 60/120 if light. Your {{ragedamage|Rage damage}} applies to thrown weapons and {{recklessattack|Reckless Attack}} works on them.</p><p>At the start of each raging turn you call {{proficiencybonus|proficiency bonus}} unattended weapons or Tiny objects within 60 feet to your hands or into orbit around you. Orbiting weapons can only be thrown, and everything drops at the end of your turn or when the Rage ends.</p>"},
+    {lvl:"Level 3",name:"Distant Grasp",body:"<p>Handle small objects within 30 feet as if with your hand — opening an unlocked door, stowing or fetching from an open container, pouring a vial — at {{disadvantage}} on any Dexterity {{abilitycheck|check}}. No attacking, no activating magic items, and no more than 10 pounds. While {{rage|raging}} that limit becomes 20 times your Barbarian level.</p>"},
+    {lvl:"Level 6",name:"Forceful Mind",body:"<p>You gain the psionic power Telekinetic Force at a DC of 8 + Strength + {{proficiencybonus|proficiency bonus}}: a 60-foot Strength {{savingthrow|save}} or 1d10 bludgeoning and shoved 5 feet, or knocked {{prone}}. It replaces one attack in your Attack action, and while {{rage|raging}} it adds your Strength modifier and {{ragedamage|Rage damage}}.</p>"},
+    {lvl:"Level 6",name:"Interference Field",body:"<p>While {{rage|raging}}, you and allies within 10 feet have half {{cover}} against ranged weapon attacks.</p>"},
+    {lvl:"Level 10",name:"Collateral Damage",body:"<p>A {{recklessattack|Reckless}} thrown attack can ricochet into a second creature within 5 feet of the first, using the lower of the two dice. Not available if {{disadvantage}} has cancelled the Reckless advantage.</p>"},
+    {lvl:"Level 14",name:"Fling Foes",body:"<p>While {{rage|raging}}, weapon hits can knock the target 5 feet back, and Telekinetic Force always applies its Hurling modifier for another 20 feet of shove.</p><p>Every Medium or smaller object and creature you hold becomes an improvised weapon: 1d6 bludgeoning, thrown 20/60. An unwilling creature must be {{grappled}} first and cannot be thrown past its own range, and anything you throw into someone else deals 1d6 to both.</p>"}
+  ]};
+
+ENTRIES["b-exosuit"] = { cls:"barbarian", nav:"Path of the Exosuit", navSub:"Levels 3 · 6 · 10 · 14", kicker:"Barbarian path · homebrew",
+  name:"Path of the Exosuit",
+  tag:"The armour wakes up when you do",
+  flavor:"A Barbarian bonded to a powerful exosuit — a machine that unfolds from a ball, a symbiote stored in the blood, a crystal suit phasing out of a pendant, runes across the skin, or armour that walks over and puts itself on. It comes back however it is lost.",
+  src:"Kibbles' Craft and Creation, pp. 93–94",
+  mods:{
+    rage:"The suit activates when you rage and subsumes whatever you were wearing, keeping that armour's AC.",
+    armorclass:"The suit adopts your current armour's, or your Unarmored Defense if you had none.",
+    unarmoreddefense:"That is what sets the suit's AC if you were not wearing armour.",
+    unarmedstrike:"Iron Fists make an empty hand a 1d8 light bludgeoning weapon, magical from level 6.",
+    grappled:"Winning a shove or grapple deals damage, and from 10 you drag a held creature at full speed and smash them into things.",
+    speed:"A climbing speed at 6, triple jump distance, and a fly speed while raging at 14.",
+    flyspeed:"Equal to your walking speed, for as long as the Rage lasts."
+  },
+  features:[
+    {lvl:"Level 3",name:"Exosuit",body:"<p>You are permanently bonded to a suit that recovers itself however it is lost. {{rage|Raging}} activates it: it swallows whatever armour you wear and takes that {{armorclass|AC}}, or your {{unarmoreddefense|Unarmored Defense}} if you had none.</p><ul><li><b>Regenerating Armor</b> — damage taken is reduced by your {{proficiencybonus|proficiency bonus}}.</li><li><b>Iron Fists</b> — an empty hand is a 1d8 light bludgeoning weapon.</li><li><b>Smashing Force</b> — winning an Athletics shove or {{grappled|grapple}} deals 1d4 + Strength bludgeoning.</li></ul>"},
+    {lvl:"Level 6",name:"Empowered Movement",body:"<p>A climbing {{speed}} equal to your walking speed, and triple jump distance.</p>"},
+    {lvl:"Level 6",name:"Power Fist",body:"<p>Drop your {{proficiencybonus|proficiency bonus}} from an Iron Fists attack roll to add double it to the damage. Iron Fists also count as magical.</p>"},
+    {lvl:"Level 10",name:"Heavy Lifting",body:"<p>While {{rage|raging}}, moving a {{grappled}} creature no longer halves your {{speed}}.</p>"},
+    {lvl:"Level 10",name:"Slam",body:"<p>Once a turn, dragging a {{grappled}} creature into a Large or larger object, a Small or larger creature, or immobile terrain deals 1d6 bludgeoning to both, per 15 feet you had moved first.</p>"},
+    {lvl:"Level 14",name:"Infinite Leap",body:"<p>While {{rage|raging}}, a {{flyspeed|fly speed}} equal to your walking {{speed}}.</p>"}
+  ]};
+
+/* ------------------------------------ Bard ------------------------------- */
+
+ENTRIES["bd-thunder"] = { cls:"bard", nav:"College of Thunder", navSub:"Levels 3 · 6 · 14", kicker:"Bard college · homebrew",
+  name:"College of Thunder",
+  tag:"Loud, then louder, then again next turn",
+  flavor:"Bards who got very good at volume. The whole college is a single idea pushed hard: thunder damage, more of it, further away, and a second helping on the following turn.",
+  src:"Kibbles' Craft and Creation, pp. 94–95",
+  mods:{
+    bardicinspiration:"Harsh Chord spends a die as an area attack rather than handing it to anyone.",
+    concentration:"Checks forced by a Harsh Chord are made with disadvantage.",
+    cantrip:"Thaumaturgy and thunder note free of your count.",
+    spellslot:"At 14, a thunder spell cast from one repeats next turn for free at half damage.",
+    savingthrow:"Harsh Chord is a Constitution save for your Inspiration die + your Bard level in thunder."
+  },
+  features:[
+    {lvl:"Level 3",name:"Dramatic Cantrips",body:"<p><em>Thaumaturgy</em> and <em>thunder note</em>, free of your {{cantrip|cantrips}} known.</p>"},
+    {lvl:"Level 3",name:"Harsh Chord",body:"<p>An action and a {{bardicinspiration|Bardic Inspiration}} sweep a chord out 20 feet: Constitution {{savingthrow|save}} for your Inspiration die + your Bard level in thunder damage, half on a success. {{concentration|Concentration}} checks caused by it are rolled with {{disadvantage}}.</p>"},
+    {lvl:"Level 3",name:"Thundering Magic",body:"<p>Free of your spells known, and Bard spells for you: <em>thunder punch</em> and <em>shatter</em>, <em>thunder pulse</em>, <em>echoing lance</em>, <em>sonic shriek</em>.</p>"},
+    {lvl:"Level 6",name:"Louder",body:"<p>Add your Charisma modifier to the damage of any thunder spell you cast.</p>"},
+    {lvl:"Level 6",name:"Amplified Antics",body:"<p>Bard spells with a range over 5 feet reach 30 feet further. It does not grow their areas — including spells whose area is their range, like <em>thunderwave</em>.</p>"},
+    {lvl:"Level 14",name:"Reverberating Echo",body:"<p>A thunder spell cast from a {{spellslot|spell slot}} can be cast again on your next turn for free, at half damage.</p>"}
+  ]};
+
+/* ----------------------------------- Cleric ------------------------------ */
+
+ENTRIES["cl-mysterycult"] = { cls:"cleric", nav:"Mystery Cult", navSub:"Levels 1 · 2 · 6 · 8 · 17", kicker:"Cleric domain · homebrew",
+  name:"Mystery Cult",
+  tag:"Telepathy, betrayal, and a growing list of rites",
+  flavor:"Clerics of something that does not want to be named clearly. They speak mind to mind, turn an attacker's swing onto their own side, and accumulate esoteric rites rather than a fixed ladder of features.",
+  src:"Kibbles' Craft and Creation, pp. 95–96",
+  mods:{
+    channeldivinity:"Invoke Betrayal is a reaction that redirects an attack to another creature on a failed Wisdom save.",
+    reaction:"Uncanny Insight raises your AC after a hit lands; Invoke Betrayal redirects the attack outright.",
+    armorclass:"Uncanny Insight adds your Wisdom modifier until your next turn, retroactively covering the triggering attack.",
+    preparedspells:"The domain list is always prepared and outside your total.",
+    antimagic:"The Gift of Tongues rite makes your spells unidentifiable and gives counterspell attempts disadvantage.",
+    psionicdiscipline:"The Gift of Mystery rite turns one discipline's power into a 1st-level Cleric spell.",
+    immunity:"Psychic damage, from level 17, alongside 60 feet of truesight."
+  },
+  features:[
+    {lvl:"Level 1",name:"Domain Spells",body:"<p>Always {{preparedspells|prepared}}, outside your limit: <em>frighten</em> and <em>terrifying visions</em>; <em>augury</em> and <em>detect thoughts</em>; <em>fear</em> and <em>nondetection</em>; <em>compulsion</em> and <em>summon horror</em>; <em>dominate person</em> and <em>modify memory</em>.</p>"},
+    {lvl:"Level 1",name:"Silent Language",body:"<p>Talk mind to mind with any creature you can see within 30 feet, and it can answer. No shared language needed, though it must understand at least one.</p>"},
+    {lvl:"Level 1",name:"Uncanny Insight",body:"<p>A {{reaction}} to being hit adds your Wisdom modifier to {{armorclass|AC}} until your next turn — including against the attack that triggered it. {{proficiencybonus|Proficiency bonus}} uses per {{longrest|long rest}}.</p>"},
+    {lvl:"Level 2",name:"Channel Divinity: Invoke Betrayal",body:"<p>A {{reaction}} when a creature within 30 feet makes an attack roll: Wisdom {{savingthrow|save}} or you point the attack at someone else in range.</p>"},
+    {lvl:"Level 6",name:"Esoteric Rites",body:"<p>One rite now, another at 10 and 14:</p><ul><li><b>Gift of Tongues</b> — Deep Speech as your verbal components, so nobody can identify your spells; {{antimagic|counterspell}} and its kin roll with {{disadvantage}} and must roll even when they would succeed automatically.</li><li><b>Gift of Prophecy</b> — a use of Uncanny Insight back on every {{shortrest|short rest}}.</li><li><b>Gift of Mystery</b> — one {{psionicdiscipline|discipline}}'s psionic power becomes a 1st-level spell, cast with psi points equal to the slot level.</li></ul>"},
+    {lvl:"Level 8",name:"Potent Spellcasting",body:"<p>Add your Wisdom modifier to the damage of your Cleric {{cantrip|cantrips}}.</p>"},
+    {lvl:"Level 17",name:"Dark Truth",body:"<p>{{immunity|Immunity}} to psychic damage, and truesight out to 60 feet.</p>"}
+  ]};
+
+/* ------------------------------------ Druid ------------------------------ */
+
+ENTRIES["dr-nightmares"] = { cls:"druid", nav:"Circle of Nightmares", navSub:"Levels 2 · 6 · 10 · 14", kicker:"Druid circle · homebrew",
+  name:"Circle of Nightmares",
+  tag:"Wild Shape into one piece of a bad dream",
+  flavor:"Druids who render a fragment of their nightmares into reality by warping their own flesh. Not a whole beast — an eye stalk, or a fistful of tentacles, grown on top of the body you already have.",
+  src:"Kibbles' Craft and Creation, pp. 96–98",
+  mods:{
+    wildshape:"Spent as a bonus action on a mutation rather than a beast — one at level 2, both at level 10.",
+    temporaryhp:"Druid level + Wisdom, every time you mutate.",
+    grappled:"Grasping Tentacles grapple at 10 feet on Wisdom (Athletics), and you have Wisdom-modifier of them.",
+    frightened:"The Fear Ray, on a failed Wisdom save, until your next turn.",
+    restrained:"The Petrification Ray's outcome on a failed Constitution save.",
+    preparedspells:"The circle list is always prepared and outside your total.",
+    spellslot:"Aberrant Mutations casts mutate without one, proficiency bonus times per rest."
+  },
+  features:[
+    {lvl:"Level 2",name:"Circle Spells",body:"<p><em>Message</em> now, then always-{{preparedspells|prepared}}: <em>alter self</em>, <em>mutate</em>, <em>black tentacles</em>, <em>contact other plane</em>.</p>"},
+    {lvl:"Level 2",name:"Eldritch Mutation",body:"<p>A {{bonusaction}} and a {{wildshape|Wild Shape}} grow a mutation for 10 minutes, with {{temporaryhp|temporary hit points}} equal to your Druid level + Wisdom. It ends on an action, on being {{incapacitated}}, or on reuse. Choose:</p><ul><li><b>Eye Stalk</b> — on creation and each turn after, a {{bonusaction}} fires a random ray at a creature within 60 feet: <b>Fear</b> ({{frightened}}), <b>Telekinetic</b> (moved 10 feet), <b>Slowing</b> (<em>slow</em>), <b>Petrification</b> ({{restrained}}), <b>Enervation</b> (1d8 + Wisdom necrotic) or <b>Disintegration</b> (1d10 + Wisdom force). {{proficiencybonus|Proficiency bonus}} times per manifestation you may simply pick.</li><li><b>Grasping Tentacles</b> — a {{bonusaction}} melee spell attack within 10 feet for 1d6 + Wisdom bludgeoning, or a {{grappled|grapple}} on Wisdom (Athletics) at 10 feet, maintained the same way. You have Wisdom-modifier tentacles and need one free to attack.</li></ul>"},
+    {lvl:"Level 6",name:"Aberrant Mutations",body:"<p>Cast <em>mutate</em> without a {{spellslot|spell slot}}, {{proficiencybonus|proficiency bonus}} times per {{longrest|long rest}}.</p>"},
+    {lvl:"Level 10",name:"Faceted Forms",body:"<p>One {{wildshape|Wild Shape}} grows both mutations, and you may use either as an action or a {{bonusaction}}. The Enervation Ray becomes 2d8, Disintegration 2d10, and the tentacles 2d6.</p>"},
+    {lvl:"Level 14",name:"Piercing Eyes",body:"<p>While an Eye Stalk is out, truesight to 60 feet.</p>"},
+    {lvl:"Level 14",name:"Mutation Mastery",body:"<p><em>Mutate</em> picks one extra property, as though cast a level higher.</p>"}
+  ]};
+
+/* ----------------------------------- Fighter ----------------------------- */
+
+ENTRIES["fi-techknight"] = { cls:"fighter", nav:"Tech Knight", navSub:"Levels 3 · 7 · 10 · 15 · 18", kicker:"Fighter subclass · homebrew",
+  name:"Tech Knight",
+  tag:"Build the weapon, then keep bolting things onto it",
+  flavor:"A Fighter who built something devastating and brought it to work. Some adventure to field-test the weapon, some invented it to get past an obstacle, and some cobbled it together purely because they needed to annihilate somebody.",
+  src:"Kibbles' Craft and Creation, pp. 97–99",
+  mods:{
+    spellsavedc:"Every gadget with a save uses 8 + Intelligence + proficiency bonus.",
+    bonusaction:"Rev Up riders, the transforming weapon's shift, and several Contingent Options all run off one.",
+    proficiencybonus:"The Ramming Gauntlet trades it off the attack roll for double it on the damage.",
+    resistance:"Reactive Armor picks a damage type each long rest.",
+    grappled:"The Grappling Hook pulls a Small creature to you and grapples it, or pulls you to a bigger one.",
+    spellslot:"The Contingent Options cast their spells without spending one, once per short rest.",
+    opportunityattack:"Being yanked by your own grappling hook provokes them at disadvantage."
+  },
+  features:[
+    {lvl:"Level 3",name:"Brutal Invention",body:"<p>Build one weapon, proficient to you alone, remade in 4 hours and 25 gp if lost:</p><ul><li><b>Chainblade</b> — 2d4 slashing, versatile 3d4; reroll any damage dice once, and trade unused attacks for 4d4 each.</li><li><b>Ramming Gauntlet</b> — 1d8 bludgeoning, light; drop your {{proficiencybonus|proficiency bonus}} from the attack to add double it to damage.</li><li><b>Repeating Hand Crossbow</b> — 1d6 piercing, ammunition (30/120), light, self-loading; once a turn buy an extra {{bonusaction}} shot by taking {{disadvantage}} on both.</li><li><b>Ricocheting Weapon</b> — 1d8 bludgeoning, finesse, thrown (30/90); hits two creatures within 10 feet on one roll and returns to hand.</li><li><b>Transforming Weapon</b> — becomes any of three chosen weapons as a {{bonusaction}}, adding 1d4 lightning on the next damage roll after it shifts.</li></ul><p><b>Rev Up</b> overcharges it on a hit — bigger dice, a 10-foot shove, a free extra shot, a longer ricochet or 2d4 lightning. Intelligence-modifier uses per {{shortrest|short}} or {{longrest|long rest}}.</p>"},
+    {lvl:"Level 3",name:"Weapon Improvement",body:"<p>Over a {{longrest|long rest}}, destroy a +1, +2 or +3 magic weapon to move its bonus onto your Brutal Invention. Other properties are up to the DM.</p>"},
+    {lvl:"Level 3",name:"Tinker's Proficiency",body:"<p>Tinker's tools, or another set of artisan's tools if you had them.</p>"},
+    {lvl:"Level 7",name:"Contingent Options",body:"<p>One gadget, once per {{shortrest|short}} or {{longrest|long rest}}, at a {{spellsavedc|save DC}} of 8 + Intelligence + {{proficiencybonus|proficiency bonus}}: <b>Charged Armor</b> (<em>lightning charged</em>), <b>Rocket Boots</b> (a jump equal to your {{speed}}, no fall damage, 2d4 fire on landing — or <em>feather fall</em>), <b>Shifting Belt</b> (<em>enlarge/reduce</em>), <b>Flame Thrower</b> (<em>burning hands</em> at 2nd level), <b>Force Shield</b> (<em>shield</em>), <b>Thunder Grenade</b> (<em>shatter</em>).</p>"},
+    {lvl:"Level 10",name:"Chains of War",body:"<p>Another Brutal Invention or Contingent Option, or: <b>Returning Chain</b>, which brings a thrown Brutal Invention back from 30 feet and grants thrown (10/30) if it lacked it; or <b>Grappling Hook</b>, an action or attack that targets something within 20 feet — Strength (Athletics) to drag a Small creature into a {{grappled|grapple}}, or to pull yourself to a Medium or larger one, with any {{opportunityattack|opportunity attacks}} at {{disadvantage}}.</p>"},
+    {lvl:"Level 15",name:"Reactive Armor",body:"<p>Tune the armour on a {{longrest|long rest}} for {{resistance}} to one damage type until the next one.</p>"},
+    {lvl:"Level 18",name:"Arms Race",body:"<p>Two more options, from any of Brutal Invention, Contingent Options or Chains of War.</p>"}
+  ]};
+
+/* ------------------------------------ Monk ------------------------------- */
+
+ENTRIES["mo-soulblade"] = { cls:"monk", nav:"Way of the Soul Blade", navSub:"Levels 3 · 6 · 11 · 17", kicker:"Monk subclass · homebrew",
+  name:"Way of the Soul Blade",
+  tag:"Ki sharpened into a psionic knife, and a discipline to go with it",
+  flavor:"Monks who focus ki into a blade of scintillating psionic energy — usually a knife projecting from the fist, though the shape is yours. It comes with a real psion discipline attached, and one pool that serves both.",
+  src:"Kibbles' Craft and Creation, pp. 99–101",
+  mods:{
+    focuspoints:"Ki here, and it doubles as psi points: 1 at level 3, rising to 5 at 17. A psion's real pool merges with it outright.",
+    psionicdiscipline:"Telekinetics, from level 3, running on your Ki Save DC.",
+    psipoints:"Ki spends as these up to a climbing limit, and a multiclassed psion pools the two.",
+    flurryofblows:"Psionic Flurry lets its extra attacks use the Soul Blade.",
+    armorclass:"Soul Strike ignores armour entirely, treating AC as 10 + Dexterity.",
+    bonusaction:"Summons the blade, and buys an attack after you spend your action on a psionic power.",
+    criticalhit:"At 17 one can outright kill a creature left under 50 hit points, on a failed Charisma save."
+  },
+  features:[
+    {lvl:"Level 3",name:"Soul Blade",body:"<p>A {{bonusaction}} makes a blade of psionic energy — a Monk weapon dealing 1d8 psychic with light, finesse and thrown (20/60). You may hold several, but any you are not touching vanish at the end of your turn.</p>"},
+    {lvl:"Level 3",name:"Psionic Ki",body:"<p>You gain the Telekinetics {{psionicdiscipline|discipline}} and may spend {{focuspoints|Ki}} as {{psipoints|psi points}}, capped at 1 — rising to 2 at level 5, 3 at 9, 4 at 13 and 5 at 17. The DC is your Ki Save DC.</p><p>A character with both pools merges them, and the limit becomes their psi limit plus a third of their Monk levels. Spending your action on a psionic power or a spell buys one {{unarmedstrike|unarmed strike}} or Monk weapon attack as a {{bonusaction}}.</p>"},
+    {lvl:"Level 6",name:"Art of the Soul Blade",body:"<p><b>Extended Blade</b> — 1 {{focuspoints|Ki}} gives the blade Reach until end of turn. <b>Psionic Flurry</b> — {{flurryofblows|Flurry of Blows}} may use the Soul Blade for its extra attacks. <b>Soul Strike</b> — spend your whole Attack action on one thrust that ignores armour, treating {{armorclass|AC}} as 10 + Dexterity, and adds your Wisdom modifier on a hit.</p>"},
+    {lvl:"Level 11",name:"Power of the Mind",body:"<p><b>Ethereal Sweep</b> — with Extended Blade running, once a turn an attack buys another against Wisdom-modifier creatures in range. <b>Consumptive Blade</b> — killing something of Intelligence 6 or higher with the blade lets a {{reaction}} draw in its essence for 1d4 {{hitpoints|hit points}} and 1 {{focuspoints|Ki}}. <b>Empowered Discipline</b> — one {{focuspoints|Ki}} of empowerment on a {{psionicdiscipline|discipline}}'s power is free, even at zero Ki.</p>"},
+    {lvl:"Level 17",name:"Transcendent Blade",body:"<p>+1 to the blade's attack and damage. It can gain Siege and deal force damage to objects at will, and reactions that parry or add {{armorclass|AC}} simply do not work against it.</p><p>A {{criticalhit|critical hit}} that leaves a creature under 50 {{hitpoints|hit points}} forces a Charisma {{savingthrow|save}}: on a failure its Charisma drops to zero and it dies.</p>"}
+  ]};
+
+/* ----------------------------------- Paladin ----------------------------- */
+
+ENTRIES["pa-sanity"] = { cls:"paladin", nav:"Oath of Sanity", navSub:"Levels 3 · 7 · 15 · 20", kicker:"Paladin oath · homebrew",
+  name:"Oath of Sanity",
+  tag:"Never act on impulse; the cracks are how it gets in",
+  flavor:"An oath sworn against the psionic horrors from outside, and against the part of yourself that might one day find them comforting. Order, Vigilance, Discipline, Solemnity, and above all Sanity. The book notes it rarely produces someone you would call normal.",
+  src:"Kibbles' Craft and Creation, pp. 101–102",
+  mods:{
+    paladinchanneldivinity:"Turn the Aberrant works on aberrations and undead and strips their disguises; Deny the Supernatural shuts off a smited creature's magic.",
+    divinesmite:"Deny the Supernatural rides on one, and at 20 a smite also fires dispel magic at the slot's level.",
+    turnundead:"Extended to aberrations, and a turned creature's true form is revealed while it lasts.",
+    savingthrow:"Active Mind moves end-of-turn saves to the start of your turn — for you at 7, for an ally at 18.",
+    initiative:"Constant Vigilance floors it at your passive Perception.",
+    immunity:"Psychic damage, for the minute Clarity of Purpose lasts.",
+    antimagic:"Deny the Supernatural blocks spells and psionics for a round; Clarity of Purpose adds a free dispel magic."
+  },
+  features:[
+    {lvl:"Level 3",name:"Channel Divinity",body:"<p><b>Turn the Aberrant</b> — an action; aberrations and {{undead}} within 30 feet that can see or hear you make a Wisdom {{savingthrow|save}} or are {{turnundead|turned}} for a minute or until damaged. A form concealed by illusion or shapeshifting is revealed while it holds.</p><p><b>Deny the Supernatural</b> — a {{bonusaction}} right after a {{divinesmite|Divine Smite}} lands: Charisma {{savingthrow|save}} or the target cannot cast spells or use psionics until the end of its next turn.</p>"},
+    {lvl:"Level 3",name:"Oath Spells",body:"<p><em>Detect magic</em> and <em>protection from evil and good</em>; <em>nullify effect</em> and <em>see invisibility</em>; <em>dispel magic</em> and <em>remove curse</em>; <em>banishment</em> and <em>dimension door</em>; <em>dispel evil and good</em> and <em>hold monster</em>.</p>"},
+    {lvl:"Level 7",name:"Active Mind",body:"<p>Any {{savingthrow|save}} you would make at the end of your turn, you make at the start of it instead. From level 18, a {{reaction}} extends that to a creature within 30 feet.</p>"},
+    {lvl:"Level 15",name:"Constant Vigilance",body:"<p>You cannot be surprised, your passive Perception holds while {{unconscious}} so long as you have at least 1 {{hitpoints|hit point}}, and an {{initiative}} roll below your passive Perception is replaced by it.</p>"},
+    {lvl:"Level 20",name:"Clarity of Purpose",body:"<p>An action, for a minute: truesight to 120 feet, {{immunity}} to psychic damage, and {{advantage}} on {{savingthrow|saves}} against magical and psionic effects. A {{divinesmite|Divine Smite}} also casts <em>dispel magic</em> as a {{bonusaction}} for free — at the smite's {{spellslot|slot}} level if that was above 3rd. Once per {{longrest|long rest}}.</p>"}
+  ]};
+
+/* ----------------------------------- Ranger ------------------------------ */
+
+ENTRIES["ra-specialist"] = { cls:"ranger", nav:"Specialist", navSub:"Levels 3 · 7 · 11 · 15", kicker:"Ranger subclass · homebrew",
+  name:"Specialist",
+  tag:"Every arrow in the quiver does something different",
+  flavor:"A Ranger who builds their ammunition. Trick shots first, then shots with whole spells packed into them, then a grapple line — the archetype is a workbench with a bow attached.",
+  src:"Kibbles' Craft and Creation, pp. 102–103",
+  mods:{
+    spellsavedc:"Trick Shots use it, and so do the spells packed into a Spell Shot.",
+    spellslot:"A bonus action burns one to infuse a Spell Shot, from a fixed list per slot level.",
+    cover:"A Guided Shot ignores it entirely — total cover included — if a path exists within range.",
+    advantage:"A Guided Shot is made with it.",
+    concentration:"An infused spell that needs it still uses yours as normal.",
+    grappled:"The Grapple Shot drags a Small target to you, or you to a bigger one.",
+    bonusaction:"Infuses a Spell Shot, and from 15 conjures a Trick Shot when you start a turn without one."
+  },
+  features:[
+    {lvl:"Level 3",name:"Knack",body:"<p>Tinker's tools, or another artisan's tools if you had them.</p>"},
+    {lvl:"Level 3",name:"Trick Shots",body:"<p>{{proficiencybonus|Proficiency bonus}} special shots, rebuilt on a {{shortrest|short}} or {{longrest|long rest}} and swappable then, at your {{spellsavedc|spell save DC}}:</p><ul><li><b>Binding Shot</b> — becomes a net with extra {{hitpoints|hit points}} equal to your Ranger level.</li><li><b>Flash Shot</b> — Dexterity {{savingthrow|save}} or blinded, out to 15 feet.</li><li><b>Explosive Shot</b> — Dexterity save or 1d6 fire and 1d6 thunder, out to 10 feet.</li><li><b>Guided Shot</b> — {{advantage}}, and ignores {{cover}} including total cover if a path exists.</li><li><b>Rocket Shot</b> — double range and an extra 1d12.</li></ul>"},
+    {lvl:"Level 7",name:"Spell Shots",body:"<p>Wisdom-modifier shots, rebuilt on a {{longrest|long rest}}. A {{bonusaction}} and a {{spellslot|spell slot}} pack a spell in, triggering on impact at a point you choose beside the target whether the attack hits or misses — 1st: <em>burning hands</em>, <em>fog cloud</em>; 2nd: <em>darkness</em>, <em>shatter</em>; 3rd: <em>fireball</em>, <em>sleet storm</em>; 4th: <em>black tentacles</em>, <em>ice storm</em>; 5th: <em>cloudkill</em>, <em>acid rain</em>. {{concentration|Concentration}} still applies.</p>"},
+    {lvl:"Level 11",name:"Empowered Shots",body:"<p>Any Trick Shot or Spell Shot that damages a creature adds 1d8.</p>"},
+    {lvl:"Level 11",name:"Grapple Shot",body:"<p>An action or attack fires a corded shot 30 feet. No damage, but a Small or smaller target is dragged 30 feet toward you, and a Medium or larger one pulls you 30 feet toward it.</p>"},
+    {lvl:"Level 15",name:"Endless Innovation",body:"<p>Start a turn with no Trick Shot and a {{bonusaction}} makes one.</p>"}
+  ]};
+
+ENTRIES["ra-mindreaper"] = { cls:"ranger", nav:"Mind Reaper", navSub:"Levels 3 · 7 · 11 · 15", kicker:"Ranger subclass · homebrew",
+  name:"Mind Reaper",
+  tag:"Frighten it first, then everything else works better",
+  flavor:"A Ranger who hunts minds. Fear is the setup and psychic damage is the payoff, and the whole archetype compounds: frightened targets are easier to hit, take more, feed you, and cannot hide.",
+  src:"Kibbles' Craft and Creation, pp. 103–104",
+  mods:{
+    frightened:"The engine of the subclass — advantage to hit, extra psychic damage, temporary hit points, and a refunded psi point on a kill.",
+    psipoints:"Proficiency bonus of them from level 7, spendable on the power or on your subclass spells in place of slots.",
+    psionicpower:"Telepathic Intrusion, with Rending, Terrifying, Meddling and Overwhelming modifiers.",
+    spellslot:"At 15 they convert into psi points one for one.",
+    blindsight:"Mind Hunter gives it against anything you have damaged psychically, out to 120 feet.",
+    temporaryhp:"Wisdom + proficiency bonus, each time you deal psychic damage to a frightened creature.",
+    stunned:"The Overwhelming modifier, for 3 psi points, until the end of its next turn."
+  },
+  features:[
+    {lvl:"Level 3",name:"Mind Reaper Spells",body:"<p>Free of your spells known: <em>frighten</em>, <em>detect thoughts</em>, <em>fear</em>, <em>confusion</em>, <em>dominate person</em>.</p>"},
+    {lvl:"Level 3",name:"Psychic Reaper",body:"<p>{{advantage|Advantage}} on attacks against {{frightened}} creatures, and every attack in your Attack action deals an extra 1d4 psychic.</p>"},
+    {lvl:"Level 3",name:"Telepathic Communication",body:"<p>Speak mind to mind with any creature you can see within 30 feet. No shared language needed, though it must understand one.</p>"},
+    {lvl:"Level 7",name:"Reaper's Intrusion",body:"<p>The Telepathic Intrusion {{psionicpower|psionic power}}, and {{psipoints|psi points}} equal to your {{proficiencybonus|proficiency bonus}}, back on a {{shortrest|short}} or {{longrest|long rest}}. They empower the power or replace {{spellslot|spell slots}} for this subclass's spells, and spending any makes Intrusion a {{bonusaction}}.</p><p>Intrusion is a 60-foot Wisdom {{savingthrow|save}} for 1d8 psychic and {{disadvantage}} attacking you until your next turn, with modifiers: <b>Rending</b> (+1d8 per point), <b>Terrifying</b> ({{frightened}}), <b>Meddling</b> (invisibility or <em>minor illusion</em> in its perception), <b>Overwhelming</b> ({{stunned}}).</p>"},
+    {lvl:"Level 11",name:"Amplified Anguish",body:"<p>Psychic damage against a creature {{frightened}} of you adds 1d8.</p>"},
+    {lvl:"Level 11",name:"Mind Hunter",body:"<p>Anything you have dealt psychic damage to is visible to you as if by {{blindsight}} within 120 feet, until the end of your next turn.</p>"},
+    {lvl:"Level 15",name:"Taste of Fear",body:"<p>Psychic damage to a {{frightened}} creature grants {{temporaryhp|temporary hit points}} equal to Wisdom + {{proficiencybonus|proficiency bonus}}, and anything that dies frightened of you refunds a {{psipoints|psi point}}.</p>"},
+    {lvl:"Level 15",name:"Psionic Adaptation",body:"<p>{{spellslot|Spell slots}} spend as {{psipoints|psi points}}, one level to one point.</p>"}
+  ]};
+
+/* ------------------------------------ Rogue ------------------------------ */
+
+ENTRIES["ro-gadgeteer"] = { cls:"rogue", nav:"Gadgeteer", navSub:"Levels 3 · 9 · 13 · 17", kicker:"Rogue subclass · homebrew",
+  name:"Gadgeteer",
+  tag:"A grappling hook, a smoke bomb and something that explodes",
+  flavor:"A Rogue who builds their way out of things. The subclass trades some subtlety for firepower and runs on Intelligence — the Sneak Attack still lands, it just arrives as a thrown charge rather than a knife.",
+  src:"Kibbles' Craft and Creation, pp. 104–106",
+  mods:{
+    sneakattack:"Explosive Surprise and Shaped Charge both deal it as thunder damage in an area, and count as having used it.",
+    cunningaction:"Fires the grappling hook, alongside its usual uses.",
+    spellsavedc:"A Gadget DC of 8 + proficiency bonus + Intelligence, used by everything here.",
+    grappled:"The hook drags a Small target to you and grapples it, or pulls you to a bigger one.",
+    evasion:"Among the Blasts lets a successful Evasion buy free movement to the edge of the effect.",
+    reaction:"Spent moving clear after an Evasion, without provoking.",
+    familiar:"The Mechanical Familiar is a Construct built from a blueprint, recast free on every long rest.",
+    opportunityattack:"Movement from your own grappling hook provokes them at disadvantage."
+  },
+  features:[
+    {lvl:"Level 3",name:"Tinker's Knack",body:"<p>Tinker's tools — or {{expertise|Expertise}} in them, or another tool, depending on what you already had.</p>"},
+    {lvl:"Level 3",name:"Grappling Hook",body:"<p>An action or your {{cunningaction|Cunning Action}} targets a surface, object or creature within 20 feet. Small or smaller: a Strength (Athletics) {{abilitycheck|check}} drags it to you and {{grappled|grapples}} it, automatic against unattended objects. Medium or larger: you are pulled to it instead, ungrappled, and may hold on. {{opportunityattack|Opportunity attacks}} from the movement are at {{disadvantage}}.</p>"},
+    {lvl:"Level 3",name:"Pyrotechnic Gadgets",body:"<p><b>Smoke Bomb</b> — an action casts <em>fog cloud</em> on yourself at a radius of 5 to 20 feet, lasting Intelligence-modifier rounds without {{concentration}}. <b>Explosive Surprise</b> — an action throws explosives at a point within 30 feet: Dexterity {{savingthrow|save}} against your {{spellsavedc|Gadget DC}} or take your {{sneakattack|Sneak Attack}} in thunder damage, at {{disadvantage}} if you are hidden from them. It counts as your Sneak Attack and reveals you. <b>Shaped Charge</b> — an action plants a charge that detonates at the start of your next turn for Sneak Attack damage to the structure and half to creatures within 5 feet.</p>"},
+    {lvl:"Level 9",name:"Clever Inventions",body:"<p>Two of: <b>Gliding Cloak</b> (falls at 30 feet a round with no damage, moving 2 feet across per foot down), <b>Mechanical Arm</b> (a third hand, mentally worked, granting no extra actions), <b>Mechanical Familiar</b> (a Construct {{familiar}}, <em>find familiar</em> free on each {{longrest|long rest}}), <b>Sight Lenses</b> (see through fog, smoke, cloud and nonmagical darkness to 15 feet).</p><p>At the DM's discretion, an Inventor Gadgetsmith upgrade of 9th level or lower may be taken instead.</p>"},
+    {lvl:"Level 9",name:"Among the Blasts",body:"<p>Dodging an area effect with {{evasion|Evasion}} — your own included — lets a {{reaction}} move you your full {{speed}} to the edge of it, provoking nothing.</p>"},
+    {lvl:"Level 13",name:"Deadly Surprise",body:"<p>Explosive Surprise reaches 10 feet, and you take another Clever Invention.</p>"},
+    {lvl:"Level 17",name:"Ultimate Improvisation",body:"<p>A minute builds a gadget that casts any Wizard or Inventor spell of 4th level or lower. It lasts until used or until you build another. Intelligence-modifier builds per {{longrest|long rest}}.</p>"}
+  ]};
+
+/* ---------------------------------- Sorcerer ----------------------------- */
+
+ENTRIES["so-aetherheart"] = { cls:"sorcerer", nav:"Aether Heart Origin", navSub:"Levels 1 · 6 · 14 · 18", kicker:"Sorcerer origin · homebrew",
+  name:"Aether Heart Origin",
+  tag:"Force damage feeds you, and dispels pay you back",
+  flavor:"A Sorcerer with raw arcane force where the heart should be. It is its own focus, it eats force damage, and by the top of the origin it converts broken magic back into fuel.",
+  src:"Kibbles' Craft and Creation, pp. 106–107",
+  mods:{
+    metamagic:"Empowered Spell arrives free at level 3, usable proficiency-bonus times without spending points.",
+    sorcerypoints:"Empowered Spell is free a few times a day, dispels refund a point, and a Hit Die converts into more at 18.",
+    resistance:"Force damage from level 1, becoming immunity and then healing at 14.",
+    immunity:"Force damage at 14 — and it heals you for half what it would have dealt, capped at your Sorcerer level per rest.",
+    antimagic:"Landing a dispel magic or counterspell refunds a sorcery point.",
+    bonusaction:"Tap Power burns a Hit Die for sorcery points, once per short or long rest."
+  },
+  features:[
+    {lvl:"Level 1",name:"Aetherborn",body:"<p>{{resistance|Resistance}} to force damage, and you are your own arcane focus. At level 3 you gain Empowered Spell {{metamagic|Metamagic}} and may use it without {{sorcerypoints|sorcery points}} {{proficiencybonus|proficiency bonus}} times per {{longrest|long rest}}.</p>"},
+    {lvl:"Level 6",name:"Overcharged Metamagic",body:"<p>{{metamagic|Metamagic}} on a damaging spell adds your Charisma modifier to one of its damage rolls.</p>"},
+    {lvl:"Level 14",name:"Arcane Fuel",body:"<p>{{immunity|Immunity}} to force damage, and what would have hurt heals you for half — up to your Sorcerer level per {{shortrest|short}} or {{longrest|long rest}}.</p><p><em>Dispel magic</em> free of your spells known, and landing it or <em>counterspell</em> refunds a {{sorcerypoints|sorcery point}}.</p>"},
+    {lvl:"Level 18",name:"Tap Power",body:"<p>A {{bonusaction}} spends a Hit Die for {{sorcerypoints|sorcery points}} equal to the roll + your Charisma modifier. Once per {{shortrest|short}} or {{longrest|long rest}}.</p>"}
+  ]};
+
+ENTRIES["so-planetouched"] = { cls:"sorcerer", nav:"Planetouched Origin", navSub:"Levels 1 · 6 · 14 · 18", kicker:"Sorcerer origin · homebrew",
+  name:"Planetouched Origin",
+  tag:"Casting thins the wall, and you step through the gap",
+  flavor:"A Sorcerer whose magic wears at the planar boundary. Every spell opens a little tear you can walk through — and at the far end of the origin, you stop stepping through and start pulling another plane over on top of this one.",
+  src:"Kibbles' Craft and Creation, pp. 107–108",
+  mods:{
+    teleport:"Phase Rift is a 10-foot step that cuts whatever it passes through; at 14 it is at-will.",
+    invisible:"Phase Out turns any teleport or planar crossing into invisibility until your next turn.",
+    sorcerypoints:"They lengthen a Phase Rift, reroll blink and flicker, and pay the 5-point planar collision.",
+    bonusaction:"Riftborn fires a Phase Rift after any spell of 1st level or higher.",
+    stunned:"The Ice plane freezes anyone ending a turn in the collision, on a failed Constitution save.",
+    savingthrow:"The Fey plane forces one on every spell cast inside, risking a random substitute."
+  },
+  features:[
+    {lvl:"Level 1",name:"Riftborn",body:"<p>Casting a spell of 1st level or higher lets a {{bonusaction}} fire Phase Rift: you {{teleport|step}} 10 feet in a straight line, passing through creatures but not through anything over four inches thick, and everything in the path makes a Dexterity {{savingthrow|save}} or takes 1d8 force. {{proficiencybonus|Proficiency bonus}} uses per {{longrest|long rest}}.</p>"},
+    {lvl:"Level 6",name:"Phase Out",body:"<p>Any {{teleport}} or planar crossing can leave you {{invisible}} until your next turn.</p>"},
+    {lvl:"Level 14",name:"Sorcerous Rifts",body:"<p>Phase Rift becomes an at-will action, and a {{sorcerypoints|sorcery point}} makes it both Long and Disruptive — 10 more feet and an extra 1d8 on failures.</p>"},
+    {lvl:"Level 14",name:"Ethereal Control",body:"<p>A {{sorcerypoints|sorcery point}} rerolls the die for <em>blink</em> or <em>flicker</em>. Once per {{shortrest|short}} or {{longrest|long rest}}.</p>"},
+    {lvl:"Level 18",name:"Planar Collision",body:"<p>An action and 5 {{sorcerypoints|sorcery points}} drag another plane into a 30-foot sphere within 120 feet, for Charisma-modifier rounds:</p><ul><li><b>Shadow</b> — unlightable darkness.</li><li><b>Fey</b> — a Charisma {{savingthrow|save}} to cast inside or a random spell of that level comes out instead; damage and healing dice are maximised.</li><li><b>Fire</b> — 10d10 fire to anything ending its turn there, ignoring {{resistance}}.</li><li><b>Ice</b> — Constitution save or 3d12 cold and {{stunned}} in ice.</li><li><b>Earth</b> — everyone shoved outward, 3d12 bludgeoning if they would be walled in.</li><li><b>Radiant</b> — 6d6 radiant, or 3d6 healing to the living.</li><li><b>Beyond</b> — Wisdom save or 3d12 psychic and <em>confusion</em>.</li></ul><p>Once per {{longrest|long rest}}.</p>"}
+  ]};
+
+/* ----------------------------------- Warlock ----------------------------- */
+
+ENTRIES["wl-ancientintelligence"] = { cls:"warlock", nav:"The Ancient Intelligence", navSub:"Levels 1 · 6 · 10 · 14", kicker:"Warlock patron · homebrew",
+  name:"The Ancient Intelligence",
+  tag:"A device that stores spells, calls shots and saves your game",
+  flavor:"A pact with something that thinks in systems. The patron hands over a Contraption — a Tiny object holding a fragment of its knowledge — and everything the subclass does runs through the device rather than through you.",
+  src:"Kibbles' Craft and Creation, pp. 108–110",
+  mods:{
+    invocations:"One more known at level 6, though one of yours must come from the patron's own list.",
+    pactspellslots:"The Autocaster stores proficiency-bonus worth of spell levels, each castable free once per long rest.",
+    preparedspells:"Stored spells sit in the Contraption rather than in your head, refilled on a long rest.",
+    bonusaction:"Firing Solution casts true strike with one and drops its concentration; Save State records you.",
+    concentration:"A Contraption-cast true strike needs none — and at 14 you have advantage on checks to hold other spells.",
+    charmed:"Synchronization makes you immune, along with fear.",
+    deathsavingthrow:"Save State offers a DC 15 Charisma save to come back if you die inside the recorded round.",
+    familiar:"Pact of the Chain can take a Drone Swarm, and the Battle Drones invocation lets it attack unprompted."
+  },
+  features:[
+    {lvl:"Level 1",name:"Expanded Spell List",body:"<p><em>Identify</em> and <em>seeking projectile</em>; <em>dancing object</em> and <em>locate object</em>; <em>clairvoyance</em> and <em>crushing singularity</em>; <em>arcane eye</em> and <em>locate creature</em>; <em>arcane hand</em> and <em>commune</em>.</p>"},
+    {lvl:"Level 1",name:"The Contraption",body:"<p>A Tiny device that serves as your focus, replaced by a one-hour ceremony during a rest if lost. While you hold it:</p><p><b>Autocaster</b> — on each {{longrest|long rest}}, store spells from your expanded list or any divination spell you could cast, up to {{proficiencybonus|proficiency bonus}} in combined levels. Each casts once without a {{pactspellslots|pact slot}}, and again that day only by spending one of equal or greater level.</p><p><b>Firing Solution</b> — cast <em>true strike</em> through it, as a {{bonusaction}} and without {{concentration}}, spellcasting-modifier times per long rest.</p>"},
+    {lvl:"Level 6",name:"Ancient Invocations",body:"<p>One more {{invocations|invocation}} known, though one must come from this list: <b>Battle Drones</b> (your drone swarm attacks unprompted at your spell attack bonus), <b>Data Bank</b> (two of Arcana, History, Medicine, Nature), <b>Dispatch Relay</b> (a free <em>sending</em> per {{longrest|long rest}}), <b>Gliding Cloak</b>, <b>Mechanical Arm</b>, <b>Personal Shield</b> (Armor of Shadows free), <b>Neural Link</b> (Firing Solution applies this turn, and <em>true strike</em> negates being unable to see the target).</p>"},
+    {lvl:"Level 10",name:"Save State",body:"<p>A {{bonusaction}} records your {{hitpoints|hit points}}, location and conditions. At the start of your next turn you snap back to them. Die in between and you may make a DC 15 Charisma {{savingthrow|save}} — rolled as though alive — to return anyway. Once per {{longrest|long rest}}.</p>"},
+    {lvl:"Level 14",name:"Synchronization",body:"<p>At the start of your turn, sync with the Contraption until your next one: {{immunity|immune}} to being {{charmed}} and {{frightened}}, 1-action spells cast as a {{bonusaction}}, and {{advantage}} on Intelligence and Wisdom {{abilitycheck|checks}} and {{savingthrow|saves}} and on {{concentration}} checks.</p><p>Spellcasting-modifier turns per {{longrest|long rest}}.</p>"}
+  ]};
+
+ENTRIES["wl-beyond"] = { cls:"warlock", nav:"That Which Is Beyond", navSub:"Levels 1 · 6 · 10 · 14", kicker:"Warlock patron · homebrew",
+  name:"That Which Is Beyond",
+  tag:"Your mind got opened and never quite shut",
+  flavor:"A pact with something a mortal mind cannot hold. What came back is telepathy, a psychic strike that rides on your other attacks, and — eventually — the ability to push one of your own nightmares out into the room.",
+  src:"Kibbles' Craft and Creation, pp. 110–112",
+  mods:{
+    psionicpower:"Telepathic Intrusion, attached as a bonus action to any Warlock spell or attack you aim at a creature.",
+    frightened:"Gibbering Terror makes it automatic on a failed save — and a failure by 5 or more takes their speech too.",
+    bonusaction:"Psychic Onslaught fires Telepathic Intrusion alongside whatever you were already doing.",
+    resistance:"Psychic damage from level 10, and anything dealing it to you takes the same back.",
+    advantage:"On saves against magical charm and fear from 6; on a save against mind-reading at 10.",
+    invocations:"Psionic Intrusion grants 2 psi points for applying Telepathy Discipline modifiers to your Intrusion.",
+    charmed:"Alien Mind gives advantage on saves against being magically charmed."
+  },
+  features:[
+    {lvl:"Level 1",name:"Opened Mind",body:"<p>Speak mind to mind with any creature you can see within 30 feet, no shared language needed, and it can answer.</p>"},
+    {lvl:"Level 1",name:"Psychic Onslaught",body:"<p>Targeting a creature with a Warlock spell or attack roll lets a {{bonusaction}} fire Telepathic Intrusion at it: a 60-foot Wisdom {{savingthrow|save}} or 1d8 psychic and {{disadvantage}} attacking you until your next turn. You may choose to deal no damage. {{proficiencybonus|Proficiency bonus}} uses per {{longrest|long rest}}.</p>"},
+    {lvl:"Level 6",name:"Gibbering Terror",body:"<p>Telepathic Intrusion always carries the Terrifying modifier — {{frightened}} until the end of its next turn — and a failure by 5 or more also strips its speech while the fear holds.</p>"},
+    {lvl:"Level 6",name:"Alien Mind",body:"<p>{{advantage|Advantage}} on {{savingthrow|saves}} against being magically {{charmed}} or {{frightened}}.</p>"},
+    {lvl:"Level 10",name:"Rebound Intrusion",body:"<p>An attempt to read your mind gives you a Wisdom {{savingthrow|save}} even where none is normally allowed, and {{advantage}} where one is. Succeed and you read theirs instead, as <em>detect thoughts</em> without {{concentration}}, until the end of your next turn.</p><p>You also gain {{resistance}} to psychic damage, and anything dealing it to you takes as much back.</p>"},
+    {lvl:"Level 14",name:"Unleashed Psyche",body:"<p>An action spawns a nightmare at a point within 60 feet. The first time any other creature is within 20 feet of it on its turn, Wisdom {{savingthrow|save}} or 4d8 psychic and {{frightened}} of it. It fades at the start of your turn unless someone failed, in which case it persists another round — indefinitely, so long as somebody keeps failing. Once per {{shortrest|short}} or {{longrest|long rest}}.</p>"}
+  ]};
+
+/* ----------------------------------- Wizard ------------------------------ */
+
+ENTRIES["wi-creation"] = { cls:"wizard", nav:"Order of Creation", navSub:"Levels 2 · 6 · 10 · 14", kicker:"Wizard school · homebrew",
+  name:"Order of Creation",
+  tag:"A mechanical familiar, and spells you can hand to other people",
+  flavor:"Wizards who build. The school's two halves are an automaton that casts your cantrips for you and a workbench of gadgets that hold prepared spells — including spells your allies can fire without being casters at all.",
+  src:"Kibbles' Craft and Creation, pp. 112–113",
+  mods:{
+    familiar:"Find familiar goes into your spellbook, its component becomes tinker's tools, and what comes out is a Construct acting on your turn.",
+    spellbook:"Find familiar is added to it; Reverse Engineer copies spells out of magic items without destroying them.",
+    preparedspells:"Arcane Gadgets sit outside your prepared count — Intelligence-modifier worth of slot levels.",
+    spellslot:"A gadget consumes one when built, and dies if you recover that slot.",
+    arcanerecovery:"Recovering the slot behind a gadget destroys it; at 14 it also refills your automaton's cantrips.",
+    temporaryhp:"Intelligence + Wizard level on the automaton, doubled at level 14.",
+    concentration:"An ally firing a gadget that needs it must pass an Arcana check — waived at 10 for spells that do not, and at 14 for low-level ones that do."
+  },
+  features:[
+    {lvl:"Level 2",name:"Crafting Fundamentals",body:"<p>Tinker's tools.</p>"},
+    {lvl:"Level 2",name:"Arcane Automaton",body:"<p><em>Find familiar</em> joins your {{spellbook|spellbook}} with tinker's tools as its unconsumed component. The {{familiar}} it summons is a Construct that acts on your turn, has {{temporaryhp|temporary hit points}} equal to Intelligence + your Wizard level, and lets you cast from its position within 30 feet.</p><p>Pick three Wizard {{cantrip|cantrips}}; it casts them {{proficiencybonus|proficiency bonus}} times in total per {{longrest|long rest}}, as a 1st-level caster using your modifier.</p>"},
+    {lvl:"Level 2",name:"Arcane Gadget",body:"<p>When you prepare spells, build some into gadgets instead — 1-action, bonus-action or reaction spells, outside your {{preparedspells|prepared}} count, up to Intelligence-modifier in combined levels. Building one spends the {{spellslot|slot}} now.</p><p>Anyone holding a gadget can fire the spell with no verbal or somatic components, using your modifiers. If it needs {{concentration}} they must pass an Arcana {{abilitycheck|check}} at DC 10 + the spell's level, or it fizzles. A gadget dies when used, on a {{longrest|long rest}}, or when you recover its slot with {{arcanerecovery|Arcane Recovery}}.</p>"},
+    {lvl:"Level 6",name:"Imbued Gear",body:"<p>Forge a 1st- or 2nd-level Wizard spell into an item, cast free once per {{longrest|long rest}}. Self-only spells over 10 minutes that need no {{concentration}} — <em>false life</em>, <em>longstrider</em>, <em>mage armor</em>, <em>continual flame</em>, <em>darkvision</em> — last until your next long rest instead.</p>"},
+    {lvl:"Level 6",name:"Reverse Engineer",body:"<p>Learn a Wizard spell out of a magic item as if from a scroll, without destroying the item.</p>"},
+    {lvl:"Level 10",name:"Clever Creation",body:"<p>Your automaton gains two skill proficiencies, re-chosen each time you resummon it, and fires non-{{concentration}} Arcane Gadgets with no Arcana {{abilitycheck|check}}.</p>"},
+    {lvl:"Level 14",name:"Creator's Vision",body:"<p>Two upgrades, re-chosen on each resummon: Medium or Large size; a {{flyspeed|fly speed}} equal to its walking speed; another Wizard level of {{temporaryhp|temporary hit points}}; {{cantrip|cantrips}} at 5th-level power with half the uses back on {{arcanerecovery|Arcane Recovery}}; or firing {{concentration}} gadgets of 2nd level or lower with no check.</p>"}
+  ]};
+
+ENTRIES["wi-unknown"] = { cls:"wizard", nav:"Order of the Unknown", navSub:"Levels 2 · 6 · 10 · 14", kicker:"Wizard school · homebrew",
+  name:"Order of the Unknown",
+  tag:"Four psionic disciplines, and four things wrong with you",
+  flavor:"Wizards who study psionics systematically. Each discipline you take gives its power as a 1st-level spell branded into your mind — and a roll on the Psionic Madness table, because it bleeds the other way too.",
+  src:"Kibbles' Craft and Creation, pp. 113–115",
+  mods:{
+    psionicdiscipline:"One at level 2 and another at 6, 10 and 14, each granting its power as an always-prepared 1st-level spell.",
+    preparedspells:"Those psionic powers sit outside your prepared count permanently.",
+    spellbook:"Psionics-school spells count as Wizard spells and copy in at half the gold and time.",
+    arcanerecovery:"It refreshes Secondary Power as well as returning slots.",
+    antimagic:"Psionic Transparency removes the disadvantage on counterspell and dispel magic against psionic effects.",
+    savingthrow:"Detached Mind swaps a Constitution or death save for an Intelligence one, once per rest.",
+    deathsavingthrow:"Covered by that same swap.",
+    blindsight:"Cognitive Shadows gives 30 feet of mindsight against Intelligence 6+, reaching into the ethereal."
+  },
+  features:[
+    {lvl:"Level 2",name:"Study of the Unknown",body:"<p>Take one {{psionicdiscipline|Psionic Discipline}}. Its power becomes a 1st-level spell for you, cast with a {{spellslot|slot}} as though empowered with that many psi points, always {{preparedspells|prepared}} and outside your count. Another discipline arrives at 6, 10 and 14 on the same terms.</p>"},
+    {lvl:"Level 2",name:"Secondary Power",body:"<p>Once per {{longrest|long rest}} — or per {{arcanerecovery|Arcane Recovery}} — cast one of those psionic power spells without a {{spellslot|slot}}, as though from a slot of half your Wizard level.</p><p>Each discipline also costs a roll on the Psionic Madness table: hearing other people's thoughts as whispers, objects drifting when you look away, eyes in the night sky, someone else's dreams.</p>"},
+    {lvl:"Level 2",name:"Psionic Magic",body:"<p>Psionics-school spells are Wizard spells for you, and copy into your {{spellbook|spellbook}} at half the gold and time.</p>"},
+    {lvl:"Level 6",name:"Branching Studies",body:"<p>A second {{psionicdiscipline|discipline}}, and another roll on Psionic Madness.</p>"},
+    {lvl:"Level 6",name:"Psionic Transparency",body:"<p>No {{disadvantage}} using {{antimagic|counterspell or dispel magic}} against psionic effects, and proficiency in the Psionics skill.</p>"},
+    {lvl:"Level 10",name:"Psionic Adept",body:"<p>A third {{psionicdiscipline|discipline}}, and another madness.</p>"},
+    {lvl:"Level 10",name:"Detached Mind",body:"<p>Replace a Constitution or {{deathsavingthrow|death save}} with an Intelligence {{savingthrow|save}}. Once per {{shortrest|short}} or {{longrest|long rest}}.</p>"},
+    {lvl:"Level 14",name:"Four Fold Master",body:"<p>A fourth {{psionicdiscipline|discipline}}, and a final madness.</p>"},
+    {lvl:"Level 14",name:"Cognitive Shadows",body:"<p>Mindsight to 30 feet: creatures of Intelligence 6 or higher are visible as if by {{blindsight}}, including in the ethereal.</p>"}
+  ]};
+
+/* ------------------------ sidebar wiring (Craft) ------------------------- */
+
+CLASSES.barbarian.groups.push({ homebrew:true, label:"Homebrew paths (Craft and Creation)",
+  keys:["b-ragingmind","b-exosuit"] });
+CLASSES.bard.groups.push({ homebrew:true, label:"Homebrew colleges (Craft and Creation)",
+  keys:["bd-thunder"] });
+CLASSES.cleric.groups.push({ homebrew:true, label:"Homebrew domains (Craft and Creation)",
+  keys:["cl-mysterycult"] });
+CLASSES.druid.groups.push({ homebrew:true, label:"Homebrew circles (Craft and Creation)",
+  keys:["dr-nightmares"] });
+CLASSES.fighter.groups.push({ homebrew:true, label:"Homebrew subclasses (Craft and Creation)",
+  keys:["fi-techknight"] });
+CLASSES.monk.groups.push({ homebrew:true, label:"Homebrew subclasses (Craft and Creation)",
+  keys:["mo-soulblade"] });
+CLASSES.paladin.groups.push({ homebrew:true, label:"Homebrew oaths (Craft and Creation)",
+  keys:["pa-sanity"] });
+CLASSES.ranger.groups.push({ homebrew:true, label:"Homebrew subclasses (Craft and Creation)",
+  keys:["ra-specialist","ra-mindreaper"] });
+CLASSES.rogue.groups.push({ homebrew:true, label:"Homebrew subclasses (Craft and Creation)",
+  keys:["ro-gadgeteer"] });
+CLASSES.sorcerer.groups.push({ homebrew:true, label:"Homebrew origins (Craft and Creation)",
+  keys:["so-aetherheart","so-planetouched"] });
+CLASSES.warlock.groups.push({ homebrew:true, label:"Homebrew patrons (Craft and Creation)",
+  keys:["wl-ancientintelligence","wl-beyond"] });
+CLASSES.wizard.groups.push({ homebrew:true, label:"Homebrew traditions (Craft and Creation)",
+  keys:["wi-creation","wi-unknown"] });
+
 /* ==APPEND CLASSES ABOVE THIS LINE== */
 })();
