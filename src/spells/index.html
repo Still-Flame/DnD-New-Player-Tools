@@ -186,6 +186,9 @@
   }
   .sp-open .stat dd { margin:0; }
   .sp-open p { margin:0 0 10px; max-width:70ch; }
+  /* dice and bonuses: weight only, no colour — they are already the thing the
+     eye lands on, and tinting them would compete with the term underlines */
+  .sp-open b.d { font-weight:600; font-variant-numeric: tabular-nums; }
   .sp-open ul { margin:0 0 10px; padding-left:1.15em; max-width:70ch; }
   .sp-open li { margin-bottom:5px; }
   .sp-open h4 {
@@ -204,6 +207,20 @@
     margin:12px 0 0; padding:9px 12px; border-left:3px solid var(--accent);
     background: var(--surface-2); font-size: var(--step--1); color: var(--ink-soft); max-width:70ch;
   }
+  .grp {
+    margin:14px 0 0; padding:11px 14px; border-left:3px solid var(--accent);
+    background: var(--surface-2); font-size: var(--step--1); color: var(--ink-soft);
+    max-width:70ch;
+  }
+  .grp p { margin:0; max-width:none; }
+  .grp p + p { margin-top:8px; }
+  .grp-h {
+    font-family:"IBM Plex Mono",monospace; font-size: var(--step--2);
+    letter-spacing:.11em; text-transform:uppercase; color: var(--accent);
+  }
+  .grp-r { padding-top:8px; border-top:1px solid var(--rule-soft); }
+  .grp-r b { color: var(--ink); }
+
   .note[data-warn="1"] { border-left-color:#B4762A; }
   @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .note[data-warn="1"] { border-left-color:#D9A05B; } }
   :root[data-theme="dark"] .note[data-warn="1"] { border-left-color:#D9A05B; }
@@ -218,6 +235,34 @@
     margin:14px 0 0; font-family:"IBM Plex Mono",monospace; font-size: var(--step--2);
     letter-spacing:.08em; text-transform:uppercase; color: var(--ink-faint);
   }
+  /* ---------- glossary ---------- */
+  .term {
+    font:inherit; color:inherit; background:none; border:0; padding:0; cursor:help;
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--accent) 55%, transparent);
+    text-decoration-thickness:1px; text-underline-offset:.18em;
+  }
+  .term:hover, .term[aria-expanded="true"] {
+    color: var(--accent); text-decoration-color: var(--accent); text-decoration-thickness:2px;
+  }
+  .term:focus-visible { outline:2px solid var(--accent); outline-offset:2px; border-radius:2px; }
+  .tag.term { cursor:help; text-decoration:none; }
+  .tag.term:hover { border-color: var(--accent); text-decoration:none; }
+
+  .chip {
+    position:fixed; z-index:60; width:min(21rem, calc(100vw - 24px));
+    background: var(--chip-bg); border:1px solid var(--rule); box-shadow: var(--chip-shadow);
+    padding:13px 15px 14px; font-size: var(--step--1); line-height:1.5;
+    opacity:0; transform: translateY(-3px); transition: opacity .12s ease, transform .12s ease;
+  }
+  .chip[data-shown="true"] { opacity:1; transform:none; }
+  .chip-term { font-family:"IBM Plex Mono",monospace; font-size: var(--step--2);
+    letter-spacing:.12em; text-transform:uppercase; color: var(--accent); }
+  .chip-src { color: var(--ink-faint); }
+  .chip-def { margin:5px 0 0; color: var(--ink); }
+  .chip-pin { margin:10px 0 0; font-family:"IBM Plex Mono",monospace; font-size: var(--step--2);
+    letter-spacing:.1em; text-transform:uppercase; color: var(--ink-faint); }
+
   .empty { padding:48px 12px; color: var(--ink-faint); text-align:center; }
   mark { background: color-mix(in srgb, var(--accent) 26%, transparent); color:inherit; }
 
@@ -293,6 +338,7 @@
 </div>
 
 <script src="spells.js"></script>
+<script src="terms.js"></script>
 <script>
 (function () {
   "use strict";
@@ -436,12 +482,80 @@
       "</summary></details>";
   }
 
-  function blocksHTML(blocks) {
+  /* ---------------- glossary ----------------
+     The spell text is transcribed, so nothing is edited to add markup: the
+     underlines are laid over the rendered output instead. Only the first
+     mention of a term in an entry is marked — marking all 243 occurrences of
+     "concentration" would bury the page in underlines. */
+  var TERMS = window.SPELLTERMS || {};
+  /* Damage dice and their bonuses are what a reader is scanning for mid-fight,
+     so they are set in bold. A chain is kept whole — "2d8 + 1d6" and
+     "10d10 + 10" are one number each, not two. A bare "d20" is left alone: it
+     is an instruction to roll, not an amount of damage. */
+  var DICE = "\\d+d\\d+(?:\\s*[+\u2212\u2013-]\\s*(?:\\d+d\\d+|\\d+))*|[+\u2212\u2013-]\\s?\\d+(?![\\d.])";
+
+  var MARK = (function () {
+    var parts = Object.keys(TERMS).map(function (k) {
+      return { k: k, p: TERMS[k].p || TERMS[k].n };
+    });
+    // longest pattern first, so "temporary hit points" wins over "hit points"
+    parts.sort(function (a, b) { return b.p.length - a.p.length; });
+    return {
+      parts: parts,
+      // dice first: a number is always a number, whatever term follows it
+      re: new RegExp("(" + DICE + ")|" +
+                     parts.map(function (x) { return "(" + x.p + ")"; }).join("|"), "g")
+    };
+  })();
+
+  /* A term only fires in the book it belongs to. Retia's Ignited is a
+     condition; in Legends & Legacies "fuel that can be ignited" is an ordinary
+     English verb, and underlining it there would state a rule the book does
+     not have. */
+  var SCOPE = { retia: ["retia"], kibbles: ["ll", "llb", "cc"] };
+  function inScope(key, book) {
+    var s = SCOPE[TERMS[key].s];
+    return !s || s.indexOf(book) > -1;
+  }
+
+  function markup(text, used, book) {
+    if (!text) return "";
+    var out = "", last = 0, m;
+    MARK.re.lastIndex = 0;
+    while ((m = MARK.re.exec(text))) {
+      if (m[0] === "") { MARK.re.lastIndex++; continue; }
+      var before = text.charAt(m.index - 1), after = text.charAt(m.index + m[0].length);
+
+      if (m[1] !== undefined) {                      // a dice or bonus run
+        if (/[A-Za-z0-9]/.test(before) || /[0-9]/.test(after)) continue;
+        out += esc(text.slice(last, m.index)) + '<b class="d">' + esc(m[0]) + "</b>";
+        last = m.index + m[0].length;
+        continue;
+      }
+
+      var key = null;
+      for (var i = 2; i <= MARK.parts.length + 1; i++) {
+        if (m[i] !== undefined) { key = MARK.parts[i - 2].k; break; }
+      }
+      if (!key || used[key] || !inScope(key, book)) continue;
+      // the regex has no \b of its own, so word edges are checked here: it
+      // must not fire inside 'reactionary' or 'coned'
+      if (/[A-Za-z0-9]/.test(before) || /[A-Za-z0-9]/.test(after)) continue;
+      used[key] = 1;
+      out += esc(text.slice(last, m.index)) +
+        '<button type="button" class="term" data-term="' + key + '" aria-expanded="false">' +
+        esc(m[0]) + "</button>";
+      last = m.index + m[0].length;
+    }
+    return out + esc(text.slice(last));
+  }
+
+  function blocksHTML(blocks, used, book) {
     var out = "", inList = false;
     blocks.forEach(function (b) {
       if (b[0] === "li") {
         if (!inList) { out += "<ul>"; inList = true; }
-        out += "<li>" + esc(b[1]) + "</li>";
+        out += "<li>" + markup(b[1], used, book) + "</li>";
         return;
       }
       if (inList) { out += "</ul>"; inList = false; }
@@ -453,32 +567,42 @@
         }).join("") + "</tbody></table>";
         return;
       }
-      out += "<p>" + esc(b[1]) + "</p>";
+      out += "<p>" + markup(b[1], used, book) + "</p>";
     });
     return out + (inList ? "</ul>" : "");
   }
 
   function detailHTML(s) {
     var book = BOOKS[s.bk] || { t:s.bk, s:s.bk };
+    var used = {};      // one entry, one underline per term
     var h = '<div class="sp-open"><dl class="stat">' +
-      stat("Level", lvl(s.l)) + stat("School", s.s) +
-      stat("Casting Time", s.ct) + stat("Range", s.rg) +
-      stat("Components", s.cp) + stat("Duration", s.d) +
-      (s.c.length ? stat("Classes", s.c.join(", ")) : "") +
-      "</dl>" + blocksHTML(s.b);
+      stat("Level", lvl(s.l), used, s.bk) + stat("School", s.s, used, s.bk) +
+      stat("Casting Time", s.ct, used, s.bk) + stat("Range", s.rg, used, s.bk) +
+      stat("Components", s.cp, used, s.bk) + stat("Duration", s.d, used, s.bk) +
+      (s.c.length ? stat("Classes", s.c.join(", "), used, s.bk) : "") +
+      "</dl>" + blocksHTML(s.b, used, s.bk);
 
-    if (s.h) h += "<h4>At Higher Levels</h4>" + blocksHTML(s.h).replace(
+    if (s.h) h += "<h4>At Higher Levels</h4>" + blocksHTML(s.h, used, s.bk).replace(
       /^<p>At Higher Levels\.\s*/, "<p>");
 
     var tags = [];
-    if (s.leg) tags.push(tag("Legacy spell", "src"));
+    if (s.leg) tags.push(tag("Legacy spell", "src"));   // a term of its own
     if (s.bm)  tags.push(tag("Blood magic", "src"));
     (s.ms || []).forEach(function (m) { tags.push(tag(m, "src")); });
     (s.g  || []).forEach(function (g) { tags.push(tag(g, "group")); });
     if (tags.length) h += '<div class="tags">' + tags.join("") + "</div>";
 
+    /* A group is not just flavour: Chromatic Convocation and Eidomancy each
+       carry rules that fire every time one of their spells is cast, so they
+       are set out named and in full rather than summarised away. */
     (s.g || []).forEach(function (g) {
-      if (GROUPS[g]) h += '<p class="note"><b>' + esc(g) + ".</b> " + esc(GROUPS[g]) + "</p>";
+      var G = GROUPS[g];
+      if (!G) return;
+      h += '<div class="grp"><p class="grp-h">' + esc(g) + "</p><p>" + esc(G.d) + "</p>";
+      (G.rules || []).forEach(function (r) {
+        h += '<p class="grp-r"><b>' + esc(r.n) + ".</b> " + esc(r.d) + "</p>";
+      });
+      h += "</div>";
     });
     if (s.ci) h += '<p class="note">The book prints no class list for this spell. It is filed under Psion because that is the class its school belongs to.</p>';
     if (s.rv) h += '<p class="note" data-warn="1">On the page this entry surrounds a boxed stat block or table. The words are the book\'s, but the box has been flattened into the text and may have picked up something from the box beside it &mdash; check this one against the book before using it.</p>';
@@ -490,8 +614,19 @@
     });
     return h + '<p class="cite">' + cite + "</p></div>";
   }
-  function stat(k, v){ return "<div><dt>" + esc(k) + "</dt><dd>" + esc(v) + "</dd></div>"; }
-  function tag(t, kind){ return '<span class="tag" data-kind="' + kind + '">' + esc(t) + "</span>"; }
+  function stat(k, v, used, book){
+    return "<div><dt>" + esc(k) + "</dt><dd>" + markup(v, used, book) + "</dd></div>";
+  }
+  /* a tag that names a term becomes one, so the magic sources explain
+     themselves where they are shown rather than only inside the prose */
+  function tag(t, kind){
+    var key = t.toLowerCase().replace(/[^a-z]/g, "");
+    if (TERMS[key]) {
+      return '<button type="button" class="tag term" data-kind="' + kind +
+        '" data-term="' + key + '" aria-expanded="false">' + esc(t) + "</button>";
+    }
+    return '<span class="tag" data-kind="' + kind + '">' + esc(t) + "</span>";
+  }
 
   var view = [];
 
@@ -539,6 +674,92 @@
     d.insertAdjacentHTML("beforeend", detailHTML(view[+d.getAttribute("data-i")]));
   }, true);
 
+  /* ---------------- the chip ----------------
+     Hover to read, click to pin, Esc to dismiss — the same behaviour as the
+     subclass compendium, so the two pages feel like one site. */
+  var chip = document.createElement("div");
+  chip.className = "chip"; chip.setAttribute("role", "tooltip"); chip.id = "term-chip";
+  chip.hidden = true;
+  document.body.appendChild(chip);
+
+  var openT = null, closeT = null, activeTerm = null, pinned = false;
+  var canHover = window.matchMedia &&
+    window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+  var SRC = { core: "2024 rules", school: "School of magic",
+              kibbles: "Kibbles' magic sources", retia: "Retia \u2014 5.19th edition" };
+
+  function fillChip(key) {
+    var t = TERMS[key];
+    chip.innerHTML = '<span class="chip-term">' + esc(t.n) +
+      (SRC[t.s] ? ' <span class="chip-src">\u00b7 ' + esc(SRC[t.s]) + "</span>" : "") +
+      '</span><p class="chip-def">' + esc(t.d) + "</p>" +
+      (pinned ? '<p class="chip-pin">Pinned \u2014 Esc to dismiss</p>' : "");
+  }
+
+  function place() {
+    if (!activeTerm || chip.hidden) return;
+    var r = activeTerm.getBoundingClientRect(),
+        w = chip.offsetWidth, h = chip.offsetHeight, gap = 8, pad = 12;
+    var top = r.bottom + gap;
+    if (top + h > window.innerHeight - pad && r.top - gap - h > pad) top = r.top - gap - h;
+    top = Math.max(pad, Math.min(top, window.innerHeight - h - pad));
+    var left = Math.max(pad, Math.min(r.left + r.width / 2 - w / 2, window.innerWidth - w - pad));
+    chip.style.top = top + "px"; chip.style.left = left + "px";
+  }
+
+  function openChip(term, asPinned) {
+    clearTimeout(openT); clearTimeout(closeT);
+    if (activeTerm && activeTerm !== term) {
+      activeTerm.setAttribute("aria-expanded", "false");
+      activeTerm.removeAttribute("aria-describedby");
+    }
+    activeTerm = term; pinned = !!asPinned;
+    fillChip(term.getAttribute("data-term"));
+    chip.hidden = false; place();
+    requestAnimationFrame(function () { chip.setAttribute("data-shown", "true"); });
+    term.setAttribute("aria-expanded", "true");
+    term.setAttribute("aria-describedby", "term-chip");
+  }
+
+  function closeChip() {
+    clearTimeout(openT); clearTimeout(closeT);
+    chip.removeAttribute("data-shown"); chip.hidden = true;
+    if (activeTerm) {
+      activeTerm.setAttribute("aria-expanded", "false");
+      activeTerm.removeAttribute("aria-describedby");
+    }
+    activeTerm = null; pinned = false;
+  }
+  function scheduleClose() {
+    if (pinned) return;
+    clearTimeout(closeT); closeT = setTimeout(closeChip, 900);
+  }
+
+  document.addEventListener("pointerover", function (e) {
+    var term = e.target.closest ? e.target.closest(".term") : null;
+    if (!term || !canHover || e.pointerType === "touch" || pinned) return;
+    clearTimeout(closeT); clearTimeout(openT);
+    if (activeTerm === term) return;
+    openT = setTimeout(function () { openChip(term, false); }, 170);
+  });
+  document.addEventListener("pointerout", function (e) {
+    var term = e.target.closest ? e.target.closest(".term") : null;
+    if (!term || chip.contains(e.relatedTarget)) return;
+    clearTimeout(openT); scheduleClose();
+  });
+  chip.addEventListener("pointerenter", function () { clearTimeout(closeT); });
+  chip.addEventListener("pointerleave", scheduleClose);
+  document.addEventListener("focusin", function (e) {
+    var term = e.target.closest ? e.target.closest(".term") : null;
+    if (term && !pinned) { clearTimeout(closeT); openChip(term, false); }
+  });
+  document.addEventListener("focusout", function (e) {
+    if (e.target.closest && e.target.closest(".term")) scheduleClose();
+  });
+  window.addEventListener("scroll", place, { passive: true });
+  window.addEventListener("resize", place);
+
   /* ---------------- input ---------------- */
   var tid = null;
   qEl.addEventListener("input", function () {
@@ -584,6 +805,17 @@
     });
   });
 
+  document.addEventListener("click", function (e) {
+    var term = e.target.closest ? e.target.closest(".term") : null;
+    if (term) {
+      // stop the click reaching the row, which would close the spell you are reading
+      e.preventDefault(); e.stopPropagation();
+      if (pinned && activeTerm === term) closeChip(); else openChip(term, true);
+      return;
+    }
+    if (!chip.contains(e.target)) closeChip();
+  }, true);
+
   // one popover at a time, and clicking away closes it
   document.addEventListener("click", function (e) {
     document.querySelectorAll(".fil[open]").forEach(function (d) {
@@ -591,6 +823,9 @@
     });
   });
   document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && activeTerm) {
+      var t = activeTerm; closeChip(); if (t.focus) t.focus(); return;
+    }
     if (e.key === "Escape") {
       var open = document.querySelector(".fil[open]");
       if (open) { open.removeAttribute("open"); open.querySelector("summary").focus(); }

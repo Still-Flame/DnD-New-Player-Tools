@@ -42,7 +42,12 @@ for (const s of spells) {
   if (seen.has(s.k)) problems.key.push(s.k);
   seen.add(s.k);
   if (!books[s.bk]) problems.fields.push(`${s.n}: unknown book ${s.bk}`);
-  for (const g of s.g || []) if (!groups[g]) problems.group.push(`${s.n}: ${g}`);
+  for (const g of s.g || []) {
+    const G = groups[g];
+    if (!G || typeof G.d !== "string" || !G.d.trim()) problems.group.push(`${s.n}: ${g}`);
+    for (const r of (G && G.rules) || [])
+      if (!r.n || !r.d) problems.group.push(`${g}: malformed rule`);
+  }
 
   const all = [...s.b, ...(s.h || [])];
   if (!all.length) problems.empty.push(s.n);

@@ -66,7 +66,7 @@
 
   .cards { display:grid; gap:18px; margin-top:44px; }
   @media (min-width: 40rem) { .cards { grid-template-columns:1fr 1fr; } }
-  @media (min-width: 58rem) { .cards { grid-template-columns:repeat(3,1fr); } }
+  @media (min-width: 58rem) { .cards { grid-template-columns:repeat(2,1fr); } }
 
   .card {
     display:flex; flex-direction:column; gap:10px; min-width:0;
@@ -80,6 +80,7 @@
   .card--finder { --accent: var(--accent-official); }
   .card--stats  { --accent: var(--accent-official); }
   .card--comp   { --accent: var(--accent-home); }
+  .card--spells { --accent: var(--accent-home); }
 
   .card-k {
     font-family:"IBM Plex Mono", monospace; font-size: var(--step--2); letter-spacing:.14em;
@@ -118,11 +119,16 @@
 <div class="wrap">
 
   <p class="eyebrow">Dungeons &amp; Dragons 2024</p>
-  <h1>Three tools for picking a character, and for living with the choice</h1>
+  <h1>
+    Four tools for picking
+    a character, and for
+    living with the choice
+  </h1>
   <p class="lede">
-    One is for the player who has never rolled a die and does not know what a
-    cantrip is. One rolls the numbers. The last is for the table that has read
-    all of it twice and wants to know exactly what a subclass changes.
+    One is for the player who has never rolled a die and does not know
+    what a cantrip is. One rolls the numbers. The other two are for the
+    table that has read all of it twice and wants to know exactly what a
+    subclass changes, or what a spell actually says.
   </p>
 
   <div class="cards">
@@ -163,10 +169,22 @@
       <span class="card-go">Browse subclasses</span>
     </a>
 
+    <a class="card card--spells" href="/spells/">
+      <span class="card-k">589 homebrew spells</span>
+      <h2 class="card-h">Spell Compendium</h2>
+      <p>
+        Every spell from Legends &amp; Legacies, Craft and Creation and Lyre's
+        Guide to Retia, as printed. Filter by class, level and school at once,
+        or search the spell text itself &mdash; the material components included.
+        Hover any rules term for a definition.
+      </p>
+      <span class="card-go">Browse spells</span>
+    </a>
+
   </div>
 
   <p class="note">
-    All three work on a phone at the table, in light or dark, and none of them
+    All four work on a phone at the table, in light or dark, and none of them
     needs an account or stores anything about you.
   </p>
 
@@ -179,10 +197,11 @@
       <li><b>Lyre's Guide to Retia: Land of Industry</b> — Logan Laidlaw / Nat19</li>
     </ul>
     <p>
-      An unofficial fan reference, summarising rather than reproducing. Every
-      page cites its book and page number — go there for the actual rules text,
-      and please buy the homebrew books if you use them. Not affiliated with or
-      endorsed by Wizards of the Coast.
+      An unofficial fan reference. The class and subclass pages summarise
+      rather than reproduce; the spell pages carry the homebrew books' own
+      text. Every page cites its book and page number — go there for anything
+      that matters, and please buy the homebrew books if you use them. Not
+      affiliated with or endorsed by Wizards of the Coast.
     </p>
   </footer>
 

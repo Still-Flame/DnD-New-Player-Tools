@@ -149,7 +149,8 @@ for (const p of PAGES) {
 await cp(join(SRC, "compendium/data.js"), join(OUT, "compendium/data.js"));
 console.log("copied compendium/data.js");
 await cp(join(SRC, "spells/spells.js"), join(OUT, "spells/spells.js"));
-console.log("copied spells/spells.js");
+await cp(join(SRC, "spells/terms.js"), join(OUT, "spells/terms.js"));
+console.log("copied spells/spells.js and spells/terms.js");
 
 /* Landing page, 404, favicon and the Cloudflare _headers file ship as-is. */
 await cp(join(HERE, "static"), OUT, { recursive: true });

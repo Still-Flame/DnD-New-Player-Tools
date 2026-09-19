@@ -1,22 +1,33 @@
 # D&D Class Tools
 
-Two static pages for D&D 2024:
+Four static pages for D&D 2024:
 
 - **`/finder/`** — a ten-question class finder aimed at first-time players.
+- **`/stats/`** — ability scores by 4d6-drop-lowest, standard array or point buy.
 - **`/compendium/`** — every official subclass plus six homebrew classes, with a
   hover glossary that shows what each subclass changes about the rules it touches.
+- **`/spells/`** — 589 homebrew spells from three books, filterable by class,
+  level and school at once, with the same hover glossary.
 
 No framework, no server, no build dependencies beyond Node. The whole site is
-four HTML files, one 600 KB data file and an SVG.
+five HTML files, two data files and an SVG.
 
 ## Layout
 
 ```
 src/                     the pages as authored (Claude artifact fragments)
   class-finder.html
+  stat-roller.html
   compendium/
     index.html
     data.js
+  spells/
+    index.html
+    spells.js            589 spells, generated — see tools/spells/
+    terms.js             the spell glossary, hand-written
+tools/spells/            the extraction pipeline (not shipped)
+  cols.sh parse.py enrich.py emit.py   PDF -> spells.js
+  fidelity.py check.mjs                the two checks
 static/                  files that ship unchanged
   index.html             landing page
   404.html
@@ -30,7 +41,7 @@ public/                  build output — this is what gets deployed
 start at `<title>` with no `<head>` or `<body>`, because the artifact publisher
 supplies the document skeleton. `build.mjs` adds the skeleton — doctype, charset,
 **viewport**, Open Graph tags, favicon — and injects the nav strip that links the
-two tools together. Keeping the sources untouched means the artifact version and
+four tools together. Keeping the sources untouched means the artifact version and
 the deployed version never drift apart.
 
 ## Build
@@ -130,9 +141,41 @@ Feature bodies use `{{term}}` or `{{term|display text}}`, which the page turns
 into a hoverable chip at render time. A term listed in `mods` is always reachable
 from the page's term index even if the body never mentions it.
 
+### The spell page
+
+`src/spells/spells.js` is generated and should not be hand-edited — run the
+pipeline in `tools/spells/` instead:
+
+```
+./cols.sh <pdf> <first> <last> <out.txt>   column-cropped text, one file per book
+python3 parse.py                           -> roster_raw.json
+python3 enrich.py                          -> roster.json  (facets, C&C dedup)
+python3 emit.py                            -> src/spells/spells.js
+python3 fidelity.py                        every paragraph vs a second extraction
+node check.mjs                             fields, vocabularies, watermark
+```
+
+Unlike the subclass pages, spell text is **transcribed**, not summarised.
+`fidelity.py` is what keeps that honest: it re-extracts the same page crops with
+a different pdftotext mode and asserts that every paragraph appears verbatim in
+that independent reading. 2,316 of 2,318 do; the exceptions are entries that
+surround a boxed stat block, which carry a warning on the page itself.
+
+`src/spells/terms.js` is the spell glossary and is hand-written. A term may set
+`p` to a match pattern where its bare name would be noise (area shapes only fire
+with a measurement attached). Terms sourced to `retia` or `kibbles` are only
+marked on spells from those books — Retia's *Ignited* is a condition, but
+"fuel that can be ignited" in a Kibbles spell is just English.
+
+The Lyre's Guide to Retia PDF carries a per-purchase watermark with a real name
+and order number. `parse.py` strips it, `emit.py` asserts it never reaches
+`spells.js`, and `check.mjs` asserts it again on the shipped file. Do not remove
+those checks.
+
 ## Sources
 
-Content is summarised, not reproduced, and every page cites its book and page
+The class and subclass pages summarise rather than reproduce; the spell pages
+carry the homebrew books' own text. Every page cites its book and page
 number.
 
 - *Player's Handbook* (2024) — Wizards of the Coast
