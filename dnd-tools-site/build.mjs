@@ -42,7 +42,9 @@ function nav(current) {
   const links = [
     ["/", "D&amp;D Tools"],
     ["/finder/", "Class Finder"],
+    ["/stats/", "Ability Scores"],
     ["/compendium/", "Subclass Compendium"],
+    ["/spells/", "Spell Compendium"],
   ];
   const items = links
     .map(([href, label]) =>
@@ -109,11 +111,25 @@ const PAGES = [
       "Ten questions that point a first-time D&D player at a class they'll actually enjoy — official classes and homebrew, no jargon required.",
   },
   {
+    src: "stat-roller.html",
+    out: "stats/index.html",
+    path: "/stats/",
+    description:
+      "Roll 4d6 and drop the lowest, or use the standard array or point buy \u2014 then add your background's ability increases. Reroll anything as often as you like.",
+  },
+  {
     src: "compendium/index.html",
     out: "compendium/index.html",
     path: "/compendium/",
     description:
       "Every D&D 2024 subclass plus six homebrew classes, with a hover glossary that shows what each subclass changes about the rules it touches.",
+  },
+  {
+    src: "spells/index.html",
+    out: "spells/index.html",
+    path: "/spells/",
+    description:
+      "980 D&D spells \u2014 the 2024 Player's Handbook alongside Legends & Legacies, Craft and Creation and Lyre's Guide to Retia. Filter by class, level, school and book, or search the spell text itself.",
   },
 ];
 
@@ -132,6 +148,9 @@ for (const p of PAGES) {
    <script src>, so it just needs copying across unchanged. */
 await cp(join(SRC, "compendium/data.js"), join(OUT, "compendium/data.js"));
 console.log("copied compendium/data.js");
+await cp(join(SRC, "spells/spells.js"), join(OUT, "spells/spells.js"));
+await cp(join(SRC, "spells/terms.js"), join(OUT, "spells/terms.js"));
+console.log("copied spells/spells.js and spells/terms.js");
 
 /* Landing page, 404, favicon and the Cloudflare _headers file ship as-is. */
 await cp(join(HERE, "static"), OUT, { recursive: true });

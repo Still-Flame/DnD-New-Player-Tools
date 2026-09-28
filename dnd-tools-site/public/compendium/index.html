@@ -1,3 +1,18 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="Every D&amp;D 2024 subclass plus six homebrew classes, with a hover glossary that shows what each subclass changes about the rules it touches.">
+<link rel="canonical" href="https://dnd-tools.pages.dev/compendium/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="D&D Tools">
+<meta property="og:title" content="Subclass Compendium">
+<meta property="og:description" content="Every D&amp;D 2024 subclass plus six homebrew classes, with a hover glossary that shows what each subclass changes about the rules it touches.">
+<meta property="og:url" content="https://dnd-tools.pages.dev/compendium/">
+<meta name="twitter:card" content="summary">
 <title>Subclass Compendium</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -277,7 +292,23 @@
   }
   @media (prefers-reduced-motion: reduce) { * { transition:none !important; } }
 </style>
-
+</head>
+<body>
+<style>
+  .sitenav {
+    max-width:64rem; margin-inline:auto; padding:12px 20px 0;
+    display:flex; flex-wrap:wrap; align-items:baseline; gap:0 8px;
+    font-family:"IBM Plex Mono", ui-monospace, monospace;
+    font-size:.7rem; letter-spacing:.11em; text-transform:uppercase;
+  }
+  .sitenav a { color: var(--ink-faint, #8A9099); text-decoration:none; }
+  .sitenav a:hover { color: var(--accent, currentColor); text-decoration:underline; }
+  .sitenav a:focus-visible { outline:2px solid var(--accent, currentColor); outline-offset:2px; }
+  .sitenav-here { color: var(--ink-soft, #5B626C); }
+  .sitenav-sep { color: var(--rule, #C6C2B6); }
+  @media print { .sitenav { display:none; } }
+</style>
+<nav class="sitenav" aria-label="Site"><a href="/">D&amp;D Tools</a><span class="sitenav-sep" aria-hidden="true">/</span><a href="/finder/">Class Finder</a><span class="sitenav-sep" aria-hidden="true">/</span><a href="/stats/">Ability Scores</a><span class="sitenav-sep" aria-hidden="true">/</span><span class="sitenav-here" aria-current="page">Subclass Compendium</span><span class="sitenav-sep" aria-hidden="true">/</span><a href="/spells/">Spell Compendium</a></nav>
 <div class="wrap">
 
   <header>
@@ -710,3 +741,5 @@
   render();
 })();
 </script>
+</body>
+</html>

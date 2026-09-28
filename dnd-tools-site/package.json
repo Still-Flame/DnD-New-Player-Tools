@@ -1,0 +1,14 @@
+{
+  "name": "dnd-tools-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A D&D 2024 class finder and subclass compendium, built as static pages.",
+  "scripts": {
+    "build": "node build.mjs",
+    "preview": "node build.mjs && npx --yes serve public"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

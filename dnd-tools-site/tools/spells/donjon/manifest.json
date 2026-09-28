@@ -1,0 +1,19 @@
+{
+  "harvested": "2026-09-28",
+  "source": "https://donjon.bin.sh/5e5/spells/",
+  "how": "The listing page holds window.spell_data (425 spells, metadata only). Each spell's text comes from https://donjon.bin.sh/5e5/spells/rpc.cgi?name=<Name>&spell_key=, which returns {Name, Level, School, Class, 'Casting Time', Range, Components, Duration, Concentration, Ritual, Source, Description, card}. Fetched through the browser's own page rather than by script, one request per spell, with no headers added.",
+  "counts": {
+    "fetched": 425,
+    "errors": 0,
+    "phb": 391,
+    "phbWithText": 338,
+    "phbWithoutText": 53,
+    "otherBooks": 34
+  },
+  "licence": "donjon serves full text only for what SRD 5.2.1 releases, which is CC BY 4.0; for everything else it returns 'Not in the SRD, no description available'. That is the line this project publishes on: the 338 spells with text appear in full, the 53 without appear as a stat line and a page reference. The attribution CC BY 4.0 requires is in tools/spells/emit.py as SRD_NOTICE and is printed on the page.",
+  "files": {
+    "phb.json": "the 391 PHB records exactly as donjon returned them, unedited",
+    "phb_roster.json": "those records parsed into the page's shape by ../donjon_parse.py"
+  },
+  "checked": "../phb_cross.py reads every fact here a second way, against the PDF's page images and OCR layer. As of this harvest: 389 of 391 page numbers confirmed by the heading printed on that page, 1,074 stat-line field agreements, 0 impossible die sizes, 0 unexamined disagreements."
+}
