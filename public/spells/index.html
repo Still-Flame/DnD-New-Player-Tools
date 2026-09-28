@@ -1,3 +1,18 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="980 D&amp;D spells — the 2024 Player's Handbook alongside Legends &amp; Legacies, Craft and Creation and Lyre's Guide to Retia. Filter by class, level, school and book, or search the spell text itself.">
+<link rel="canonical" href="https://dnd-tools.pages.dev/spells/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="D&D Tools">
+<meta property="og:title" content="Spell Compendium">
+<meta property="og:description" content="980 D&amp;D spells — the 2024 Player's Handbook alongside Legends &amp; Legacies, Craft and Creation and Lyre's Guide to Retia. Filter by class, level, school and book, or search the spell text itself.">
+<meta property="og:url" content="https://dnd-tools.pages.dev/spells/">
+<meta name="twitter:card" content="summary">
 <title>Spell Compendium</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -307,7 +322,23 @@
   }
   @media (prefers-reduced-motion: reduce) { * { transition:none !important; } }
 </style>
-
+</head>
+<body>
+<style>
+  .sitenav {
+    max-width:64rem; margin-inline:auto; padding:12px 20px 0;
+    display:flex; flex-wrap:wrap; align-items:baseline; gap:0 8px;
+    font-family:"IBM Plex Mono", ui-monospace, monospace;
+    font-size:.7rem; letter-spacing:.11em; text-transform:uppercase;
+  }
+  .sitenav a { color: var(--ink-faint, #8A9099); text-decoration:none; }
+  .sitenav a:hover { color: var(--accent, currentColor); text-decoration:underline; }
+  .sitenav a:focus-visible { outline:2px solid var(--accent, currentColor); outline-offset:2px; }
+  .sitenav-here { color: var(--ink-soft, #5B626C); }
+  .sitenav-sep { color: var(--rule, #C6C2B6); }
+  @media print { .sitenav { display:none; } }
+</style>
+<nav class="sitenav" aria-label="Site"><a href="/">D&amp;D Tools</a><span class="sitenav-sep" aria-hidden="true">/</span><a href="/finder/">Class Finder</a><span class="sitenav-sep" aria-hidden="true">/</span><a href="/stats/">Ability Scores</a><span class="sitenav-sep" aria-hidden="true">/</span><a href="/compendium/">Subclass Compendium</a><span class="sitenav-sep" aria-hidden="true">/</span><span class="sitenav-here" aria-current="page">Spell Compendium</span></nav>
 <div class="wrap">
   <header>
     <p class="eyebrow" id="eyebrow">980 spells &middot; 4 books</p>
@@ -902,3 +933,5 @@
   buildFilters(); sync(); render();
 })();
 </script>
+</body>
+</html>

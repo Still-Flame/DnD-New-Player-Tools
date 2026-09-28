@@ -6,8 +6,9 @@ Four static pages for D&D 2024:
 - **`/stats/`** — ability scores by 4d6-drop-lowest, standard array or point buy.
 - **`/compendium/`** — every official subclass plus six homebrew classes, with a
   hover glossary that shows what each subclass changes about the rules it touches.
-- **`/spells/`** — 589 homebrew spells from three books, filterable by class,
-  level and school at once, with the same hover glossary.
+- **`/spells/`** — 980 spells: the 2024 *Player's Handbook* and three homebrew
+  books, filterable by class, level, school and book at once, with the same
+  hover glossary.
 
 No framework, no server, no build dependencies beyond Node. The whole site is
 five HTML files, two data files and an SVG.
@@ -23,11 +24,12 @@ src/                     the pages as authored (Claude artifact fragments)
     data.js
   spells/
     index.html
-    spells.js            589 spells, generated — see tools/spells/
+    spells.js            980 spells, generated — see tools/spells/
     terms.js             the spell glossary, hand-written
 tools/spells/            the extraction pipeline (not shipped)
-  cols.sh parse.py enrich.py emit.py   PDF -> spells.js
-  fidelity.py check.mjs                the two checks
+  cols.sh parse.py enrich.py emit.py   the homebrew PDFs -> spells.js
+  donjon_parse.py                      the harvested PHB text -> the same
+  fidelity.py phb_cross.py check.mjs   the three checks
 static/                  files that ship unchanged
   index.html             landing page
   404.html
@@ -150,9 +152,11 @@ pipeline in `tools/spells/` instead:
 ./cols.sh <pdf> <first> <last> <out.txt>   column-cropped text, one file per book
 python3 parse.py                           -> roster_raw.json
 python3 enrich.py                          -> roster.json  (facets, C&C dedup)
-python3 emit.py                            -> src/spells/spells.js
-python3 fidelity.py                        every paragraph vs a second extraction
-node check.mjs                             fields, vocabularies, watermark
+python3 donjon_parse.py                    -> donjon/phb_roster.json
+python3 emit.py                            -> src/spells/spells.js  (both rosters)
+python3 fidelity.py                        every homebrew paragraph vs a 2nd extraction
+python3 phb_cross.py                       every PHB fact vs the book's own pages
+node check.mjs                             fields, vocabularies, watermark, licence
 ```
 
 Unlike the subclass pages, spell text is **transcribed**, not summarised.
@@ -160,6 +164,36 @@ Unlike the subclass pages, spell text is **transcribed**, not summarised.
 a different pdftotext mode and asserts that every paragraph appears verbatim in
 that independent reading. 2,316 of 2,318 do; the exceptions are entries that
 surround a boxed stat block, which carry a warning on the page itself.
+
+#### Where the Player's Handbook text comes from
+
+The PHB PDF in this project is a page image with an OCR layer under it. The
+picture is legible; the layer is not — it reads 1 as l, drops letters, and
+bleeds one spell's block into the next, and an extraction of it came out 26%
+clean. It is not fit to publish as the book's words, and `tools/spells/phb.py`
+is kept only as the record of that attempt.
+
+The text that ships instead is SRD 5.2.1, harvested from donjon's structured
+endpoint. It is typed rather than scanned, so there is no OCR fault to repair,
+and it draws the line this project has to draw anyway: **338** of the 391 PHB
+spells are released under CC BY 4.0 and appear here in full; the other **53**
+are not, and ship as a stat line, a page reference and a note saying why. The
+gap is never filled from memory.
+
+The scan is still the check. `phb_cross.py` reads every donjon fact a second
+way — each page number against the heading printed on that page (389 of 391
+confirm), each stat line against the OCR's own reading, each class list against
+the book's class spell-list tables, and every die against the set of dice that
+exist. It sorts disagreements into the ones the scan's catalogued faults
+explain and the ones they do not, and **fails if any of the second kind is left
+unexamined**. The ones settled so far were settled by opening the page at 400
+dpi: the SRD text had lost the 2 from two `4d12`s, and the scan — not donjon —
+was wrong about Astral Projection's jacinth. Both outcomes are written into
+`donjon_parse.py`'s `REPAIRS` tables with the evidence.
+
+CC BY 4.0 requires its attribution statement word for word. It is in
+`emit.py` as `SRD_NOTICE`, printed in the page footer and on the landing page,
+and `check.mjs` fails the build if it is missing or altered.
 
 `src/spells/terms.js` is the spell glossary and is hand-written. A term may set
 `p` to a match pattern where its bare name would be noise (area shapes only fire
@@ -175,8 +209,13 @@ those checks.
 ## Sources
 
 The class and subclass pages summarise rather than reproduce; the spell pages
-carry the homebrew books' own text. Every page cites its book and page
-number.
+carry the books' own text. Every page cites its book and page number.
+
+This work includes material from the System Reference Document 5.2.1
+("SRD 5.2.1") by Wizards of the Coast LLC, available at
+https://www.dndbeyond.com/srd. The SRD 5.2.1 is licensed under the Creative
+Commons Attribution 4.0 International License, available at
+https://creativecommons.org/licenses/by/4.0/legalcode.
 
 - *Player's Handbook* (2024) — Wizards of the Coast
 - *Kibbles' Compendium of Craft and Creation* — KibblesTasty

@@ -129,7 +129,7 @@ const PAGES = [
     out: "spells/index.html",
     path: "/spells/",
     description:
-      "589 homebrew D&D spells from Legends & Legacies, Craft and Creation and Lyre's Guide to Retia \u2014 filter by class, level and school, or search the spell text itself.",
+      "980 D&D spells \u2014 the 2024 Player's Handbook alongside Legends & Legacies, Craft and Creation and Lyre's Guide to Retia. Filter by class, level, school and book, or search the spell text itself.",
   },
 ];
 

@@ -1,0 +1,93 @@
+{
+  "_note": "Pilot batch. Each spell's stat line is written out here from knowledge of the 2024 Player's Handbook, then diffed against the OCR reading in phb_raw.json by phb_check.py. The point is the diff: two independent readings agreeing on a die or a range is evidence; one reading asserting it is not. Effect text is condensed, never presented as the book's wording.",
+  "spells": [
+    {"name": "Acid Splash", "level": 0, "school": "Evocation", "classes": ["Sorcerer", "Wizard"],
+     "castingTime": "Action", "range": "60 feet", "components": "V, S", "duration": "Instantaneous",
+     "effect": "A bubble of acid bursts in a 5-foot-radius Sphere at a point in range. Every creature there makes a Dexterity saving throw or takes 1d6 Acid damage.",
+     "higher": "Cantrip Upgrade. The damage rises by 1d6 at levels 5, 11 and 17."},
+
+    {"name": "Burning Hands", "level": 1, "school": "Evocation", "classes": ["Sorcerer", "Wizard"],
+     "castingTime": "Action", "range": "Self (15-foot Cone)", "components": "V, S", "duration": "Instantaneous",
+     "effect": "A sheet of flame fans from your fingertips. Every creature in the Cone makes a Dexterity saving throw, taking 3d6 Fire damage on a failure, half as much on a success.",
+     "higher": "Using a Higher-Level Spell Slot. The damage increases by 1d6 for each slot level above 1."},
+
+    {"name": "Cure Wounds", "level": 1, "school": "Abjuration", "classes": ["Bard", "Cleric", "Druid", "Paladin", "Ranger"],
+     "castingTime": "Action", "range": "Touch", "components": "V, S", "duration": "Instantaneous",
+     "effect": "A creature you touch regains 2d8 hit points plus your spellcasting ability modifier.",
+     "higher": "Using a Higher-Level Spell Slot. The healing increases by 2d8 for each slot level above 1."},
+
+    {"name": "Magic Missile", "level": 1, "school": "Evocation", "classes": ["Sorcerer", "Wizard"],
+     "castingTime": "Action", "range": "120 feet", "components": "V, S", "duration": "Instantaneous",
+     "effect": "Three glowing darts streak to targets you choose in range and hit automatically, each dealing 1d4 + 1 Force damage. You can send several darts at one target.",
+     "higher": "Using a Higher-Level Spell Slot. One extra dart for each slot level above 1."},
+
+    {"name": "Shield", "level": 1, "school": "Abjuration", "classes": ["Sorcerer", "Wizard"],
+     "castingTime": "Reaction, when you are hit by an attack roll or targeted by Magic Missile",
+     "range": "Self", "components": "V, S", "duration": "1 round",
+     "effect": "An invisible barrier gives you +5 Armor Class, including against the triggering attack, and Magic Missile does nothing to you."},
+
+    {"name": "Detect Magic", "level": 1, "school": "Divination", "classes": ["Bard", "Cleric", "Druid", "Paladin", "Ranger", "Sorcerer", "Warlock", "Wizard"],
+     "castingTime": "Action or Ritual", "range": "Self", "components": "V, S", "duration": "Concentration, up to 10 minutes",
+     "effect": "You sense magic within 30 feet. Taking the Study action lets you see a faint aura around anything magical there and learn its school."},
+
+    {"name": "Heat Metal", "level": 2, "school": "Transmutation", "classes": ["Bard", "Druid"],
+     "castingTime": "Action", "range": "60 feet", "components": "V, S, M (a piece of iron and a flame)",
+     "duration": "Concentration, up to 1 minute",
+     "effect": "A metal object you can see glows red-hot, dealing 2d8 Fire damage to anything in contact with it. On later turns you can repeat the damage as a Bonus Action. A creature holding or wearing it must succeed on a Constitution saving throw or drop it; if it cannot or will not, it has Disadvantage on attack rolls and ability checks until your next turn.",
+     "higher": "Using a Higher-Level Spell Slot. The damage increases by 1d8 for each slot level above 2."},
+
+    {"name": "Misty Step", "level": 2, "school": "Conjuration", "classes": ["Sorcerer", "Warlock", "Wizard"],
+     "castingTime": "Bonus Action", "range": "Self", "components": "V", "duration": "Instantaneous",
+     "effect": "Wreathed in silver mist, you teleport up to 30 feet to a space you can see."},
+
+    {"name": "Fireball", "level": 3, "school": "Evocation", "classes": ["Sorcerer", "Wizard"],
+     "castingTime": "Action", "range": "150 feet", "components": "V, S, M (a ball of bat guano and sulfur)",
+     "duration": "Instantaneous",
+     "effect": "A streak of flame blossoms into a 20-foot-radius Sphere at a point you choose. Every creature there makes a Dexterity saving throw, taking 8d6 Fire damage on a failure, half as much on a success. Flammable objects not worn or carried catch fire.",
+     "higher": "Using a Higher-Level Spell Slot. The damage increases by 1d6 for each slot level above 3."},
+
+    {"name": "Counterspell", "level": 3, "school": "Abjuration", "classes": ["Sorcerer", "Warlock", "Wizard"],
+     "castingTime": "Reaction, when a creature within range casts a spell", "range": "60 feet",
+     "components": "S", "duration": "Instantaneous",
+     "effect": "You attempt to interrupt a spell as it is cast. The caster makes a Constitution saving throw against your spell save DC; on a failure the spell fails and its slot is wasted."},
+
+    {"name": "Fly", "level": 3, "school": "Transmutation", "classes": ["Sorcerer", "Warlock", "Wizard"],
+     "castingTime": "Action", "range": "Touch", "components": "V, S, M (a feather)",
+     "duration": "Concentration, up to 10 minutes",
+     "effect": "A willing creature you touch gains a Fly Speed of 60 feet. It falls when the spell ends if still aloft.",
+     "higher": "Using a Higher-Level Spell Slot. One extra creature for each slot level above 3."},
+
+    {"name": "Polymorph", "level": 4, "school": "Transmutation", "classes": ["Bard", "Druid", "Sorcerer", "Wizard"],
+     "castingTime": "Action", "range": "60 feet", "components": "V, S, M (a caterpillar cocoon)",
+     "duration": "Concentration, up to 1 hour",
+     "effect": "A creature you can see must succeed on a Wisdom saving throw or become a Beast whose Challenge Rating is no higher than its own level or CR. It keeps its alignment and personality, uses the Beast's statistics, and reverts when the new form drops to 0 hit points."},
+
+    {"name": "Wall of Force", "level": 5, "school": "Evocation", "classes": ["Wizard"],
+     "castingTime": "Action", "range": "120 feet", "components": "V, S, M (a shard of glass)",
+     "duration": "Concentration, up to 10 minutes",
+     "effect": "An invisible wall of force springs into being — a dome, a sphere, or flat panels. Nothing physical passes through it and it resists most damage; Disintegrate destroys it instantly."},
+
+    {"name": "Disintegrate", "level": 6, "school": "Transmutation", "classes": ["Sorcerer", "Wizard"],
+     "castingTime": "Action", "range": "60 feet", "components": "V, S, M (a lodestone and dust)",
+     "duration": "Instantaneous",
+     "effect": "A thin green ray strikes a target. A creature makes a Dexterity saving throw, taking 10d6 + 40 Force damage on a failure, and is reduced to dust if this leaves it at 0 hit points.",
+     "higher": "Using a Higher-Level Spell Slot. The damage increases by 3d6 for each slot level above 6."},
+
+    {"name": "Finger of Death", "level": 7, "school": "Necromancy", "classes": ["Sorcerer", "Warlock", "Wizard"],
+     "castingTime": "Action", "range": "60 feet", "components": "V, S", "duration": "Instantaneous",
+     "effect": "Negative energy lances a creature you can see. It makes a Constitution saving throw, taking 7d8 + 30 Necrotic damage on a failure, half as much on a success. A Humanoid killed by this rises as a Zombie under your command.",
+     "higher": "Using a Higher-Level Spell Slot. The damage increases by 1d8 for each slot level above 7."},
+
+    {"name": "Power Word Stun", "level": 8, "school": "Enchantment", "classes": ["Bard", "Sorcerer", "Warlock", "Wizard"],
+     "castingTime": "Action", "range": "60 feet", "components": "V", "duration": "Instantaneous",
+     "effect": "One creature you can see with 150 hit points or fewer has the Stunned condition. It repeats a Constitution saving throw at the end of each of its turns, ending the effect on a success."},
+
+    {"name": "Meteor Swarm", "level": 9, "school": "Evocation", "classes": ["Sorcerer", "Wizard"],
+     "castingTime": "Action", "range": "1 mile", "components": "V, S", "duration": "Instantaneous",
+     "effect": "Four blazing spheres fall on points you choose, each a 40-foot-radius Sphere. Every creature in one makes a Dexterity saving throw, taking 20d6 Fire damage and 20d6 Bludgeoning damage on a failure, half as much on a success. A creature in more than one Sphere is affected only once."},
+
+    {"name": "Wish", "level": 9, "school": "Conjuration", "classes": ["Sorcerer", "Wizard"],
+     "castingTime": "Action", "range": "Self", "components": "V", "duration": "Instantaneous",
+     "effect": "The mightiest spell a mortal can cast. It can duplicate any spell of level 8 or lower with no components, or attempt something beyond that at the DM's discretion. Straying past duplication risks being unable to cast it again and taking stress that no rest removes quickly."}
+  ]
+}

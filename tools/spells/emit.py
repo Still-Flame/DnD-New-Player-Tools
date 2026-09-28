@@ -16,7 +16,23 @@ BOOKS = {
     "llb":   {"t": "Legends & Legacies",     "s": "Kibbles' Compendium of Legends & Legacies — Blood Magic"},
     "cc":    {"t": "Craft and Creation",     "s": "Kibbles' Compendium of Craft and Creation"},
     "retia": {"t": "Lyre's Guide to Retia",  "s": "Lyre's Guide to Retia — Land of Industry"},
+    "phb":   {"t": "Player's Handbook",      "s": "Player's Handbook (2024)", "official": 1},
 }
+
+SCHOOL_ABBR = {"Abjuration": "ABJ", "Conjuration": "CON", "Divination": "DIV",
+               "Enchantment": "ENC", "Evocation": "EVO", "Illusion": "ILL",
+               "Necromancy": "NEC", "Transmutation": "TRA", "Psionic": "PSI"}
+
+# CC BY 4.0 requires this statement word for word from anyone who uses the
+# material. The page carries it in full; the wording is not ours to shorten.
+# Source: the licence page of SRD 5.2.1 itself.
+SRD_NOTICE = (
+    'This work includes material from the System Reference Document 5.2.1 '
+    '("SRD 5.2.1") by Wizards of the Coast LLC, available at '
+    'https://www.dndbeyond.com/srd. The SRD 5.2.1 is licensed under the '
+    'Creative Commons Attribution 4.0 International License, available at '
+    'https://creativecommons.org/licenses/by/4.0/legalcode.'
+)
 
 # Retia's eleven spell groups, from the book's own Spell Groups section
 # (pp. 530-533). Two of them carry rules that change how their spells work at
@@ -152,22 +168,92 @@ def blk(b):
     return [b["t"], b["rows"] if b["t"] == "tbl" else b["text"]]
 
 
+def expand_components(code):
+    """donjon's component code -> the letters the book prints.
+
+    'VSMgp' means Verbal, Somatic and a Material component that costs gold.
+    Only the letters are written out. The material itself is not invented: for
+    the spells where donjon carries no text, it is simply not known here, and
+    the card says so."""
+    parts = [n for c, n in (("V", "V"), ("S", "S"), ("M", "M")) if c in (code or "")]
+    return ", ".join(parts)
+
+
+def load_phb():
+    """donjon/phb_roster.json -> records shaped like the homebrew roster.
+
+    Two kinds of entry come out of this. 338 carry the spell's full text,
+    released under CC BY 4.0 as part of SRD 5.2.1. 53 carry only the stat line,
+    because the SRD does not include them; those are marked tx=0 and the page
+    prints what is missing and why rather than filling the gap.
+
+    Every fact here has been read twice — see phb_cross.py, which checks each
+    stat line against the book's own scanned pages and each page number against
+    the heading printed on that page."""
+    out = []
+    for r in json.load(open(HERE / "donjon" / "phb_roster.json")):
+        s = {
+            "name": r["name"], "book": "phb", "page": r["page"],
+            "level": r["level"], "school": r["school"],
+            "schoolAbbr": SCHOOL_ABBR[r["school"]],
+            "classes": r["classes"],
+            "castingTime": r["castingTime"], "range": r["range"],
+            "componentsRaw": r["components"] or expand_components(r["componentsCode"]),
+            "duration": r["duration"],
+            "bodyBlocks": r["bodyBlocks"], "higherBlocks": r["higherBlocks"],
+            "concentration": r["concentration"], "ritual": r["ritual"],
+            "legacy": False, "bloodMagic": False, "magicSource": [],
+            "groups": [], "review": False, "alsoIn": [],
+            "textless": r["textless"], "srdAlias": r["srdAlias"],
+        }
+        # a component code ending in 'gp' says the material has a gold cost;
+        # that is all that is known for a spell with no text
+        s["costlyComponent"] = bool(r["textless"] and "gp" in (r["componentsCode"] or ""))
+        out.append(s)
+    return out
+
+
+def assign_keys(records):
+    """sp-<name>, suffixed with the book when two books print the same name.
+
+    Both sides get the suffix, so no entry silently keeps the bare key while
+    its twin is renamed — a reader following one link would otherwise have no
+    way to tell which printing they were looking at."""
+    slug = lambda n: "sp-" + re.sub(r"[^a-z0-9]", "", n.lower())
+    counts = {}
+    for r in records:
+        counts.setdefault(slug(r["name"]), set()).add(r["book"])
+    for r in records:
+        k = slug(r["name"])
+        r["entryKey"] = k + ("-" + r["book"] if len(counts[k]) > 1 else "")
+
+
 def main():
-    R = json.load(open(HERE / "roster.json"))
+    R = json.load(open(HERE / "roster.json")) + load_phb()
+    assign_keys(R)
     R.sort(key=lambda r: (r["name"].lower(), r["book"]))
 
     out = []
     for r in R:
+        # the homebrew parser hands blocks over as dicts, the PHB parser as the
+        # lists the page reads; normalise here rather than in two places
+        norm = lambda bs: [b if isinstance(b, list) else blk(b) for b in bs]
         s = {
             "k": r["entryKey"], "n": r["name"], "l": r["level"],
             "s": r["school"], "sa": r["schoolAbbr"], "c": r["classes"],
             "bk": r["book"], "p": r["page"],
             "ct": r["castingTime"], "rg": r["range"],
             "cp": r["componentsRaw"], "d": r["duration"],
-            "b": [blk(b) for b in r["bodyBlocks"]],
+            "b": norm(r["bodyBlocks"]),
         }
+        if r.get("textless"):
+            s["tx"] = 0                       # no text: the SRD omits this spell
+            if r.get("costlyComponent"):
+                s["cgp"] = 1                  # its material component costs gold
+        if r.get("srdAlias"):
+            s["al"] = r["srdAlias"]           # searchable under the SRD's name too
         if r["higherBlocks"]:
-            s["h"] = [blk(b) for b in r["higherBlocks"]]
+            s["h"] = norm(r["higherBlocks"])
         if r.get("review"): s["rv"] = 1
         if r["concentration"]: s["con"] = 1
         if r["ritual"]:        s["rit"] = 1
@@ -180,10 +266,13 @@ def main():
             s["also"] = [[a["book"], a["page"]] for a in r["alsoIn"]]
         out.append(s)
 
-    payload = {"books": BOOKS, "groups": GROUPS, "spells": out}
+    payload = {"books": BOOKS, "groups": GROUPS, "spells": out, "srd": SRD_NOTICE}
     js = ("/* Spell Compendium — content, generated by tools/spells/emit.py.\n"
-          "   Spell text is transcribed from the three homebrew books rather than\n"
-          "   summarised; paragraphs and lists follow the printed page. */\n"
+          "   Spell text is transcribed rather than summarised; paragraphs and\n"
+          "   lists follow the printed page. The homebrew text is read from the\n"
+          "   three PDFs; the Player's Handbook text is the SRD 5.2.1 release of\n"
+          "   it, used under CC BY 4.0 — see the notice in this file's payload,\n"
+          "   which the page prints in full. */\n"
           "window.SPELLDATA = " + json.dumps(payload, ensure_ascii=False,
                                              separators=(",", ":")) + ";\n")
     OUT.parent.mkdir(parents=True, exist_ok=True)
