@@ -129,7 +129,7 @@ const PAGES = [
     out: "spells/index.html",
     path: "/spells/",
     description:
-      "980 D&D spells \u2014 the 2024 Player's Handbook alongside Legends & Legacies, Craft and Creation and Lyre's Guide to Retia. Filter by class, level, school and book, or search the spell text itself.",
+      "1,208 D&D spells \u2014 the 2024 Player's Handbook alongside Legends & Legacies, Craft and Creation, Lyre's Guide to Retia and the Kor hybrid schools. Filter by class, level, school and book, or search the spell text itself.",
   },
 ];
 
@@ -150,7 +150,8 @@ await cp(join(SRC, "compendium/data.js"), join(OUT, "compendium/data.js"));
 console.log("copied compendium/data.js");
 await cp(join(SRC, "spells/spells.js"), join(OUT, "spells/spells.js"));
 await cp(join(SRC, "spells/terms.js"), join(OUT, "spells/terms.js"));
-console.log("copied spells/spells.js and spells/terms.js");
+await cp(join(SRC, "spells/kor.js"), join(OUT, "spells/kor.js"));
+console.log("copied spells/spells.js, spells/terms.js and spells/kor.js");
 
 /* Landing page, 404, favicon and the Cloudflare _headers file ship as-is. */
 await cp(join(HERE, "static"), OUT, { recursive: true });

@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
-<meta name="description" content="980 D&amp;D spells — the 2024 Player's Handbook alongside Legends &amp; Legacies, Craft and Creation and Lyre's Guide to Retia. Filter by class, level, school and book, or search the spell text itself.">
+<meta name="description" content="1,208 D&amp;D spells — the 2024 Player's Handbook alongside Legends &amp; Legacies, Craft and Creation, Lyre's Guide to Retia and the Kor hybrid schools. Filter by class, level, school and book, or search the spell text itself.">
 <link rel="canonical" href="https://dnd-tools.pages.dev/spells/">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="D&D Tools">
 <meta property="og:title" content="Spell Compendium">
-<meta property="og:description" content="980 D&amp;D spells — the 2024 Player's Handbook alongside Legends &amp; Legacies, Craft and Creation and Lyre's Guide to Retia. Filter by class, level, school and book, or search the spell text itself.">
+<meta property="og:description" content="1,208 D&amp;D spells — the 2024 Player's Handbook alongside Legends &amp; Legacies, Craft and Creation, Lyre's Guide to Retia and the Kor hybrid schools. Filter by class, level, school and book, or search the spell text itself.">
 <meta property="og:url" content="https://dnd-tools.pages.dev/spells/">
 <meta name="twitter:card" content="summary">
 <title>Spell Compendium</title>
@@ -341,9 +341,9 @@
 <nav class="sitenav" aria-label="Site"><a href="/">D&amp;D Tools</a><span class="sitenav-sep" aria-hidden="true">/</span><a href="/finder/">Class Finder</a><span class="sitenav-sep" aria-hidden="true">/</span><a href="/stats/">Ability Scores</a><span class="sitenav-sep" aria-hidden="true">/</span><a href="/compendium/">Subclass Compendium</a><span class="sitenav-sep" aria-hidden="true">/</span><span class="sitenav-here" aria-current="page">Spell Compendium</span></nav>
 <div class="wrap">
   <header>
-    <p class="eyebrow" id="eyebrow">980 spells &middot; 4 books</p>
+    <p class="eyebrow" id="eyebrow">1,208 spells</p>
     <h1>Spell Compendium</h1>
-    <p class="lede">Every spell from Legends &amp; Legacies, Craft and Creation and Lyre's Guide to Retia, as printed. Filter by class, level and school; click a row to open it. Retia's spells carry no class — that book files them by spell group instead, and those groups change how the spells work.</p>
+    <p class="lede">Every spell from Legends &amp; Legacies, Craft and Creation and Lyre's Guide to Retia, as printed, plus the Kor hybrid-school spells. Filter by class, level and school; click a row to open it. Retia's spells carry no class — that book files them by spell group instead, and those groups change how the spells work. A hybrid school counts as each of its parent schools, so filtering by Evocation also finds Ruinmancy and Sigilmancy spells.</p>
   </header>
 
   <div class="bar">
@@ -380,6 +380,7 @@
 </div>
 
 <script src="spells.js"></script>
+<script src="kor.js"></script>
 <script src="terms.js"></script>
 <script>
 (function () {
@@ -421,7 +422,7 @@
     var prose = words(s.b) + (s.h ? " " + words(s.h) : "");
     // s.al is the SRD's name for a spell whose book name carries a wizard's:
     // someone searching "black tentacles" should find Evard's
-    s._hay = flat(s.n + " " + (s.al || "") + " " + s.s + " " + s.c.join(" ") + " " +
+    s._hay = flat(s.n + " " + (s.al || "") + " " + s.s + " " + (s.sp || []).join(" ") + " " + s.c.join(" ") + " " +
                   (s.g || []).join(" ") + " " +
                   s.ct + " " + s.rg + " " + s.cp + " " + s.d + " " + prose);
     s._sortName = s.n.toLowerCase();
@@ -435,7 +436,8 @@
     c:  { label:"Class",  of:function(s){ return s.c; } },
     l:  { label:"Level",  of:function(s){ return [String(s.l)]; }, name:function(v){ return lvl(+v); },
           order:function(a,b){ return +a - +b; } },
-    s:  { label:"School", of:function(s){ return [s.s]; } },
+    /* a hybrid school counts as every one of its parents, and as itself */
+    s:  { label:"School", of:function(s){ return [s.s].concat(s.sp || []); } },
     bk: { label:"Book",   of:function(s){ return [s.bk]; }, name:function(v){ return BOOKS[v] ? BOOKS[v].t : v; } },
     g:  { label:"Group",  of:function(s){ return s.g || []; } }
   };
@@ -560,7 +562,7 @@
      condition; in Legends & Legacies "fuel that can be ignited" is an ordinary
      English verb, and underlining it there would state a rule the book does
      not have. */
-  var SCOPE = { retia: ["retia"], kibbles: ["ll", "llb", "cc"] };
+  var SCOPE = { retia: ["retia"], kibbles: ["ll", "llb", "cc"], sigil: ["Sigilmancy"], ward: ["Wardamancy"] };
   function inScope(key, book) {
     var s = SCOPE[TERMS[key].s];
     return !s || s.indexOf(book) > -1;
@@ -642,15 +644,18 @@
 
   function detailHTML(s) {
     var book = BOOKS[s.bk] || { t:s.bk, s:s.bk };
+    /* glossary scope: a Kor spell is scoped by its school, because Glyph means
+       nothing in a Wardamancy spell and Unity nothing in a Sigilmancy one */
+    var sc = s.bk === "kor" ? s.s : s.bk;
     var used = {};      // one entry, one underline per term
     var h = '<div class="sp-open"><dl class="stat">' +
-      stat("Level", lvl(s.l), used, s.bk) + stat("School", s.s, used, s.bk) +
-      stat("Casting Time", s.ct, used, s.bk) + stat("Range", s.rg, used, s.bk) +
-      stat("Components", s.cp, used, s.bk) + stat("Duration", s.d, used, s.bk) +
-      (s.c.length ? stat("Classes", s.c.join(", "), used, s.bk) : "") +
-      "</dl>" + blocksHTML(s.b, used, s.bk);
+      stat("Level", lvl(s.l), used, sc) + stat("School", s.s + (s.sp ? " (" + s.sp.join(", ") + ")" : ""), used, sc) +
+      stat("Casting Time", s.ct, used, sc) + stat("Range", s.rg, used, sc) +
+      stat("Components", s.cp, used, sc) + stat("Duration", s.d, used, sc) +
+      (s.c.length ? stat("Classes", s.c.join(", "), used, sc) : "") +
+      "</dl>" + blocksHTML(s.b, used, sc);
 
-    if (s.h) h += "<h4>At Higher Levels</h4>" + blocksHTML(s.h, used, s.bk).replace(
+    if (s.h) h += "<h4>At Higher Levels</h4>" + blocksHTML(s.h, used, sc).replace(
       /^<p>At Higher Levels\.\s*/, "<p>");
 
     var tags = [];
@@ -688,7 +693,7 @@
     if (s.ci) h += '<p class="note">The book prints no class list for this spell. It is filed under Psion because that is the class its school belongs to.</p>';
     if (s.rv) h += '<p class="note" data-warn="1">On the page this entry surrounds a boxed stat block or table. The words are the book\'s, but the box has been flattened into the text and may have picked up something from the box beside it &mdash; check this one against the book before using it.</p>';
 
-    var cite = book.s + ", p. " + s.p +
+    var cite = book.s + (s.p ? ", p. " + s.p : "") +
       (s.bk === "phb" && s.tx !== 0 ? " &middot; text from SRD 5.2.1, CC BY 4.0" : "");
     (s.also || []).forEach(function (a) {
       var b2 = BOOKS[a[0]] || { s:a[0] };
@@ -769,7 +774,8 @@
     window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
   var SRC = { core: "2024 rules", school: "School of magic",
-              kibbles: "Kibbles' magic sources", retia: "Retia \u2014 5.19th edition" };
+              kibbles: "Kibbles' magic sources", retia: "Retia \u2014 5.19th edition",
+              sigil: "Sigilmancy", ward: "Wardamancy" };
 
   function fillChip(key) {
     var t = TERMS[key];
@@ -921,10 +927,11 @@
 
   var official = SPELLS.filter(function (s) { return s.bk === "phb"; }).length;
   document.getElementById("eyebrow").textContent =
-    SPELLS.length + " spells · the Player's Handbook and 3 homebrew books";
+    SPELLS.length + " spells · the Player's Handbook, 3 published homebrew books and the Kor schools";
   document.getElementById("foot").textContent =
     "Legends & Legacies and Craft and Creation by Kibbles Tasty; Lyre's Guide to Retia by Nat19. " +
     "Where a spell is printed in both Kibbles books, the Legends & Legacies text is the one shown. " +
+    SPELLS.filter(function (s) { return s.bk === "kor"; }).length + " spells are Kor's own hybrid-school spells, which have no printed page. " +
     official + " spells come from the 2024 Player's Handbook; " +
     SPELLS.filter(function (s) { return s.tx === 0; }).length +
     " of those show a stat line only, because the SRD does not release their text. " +

@@ -163,4 +163,23 @@ window.SPELLTERMS = {
     d: "Retia only. A condition: no reactions, an action or a bonus action but not both, no extra actions from any source, and no Dash." },
   legacyspell: { n: "Legacy spell", s: "retia", p: "Legacy spell",
     d: "Retia's tag for a spell carried forward from earlier editions, usually rewritten. Where a Legacy spell shares a name with a 2024 one, Retia's version is the one its tables assume." },
+
+  /* ---------- Kor hybrid schools ----------
+     Scoped by school in index.html: Glyph means nothing in a Wardamancy spell. */
+  glyph: { n: "Glyph", s: "sigil", p: "[Gg]lyphs?",
+    d: "Sigilmancy's unit of writing. Every Sigilmancy spell has one: Snow or Frost (Evocation), Seal or Unleash (Abjuration), Paradise or Ruin (Divination). Snow, Seal and Paradise are gentle; Frost, Unleash and Ruin are harsh." },
+  script: { n: "Script", s: "sigil", p: "Scripts?",
+    d: "Your ordered list of up to three glyphs. Each Sigilmancy spell writes its glyph at the end after it takes effect and erases the oldest if the list is full. It ends after 1 minute without a new glyph, when you are Incapacitated, or on a Long Rest." },
+  writ: { n: "Writ", s: "sigil", p: "Writs?",
+    d: "A Ritual Sigilmancy spell inscribed with up to three glyphs in an order you choose. The first glyph's school sets the trigger, the middle glyph's tier sets the strength and the last glyph's school sets the result. It doesn't write to your Script." },
+  scriptreading: { n: "Script-reading", s: "sigil", p: "Script-reading",
+    d: "A spell that reads your whole Script, counting its glyphs or checking which schools it holds, before the spell writes its own glyph. Its Sequence line still reads only the last glyph unless the spell says otherwise." },
+  anchored: { n: "Anchored", s: "ward", p: "Anchor(?:s|ed)?",
+    d: "An Anchored spell is set on an object you touch or see within range. Its area originates from the Anchor and moves with it, and the spell ends if the Anchor is destroyed. You can have a number of Anchors in place equal to your Proficiency Bonus; setting another ends your oldest." },
+  goal: { n: "Goal", s: "ward", p: "Goals?",
+    d: "One sentence, stated aloud when you cast a Unity spell, naming something the group is trying to do. The DM must agree that it is clear and can actually be attempted." },
+  unity: { n: "Unity", s: "ward", p: "Unity",
+    d: "The number of creatures, you included, that are willing and working toward the Goal. Counted in the Anchor's area, or within 30 feet of you if the spell isn't Anchored. It can't exceed twice your Proficiency Bonus, and it is recounted each turn for spells lasting up to 1 minute." },
+  countedcreature: { n: "Counted creature", s: "ward", p: "counted creatures?",
+    d: "A creature that is part of Unity: willing, working toward the Goal, and not Charmed or under compulsion." },
 };
