@@ -562,7 +562,7 @@
      condition; in Legends & Legacies "fuel that can be ignited" is an ordinary
      English verb, and underlining it there would state a rule the book does
      not have. */
-  var SCOPE = { retia: ["retia"], kibbles: ["ll", "llb", "cc"], sigil: ["Sigilmancy"], ward: ["Wardamancy"] };
+  var SCOPE = { retia: ["retia"], kibbles: ["ll", "llb", "cc"], sigil: ["Sigilmancy"], ward: ["Wardamancy"], pacto: ["Pactomancy"], way: ["Waymancy"] };
   function inScope(key, book) {
     var s = SCOPE[TERMS[key].s];
     return !s || s.indexOf(book) > -1;
@@ -775,7 +775,7 @@
 
   var SRC = { core: "2024 rules", school: "School of magic",
               kibbles: "Kibbles' magic sources", retia: "Retia \u2014 5.19th edition",
-              sigil: "Sigilmancy", ward: "Wardamancy" };
+              sigil: "Sigilmancy", ward: "Wardamancy", pacto: "Pactomancy", way: "Waymancy" };
 
   function fillChip(key) {
     var t = TERMS[key];
