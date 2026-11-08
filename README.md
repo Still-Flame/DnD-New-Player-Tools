@@ -1,7 +1,9 @@
 # D&D Class Tools
 
-Four static pages for D&D 2024:
+Five static pages for D&D 2024:
 
+- **`/create/`** — a scrolling guide to the 2024 character sheet: a pinned sheet
+  that zooms to the part being explained, plus a five-part example of play.
 - **`/finder/`** — a ten-question class finder aimed at first-time players.
 - **`/stats/`** — ability scores by 4d6-drop-lowest, standard array or point buy.
 - **`/compendium/`** — every official subclass plus six homebrew classes, with a

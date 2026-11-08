@@ -1,0 +1,1163 @@
+<title>How to Make a D&amp;D Character</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+  :root {
+    --ground:#E4E1D8; --surface:#F1EFE9;
+    --ink:#1B1E23; --ink-soft:#5B626C; --ink-faint:#8A9099;
+    --rule:#C6C2B6; --rule-soft:#D6D2C7;
+    --accent-official:#9A5A15; --accent-home:#1C6659; --accent-ink:#FFFFFF;
+    --hl:#D9730D;
+
+    --sky-top:#E7E2D3; --sky-bot:#F4E4C6; --moon:#FBF4DF; --star-o:0; --moon-glow:.16;
+    --ridge1:#CFCABA; --ridge2:#A7ACA8; --ridge3:#6C777B; --tower:#2B3338; --fore:#1F262B; --glow:#E9A64A;
+    --fore-ink:#EFEBDD;
+
+    --step--2:.68rem;
+    --step--1: clamp(.74rem,.72rem + .12vw,.8rem);
+    --step-0:  clamp(.95rem,.92rem + .18vw,1.05rem);
+    --step-1:  clamp(1.05rem,1rem + .26vw,1.2rem);
+    --step-2:  clamp(1.25rem,1.12rem + .6vw,1.6rem);
+    --step-3:  clamp(1.7rem,1.35rem + 1.7vw,2.6rem);
+    --step-4:  clamp(2.5rem,1.6rem + 4.6vw,5.6rem);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:#131619; --surface:#1B1F24;
+      --ink:#E7E4DB; --ink-soft:#A0A7B0; --ink-faint:#6E757E;
+      --rule:#2E343B; --rule-soft:#262B31;
+      --accent-official:#D9903F; --accent-home:#47AD99; --accent-ink:#131619;
+      --sky-top:#0B0E12; --sky-bot:#1D2933; --moon:#DAD5C2; --star-o:.8; --moon-glow:.06;
+      --ridge1:#1F2A33; --ridge2:#17212A; --ridge3:#10171D; --tower:#07090C; --fore:#06080A; --glow:#F4AE52;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground:#131619; --surface:#1B1F24;
+    --ink:#E7E4DB; --ink-soft:#A0A7B0; --ink-faint:#6E757E;
+    --rule:#2E343B; --rule-soft:#262B31;
+    --accent-official:#D9903F; --accent-home:#47AD99; --accent-ink:#131619;
+    --sky-top:#0B0E12; --sky-bot:#1D2933; --moon:#DAD5C2; --star-o:.8; --moon-glow:.06;
+    --ridge1:#1F2A33; --ridge2:#17212A; --ridge3:#10171D; --tower:#07090C; --fore:#06080A; --glow:#F4AE52;
+  }
+
+  * { box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body {
+    margin:0; background:var(--ground); color:var(--ink);
+    font-family:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size:var(--step-0); line-height:1.65; -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3 { font-family:Fraunces, Georgia, "Times New Roman", serif; font-optical-sizing:auto; font-weight:600; letter-spacing:-.012em; text-wrap:balance; margin:0; }
+  p { margin:0 0 1em; }
+  a { color:var(--accent-official); }
+  .sr { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+  .mono { font-family:"IBM Plex Mono", ui-monospace, monospace; }
+  .eyebrow {
+    font-family:"IBM Plex Mono", ui-monospace, monospace; font-size:var(--step--1);
+    letter-spacing:.14em; text-transform:uppercase; color:var(--ink-faint); margin:0;
+  }
+
+  /* ───────── hero: layered scene ───────── */
+  .hero { position:relative; height:max(34rem, calc(100svh - 34px)); overflow:hidden; isolation:isolate;
+          background:linear-gradient(var(--sky-top), var(--sky-bot)); }
+  .scene { position:absolute; inset:0; }
+  .lyr { position:absolute; left:0; right:0; bottom:0; height:calc(100% * (1 + var(--d, 0))); pointer-events:none; will-change:transform; }
+  .lyr svg { display:block; width:100%; height:100%; }
+  .lyr--sky { background:linear-gradient(var(--sky-top), var(--sky-bot) 80%); }
+  .stars { opacity:var(--star-o); }
+  .win { filter:drop-shadow(0 0 6px var(--glow)); animation:flicker 5s ease-in-out infinite; }
+  @keyframes flicker { 0%,100% { opacity:1; } 46% { opacity:.82; } 50% { opacity:1; } 72% { opacity:.9; } }
+  .hero-copy { position:absolute; left:0; right:0; top:clamp(30px,9vh,92px); z-index:3; padding:0 20px; }
+  .hero-copy > div { max-width:62rem; margin-inline:auto; }
+  .hero h1 { font-size:var(--step-4); line-height:.98; margin:12px 0 0; max-width:12ch; }
+  .hero .lede { color:var(--ink-soft); max-width:34ch; font-size:var(--step-1); margin:18px 0 0; }
+  .hero .refnote { font-size:var(--step--1); color:var(--ink-faint); margin:14px 0 0; max-width:40ch; }
+  .cue { position:absolute; left:0; right:0; bottom:22px; z-index:4; text-align:center; color:var(--fore-ink);
+         font-family:"IBM Plex Mono", monospace; font-size:var(--step--2); letter-spacing:.2em; text-transform:uppercase; }
+  .cue::after { content:""; display:block; width:1px; height:34px; margin:10px auto 0; background:currentColor; transform-origin:top; animation:cue 2.2s ease-in-out infinite; }
+  @keyframes cue { 0% { transform:scaleY(0); } 55% { transform:scaleY(1); } 100% { transform:scaleY(1); opacity:0; } }
+  .hero-die { position:absolute; z-index:2; right:max(24px,8vw); top:16%; width:clamp(72px,11vw,150px); aspect-ratio:1; color:var(--ink); opacity:.22; animation:spin 38s linear infinite; }
+  @keyframes spin { to { transform:rotate(360deg); } }
+
+  /* ───────── story: pinned sheet + scrolling text ───────── */
+  .story { position:relative; background:var(--ground); overflow:clip; }
+  .story-grid { position:relative; z-index:1; display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.08fr); max-width:88rem; margin-inline:auto; }
+  .steps { padding:0 clamp(20px,4vw,60px); min-width:0; }
+  .stage { position:sticky; top:0; height:100vh; height:100svh; align-self:start; }
+  .stage-inner { position:absolute; inset:16px 16px 16px 0; overflow:hidden; background:var(--surface); border:1px solid var(--rule);
+                 background-image:radial-gradient(var(--rule-soft) 1px, transparent 1px); background-size:18px 18px; }
+  .sheet { position:absolute; left:0; top:0; transform-origin:0 0; background:#f1f1ef; box-shadow:0 14px 44px rgba(10,12,16,.28);
+           transition:transform .95s cubic-bezier(.65,0,.35,1); will-change:transform; }
+  .sheet img { position:absolute; inset:0; width:100%; height:100%; display:block; transition:opacity .55s ease; user-select:none; -webkit-user-drag:none; }
+  .sheet img.p2 { opacity:0; }
+  .sheet[data-page="2"] img.p1 { opacity:0; }
+  .sheet[data-page="2"] img.p2 { opacity:1; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .sheet img { filter:brightness(.93) contrast(1.02); } }
+  :root[data-theme="dark"] .sheet img { filter:brightness(.93) contrast(1.02); }
+  .hls { position:absolute; inset:0; pointer-events:none; }
+  .hl { position:absolute; border-radius:9px; opacity:0; transition:opacity .4s ease .25s;
+        outline:calc(3px * var(--inv, 1)) solid var(--hl); outline-offset:calc(3px * var(--inv, 1));
+        background:color-mix(in srgb, var(--hl) 13%, transparent); }
+  .hl.on { opacity:1; animation:pulse 2.4s ease-in-out infinite; }
+  @keyframes pulse { 50% { background:color-mix(in srgb, var(--hl) 24%, transparent); } }
+  .stage-cap { position:absolute; left:12px; right:12px; bottom:12px; display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;
+               padding:7px 11px; background:color-mix(in srgb, var(--surface) 90%, transparent); border:1px solid var(--rule);
+               font-family:"IBM Plex Mono", monospace; font-size:var(--step--2); letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft); }
+  .stage-cap b { color:var(--accent-official); font-weight:500; }
+
+  .decor { position:absolute; z-index:0; color:var(--ink); opacity:.07; pointer-events:none; will-change:transform; }
+
+  /* chapters */
+  .chap { position:relative; padding:clamp(70px,16vh,150px) 0 clamp(16px,4vh,40px); }
+  .chap-num { position:absolute; right:-6px; top:clamp(34px,8vh,80px); z-index:0; pointer-events:none; font-family:Fraunces, Georgia, serif; font-weight:700;
+              font-size:clamp(7rem,15vw,14rem); line-height:.8; color:transparent; -webkit-text-stroke:1.5px var(--rule); opacity:.9; }
+  .chap > *:not(.chap-num) { position:relative; z-index:1; }
+  .chap-k { font-family:"IBM Plex Mono", monospace; font-size:var(--step--1); letter-spacing:.14em; text-transform:uppercase; color:var(--accent-official); margin:0 0 10px; }
+  .chap h2 { font-size:var(--step-3); line-height:1.06; max-width:16ch; }
+  .chap .lead { font-size:var(--step-1); color:var(--ink-soft); margin:16px 0 0; max-width:40ch; }
+  .chap > .lead + .beat, .chap > .lead { margin-bottom:clamp(24px,5vh,52px); }
+  .beat { margin:0 0 clamp(36px,9vh,96px); }
+  .js .beat { opacity:.38; transition:opacity .5s ease, transform .7s cubic-bezier(.2,.7,.2,1); }
+  .js .beat.is-active { opacity:1; }
+  .js .beat.reveal { transform:translateY(22px); }
+  .js .beat.reveal.in { transform:none; }
+  .js .reveal:not(.beat) { opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1); }
+  .js .reveal:not(.beat).in { opacity:1; transform:none; }
+  .chap h3 { font-size:var(--step-2); line-height:1.15; margin:0 0 .5em; }
+
+  .pg { display:inline-block; font-family:"IBM Plex Mono", monospace; font-size:.68rem; letter-spacing:.06em; color:var(--ink-soft);
+        border:1px solid var(--rule); border-radius:99px; padding:0 8px; margin-left:4px; white-space:nowrap; vertical-align:.08em; background:var(--surface); }
+
+  .quote { font-family:Fraunces, Georgia, serif; font-size:var(--step-3); line-height:1.08; font-weight:600; margin:.2em 0 .3em; text-wrap:balance; }
+  .quote small { display:block; font-family:"IBM Plex Sans", sans-serif; font-weight:400; font-size:var(--step-0); color:var(--ink-soft); margin-top:.7em; letter-spacing:0; }
+
+  .formula { margin:18px 0; padding:14px 16px; background:var(--surface); border:1px solid var(--rule); border-left:3px solid var(--accent-official);
+             font-family:"IBM Plex Mono", monospace; font-size:var(--step--1); line-height:1.7; }
+  .formula b { font-weight:500; color:var(--accent-official); }
+  .formula .cap { display:block; font-family:"IBM Plex Sans", sans-serif; color:var(--ink-soft); margin-bottom:6px; font-size:var(--step--1); }
+  .formula.big { font-size:var(--step-0); text-align:center; padding:20px 12px; }
+
+  .defs { list-style:none; margin:16px 0 0; padding:0; display:grid; gap:2px; }
+  .defs li { padding:10px 12px; border-left:2px solid var(--rule); transition:border-color .2s, background .2s; outline:none; }
+  .defs li b { font-weight:600; }
+  .defs li:hover, .defs li:focus-visible { border-left-color:var(--hl); background:color-mix(in srgb, var(--hl) 8%, transparent); }
+  .defs li.nohover:hover { border-left-color:var(--rule); background:none; }
+
+  .callout { margin:22px 0; padding:14px 16px 4px; border:1.5px dashed var(--accent-home); background:color-mix(in srgb, var(--accent-home) 7%, transparent); }
+  .callout .tag { font-family:"IBM Plex Mono", monospace; font-size:var(--step--2); letter-spacing:.14em; text-transform:uppercase; color:var(--accent-home); display:block; margin-bottom:6px; }
+
+  .cards3 { display:grid; gap:10px; margin:18px 0; }
+  .mini { background:var(--surface); border:1px solid var(--rule); border-top:3px solid var(--accent-official); padding:12px 14px 4px; }
+  .mini h4 { margin:0 0 4px; font-family:Fraunces, serif; font-size:var(--step-1); }
+  .mini p { font-size:var(--step--1); color:var(--ink-soft); }
+
+  .widget { margin:24px 0; padding:18px; background:var(--surface); border:1px solid var(--rule); }
+  .widget h4 { margin:0 0 12px; font-family:"IBM Plex Mono", monospace; font-size:var(--step--1); letter-spacing:.12em; text-transform:uppercase; font-weight:500; color:var(--ink-faint); }
+  .row { display:flex; flex-wrap:wrap; gap:14px 22px; align-items:center; }
+  label { font-size:var(--step--1); color:var(--ink-soft); display:grid; gap:4px; }
+  input[type=range] { width:min(14rem,100%); accent-color:var(--accent-official); }
+  input[type=number] { width:4.5rem; font:inherit; padding:4px 6px; background:var(--ground); color:var(--ink); border:1px solid var(--rule); }
+  .check { display:flex; gap:8px; align-items:center; }
+  .btn { font:500 var(--step--1)/1 "IBM Plex Sans", sans-serif; padding:11px 18px; background:var(--accent-official); color:var(--accent-ink); border:0; cursor:pointer; letter-spacing:.02em; }
+  .btn:hover { filter:brightness(1.1); }
+  .btn:focus-visible, .lv:focus-visible, .chip:focus-visible, input:focus-visible { outline:2px solid var(--accent-official); outline-offset:2px; }
+  .modc { width:84px; height:84px; border-radius:50%; border:3px solid var(--ink); display:grid; place-items:center; font-family:Fraunces, serif; font-size:2rem; font-weight:600; flex:none; }
+  .modc small { display:block; font-family:"IBM Plex Mono", monospace; font-size:.55rem; letter-spacing:.14em; text-align:center; color:var(--ink-faint); margin-top:-6px; }
+  .result { margin-top:14px; font-family:"IBM Plex Mono", monospace; font-size:var(--step--1); min-height:3.2em; }
+  .result strong { font-family:Fraunces, serif; font-size:var(--step-3); color:var(--accent-official); display:block; line-height:1.1; }
+
+  .lvstrip { display:grid; grid-template-columns:repeat(10,1fr); gap:5px; margin:6px 0 12px; }
+  .lv { font:500 var(--step--1)/1 "IBM Plex Mono", monospace; padding:11px 0; text-align:center; background:var(--ground); color:var(--ink); border:1px solid var(--rule); cursor:pointer; position:relative; }
+  .lv.sub { background:var(--accent-home); color:var(--accent-ink); border-color:var(--accent-home); }
+  .lv.feat { background:var(--accent-official); color:var(--accent-ink); border-color:var(--accent-official); }
+  .lv.epic { background:var(--accent-official); color:var(--accent-ink); border-color:var(--ink); box-shadow:inset 0 0 0 2px var(--surface); }
+  .lv.xtra { box-shadow:inset 0 0 0 2px var(--accent-official); }
+  .lv.on { outline:2px solid var(--ink); outline-offset:1px; }
+  .lvinfo { min-height:3.6em; font-size:var(--step--1); color:var(--ink-soft); }
+  .lvinfo b { color:var(--ink); }
+  .chips { display:flex; gap:8px; flex-wrap:wrap; margin:0 0 10px; }
+  .chip { font:500 var(--step--1)/1 "IBM Plex Sans", sans-serif; padding:8px 12px; border:1px solid var(--rule); background:var(--ground); color:var(--ink); cursor:pointer; }
+  .chip[aria-pressed="true"] { background:var(--ink); color:var(--ground); border-color:var(--ink); }
+  .legend { display:flex; flex-wrap:wrap; gap:6px 16px; font-size:var(--step--2); font-family:"IBM Plex Mono", monospace; letter-spacing:.06em; color:var(--ink-soft); text-transform:uppercase; margin-bottom:10px; }
+  .legend i { display:inline-block; width:11px; height:11px; margin-right:6px; vertical-align:-1px; border:1px solid var(--rule); }
+
+  table { border-collapse:collapse; width:100%; font-size:var(--step--1); }
+  th, td { text-align:left; padding:8px 10px; border-bottom:1px solid var(--rule); vertical-align:top; }
+  th { font-family:"IBM Plex Mono", monospace; font-size:var(--step--2); letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); font-weight:500; }
+  td.lvl { white-space:nowrap; }
+  tr.lvlup td { background:color-mix(in srgb, var(--accent-home) 12%, transparent); }
+  tr.restrow td:nth-child(2) { color:var(--accent-home); font-weight:500; }
+  tr.lvrow td:nth-child(2) { color:var(--accent-official); font-weight:500; }
+
+  .spell { margin:18px 0; background:var(--surface); border:1px solid var(--rule); padding:16px 18px; font-size:var(--step--1); }
+  .spell h4 { margin:0 0 8px; font-family:Fraunces, serif; font-size:var(--step-2); letter-spacing:.02em; }
+  .sl { padding:4px 8px 4px 34px; position:relative; margin:2px 0; transition:background .2s; }
+  .sl::before { content:attr(data-n); position:absolute; left:6px; top:5px; width:20px; height:20px; border-radius:50%; background:var(--ink); color:var(--ground);
+                font:600 .66rem/20px "IBM Plex Mono", monospace; text-align:center; }
+  .sl.on { background:color-mix(in srgb, var(--hl) 16%, transparent); }
+  .sl.on::before { background:var(--hl); }
+  .legend-n { list-style:none; margin:0; padding:0; display:grid; gap:2px; font-size:var(--step--1); }
+  .legend-n li { padding:8px 10px 8px 38px; position:relative; border-left:2px solid var(--rule); cursor:default; }
+  .legend-n li::before { content:attr(data-n); position:absolute; left:8px; top:9px; width:20px; height:20px; border-radius:50%; background:var(--ink); color:var(--ground); font:600 .66rem/20px "IBM Plex Mono", monospace; text-align:center; }
+  .legend-n li:hover, .legend-n li:focus-visible { border-left-color:var(--hl); background:color-mix(in srgb, var(--hl) 8%, transparent); outline:none; }
+
+  .pact { margin:20px 0; padding:16px 18px; border:1px solid var(--rule); border-top:3px solid var(--accent-home); background:var(--surface); }
+  .pact .tag { font-family:"IBM Plex Mono", monospace; font-size:var(--step--2); letter-spacing:.14em; text-transform:uppercase; color:var(--accent-home); display:block; margin-bottom:6px; }
+
+  /* example of play */
+  .play { margin:0; }
+  .play-k { display:flex; flex-wrap:wrap; gap:4px 12px; align-items:baseline; margin:0 0 14px; font-family:"IBM Plex Mono", monospace; font-size:var(--step--1); letter-spacing:.12em; text-transform:uppercase; color:var(--accent-home); }
+  .play-k span { color:var(--ink-faint); letter-spacing:.06em; text-transform:none; }
+  .cast { font-size:var(--step--1); color:var(--ink-soft); margin:0 0 16px; font-style:italic; }
+  .play .beat { padding:14px 16px 6px; background:var(--surface); border:1px solid var(--rule); border-left:3px solid var(--accent-home); margin-bottom:clamp(30px,7vh,72px); }
+  .ln { margin:0 0 .75em; }
+  .who { font-weight:600; color:var(--ink); }
+  .who.dm { color:var(--accent-home); }
+  .ln em { color:var(--ink-soft); }
+  .ln.dir { color:var(--ink-soft); font-style:italic; }
+
+  /* closing */
+  .closing { position:relative; background:var(--fore); }
+  .closing-stage { position:relative; overflow:hidden; isolation:isolate; background:linear-gradient(var(--sky-top), var(--sky-bot)); min-height:max(44rem,96svh); }
+  .closing .scene { position:absolute; inset:0; }
+  .closing-copy { position:relative; z-index:3; max-width:62rem; margin:0 auto; padding:clamp(60px,10vh,110px) 20px 0; }
+  .closing-copy .play { max-width:34rem; }
+  .js .closing .beat { opacity:1; }
+  .closing-copy .beat { background:color-mix(in srgb, var(--surface) 88%, transparent); backdrop-filter:blur(4px); }
+  .closing h2 { font-size:var(--step-3); line-height:1.1; max-width:18ch; margin:28px 0 8px; }
+  .ctas { position:relative; z-index:4; max-width:62rem; margin:0 auto; padding:8px 20px 44px; display:grid; gap:14px; }
+  @media (min-width:40rem) { .ctas { grid-template-columns:repeat(2,1fr); } }
+  .cta { display:flex; flex-direction:column; gap:6px; padding:18px 20px; text-decoration:none; color:var(--ink); background:color-mix(in srgb, var(--surface) 94%, transparent);
+         border:1px solid var(--rule); border-top:3px solid var(--accent-official); transition:transform .15s, border-color .15s; }
+  .cta.home { border-top-color:var(--accent-home); }
+  .cta:hover, .cta:focus-visible { transform:translateY(-2px); border-color:var(--accent-official); outline:none; }
+  .cta b { font-family:Fraunces, serif; font-size:var(--step-2); font-weight:600; }
+  .cta span { color:var(--ink-soft); font-size:var(--step--1); }
+  .cta em { font-style:normal; font-size:var(--step--1); font-weight:500; color:var(--accent-official); margin-top:4px; }
+  .cta em::after { content:" \2192"; }
+  .endfoot { position:relative; z-index:4; background:var(--fore); color:var(--fore-ink); padding:28px 20px 40px; font-size:var(--step--1); }
+  .endfoot > div { max-width:62rem; margin:0 auto; opacity:.85; }
+  .endfoot p { margin:0 0 .9em; max-width:70ch; }
+  .endfoot a { color:inherit; }
+  .endfoot .srd { font-size:.82em; opacity:.85; }
+  .endfoot h2 { font-family:"IBM Plex Mono", monospace; font-size:var(--step--2); letter-spacing:.14em; text-transform:uppercase; font-weight:500; margin:0 0 10px; }
+
+  /* small screens: sheet pins to the top, text scrolls under it */
+  @media (max-width: 56rem) {
+    .story-grid { display:flex; flex-direction:column-reverse; }
+    .stage { height:42vh; height:42svh; align-self:stretch; z-index:20; }
+    .stage-inner { inset:0; border-width:0 0 1px 0; }
+    .stage-cap { display:none; }
+    .chap { padding-top:clamp(48px,9vh,90px); }
+    .chap-num { font-size:6rem; }
+    .lvstrip { grid-template-columns:repeat(10,1fr); }
+  }
+  @media (min-width: 40rem) { .cards3 { grid-template-columns:repeat(3,1fr); } }
+  @media (max-width: 39.99rem) { .lvstrip { grid-template-columns:repeat(5,1fr); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior:auto; }
+    .sheet, .sheet img, .hl { transition:none; }
+    .hero-die, .win, .cue::after, .hl.on { animation:none; }
+    .js .reveal:not(.beat), .js .beat.reveal { transform:none; transition:none; }
+    .js .reveal:not(.beat) { opacity:1; }
+  }
+  @media print {
+    .hero, .stage, .decor, .scene, .cue { display:none !important; }
+    .story-grid { display:block; }
+    .js .beat, .js .reveal { opacity:1 !important; transform:none !important; }
+  }
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="d20" viewBox="0 0 100 100"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"><polygon points="50,4 91,27 91,73 50,96 9,73 9,27"/><polygon points="50,24 76,66 24,66"/><path d="M50 4V24M91 27L76 66M9 27L24 66M50 96V66M91 73L76 66M9 73L24 66M50 24L9 27M50 24L91 27"/></g></symbol>
+    <symbol id="pine" viewBox="0 0 40 100" preserveAspectRatio="none"><path d="M20 0 L33 36 H26 L37 66 H27 L40 98 H0 L13 66 H3 L14 36 H7Z"/></symbol>
+  </defs>
+</svg>
+<script>document.documentElement.classList.add("js");</script>
+
+<!-- ═════════════ HERO ═════════════ -->
+<header class="hero" id="top">
+  <div class="scene" aria-hidden="true">
+    <div class="lyr lyr--sky" data-d=".34" style="--d:.34">
+      <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice">
+        <g class="stars" fill="var(--moon)">
+          <circle cx="140" cy="120" r="1.6"/><circle cx="330" cy="260" r="1.2"/><circle cx="520" cy="90" r="1.8"/><circle cx="700" cy="210" r="1.2"/><circle cx="910" cy="110" r="1.5"/><circle cx="1330" cy="130" r="1.6"/><circle cx="1470" cy="290" r="1.2"/><circle cx="1010" cy="300" r="1.3"/><circle cx="240" cy="360" r="1.1"/><circle cx="1560" cy="60" r="1.4"/>
+        </g>
+      </svg>
+    </div>
+    <div class="lyr lyr--moon" data-d=".28" style="--d:.28">
+      <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice">
+        <circle cx="1210" cy="250" r="120" fill="var(--moon)" style="opacity:var(--moon-glow)"/>
+        <circle cx="1210" cy="250" r="62" fill="var(--moon)"/>
+      </svg>
+    </div>
+    <div class="lyr lyr--r1" data-d=".22" style="--d:.22">
+      <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice">
+        <path d="M0 560 C150 500 260 470 380 520 C520 580 600 470 760 450 C900 432 1010 520 1150 500 C1290 480 1420 430 1600 500 V900 H0Z" fill="var(--ridge1)"/>
+      </svg>
+    </div>
+    <div class="lyr lyr--r2" data-d=".15" style="--d:.15">
+      <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice">
+        <path d="M0 650 C120 600 250 610 360 580 C500 540 620 610 780 600 C940 590 1050 530 1210 570 C1360 608 1480 570 1600 600 V900 H0Z" fill="var(--ridge2)"/>
+        <g fill="var(--ridge2)">
+          <use href="#pine" x="60" y="560" width="34" height="86"/><use href="#pine" x="110" y="580" width="26" height="66"/>
+          <use href="#pine" x="1430" y="540" width="38" height="96"/><use href="#pine" x="1490" y="566" width="28" height="72"/><use href="#pine" x="1250" y="548" width="24" height="60"/>
+        </g>
+      </svg>
+    </div>
+    <div class="lyr lyr--tower" data-d=".08" style="--d:.08">
+      <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice">
+        <path d="M0 750 C200 710 420 700 600 712 C700 568 900 568 1000 712 C1200 700 1420 710 1600 750 V900 H0Z" fill="var(--ridge3)"/>
+        <g fill="var(--tower)">
+          <path d="M752 622 V424 H770 V406 H790 V430 H808 V398 H830 V418 H848 V622 Z"/>
+          <path d="M700 636 V560 L716 550 L730 564 L752 554 V636 Z"/>
+          <path d="M848 622 V576 L874 566 V584 L896 578 V640 Z"/>
+          <rect x="789" y="474" width="14" height="26" rx="2" fill="var(--glow)" class="win"/>
+        </g>
+        <g fill="var(--ridge3)">
+          <use href="#pine" x="470" y="640" width="30" height="76"/><use href="#pine" x="505" y="656" width="24" height="60"/>
+          <use href="#pine" x="1070" y="648" width="30" height="74"/><use href="#pine" x="1108" y="664" width="22" height="54"/>
+        </g>
+      </svg>
+    </div>
+    <div class="lyr lyr--fore" data-d="0" style="--d:0">
+      <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice">
+        <path d="M0 830 C140 800 300 812 430 840 C540 864 640 822 780 834 C940 848 1080 806 1240 826 C1380 844 1500 820 1600 836 V900 H0Z" fill="var(--fore)"/>
+        <g fill="var(--fore)">
+          <use href="#pine" x="-10" y="610" width="80" height="260"/><use href="#pine" x="64" y="700" width="56" height="170"/>
+          <use href="#pine" x="1500" y="590" width="92" height="290"/><use href="#pine" x="1436" y="700" width="56" height="170"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <svg class="hero-die" aria-hidden="true"><use href="#d20"/></svg>
+  <div class="hero-copy">
+    <div>
+      <p class="eyebrow">Dungeons &amp; Dragons 2024 &middot; A guide for first-time players</p>
+      <h1>The Character Sheet</h1>
+      <p class="lede">Everything your D&amp;D character is, on one page.</p>
+      <p class="refnote">Page references throughout are to the 2024 Player's Handbook.</p>
+    </div>
+  </div>
+  <div class="cue" aria-hidden="true">Scroll</div>
+</header>
+
+<!-- ═════════════ STORY ═════════════ -->
+<main class="story" id="story">
+  <svg class="decor" style="left:2%;top:7%;width:150px;height:150px" data-travel="-260" aria-hidden="true"><use href="#d20"/></svg>
+  <svg class="decor" style="right:3%;top:22%;width:90px;height:90px" data-travel="320" aria-hidden="true"><use href="#d20"/></svg>
+  <svg class="decor" style="left:46%;top:41%;width:210px;height:210px" data-travel="-380" aria-hidden="true"><use href="#d20"/></svg>
+  <svg class="decor" style="left:1%;top:63%;width:110px;height:110px" data-travel="300" aria-hidden="true"><use href="#d20"/></svg>
+  <svg class="decor" style="right:2%;top:84%;width:170px;height:170px" data-travel="-300" aria-hidden="true"><use href="#d20"/></svg>
+
+  <div class="story-grid">
+    <div class="steps">
+
+      <!-- 1 ───────────────────────────── -->
+      <section class="chap" id="what">
+        <div class="chap-num" aria-hidden="true">1</div>
+        <p class="chap-k reveal">01 &middot; The page</p>
+        <h2 class="reveal">What is a character sheet?</h2>
+
+        <div class="beat reveal" data-view="full" data-hl="" data-cap="Page 1 &middot; The whole sheet">
+          <p class="lead">It is the one page that turns an idea in your head into someone who can actually act in the world. Who you are, what you can do, what you're carrying and what you've survived &mdash; it all lives here.</p>
+          <p>Every question at the table gets answered off this page. Can I climb that wall? How much damage did I do? Do I even know this language? You don't decide in the moment &mdash; you read it off the sheet, roll the dice, and add the number that's printed there.</p>
+          <p>Which means the reverse is also true: if it isn't on the sheet, it isn't true at the table. An imagined backstory with no sheet behind it can't swing a sword, cast a spell or take a hit.</p>
+          <p class="quote">No sheet, no character.<small>Filling it in is the moment your character starts existing.</small></p>
+        </div>
+
+        <article class="play" aria-labelledby="play1">
+          <p class="play-k reveal" id="play1">An example of play <span>Part 1 of 5 &middot; The scene</span></p>
+          <p class="cast reveal">Mira is the Dungeon Master. Tomas plays Brannoch, a Dwarf Fighter. Ines plays Wren, an Elf Rogue. Kofi plays Sable, a Tiefling Wizard. They have just reached a ruined watchtower.</p>
+          <div class="beat reveal" data-view="full" data-hl="" data-cap="Page 1 &middot; Keep the sheet in view">
+            <p class="ln"><b class="who dm">Mira (DM):</b> The tower door hangs open on one hinge. Inside, a stone stair winds up into the dark, and the air smells of wet ash. At the foot of the stairs there is a wooden chest bound in iron. What do you do?</p>
+            <p class="ln"><b class="who">Tomas (Brannoch):</b> <em>(in a gruff voice)</em> &ldquo;Chests are for opening.&rdquo; I walk over and grab the lid.</p>
+            <p class="ln"><b class="who">Ines (Wren):</b> Wait, wait. Wren grabs his sleeve. &ldquo;Brannoch, nobody leaves a chest sitting at the foot of the stairs for free.&rdquo; Can I check it for traps before he touches it?</p>
+            <p class="ln"><b class="who dm">Mira:</b> Good instinct. Spotting a hidden trap is a Wisdom check, because you're using your Perception. Disarming it afterward would be a different roll. Start with Perception.</p>
+          </div>
+        </article>
+      </section>
+
+      <!-- 2 ───────────────────────────── -->
+      <section class="chap" id="who">
+        <div class="chap-num" aria-hidden="true">2</div>
+        <p class="chap-k reveal">02 &middot; The top strip</p>
+        <h2 class="reveal">Who you are</h2>
+        <div class="beat reveal" data-view="strip" data-hl="nameF,bgF,classF,speciesF,subclassF,levelF" data-cap="Page 1 &middot; Top strip">
+          <p class="lead">The top strip: six fields that decide most of the rest of the page. Full character-creation walkthrough: chapter 2 <span class="pg">p. 33</span></p>
+          <ul class="defs">
+            <li tabindex="0" data-hover="nameF"><b>Character Name</b> &mdash; what people call you at the table.</li>
+            <li tabindex="0" data-hover="speciesF"><b>Species</b> &mdash; what you are: Elf, Dwarf, Goliath. Comes with innate traits. <span class="pg">p. 186</span></li>
+            <li tabindex="0" data-hover="bgF"><b>Background</b> &mdash; who you were before adventuring. Gives skills, tools, a feat. <span class="pg">p. 177</span></li>
+            <li tabindex="0" data-hover="classF"><b>Class</b> &mdash; what you do. The single biggest choice on the sheet. <span class="pg">ch. 3, p. 48</span></li>
+            <li tabindex="0" data-hover="subclassF"><b>Subclass</b> &mdash; your specialisation within that class. <span class="pg">ch. 3, p. 48</span></li>
+            <li tabindex="0" data-hover="levelF"><b>Level &amp; XP</b> &mdash; how far along you are, 1 to 20. Everything scales off it. <span class="pg">p. 41</span></li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 3 ───────────────────────────── -->
+      <section class="chap" id="numbers">
+        <div class="chap-num" aria-hidden="true">3</div>
+        <p class="chap-k reveal">03 &middot; The engine</p>
+        <h2 class="reveal">Your six numbers</h2>
+
+        <div class="beat reveal" data-view="abilities" data-hl="str,dex,con,int,wis,cha,prof" data-cap="Page 1 &middot; Ability scores, saves and skills">
+          <p class="lead">Ability scores, saving throws and skills &mdash; the engine behind almost every roll.</p>
+          <ul class="defs">
+            <li class="nohover"><b>Six abilities.</b> Strength, Dexterity, Constitution, Intelligence, Wisdom, Charisma. <span class="pg">p. 10</span></li>
+          </ul>
+        </div>
+
+        <div class="beat reveal" data-view="int" data-hl="int" data-cap="Page 1 &middot; One ability, close up">
+          <h3>One ability, close up</h3>
+          <ul class="defs">
+            <li tabindex="0" data-hover="intMod,intScore"><b>Score vs. modifier.</b> The big circle holds the modifier; the small box holds the score you actually add. A 14 gives +2. <span class="pg">p. 38</span></li>
+            <li tabindex="0" data-hover="intSave"><b>Saving throws.</b> Rolled when something happens to you &mdash; poison, a fireball, a charm. <span class="pg">p. 11</span></li>
+            <li tabindex="0" data-hover="intSkills"><b>Skills nest underneath.</b> Stealth sits under Dexterity, Perception under Wisdom, because that's the ability they use. <span class="pg">p. 14</span></li>
+            <li tabindex="0" data-hover="intCircles"><b>A filled circle means trained.</b> Add your Proficiency Bonus on top &mdash; +2 at level 1, rising to +6. <span class="pg">p. 13</span></li>
+          </ul>
+        </div>
+
+        <div class="beat reveal" data-view="wis" data-hl="perc" data-cap="Page 1 &middot; Wisdom, Perception">
+          <h3>Every check, save and skill roll is the same sum</h3>
+          <div class="formula big">d20 &nbsp;+&nbsp; ability modifier &nbsp;+&nbsp; <b>proficiency bonus</b> <span style="color:var(--ink-faint)">(if trained)</span></div>
+          <div class="widget" id="roller">
+            <h4>Try one</h4>
+            <div class="row">
+              <div class="modc" aria-hidden="true"><div><span id="r-mod">+3</span><small>MOD</small></div></div>
+              <label>Ability score: <output id="r-score-o">16</output>
+                <input id="r-score" type="range" min="1" max="20" value="16" aria-label="Ability score">
+              </label>
+              <label>Level
+                <input id="r-level" type="number" min="1" max="20" value="1" aria-label="Character level">
+              </label>
+              <label class="check"><input id="r-trained" type="checkbox" checked> Trained in the skill</label>
+              <button class="btn" id="r-roll" type="button">Roll d20</button>
+            </div>
+            <div class="result" id="r-out" aria-live="polite">Press the button.</div>
+          </div>
+        </div>
+
+        <div class="beat reveal" data-view="abilities" data-hl="str,dex,con,int,wis,cha" data-cap="Page 1 &middot; Score boxes">
+          <h3>Three ways to generate the six scores</h3>
+          <p>Pick one before you assign them. <span class="pg">p. 38</span></p>
+          <div class="cards3">
+            <div class="mini"><h4>Standard Array</h4><p>Take the set 15, 14, 13, 12, 10, 8 and assign them where you like.</p></div>
+            <div class="mini"><h4>Random Generation</h4><p>Roll four d6 and keep the highest three. Do that six times.</p></div>
+            <div class="mini"><h4>Point Cost</h4><p>27 points to spend across the six. A 14 costs 7 of them.</p></div>
+          </div>
+          <p><a href="/stats/">Open the Ability Scores tool</a> to roll or assign them.</p>
+        </div>
+
+        <article class="play" aria-labelledby="play2">
+          <p class="play-k reveal" id="play2">An example of play <span>Part 2 of 5 &middot; The roll</span></p>
+          <p class="cast reveal">Mira (DM), Tomas (Brannoch), Ines (Wren), Kofi (Sable).</p>
+          <div class="beat reveal" data-view="wis" data-hl="perc" data-cap="Page 1 &middot; Perception, under Wisdom">
+            <p class="ln"><b class="who">Ines:</b> Okay, so I roll a d20, and then I add... <em>(trailing off, flipping through her sheet)</em> ...my Wisdom, I think? And something about being trained? I know there's a second number in there somewhere.</p>
+            <p class="ln"><b class="who dm">Mira:</b> It's the same sum every time. Roll a d20, add the ability modifier, and add your proficiency bonus if you're trained in the skill. Find Perception on your sheet. Is the circle beside it filled in?</p>
+            <p class="ln"><b class="who">Ines:</b> It is! I rolled a 9. Wisdom modifier is +1, proficiency bonus is +2. That's 12.</p>
+            <p class="ln"><b class="who dm">Mira:</b> That's enough. You notice a thin wire running from the lid down into the chest. Someone has rigged it to a small bell. Brannoch, your fingers are half an inch from the lid.</p>
+            <p class="ln"><b class="who">Tomas:</b> <em>(laughing)</em> Brannoch pulls his hand back like the chest bit him. &ldquo;I knew that.&rdquo;</p>
+          </div>
+          <div class="beat reveal" data-view="leftLow" data-hl="dex,equipTools" data-cap="Page 1 &middot; Dexterity, and the Tools line">
+            <p class="ln"><b class="who">Ines:</b> I'd like to cut the wire. That's a Dexterity check with my Thieves' Tools, right?</p>
+            <p class="ln"><b class="who dm">Mira:</b> Right. You have proficiency with those tools, so you add it.</p>
+          </div>
+          <div class="beat reveal" data-view="dex" data-hl="dex" data-cap="Page 1 &middot; Dexterity">
+            <p class="ln"><b class="who">Ines:</b> I rolled a 14, plus 3 for Dexterity, plus 2 for the tools. That's 19.</p>
+            <p class="ln"><b class="who dm">Mira:</b> Snip. The wire falls slack. Inside you find a silver ring, a handful of coins, and a folded note. The note reads, &ldquo;Do not climb.&rdquo; Almost as soon as you read it, boots clatter on the stairs above. Four goblins come tumbling down. Everybody roll initiative.</p>
+          </div>
+        </article>
+      </section>
+
+      <!-- 4 ───────────────────────────── -->
+      <section class="chap" id="origin">
+        <div class="chap-num" aria-hidden="true">4</div>
+        <p class="chap-k reveal">04 &middot; Where you come from</p>
+        <h2 class="reveal">Species and background</h2>
+        <p class="lead reveal">Your origin &mdash; the two fields that fill in the sheet before your class touches it.</p>
+
+        <div class="beat reveal" data-view="top" data-hl="speciesF,speed,size,speciesT" data-cap="Page 1 &middot; Species, Size, Speed">
+          <h3>Species &mdash; what you are <span class="pg">p. 177</span></h3>
+          <ul class="defs">
+            <li class="nohover"><b>Creature Type.</b> Every playable species in the book is Humanoid.</li>
+            <li tabindex="0" data-hover="size"><b>Size.</b> Small or Medium. A few species let you choose.</li>
+            <li tabindex="0" data-hover="speed"><b>Speed.</b> How far you move on your turn. Usually 30 feet.</li>
+            <li tabindex="0" data-hover="speciesT"><b>Special Traits.</b> The distinctive ones &mdash; Darkvision, a breath weapon, resistance to a damage type. <span class="pg">all ten species: p. 186</span></li>
+          </ul>
+          <p style="margin-top:14px;color:var(--ink-soft)">On the sheet: SPECIES in the top strip, the SIZE and SPEED boxes, and the traits themselves in SPECIES TRAITS.</p>
+        </div>
+
+        <div class="beat reveal" data-view="full" data-hl="bgF,feats,equipTools" data-cap="Page 1 &middot; Background fills four places">
+          <h3>Background &mdash; who you were <span class="pg">p. 177</span></h3>
+          <ul class="defs">
+            <li tabindex="0" data-hover="feats"><b>An Origin feat.</b> One, chosen for you by the background. <span class="pg">p. 200</span></li>
+            <li tabindex="0" data-hover="abilities"><b>Two skill proficiencies.</b> Named by the background, not chosen.</li>
+            <li tabindex="0" data-hover="equipTools"><b>One tool proficiency.</b> Thieves' Tools, a Forgery Kit, an instrument.</li>
+            <li class="nohover"><b>Starting equipment.</b> A ready-made kit, or a pile of gold instead. <span class="pg">all sixteen backgrounds: p. 178</span></li>
+          </ul>
+          <p style="margin-top:14px;color:var(--ink-soft)">On the sheet: BACKGROUND in the top strip, filled circles beside the two skills, the tool under EQUIPMENT TRAINING, the feat in FEATS.</p>
+          <div class="callout">
+            <span class="tag">House rule</span>
+            <p><b>Ability increases are independent of your background.</b> Ignore the three abilities your background lists. At character creation you choose freely: raise two abilities by +2 and +1, or raise three abilities by +1. Increases from levelling up and from feats work exactly as printed.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5 ───────────────────────────── -->
+      <section class="chap" id="class">
+        <div class="chap-num" aria-hidden="true">5</div>
+        <p class="chap-k reveal">05 &middot; What you do</p>
+        <h2 class="reveal">How a class works</h2>
+        <p class="lead reveal">Every class in chapter 3 is laid out the same way: a traits box, then a table with one row per level.</p>
+
+        <div class="beat reveal" data-view="classTop" data-hl="classF,hpB,hitdice" data-cap="Page 1 &middot; Copy the Core Traits box here">
+          <ul class="defs">
+            <li class="nohover"><b>Start with the Core Traits box.</b> Every class opens with one. It tells you your primary ability, your Hit Point die, which two saving throws you're proficient in, the skills you may choose, what weapons and armour you're trained in, and your starting equipment. Copy it onto the sheet before anything else. <span class="pg">ch. 3, p. 48</span></li>
+          </ul>
+          <div class="formula" style="font-size:var(--step--2)">
+            <span class="cap">How the book lays it out</span>
+            CORE CLASS TRAITS<br>
+            Primary Ability &middot; Hit Point Die &middot; Saving Throw Proficiencies<br>
+            Skill Proficiencies &middot; Weapon Proficiencies<br>
+            Armor Training &middot; Starting Equipment<br>
+            <b>&rarr; all of this goes onto the sheet at level 1</b>
+          </div>
+        </div>
+
+        <div class="beat reveal" data-view="classFeat" data-hl="classFeat" data-cap="Page 1 &middot; Class Features">
+          <ul class="defs">
+            <li class="nohover"><b>Then read your row in the features table.</b> One row per level, 1 to 20. Your row gives your Proficiency Bonus and the features you gain. Extra columns hold whatever the class counts &mdash; Rages, Sneak Attack dice, spell slots.</li>
+          </ul>
+          <div class="widget" style="padding:6px 12px">
+            <table>
+              <thead><tr><th>Level</th><th>Prof.</th><th>Class Features</th></tr></thead>
+              <tbody>
+                <tr><td class="lvl">1</td><td>+2</td><td>your opening features</td></tr>
+                <tr><td class="lvl">2</td><td>+2</td><td>another feature</td></tr>
+                <tr class="lvlup"><td class="lvl">3</td><td>+2</td><td><b>Subclass</b></td></tr>
+                <tr><td class="lvl">4</td><td>+2</td><td>Ability Score Improvement</td></tr>
+                <tr><td class="lvl">&hellip;</td><td>&hellip;</td><td>up to level 20</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>The shape is the same for all twelve classes &mdash; only the contents change.</p>
+          <ul class="defs">
+            <li class="nohover"><b>At level 3 you pick a subclass.</b> All twelve classes work this way. From then on your subclass adds its own features at set levels.</li>
+            <li class="nohover"><b>Only write down what you have now.</b> At level 1 the rest of the table isn't yours yet. Write the level-1 feature names into CLASS FEATURES, then read each one and make any choice it offers. <span class="pg">p. 40</span></li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="chap" id="levelling">
+        <div class="chap-num" aria-hidden="true">6</div>
+        <p class="chap-k reveal">06 &middot; Growing</p>
+        <h2 class="reveal">Levelling up: feats and ability score increases</h2>
+        <div class="beat reveal" data-view="strip" data-hl="levelF" data-cap="Page 1 &middot; Level &amp; XP">
+          <p class="lead">XP takes you up a level; a handful of those levels hand you a feat.</p>
+          <div class="widget" id="lvwidget">
+            <h4>Twenty levels</h4>
+            <div class="chips" role="group" aria-label="Show extra feat levels for a class">
+              <button class="chip" type="button" data-class="fighter" aria-pressed="false">Fighter extras</button>
+              <button class="chip" type="button" data-class="rogue" aria-pressed="false">Rogue extras</button>
+            </div>
+            <div class="lvstrip" id="lvstrip"></div>
+            <div class="legend">
+              <span><i style="background:var(--accent-official)"></i>a feat</span>
+              <span><i style="background:var(--accent-home)"></i>subclass</span>
+              <span><i style="box-shadow:inset 0 0 0 2px var(--accent-official)"></i>class extra</span>
+            </div>
+            <div class="lvinfo" id="lvinfo" aria-live="polite">Select a level. At 4, 8, 12 and 16 it is the Ability Score Improvement feat or any other you qualify for; at 19 it is an Epic Boon feat. Level 3: every class picks its subclass.</div>
+          </div>
+        </div>
+
+        <div class="beat reveal" data-view="strip" data-hl="levelF" data-cap="Page 1 &middot; Level &amp; XP">
+          <h3>What a feat level actually gives you</h3>
+          <ul class="defs">
+            <li class="nohover"><b>It is a feat, not an automatic +1.</b> You may take the Ability Score Improvement feat, or any other feat you qualify for. <span class="pg">ch. 5, p. 198</span></li>
+            <li class="nohover"><b>The ASI feat itself.</b> Raise one ability by 2, or two abilities by 1 each. It can't push a score above 20, and you can take it again later. <span class="pg">p. 202</span></li>
+            <li class="nohover"><b>Fighters and Rogues get extras.</b> Fighters also at 6 and 14; Rogues also at 10. <span class="pg">p. 92 &middot; p. 130</span></li>
+            <li class="nohover"><b>Level 19 is different.</b> An Epic Boon feat instead &mdash; the capstone tier. <span class="pg">p. 210</span></li>
+          </ul>
+        </div>
+
+        <div class="beat reveal" data-view="abilities" data-hl="str,dex,con,int,wis,cha,prof" data-cap="Page 1 &middot; Everything built from level">
+          <h3>Recording a new level on the sheet <span class="pg">p. 42</span></h3>
+          <ol class="defs" style="padding-left:0;counter-reset:s">
+            <li class="nohover"><b>1 &middot; Choose a class.</b> Usually the same one you already have.</li>
+            <li class="nohover"><b>2 &middot; Hit Points and Hit Dice.</b> Add a die, roll it and add your Con modifier, or take the fixed value.</li>
+            <li class="nohover"><b>3 &middot; Record new class features</b> from your class's table, and make any choices they offer.</li>
+            <li class="nohover"><b>4 &middot; Adjust Proficiency Bonus</b> if it went up, update every number on the sheet built from it.</li>
+            <li class="nohover"><b>5 &middot; Adjust ability modifiers</b> if a feat pushed a score to an even number, redo everything using it.</li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- 7 ───────────────────────────── -->
+      <section class="chap" id="written">
+        <div class="chap-num" aria-hidden="true">7</div>
+        <p class="chap-k reveal">07 &middot; The big boxes</p>
+        <h2 class="reveal">Where it all gets written down</h2>
+        <p class="lead reveal">Three boxes on the sheet hold everything your class, species and background gave you, and a fourth holds your training.</p>
+
+        <div class="beat reveal" data-view="classFeat" data-hl="classFeat" data-cap="Page 1 &middot; Class Features">
+          <h3>Class Features</h3>
+          <p>What your class hands you level by level &mdash; Rage, Sneak Attack, Channel Divinity. The biggest box on the sheet, and the one you'll reread most. <span class="pg">ch. 3, p. 48</span></p>
+        </div>
+        <div class="beat reveal" data-view="speciesT" data-hl="speciesT" data-cap="Page 1 &middot; Species Traits">
+          <h3>Species Traits</h3>
+          <p>Things you were born with: darkvision, a breath weapon, resistance to a damage type. <span class="pg">p. 186</span></p>
+        </div>
+        <div class="beat reveal" data-view="feats" data-hl="feats" data-cap="Page 1 &middot; Feats">
+          <h3>Feats</h3>
+          <p>Sharp, specific upgrades &mdash; one from your background, more at the feat levels. <span class="pg">ch. 5, p. 198</span> <span class="pg">origin feats p. 200</span> <span class="pg">general feats p. 202</span></p>
+        </div>
+        <div class="beat reveal" data-view="equip" data-hl="equip" data-cap="Page 1 &middot; Equipment Training">
+          <h3>Equipment Training</h3>
+          <p>Which armour, weapons and tools you were taught to use. Wearing armour you aren't trained in hurts. <span class="pg">p. 36</span> <span class="pg">armour p. 219</span></p>
+        </div>
+      </section>
+
+      <!-- 8 ───────────────────────────── -->
+      <section class="chap" id="fight">
+        <div class="chap-num" aria-hidden="true">8</div>
+        <p class="chap-k reveal">08 &middot; When the swords come out</p>
+        <h2 class="reveal">Staying alive, and fighting back</h2>
+        <p class="lead reveal">The numbers that come out the moment a sword is drawn.</p>
+
+        <div class="beat reveal" data-view="acHp" data-hl="acB,hpB,hitdice,death" data-cap="Page 1 &middot; Armor Class, Hit Points, Death Saves">
+          <ul class="defs">
+            <li tabindex="0" data-hover="acB"><b>Armor Class (AC).</b> How hard you are to hit. An enemy's attack roll has to meet or beat it. With no armour it's 10 + your Dexterity modifier. <span class="pg">p. 12</span> <span class="pg">armour table p. 219</span></li>
+            <li tabindex="0" data-hover="hpB"><b>Hit Points.</b> Damage you can absorb before you drop. Track Current against Max. <span class="pg">p. 27</span></li>
+            <li tabindex="0" data-hover="hitdice"><b>Hit Dice.</b> Your self-repair kit &mdash; spend them on a short rest to get HP back. <span class="pg">p. 41</span></li>
+            <li tabindex="0" data-hover="death"><b>Death Saves.</b> At 0 HP you roll each turn: three successes and you stabilise, three failures and you don't. <span class="pg">p. 28</span></li>
+          </ul>
+        </div>
+
+        <div class="beat reveal" data-view="initRow" data-hl="initiative,speed,size,passive" data-cap="Page 1 &middot; Initiative, Speed, Size, Passive Perception">
+          <ul class="defs">
+            <li tabindex="0" data-hover="initiative,speed,size"><b>Initiative, Speed, Size.</b> Turn order, how far you move, how much space you take up. <span class="pg">p. 23</span> <span class="pg">Passive Perception p. 40</span></li>
+          </ul>
+        </div>
+
+        <div class="beat reveal" data-view="weapons" data-hl="weapons" data-cap="Page 1 &middot; Weapons &amp; Damage">
+          <h3>Filling the Atk Bonus and Damage columns <span class="pg">p. 41</span></h3>
+          <div class="formula">
+            <b>Melee attack bonus</b> &nbsp;= Strength modifier + proficiency bonus<br>
+            <b>Ranged attack bonus</b> = Dexterity modifier + proficiency bonus<br>
+            <b>Damage</b> &nbsp;= the weapon's dice + that same ability modifier
+          </div>
+          <p><b>Proficiency is added to the attack roll, never to the damage roll.</b></p>
+        </div>
+
+        <article class="play" aria-labelledby="play3">
+          <p class="play-k reveal" id="play3">An example of play <span>Part 3 of 5 &middot; Turn order</span></p>
+          <p class="cast reveal">Mira (DM), Tomas (Brannoch), Ines (Wren), Kofi (Sable).</p>
+          <div class="beat reveal" data-view="initRow" data-hl="initiative" data-cap="Page 1 &middot; The Initiative box">
+            <p class="ln"><b class="who">Kofi (Sable):</b> Is that a d20 plus my Dexterity modifier?</p>
+            <p class="ln"><b class="who dm">Mira:</b> Yes. That's all you add. Everyone tell me your total and write it in the Initiative box.</p>
+            <p class="ln"><b class="who">Ines:</b> I rolled an 18, plus 3 for Dexterity. That's 21.</p>
+            <p class="ln"><b class="who">Tomas:</b> 11, plus 1. So 12.</p>
+            <p class="ln"><b class="who">Kofi:</b> 8, plus 2. That's 10.</p>
+            <p class="ln"><b class="who dm">Mira:</b> The goblins get 14. So the order is Wren, then the goblins, then Brannoch, then Sable. Wren, you're first. The lead goblin is on the third step. What do you do?</p>
+          </div>
+          <div class="beat reveal" data-view="weapons" data-hl="weapons" data-cap="Page 1 &middot; Weapons &amp; Damage">
+            <p class="ln"><b class="who">Ines:</b> &ldquo;Sorry, friend.&rdquo; Wren shoots it with her shortbow. I rolled a 12 on the d20, plus 3 for Dexterity and 2 for proficiency, so 17. Does that hit?</p>
+            <p class="ln"><b class="who dm">Mira:</b> What's its Armor Class? That one's mine to say: it's 15. So yes. Roll your damage.</p>
+            <p class="ln"><b class="who">Ines:</b> A d6 came up 4. Plus 3 for Dexterity, plus 2 for proficiency, so 9 damage?</p>
+            <p class="ln"><b class="who dm">Mira:</b> Close. Proficiency goes on the attack roll only, never on the damage roll. That's 4, plus 3, so 7. The goblin tumbles back down the stairs and doesn't move.</p>
+          </div>
+        </article>
+
+        <article class="play" aria-labelledby="play4">
+          <p class="play-k reveal" id="play4">An example of play <span>Part 4 of 5 &middot; Taking a hit, and missing</span></p>
+          <div class="beat reveal" data-view="acHp" data-hl="acB,hpCur" data-cap="Page 1 &middot; Armor Class, Current Hit Points">
+            <p class="ln"><b class="who dm">Mira:</b> Now the goblins act. One of them lunges at Sable with a rusty blade. Sable, does a 13 hit?</p>
+            <p class="ln"><b class="who">Kofi:</b> My Armor Class is 12, so yes, it hits.</p>
+            <p class="ln"><b class="who dm">Mira:</b> Then it does 4 damage.</p>
+            <p class="ln"><b class="who">Kofi:</b> <em>(wincing)</em> Ow. That was new robes. I started with 8 hit points, so I'm down to 4. I'll write that in Current Hit Points.</p>
+          </div>
+          <div class="beat reveal" data-view="acHp" data-hl="acB" data-cap="Page 1 &middot; Armor Class">
+            <p class="ln"><b class="who dm">Mira:</b> A second goblin swings at Brannoch. Brannoch, does an 11 hit?</p>
+            <p class="ln"><b class="who">Tomas:</b> My Armor Class is 16, from the chain mail. So it misses.</p>
+            <p class="ln"><b class="who dm">Mira:</b> The blade glances off your shoulder plate with a screech. The other two are right behind it, bunched up on the stairs. Brannoch, you're up.</p>
+          </div>
+          <div class="beat reveal" data-view="weapons" data-hl="weapons" data-cap="Page 1 &middot; Weapons &amp; Damage">
+            <p class="ln"><b class="who">Tomas:</b> &ldquo;Behind me, spellbook!&rdquo; Brannoch steps in front of Sable and swings his greataxe at the goblin who just hit her. I rolled a 15 on the d20, plus 3 for Strength, plus 2 for proficiency. That's 20.</p>
+            <p class="ln"><b class="who dm">Mira:</b> That hits. Roll damage.</p>
+            <p class="ln"><b class="who">Tomas:</b> A d12 came up 7. Plus 3, plus 2, so 12.</p>
+            <p class="ln"><b class="who dm">Mira:</b> Remember, proficiency isn't added to damage. That's 10. A goblin has 7 hit points, so it's down.</p>
+          </div>
+        </article>
+      </section>
+
+      <!-- 9–11 ───────────────────────────── -->
+      <section class="chap" id="magic">
+        <div class="chap-num" aria-hidden="true">9</div>
+        <p class="chap-k reveal">09 &middot; Page two</p>
+        <h2 class="reveal">If you cast spells</h2>
+        <p class="lead reveal">Page two of the sheet exists only for casters &mdash; Fighters and Rogues can skip it.</p>
+
+        <div class="beat reveal" data-page="2" data-view="spellTop" data-hl="spellStats" data-cap="Page 2 &middot; Spellcasting block">
+          <h3>The two numbers the sheet asks you to work out <span class="pg">p. 41</span></h3>
+          <div class="formula">
+            <b>Spell save DC</b> &nbsp;&nbsp;&nbsp;= 8 + spellcasting ability modifier + proficiency bonus<br>
+            <b>Spell attack bonus</b> = spellcasting ability modifier + proficiency bonus
+          </div>
+          <ul class="defs">
+            <li class="nohover"><b>Spellcasting Ability.</b> Which of the six powers your magic: Intelligence for Wizards, Wisdom for Clerics and Druids, Charisma for Bards, Sorcerers and Warlocks. <span class="pg">ch. 7, p. 235</span></li>
+          </ul>
+        </div>
+        <div class="beat reveal" data-page="2" data-view="slots" data-hl="slots" data-cap="Page 2 &middot; Spell Slots">
+          <ul class="defs">
+            <li class="nohover"><b>Spell Slots.</b> Your fuel. Casting spends a slot of that spell's level; a long rest gives them all back. <span class="pg">p. 235</span></li>
+          </ul>
+        </div>
+        <div class="beat reveal" data-page="2" data-view="prepared" data-hl="prepared" data-cap="Page 2 &middot; Cantrips &amp; Prepared Spells">
+          <ul class="defs">
+            <li class="nohover"><b>Cantrips are free.</b> Unlimited, no slot spent. Prepared spells are the list you chose that morning. <span class="pg">p. 235</span> <span class="pg">spell descriptions p. 239</span></li>
+          </ul>
+        </div>
+
+        <div class="beat reveal" data-page="2" data-view="prepared" data-hl="prepared" data-cap="Page 2 &middot; Reading a spell entry">
+          <h3>How to read a spell</h3>
+          <p>Every entry in chapter 7 is laid out exactly this way. The spell below is Burning Hands, <span class="pg">p. 248</span></p>
+          <div class="spell" id="spell">
+            <h4>BURNING HANDS</h4>
+            <p class="sl" data-n="1"><i>Level 1 Evocation (Sorcerer, Wizard)</i></p>
+            <p class="sl" data-n="2"><b>Casting Time:</b> Action</p>
+            <p class="sl" data-n="3"><b>Range:</b> Self</p>
+            <p class="sl" data-n="4"><b>Components:</b> V, S</p>
+            <p class="sl" data-n="5"><b>Duration:</b> Instantaneous</p>
+            <p class="sl" data-n="6">A thin sheet of flame shoots from your fingertips. Every creature in a 15-foot Cone makes a Dexterity saving throw, taking 3d6 Fire damage on a failure, half as much on a success.</p>
+            <p class="sl" data-n="7"><b>Using a Higher-Level Spell Slot.</b> The damage increases by 1d6 for each slot level above 1.</p>
+            <p style="font-size:var(--step--2);color:var(--ink-faint);margin:8px 0 0">Burning Hands, Player's Handbook p. 248 &mdash; effect text condensed.</p>
+          </div>
+          <ul class="legend-n" id="spell-legend">
+            <li tabindex="0" data-n="1" data-sl="1"><b>Level and school.</b> The level tells you which slot it costs &mdash; a level 1 spell fits any slot. The school is mostly flavour. The names in brackets are the class lists it appears on. <span class="pg">p. 235</span> <span class="pg">p. 236</span></li>
+            <li tabindex="0" data-n="2" data-sl="2"><b>Casting Time.</b> Usually an Action. Some spells take a Bonus Action or a Reaction with a stated trigger; a few take minutes, and those need Concentration while you cast. <span class="pg">p. 236</span></li>
+            <li tabindex="0" data-n="3" data-sl="3"><b>Range.</b> A distance, Touch, or Self. Self doesn't mean it only affects you &mdash; here the cone starts at your hands. <span class="pg">p. 236</span></li>
+            <li tabindex="0" data-n="4" data-sl="4"><b>Components.</b> V is spoken, S needs a free hand, M needs a material. A component pouch or spellcasting focus covers most M. <span class="pg">p. 237</span></li>
+            <li tabindex="0" data-n="5" data-sl="5"><b>Duration.</b> Instantaneous, a time span, or Concentration &mdash; and you can only concentrate on one spell at a time. <span class="pg">p. 237</span></li>
+            <li tabindex="0" data-n="6" data-sl="6"><b>The effect.</b> Who it hits, what they roll, what it does. This one asks for a saving throw against your spell save DC; others ask you for a spell attack roll instead. <span class="pg">p. 237</span> <span class="pg">p. 238</span></li>
+            <li tabindex="0" data-n="7" data-sl="7"><b>Using a Higher-Level Spell Slot.</b> Spend a bigger slot and the spell gets bigger. Not every spell has this line. <span class="pg">p. 236</span></li>
+          </ul>
+        </div>
+
+        <div class="beat reveal" data-page="2" data-view="prepared" data-hl="prepared" data-cap="Page 2 &middot; Prepared spells">
+          <p class="chap-k" style="margin-top:6px">11 &middot; Preparing spells</p>
+          <h3>Prepared spells, &ldquo;known&rdquo; spells, and Pact Magic</h3>
+          <p>The 2024 rules folded &ldquo;spells known&rdquo; into prepared spells. Everyone prepares now &mdash; what differs is when you may change the list. <span class="pg">p. 235</span></p>
+          <div class="widget" style="padding:6px 12px">
+            <table>
+              <thead><tr><th>Class</th><th>You may change the list when you&hellip;</th><th>How many</th></tr></thead>
+              <tbody>
+                <tr class="lvrow"><td>Bard</td><td>gain a level</td><td>one</td></tr>
+                <tr class="restrow"><td>Cleric</td><td>finish a Long Rest</td><td>any</td></tr>
+                <tr class="restrow"><td>Druid</td><td>finish a Long Rest</td><td>any</td></tr>
+                <tr class="restrow"><td>Paladin</td><td>finish a Long Rest</td><td>one</td></tr>
+                <tr class="restrow"><td>Ranger</td><td>finish a Long Rest</td><td>one</td></tr>
+                <tr class="lvrow"><td>Sorcerer</td><td>gain a level</td><td>one</td></tr>
+                <tr class="lvrow"><td>Warlock</td><td>gain a level</td><td>one</td></tr>
+                <tr class="restrow"><td>Wizard</td><td>finish a Long Rest</td><td>any</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="font-size:var(--step--1);color:var(--ink-soft)">Cantrips sit outside all of this &mdash; always available, never a slot. Features that grant an &ldquo;always-prepared&rdquo; spell don't count against these numbers either.</p>
+          <h3 style="margin-top:1.2em">So there are really two patterns</h3>
+          <ul class="defs">
+            <li class="nohover"><b>Swap on a Long Rest.</b> Cleric, Druid and Wizard rebuild the list every morning; Paladin and Ranger change one spell. Flexible &mdash; retune for the day ahead.</li>
+            <li class="nohover"><b>Swap on level up.</b> Bard, Sorcerer and Warlock are locked in between levels, changing one spell each time they level. Choose for versatility, not for one encounter.</li>
+            <li class="nohover"><b>The Wizard is the odd one out.</b> It prepares from its spellbook rather than the whole class list, so copying new spells into the book is how a Wizard grows. <span class="pg">p. 166</span></li>
+          </ul>
+          <div class="pact">
+            <span class="tag">Pact Magic &middot; the Warlock runs a different engine <span class="pg">p. 153</span></span>
+            <p>Very few slots, all the same level &mdash; and that level climbs with you. At Warlock 5 you have two level 3 slots, and anything you cast with one is cast at level 3.</p>
+            <p>They come back on a Short Rest, not only a Long one, so a Warlock casts less per fight but more per day.</p>
+            <p>Pact slots stop at level 5. Levels 6 to 9 arrive as Mystic Arcanum instead &mdash; one spell of each level, once per Long Rest.</p>
+          </div>
+        </div>
+
+        <article class="play" aria-labelledby="play5">
+          <p class="play-k reveal" id="play5">An example of play <span>Part 5 of 5 &middot; The spell</span></p>
+          <p class="cast reveal">Mira (DM), Tomas (Brannoch), Ines (Wren), Kofi (Sable).</p>
+          <div class="beat reveal" data-page="2" data-view="spellStats" data-hl="atkBox,dcBox" data-cap="Page 2 &middot; Spell Attack Bonus and Spell Save DC">
+            <p class="ln"><b class="who dm">Mira:</b> Sable, your turn. The last two goblins are standing close together on the stairs.</p>
+            <p class="ln"><b class="who">Kofi:</b> I'd like to cast Burning Hands. Do I roll to hit them?</p>
+            <p class="ln"><b class="who dm">Mira:</b> Not with this spell. Burning Hands doesn't use an attack roll. Each creature in the cone makes a Dexterity saving throw against your spell save DC, so they roll, not you. What's your DC?</p>
+          </div>
+          <div class="beat reveal" data-page="2" data-view="spellStats" data-hl="dcBox" data-cap="Page 2 &middot; Spell Save DC">
+            <p class="ln"><b class="who">Kofi:</b> It's 8, plus my Intelligence modifier of +3, plus my proficiency bonus of +2. That's 13.</p>
+          </div>
+          <div class="beat reveal" data-page="2" data-view="slots" data-hl="slot1" data-cap="Page 2 &middot; Spell Slots, level 1">
+            <p class="ln"><b class="who dm">Mira:</b> Right. Don't forget the spell uses up a level 1 slot. How many do you have?</p>
+            <p class="ln"><b class="who">Kofi:</b> Two. So I cross one off, and I have one left until a long rest.</p>
+          </div>
+          <div class="beat reveal" data-page="2" data-view="prepared" data-hl="prepared" data-cap="Page 2 &middot; Prepared spells">
+            <p class="ln"><b class="who dm">Mira:</b> Good. Roll your damage.</p>
+            <p class="ln"><b class="who">Kofi:</b> Sable's hands blaze. &ldquo;Burn, you little pests!&rdquo; I rolled 3d6 and got 11.</p>
+            <p class="ln"><b class="who dm">Mira:</b> One goblin rolls a 6 and fails its save, so it takes all 11 and collapses. The other rolls a 16 and succeeds, so it takes half of 11, which is 5, rounded down. It has 2 hit points left. It squeals, drops its blade, and bolts back up the stairs.</p>
+          </div>
+        </article>
+      </section>
+
+      <!-- 12 ───────────────────────────── -->
+      <section class="chap" id="multi">
+        <div class="chap-num" aria-hidden="true">12</div>
+        <p class="chap-k reveal">12 &middot; The epilogue</p>
+        <h2 class="reveal">Multiclassing</h2>
+        <div class="beat reveal" data-view="classTop" data-hl="classF,levelF" data-cap="Page 1 &middot; Class and Level">
+          <p class="lead">Taking your next level in a second class instead of your first. Chapter 2 <span class="pg">p. 44</span></p>
+          <h3>What changes, and what doesn't</h3>
+          <ul class="defs">
+            <li class="nohover"><b>You need a 13.</b> To add a class you need at least 13 in the primary ability of the new class and of every class you already have.</li>
+            <li class="nohover"><b>XP and Proficiency Bonus follow your total level.</b> A level 6 Cleric / level 1 Fighter is a level 7 character, with a level 7 character's proficiency bonus.</li>
+            <li class="nohover"><b>Hit Points.</b> You only get a class's generous level-1 hit points if your total character level is 1. After that it's the ordinary per-level amount, and your Hit Dice pool mixes die types.</li>
+            <li class="nohover"><b>Proficiencies are trimmed.</b> A new class gives you only part of its starting proficiencies. The class entry says which.</li>
+            <li class="nohover"><b>Some things never stack.</b> Extra Attack doesn't add up, and if two classes offer a way to work out your AC you pick one.</li>
+          </ul>
+        </div>
+
+        <div class="beat reveal" data-page="2" data-view="slots" data-hl="slots" data-cap="Page 2 &middot; One pool of slots">
+          <h3>Spellcasting across two classes <span class="pg">p. 45</span></h3>
+          <ul class="defs">
+            <li class="nohover"><b>Prepare separately.</b> Work out each class's prepared spells as if you were single-classed in it.</li>
+            <li class="nohover"><b>But share one pool of slots.</b> Add up your spellcasting levels, look that total up on the Multiclass Spellcaster table, and use those slots for any of your prepared spells.</li>
+            <li class="nohover"><b>Slots can outrun your spells.</b> You may hold a level 4 slot with nothing of level 4 prepared. Use it to cast a lower-level spell at a higher level.</li>
+            <li class="nohover"><b>Pact Magic mixes freely.</b> A Warlock/caster can spend Pact slots on prepared Spellcasting spells and ordinary slots on Warlock spells.</li>
+          </ul>
+          <h3 style="margin-top:1.2em">Working out your spell slots when you multiclass <span class="pg">p. 45</span></h3>
+          <div class="formula">
+            full levels in Bard, Cleric, Druid, Sorcerer, Wizard<br>
+            + half your Paladin and Ranger levels, rounded up<br>
+            + a third of Eldritch Knight or Arcane Trickster levels, rounded down<br>
+            <b>Look the total up on the Multiclass Spellcaster table.</b>
+          </div>
+          <p><b>Before you do it:</b> every level in a second class is a level your first class isn't getting. Subclass features, Extra Attack and higher spell slots all arrive later. Ask your DM first.</p>
+        </div>
+      </section>
+
+    </div><!-- /steps -->
+
+    <aside class="stage" aria-hidden="true">
+      <div class="stage-inner" id="stage-inner">
+        <div class="sheet" id="sheet" data-page="1">
+          <img class="p1" src="/create/img/sheet-p1.jpg" width="1675" height="2150" alt="" decoding="async">
+          <img class="p2" src="/create/img/sheet-p2.jpg" width="1675" height="2150" alt="" loading="lazy" decoding="async">
+          <div class="hls" id="hls"></div>
+        </div>
+        <div class="stage-cap"><span id="cap">Page 1 &middot; The whole sheet</span><span><b id="capn">1</b> / 2</span></div>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<!-- ═════════════ CLOSING ═════════════ -->
+<section class="closing">
+<div class="closing-stage" id="closing">
+  <div class="scene" aria-hidden="true">
+    <div class="lyr lyr--sky" data-d=".34" style="--d:.34">
+      <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice">
+        <g class="stars" fill="var(--moon)">
+          <circle cx="140" cy="120" r="1.6"/><circle cx="330" cy="260" r="1.2"/><circle cx="520" cy="90" r="1.8"/><circle cx="700" cy="210" r="1.2"/><circle cx="910" cy="110" r="1.5"/><circle cx="1330" cy="130" r="1.6"/><circle cx="1470" cy="290" r="1.2"/><circle cx="1010" cy="300" r="1.3"/><circle cx="240" cy="360" r="1.1"/><circle cx="1560" cy="60" r="1.4"/>
+        </g>
+      </svg>
+    </div>
+    <div class="lyr lyr--moon" data-d=".28" style="--d:.28">
+      <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice">
+        <circle cx="1210" cy="250" r="120" fill="var(--moon)" style="opacity:var(--moon-glow)"/>
+        <circle cx="1210" cy="250" r="62" fill="var(--moon)"/>
+      </svg>
+    </div>
+    <div class="lyr lyr--r1" data-d=".22" style="--d:.22">
+      <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice">
+        <path d="M0 560 C150 500 260 470 380 520 C520 580 600 470 760 450 C900 432 1010 520 1150 500 C1290 480 1420 430 1600 500 V900 H0Z" fill="var(--ridge1)"/>
+      </svg>
+    </div>
+    <div class="lyr lyr--r2" data-d=".15" style="--d:.15">
+      <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice">
+        <path d="M0 650 C120 600 250 610 360 580 C500 540 620 610 780 600 C940 590 1050 530 1210 570 C1360 608 1480 570 1600 600 V900 H0Z" fill="var(--ridge2)"/>
+        <g fill="var(--ridge2)">
+          <use href="#pine" x="60" y="560" width="34" height="86"/><use href="#pine" x="110" y="580" width="26" height="66"/>
+          <use href="#pine" x="1430" y="540" width="38" height="96"/><use href="#pine" x="1490" y="566" width="28" height="72"/><use href="#pine" x="1250" y="548" width="24" height="60"/>
+        </g>
+      </svg>
+    </div>
+    <div class="lyr lyr--tower" data-d=".08" style="--d:.08">
+      <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice">
+        <path d="M0 750 C200 710 420 700 600 712 C700 568 900 568 1000 712 C1200 700 1420 710 1600 750 V900 H0Z" fill="var(--ridge3)"/>
+        <g fill="var(--tower)">
+          <path d="M752 622 V424 H770 V406 H790 V430 H808 V398 H830 V418 H848 V622 Z"/>
+          <path d="M700 636 V560 L716 550 L730 564 L752 554 V636 Z"/>
+          <path d="M848 622 V576 L874 566 V584 L896 578 V640 Z"/>
+          <rect x="789" y="474" width="14" height="26" rx="2" fill="var(--glow)" class="win"/>
+        </g>
+        <g fill="var(--ridge3)">
+          <use href="#pine" x="470" y="640" width="30" height="76"/><use href="#pine" x="505" y="656" width="24" height="60"/>
+          <use href="#pine" x="1070" y="648" width="30" height="74"/><use href="#pine" x="1108" y="664" width="22" height="54"/>
+        </g>
+      </svg>
+    </div>
+    <div class="lyr lyr--fore" data-d="0" style="--d:0">
+      <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice">
+        <path d="M0 830 C140 800 300 812 430 840 C540 864 640 822 780 834 C940 848 1080 806 1240 826 C1380 844 1500 820 1600 836 V900 H0Z" fill="var(--fore)"/>
+        <g fill="var(--fore)">
+          <use href="#pine" x="-10" y="610" width="80" height="260"/><use href="#pine" x="64" y="700" width="56" height="170"/>
+          <use href="#pine" x="1500" y="590" width="92" height="290"/><use href="#pine" x="1436" y="700" width="56" height="170"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="closing-copy">
+    <article class="play" aria-labelledby="play6">
+      <p class="play-k" id="play6">An example of play <span>The last of it</span></p>
+      <div class="beat">
+        <p class="ln"><b class="who">Tomas:</b> &ldquo;Let it go. The fire did the talking.&rdquo;</p>
+        <p class="ln"><b class="who">Ines:</b> Wren glances down at the ring in her hand and then at the note. &ldquo;Do not climb. Does anyone else think that's a bad sign?&rdquo;</p>
+        <p class="ln"><b class="who dm">Mira:</b> The tower is silent. Somewhere above, a door slams. What does the group do now?</p>
+      </div>
+    </article>
+    <h2>Your turn. Make someone to send up the stairs.</h2>
+  </div>
+</div>
+<div class="ctas">
+    <a class="cta" href="/finder/"><b>Class Finder</b><span>Ten questions about how you like to play, ending in a class and a reason.</span><em>Find a class</em></a>
+    <a class="cta" href="/stats/"><b>Ability Scores</b><span>Roll, use the standard array or point buy, then apply your background.</span><em>Roll some dice</em></a>
+    <a class="cta home" href="/compendium/"><b>Subclass Compendium</b><span>Every 2024 subclass plus homebrew, listed by level.</span><em>Browse subclasses</em></a>
+    <a class="cta home" href="/spells/"><b>Spell Compendium</b><span>Filter by class, level, school and book, or search the spell text.</span><em>Browse spells</em></a>
+  </div>
+  <footer class="endfoot">
+    <div>
+      <h2>Sources</h2>
+      <p>Built from a new-player slide deck on the character sheet. Page references are to the <b>Player's Handbook (2024)</b>, Wizards of the Coast. The character sheet shown is Wizards of the Coast's own two-page sheet, with the page-two illustration removed. The example of play is original to this site. An unofficial fan reference, not affiliated with or endorsed by Wizards of the Coast.</p>
+      <p class="srd">This work includes material from the System Reference Document 5.2.1 (&ldquo;SRD 5.2.1&rdquo;) by Wizards of the Coast LLC, available at <a href="https://www.dndbeyond.com/srd">https://www.dndbeyond.com/srd</a>. The SRD 5.2.1 is licensed under the Creative Commons Attribution 4.0 International License, available at <a href="https://creativecommons.org/licenses/by/4.0/legalcode">https://creativecommons.org/licenses/by/4.0/legalcode</a>.</p>
+    </div>
+  </footer>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+<script>
+(function () {
+  "use strict";
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ── regions on the sheet, in the units of a 1558 x 2000 page: [x, y, w, h] ── */
+  var W = 1558, H = 2000;
+  var R = {
+    1: {
+      full:[0,0,W,H], strip:[20,20,780,205], top:[20,20,1520,385], classTop:[20,20,1520,205],
+      nameF:[60,35,590,58], bgF:[60,100,310,52], classF:[385,100,255,52], speciesF:[60,156,310,52], subclassF:[385,156,255,52], levelF:[640,50,150,160],
+      acB:[800,25,150,195], hpB:[965,25,570,195], hpCur:[975,60,145,140], hitdice:[1260,25,120,195], death:[1385,25,150,195], acHp:[800,20,740,205],
+      prof:[25,285,245,185],
+      str:[25,290,250,480], dex:[25,790,250,360], con:[25,1170,250,230], int:[300,290,250,430], wis:[300,740,250,425], cha:[300,1185,250,390],
+      abilities:[20,280,540,1300], leftLow:[20,780,545,1200],
+      perc:[305,1078,235,34], skillCircles:[305,1000,40,140],
+      intMod:[335,328,105,105], intScore:[425,350,95,75], intSave:[312,468,230,36], intSkills:[312,515,230,190], intCircles:[316,522,28,175],
+      initRow:[570,285,965,115], initiative:[570,285,215,115], speed:[805,285,215,115], size:[1058,285,215,115], passive:[1293,285,240,115],
+      weapons:[570,420,965,405], classFeat:[570,845,965,600], speciesT:[570,1470,455,510], feats:[1050,1470,485,510],
+      equip:[25,1600,525,375], equipTools:[30,1860,515,115]
+    },
+    2: {
+      full:[0,0,W,H], spellTop:[25,25,1000,315], spellStats:[25,25,335,310], atkBox:[28,262,335,72], dcBox:[28,190,335,72],
+      slots:[380,135,650,200], slot1:[395,215,225,40], prepared:[25,355,1000,430]
+    }
+  };
+
+  var inner = document.getElementById("stage-inner");
+  var sheet = document.getElementById("sheet");
+  var hls = document.getElementById("hls");
+  var capEl = document.getElementById("cap"), capN = document.getElementById("capn");
+  var beats = Array.prototype.slice.call(document.querySelectorAll(".beat[data-view]"));
+  var sw = 0, sh = 0, bs = 1, baseW = 0, baseH = 0;
+  var cur = null, curHl = [];
+
+  function measure() {
+    sw = inner.clientWidth; sh = inner.clientHeight;
+    baseH = Math.min(sh * 0.94, (sw * 0.94) * (H / W));
+    baseW = baseH * (W / H);
+    sheet.style.width = baseW + "px"; sheet.style.height = baseH + "px";
+    bs = baseW / W;
+  }
+
+  function setHL(keys, page) {
+    curHl = keys;
+    hls.innerHTML = "";
+    keys.forEach(function (k) {
+      var r = R[page] && R[page][k]; if (!r) return;
+      var d = document.createElement("div");
+      d.className = "hl";
+      d.style.left = (r[0] / W * 100) + "%"; d.style.top = (r[1] / H * 100) + "%";
+      d.style.width = (r[2] / W * 100) + "%"; d.style.height = (r[3] / H * 100) + "%";
+      hls.appendChild(d);
+      void d.offsetWidth;
+      d.classList.add("on");
+    });
+  }
+
+  function go(el) {
+    if (cur === el) return;
+    if (cur) cur.classList.remove("is-active");
+    cur = el; el.classList.add("is-active");
+    var page = el.getAttribute("data-page") || "1";
+    var r = R[page][el.getAttribute("data-view")] || R[page].full;
+    var k = Math.min((sw * 0.9) / (r[2] * bs), (sh * 0.82) / (r[3] * bs), 3.2);
+    if (r === R[page].full) k = 1;
+    var tx = sw / 2 - k * (r[0] + r[2] / 2) * bs;
+    var ty = sh / 2 - k * (r[1] + r[3] / 2) * bs;
+    var m = 8, pw = k * baseW, ph = k * baseH;
+    tx = pw <= sw - 2 * m ? (sw - pw) / 2 : Math.min(m, Math.max(sw - pw - m, tx));
+    ty = ph <= sh - 2 * m ? (sh - ph) / 2 : Math.min(m, Math.max(sh - ph - m, ty));
+    sheet.setAttribute("data-page", page);
+    sheet.style.setProperty("--inv", String(1 / k));
+    sheet.style.transform = "translate(" + tx.toFixed(1) + "px," + ty.toFixed(1) + "px) scale(" + k.toFixed(3) + ")";
+    var hl = (el.getAttribute("data-hl") || "").split(",").filter(Boolean);
+    setHL(hl, page);
+    capEl.innerHTML = el.getAttribute("data-cap") || "";
+    capN.textContent = page;
+  }
+
+  /* hovering a definition lights its own field on the sheet */
+  Array.prototype.forEach.call(document.querySelectorAll("[data-hover]"), function (li) {
+    var keys = li.getAttribute("data-hover").split(",");
+    function on() { var b = li.closest(".beat"); setHL(keys, (b && b.getAttribute("data-page")) || "1"); }
+    function off() { if (cur) setHL((cur.getAttribute("data-hl") || "").split(",").filter(Boolean), cur.getAttribute("data-page") || "1"); }
+    li.addEventListener("mouseenter", on); li.addEventListener("focus", on);
+    li.addEventListener("mouseleave", off); li.addEventListener("blur", off);
+  });
+
+  /* which beat is under the reading line? */
+  var ticking = false;
+  function probe() {
+    ticking = false;
+    var sr = inner.getBoundingClientRect();
+    var narrow = window.matchMedia("(max-width: 56rem)").matches;
+    var y = narrow ? sr.bottom + (window.innerHeight - sr.bottom) * 0.38 : window.innerHeight * 0.5;
+    var found = null;
+    for (var i = 0; i < beats.length; i++) {
+      var b = beats[i].getBoundingClientRect();
+      if (b.top <= y) found = beats[i]; else break;
+    }
+    if (found) go(found);
+  }
+  function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(probe); } }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", function () { var c = cur; cur = null; measure(); if (c) go(c); });
+  measure();
+  sheet.style.transition = "none";
+  go(beats[0]);
+  void sheet.offsetWidth;
+  sheet.style.transition = "";
+
+  /* reveal on scroll (CSS does the work) */
+  var rv = document.querySelectorAll(".reveal");
+  if ("IntersectionObserver" in window && !reduce) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.04 });
+    Array.prototype.forEach.call(rv, function (n) { io.observe(n); });
+  } else {
+    Array.prototype.forEach.call(rv, function (n) { n.classList.add("in"); });
+  }
+
+  /* ── ability roller ── */
+  var rs = document.getElementById("r-score"), rso = document.getElementById("r-score-o"),
+      rl = document.getElementById("r-level"), rt = document.getElementById("r-trained"),
+      rm = document.getElementById("r-mod"), ro = document.getElementById("r-out");
+  function mod() { return Math.floor((+rs.value - 10) / 2); }
+  function prof() { var l = Math.min(20, Math.max(1, +rl.value || 1)); return Math.ceil(l / 4) + 1; }
+  function sgn(n) { return (n >= 0 ? "+" : "−") + Math.abs(n); }
+  function upd() { rso.textContent = rs.value; rm.textContent = sgn(mod()); }
+  rs.addEventListener("input", upd); upd();
+  document.getElementById("r-roll").addEventListener("click", function () {
+    var d = 1 + Math.floor(Math.random() * 20), m = mod(), p = rt.checked ? prof() : 0, t = d + m + p;
+    ro.innerHTML = "<strong>" + t + "</strong>d20 (" + d + ") + modifier (" + sgn(m) + ")" + (rt.checked ? " + proficiency (+" + p + ")" : " + proficiency (not trained, 0)") + " = " + t +
+      (d === 20 ? "<br>A natural 20." : d === 1 ? "<br>A natural 1." : "");
+  });
+
+  /* ── level strip ── */
+  var strip = document.getElementById("lvstrip"), info = document.getElementById("lvinfo");
+  var extras = { fighter: [6, 14], rogue: [10] }, picked = {};
+  var defInfo = info.innerHTML, sel = 0;
+  var cells = [];
+  for (var L = 1; L <= 20; L++) {
+    (function (L) {
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "lv"; b.textContent = L; b.setAttribute("aria-label", "Level " + L);
+      b.addEventListener("click", function () { sel = L; render(); });
+      b.addEventListener("mouseenter", function () { text(L); });
+      b.addEventListener("mouseleave", function () { text(sel); });
+      b.addEventListener("focus", function () { text(L); });
+      strip.appendChild(b); cells[L] = b;
+    })(L);
+  }
+  function isExtra(L) { return Object.keys(picked).some(function (c) { return picked[c] && extras[c].indexOf(L) > -1; }); }
+  function text(L) {
+    if (!L) { info.innerHTML = defInfo; return; }
+    var p = Math.ceil(L / 4) + 1, out = "<b>Level " + L + "</b> &middot; Proficiency Bonus +" + p + ". ";
+    if (L === 3) out += "Every class picks its subclass.";
+    else if ([4, 8, 12, 16].indexOf(L) > -1) out += "A feat: the Ability Score Improvement feat, or any other you qualify for.";
+    else if (L === 19) out += "An Epic Boon feat.";
+    else if (isExtra(L)) out += "An extra feat for your class.";
+    else out += "New class features from your class table.";
+    info.innerHTML = out;
+  }
+  function render() {
+    for (var L = 1; L <= 20; L++) {
+      var c = cells[L], k = "lv";
+      if (L === 3) k += " sub";
+      if ([4, 8, 12, 16].indexOf(L) > -1) k += " feat";
+      if (L === 19) k += " epic";
+      if (isExtra(L)) k += " xtra";
+      if (L === sel) k += " on";
+      c.className = k;
+    }
+    text(sel);
+  }
+  Array.prototype.forEach.call(document.querySelectorAll(".chip"), function (c) {
+    c.addEventListener("click", function () {
+      var n = c.getAttribute("data-class"); picked[n] = !picked[n];
+      c.setAttribute("aria-pressed", picked[n] ? "true" : "false"); render();
+    });
+  });
+  render();
+
+  /* ── spell anatomy: legend lights the matching line ── */
+  Array.prototype.forEach.call(document.querySelectorAll("#spell-legend li"), function (li) {
+    var n = li.getAttribute("data-sl"), line = document.querySelector('#spell .sl[data-n="' + n + '"]');
+    function on() { line.classList.add("on"); } function off() { line.classList.remove("on"); }
+    li.addEventListener("mouseenter", on); li.addEventListener("focus", on);
+    li.addEventListener("mouseleave", off); li.addEventListener("blur", off);
+  });
+
+  /* ── parallax (GSAP, optional) ── */
+  function parallax() {
+    if (reduce || !window.gsap || !window.ScrollTrigger) return;
+    gsap.registerPlugin(ScrollTrigger);
+    var hero = document.getElementById("top"), closing = document.getElementById("closing");
+    [[hero, "top top", "bottom top", 1], [closing, "top bottom", "center top", 0.6]].forEach(function (cfg) {
+      var root = cfg[0];
+      Array.prototype.forEach.call(root.querySelectorAll(".lyr"), function (l) {
+        var d = parseFloat(l.getAttribute("data-d")) || 0; if (!d) return;
+        gsap.to(l, { y: function () { return d * root.offsetHeight * cfg[3]; }, ease: "none",
+          scrollTrigger: { trigger: root, start: cfg[1], end: cfg[2], scrub: true, invalidateOnRefresh: true } });
+      });
+    });
+    gsap.to(".hero-copy", { y: -90, opacity: 0, ease: "none", scrollTrigger: { trigger: hero, start: "top top", end: "70% top", scrub: true } });
+    gsap.to(".hero-die", { y: 160, ease: "none", scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: true } });
+    Array.prototype.forEach.call(document.querySelectorAll(".decor"), function (n) {
+      gsap.to(n, { y: parseFloat(n.getAttribute("data-travel")) || 200, rotation: 40, ease: "none",
+        scrollTrigger: { trigger: "#story", start: "top bottom", end: "bottom top", scrub: true } });
+    });
+    Array.prototype.forEach.call(document.querySelectorAll(".chap-num"), function (n) {
+      gsap.fromTo(n, { y: 70 }, { y: -90, ease: "none", scrollTrigger: { trigger: n.parentNode, start: "top bottom", end: "bottom top", scrub: true } });
+    });
+  }
+  if (window.gsap && window.ScrollTrigger) parallax();
+  else window.addEventListener("load", parallax);
+})();
+</script>

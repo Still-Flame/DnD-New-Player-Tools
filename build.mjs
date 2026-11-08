@@ -41,6 +41,7 @@ const attr = (s) =>
 function nav(current) {
   const links = [
     ["/", "D&amp;D Tools"],
+    ["/create/", "Make a Character"],
     ["/finder/", "Class Finder"],
     ["/stats/", "Ability Scores"],
     ["/compendium/", "Subclass Compendium"],
@@ -103,6 +104,13 @@ ${body}
 }
 
 const PAGES = [
+  {
+    src: "create.html",
+    out: "create/index.html",
+    path: "/create/",
+    description:
+      "A scrolling guide to the D&D 2024 character sheet for first-time players: who you are, your six numbers, class, levelling, combat and spells, with an example of play that uses every part of the sheet.",
+  },
   {
     src: "class-finder.html",
     out: "finder/index.html",

@@ -77,6 +77,8 @@
   }
   .card:hover, .card:focus-visible { border-color: var(--accent); transform: translateY(-2px); }
   .card:focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
+  .card--create { --accent: var(--accent-official); }
+  @media (min-width: 40rem) { .card--create { grid-column: 1 / -1; } }
   .card--finder { --accent: var(--accent-official); }
   .card--stats  { --accent: var(--accent-official); }
   .card--comp   { --accent: var(--accent-home); }
@@ -124,18 +126,30 @@
 
   <p class="eyebrow">Dungeons &amp; Dragons 2024</p>
   <h1>
-    Four tools for picking
+    Five tools for picking
     a character, and for
     living with the choice
   </h1>
   <p class="lede">
-    One is for the player who has never rolled a die and does not know
-    what a cantrip is. One rolls the numbers. The other two are for the
+    One is a guided walk through the character sheet for the player who has
+    never rolled a die. One finds a class. One rolls the numbers. The other two are for the
     table that has read all of it twice and wants to know exactly what a
     subclass changes, or what a spell actually says.
   </p>
 
   <div class="cards">
+
+    <a class="card card--create" href="/create/">
+      <span class="card-k">A scrolling guide</span>
+      <h2 class="card-h">Make a Character</h2>
+      <p>
+        The 2024 character sheet, one section at a time, with the page staying
+        beside you as you read. Who you are, your six numbers, class and levelling,
+        combat and spells &mdash; and an example of play at a table where the
+        players get a few things wrong and the DM sorts them out.
+      </p>
+      <span class="card-go">Start reading</span>
+    </a>
 
     <a class="card card--finder" href="/finder/">
       <span class="card-k">Ten questions</span>
@@ -188,7 +202,7 @@
   </div>
 
   <p class="note">
-    All four work on a phone at the table, in light or dark, and none of them
+    All five work on a phone at the table, in light or dark, and none of them
     needs an account or stores anything about you.
   </p>
 
