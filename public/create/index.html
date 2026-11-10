@@ -13,10 +13,17 @@
 <meta property="og:description" content="A scrolling guide to the D&amp;D 2024 character sheet for first-time players: who you are, your six numbers, class, levelling, combat and spells, with an example of play that uses every part of the sheet.">
 <meta property="og:url" content="https://dnd-tools.pages.dev/create/">
 <meta name="twitter:card" content="summary">
+<script>(function(){try{if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;var v=sessionStorage.getItem('iris');if(!v)return;sessionStorage.removeItem('iris');var a=v.split('|'),x=+a[0],y=+a[1],W=innerWidth,H=innerHeight,R=Math.hypot(Math.max(x,W-x),Math.max(y,H-y))+4;
+var d=document.createElement('div');d.className='cover';d.style.cssText='position:fixed;inset:0;z-index:2147483000;pointer-events:none;background:'+(a[2]||'#FF5B1F');document.documentElement.appendChild(d);
+function mask(r){var m='radial-gradient(circle at '+x+'px '+y+'px,transparent '+r+'px,#000 '+(r+1)+'px)';d.style.webkitMaskImage=m;d.style.maskImage=m}
+mask(0);var t0=null,hold=50,dur=820;function ease(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2}
+function step(ts){if(t0===null)t0=ts;var t=(ts-t0-hold)/dur;if(t<=0){requestAnimationFrame(step);return}if(t>=1){d.remove();return}mask(R*ease(t));requestAnimationFrame(step)}
+requestAnimationFrame(step);setTimeout(function(){d.remove()},hold+dur+600)}catch(e){}})();</script>
 <title>How to Make a D&amp;D Character</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Martian+Mono:wght@400;500;600&display=swap">
 <style>
   :root {
     --ground:#E4E1D8; --surface:#F1EFE9;
@@ -60,17 +67,17 @@
   html { scroll-behavior:smooth; }
   body {
     margin:0; background:var(--ground); color:var(--ink);
-    font-family:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-family:Figtree, system-ui, -apple-system, "Segoe UI", sans-serif;
     font-size:var(--step-0); line-height:1.65; -webkit-font-smoothing:antialiased;
   }
-  h1,h2,h3 { font-family:Fraunces, Georgia, "Times New Roman", serif; font-optical-sizing:auto; font-weight:600; letter-spacing:-.012em; text-wrap:balance; margin:0; }
+  h1,h2,h3 { font-family:Figtree, system-ui, sans-serif"Times New Roman", serif; font-optical-sizing:auto; font-weight:600; letter-spacing:-.012em; text-wrap:balance; margin:0; }
   p { margin:0 0 1em; }
   a { color:var(--accent-official); }
   .sr { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
-  .mono { font-family:"IBM Plex Mono", ui-monospace, monospace; }
+  .mono { font-family:"Martian Mono", ui-monospace, monospace; }
   .eyebrow {
-    font-family:"IBM Plex Mono", ui-monospace, monospace; font-size:var(--step--1);
-    letter-spacing:.14em; text-transform:uppercase; color:var(--ink-faint); margin:0;
+    font-family:"Martian Mono", ui-monospace, monospace; font-size:var(--step--1);
+    letter-spacing:.05em; text-transform:uppercase; color:var(--ink-faint); margin:0;
   }
 
   /* ───────── hero: layered scene ───────── */
@@ -89,7 +96,7 @@
   .hero .lede { color:var(--ink-soft); max-width:34ch; font-size:var(--step-1); margin:18px 0 0; }
   .hero .refnote { font-size:var(--step--1); color:var(--ink-faint); margin:14px 0 0; max-width:40ch; }
   .cue { position:absolute; left:0; right:0; bottom:22px; z-index:4; text-align:center; color:var(--fore-ink);
-         font-family:"IBM Plex Mono", monospace; font-size:var(--step--2); letter-spacing:.2em; text-transform:uppercase; }
+         font-family:"Martian Mono", monospace; font-size:var(--step--2); letter-spacing:.08em; text-transform:uppercase; }
   .cue::after { content:""; display:block; width:1px; height:34px; margin:10px auto 0; background:currentColor; transform-origin:top; animation:cue 2.2s ease-in-out infinite; }
   @keyframes cue { 0% { transform:scaleY(0); } 55% { transform:scaleY(1); } 100% { transform:scaleY(1); opacity:0; } }
   .hero-die { position:absolute; z-index:2; right:max(24px,8vw); top:16%; width:clamp(72px,11vw,150px); aspect-ratio:1; color:var(--ink); opacity:.22; animation:spin 38s linear infinite; }
@@ -118,17 +125,17 @@
   @keyframes pulse { 50% { background:color-mix(in srgb, var(--hl) 24%, transparent); } }
   .stage-cap { position:absolute; left:12px; right:12px; bottom:12px; display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;
                padding:7px 11px; background:color-mix(in srgb, var(--surface) 90%, transparent); border:1px solid var(--rule);
-               font-family:"IBM Plex Mono", monospace; font-size:var(--step--2); letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft); }
+               font-family:"Martian Mono", monospace; font-size:var(--step--2); letter-spacing:.04em; text-transform:uppercase; color:var(--ink-soft); }
   .stage-cap b { color:var(--accent-official); font-weight:500; }
 
   .decor { position:absolute; z-index:0; color:var(--ink); opacity:.07; pointer-events:none; will-change:transform; }
 
   /* chapters */
   .chap { position:relative; padding:clamp(70px,16vh,150px) 0 clamp(16px,4vh,40px); }
-  .chap-num { position:absolute; right:-6px; top:clamp(34px,8vh,80px); z-index:0; pointer-events:none; font-family:Fraunces, Georgia, serif; font-weight:700;
+  .chap-num { position:absolute; right:-6px; top:clamp(34px,8vh,80px); z-index:0; pointer-events:none; font-family:Figtree, system-ui, sans-serif; font-weight:700;
               font-size:clamp(7rem,15vw,14rem); line-height:.8; color:transparent; -webkit-text-stroke:1.5px var(--rule); opacity:.9; }
   .chap > *:not(.chap-num) { position:relative; z-index:1; }
-  .chap-k { font-family:"IBM Plex Mono", monospace; font-size:var(--step--1); letter-spacing:.14em; text-transform:uppercase; color:var(--accent-official); margin:0 0 10px; }
+  .chap-k { font-family:"Martian Mono", monospace; font-size:var(--step--1); letter-spacing:.05em; text-transform:uppercase; color:var(--accent-official); margin:0 0 10px; }
   .chap h2 { font-size:var(--step-3); line-height:1.06; max-width:16ch; }
   .chap .lead { font-size:var(--step-1); color:var(--ink-soft); margin:16px 0 0; max-width:40ch; }
   .chap > .lead + .beat, .chap > .lead { margin-bottom:clamp(24px,5vh,52px); }
@@ -141,17 +148,17 @@
   .js .reveal:not(.beat).in { opacity:1; transform:none; }
   .chap h3 { font-size:var(--step-2); line-height:1.15; margin:0 0 .5em; }
 
-  .pg { display:inline-block; font-family:"IBM Plex Mono", monospace; font-size:.74rem; font-weight:500; letter-spacing:.04em; color:var(--accent-official);
+  .pg { display:inline-block; font-family:"Martian Mono", monospace; font-size:.74rem; font-weight:500; letter-spacing:.04em; color:var(--accent-official);
         border:1px solid color-mix(in srgb, var(--accent-official) 55%, var(--rule)); border-radius:99px; padding:1px 9px; margin-left:4px; white-space:nowrap; vertical-align:.04em;
         background:color-mix(in srgb, var(--accent-official) 9%, var(--surface)); }
 
-  .quote { font-family:Fraunces, Georgia, serif; font-size:var(--step-3); line-height:1.08; font-weight:600; margin:.2em 0 .3em; text-wrap:balance; }
-  .quote small { display:block; font-family:"IBM Plex Sans", sans-serif; font-weight:400; font-size:var(--step-0); color:var(--ink-soft); margin-top:.7em; letter-spacing:0; }
+  .quote { font-family:Figtree, system-ui, sans-serif; font-size:var(--step-3); line-height:1.08; font-weight:600; margin:.2em 0 .3em; text-wrap:balance; }
+  .quote small { display:block; font-family:Figtree, sans-serif; font-weight:400; font-size:var(--step-0); color:var(--ink-soft); margin-top:.7em; letter-spacing:0; }
 
   .formula { margin:18px 0; padding:14px 16px; background:var(--surface); border:1px solid var(--rule); border-left:3px solid var(--accent-official);
-             font-family:"IBM Plex Mono", monospace; font-size:var(--step--1); line-height:1.7; }
+             font-family:"Martian Mono", monospace; font-size:var(--step--1); line-height:1.7; }
   .formula b { font-weight:500; color:var(--accent-official); }
-  .formula .cap { display:block; font-family:"IBM Plex Sans", sans-serif; color:var(--ink-soft); margin-bottom:6px; font-size:var(--step--1); }
+  .formula .cap { display:block; font-family:Figtree, sans-serif; color:var(--ink-soft); margin-bottom:6px; font-size:var(--step--1); }
   .formula.big { font-size:var(--step-0); text-align:center; padding:20px 12px; }
 
   .defs { list-style:none; margin:16px 0 0; padding:0; display:grid; gap:2px; }
@@ -161,30 +168,30 @@
   .defs li.nohover:hover { border-left-color:var(--rule); background:none; }
 
   .callout { margin:22px 0; padding:14px 16px 4px; border:1.5px dashed var(--accent-home); background:color-mix(in srgb, var(--accent-home) 7%, transparent); }
-  .callout .tag { font-family:"IBM Plex Mono", monospace; font-size:var(--step--2); letter-spacing:.14em; text-transform:uppercase; color:var(--accent-home); display:block; margin-bottom:6px; }
+  .callout .tag { font-family:"Martian Mono", monospace; font-size:var(--step--2); letter-spacing:.05em; text-transform:uppercase; color:var(--accent-home); display:block; margin-bottom:6px; }
 
   .cards3 { display:grid; gap:10px; margin:18px 0; }
   .mini { background:var(--surface); border:1px solid var(--rule); border-top:3px solid var(--accent-official); padding:12px 14px 4px; }
-  .mini h4 { margin:0 0 4px; font-family:Fraunces, serif; font-size:var(--step-1); }
+  .mini h4 { margin:0 0 4px; font-family:Figtree, system-ui, sans-serif; font-size:var(--step-1); }
   .mini p { font-size:var(--step--1); color:var(--ink-soft); }
 
   .widget { margin:24px 0; padding:18px; background:var(--surface); border:1px solid var(--rule); }
-  .widget h4 { margin:0 0 12px; font-family:"IBM Plex Mono", monospace; font-size:var(--step--1); letter-spacing:.12em; text-transform:uppercase; font-weight:500; color:var(--ink-faint); }
+  .widget h4 { margin:0 0 12px; font-family:"Martian Mono", monospace; font-size:var(--step--1); letter-spacing:.05em; text-transform:uppercase; font-weight:500; color:var(--ink-faint); }
   .row { display:flex; flex-wrap:wrap; gap:14px 22px; align-items:center; }
   label { font-size:var(--step--1); color:var(--ink-soft); display:grid; gap:4px; }
   input[type=range] { width:min(14rem,100%); accent-color:var(--accent-official); }
   input[type=number] { width:4.5rem; font:inherit; padding:4px 6px; background:var(--ground); color:var(--ink); border:1px solid var(--rule); }
   .check { display:flex; gap:8px; align-items:center; }
-  .btn { font:500 var(--step--1)/1 "IBM Plex Sans", sans-serif; padding:11px 18px; background:var(--accent-official); color:var(--accent-ink); border:0; cursor:pointer; letter-spacing:.02em; }
+  .btn { font:500 var(--step--1)/1 Figtree, sans-serif; padding:11px 18px; background:var(--accent-official); color:var(--accent-ink); border:0; cursor:pointer; letter-spacing:.02em; }
   .btn:hover { filter:brightness(1.1); }
   .btn:focus-visible, .lv:focus-visible, .chip:focus-visible, input:focus-visible { outline:2px solid var(--accent-official); outline-offset:2px; }
-  .modc { width:84px; height:84px; border-radius:50%; border:3px solid var(--ink); display:grid; place-items:center; font-family:Fraunces, serif; font-size:2rem; font-weight:600; flex:none; }
-  .modc small { display:block; font-family:"IBM Plex Mono", monospace; font-size:.55rem; letter-spacing:.14em; text-align:center; color:var(--ink-faint); margin-top:-6px; }
-  .result { margin-top:14px; font-family:"IBM Plex Mono", monospace; font-size:var(--step--1); min-height:3.2em; }
-  .result strong { font-family:Fraunces, serif; font-size:var(--step-3); color:var(--accent-official); display:block; line-height:1.1; }
+  .modc { width:84px; height:84px; border-radius:50%; border:3px solid var(--ink); display:grid; place-items:center; font-family:Figtree, system-ui, sans-serif; font-size:2rem; font-weight:600; flex:none; }
+  .modc small { display:block; font-family:"Martian Mono", monospace; font-size:.55rem; letter-spacing:.05em; text-align:center; color:var(--ink-faint); margin-top:-6px; }
+  .result { margin-top:14px; font-family:"Martian Mono", monospace; font-size:var(--step--1); min-height:3.2em; }
+  .result strong { font-family:Figtree, system-ui, sans-serif; font-size:var(--step-3); color:var(--accent-official); display:block; line-height:1.1; }
 
   .lvstrip { display:grid; grid-template-columns:repeat(10,1fr); gap:5px; margin:6px 0 12px; }
-  .lv { font:500 var(--step--1)/1 "IBM Plex Mono", monospace; padding:11px 0; text-align:center; background:var(--ground); color:var(--ink); border:1px solid var(--rule); cursor:pointer; position:relative; }
+  .lv { font:500 var(--step--1)/1 "Martian Mono", monospace; padding:11px 0; text-align:center; background:var(--ground); color:var(--ink); border:1px solid var(--rule); cursor:pointer; position:relative; }
   .lv.sub { background:var(--accent-home); color:var(--accent-ink); border-color:var(--accent-home); }
   .lv.feat { background:var(--accent-official); color:var(--accent-ink); border-color:var(--accent-official); }
   .lv.epic { background:var(--accent-official); color:var(--accent-ink); border-color:var(--ink); box-shadow:inset 0 0 0 2px var(--surface); }
@@ -193,37 +200,37 @@
   .lvinfo { min-height:3.6em; font-size:var(--step--1); color:var(--ink-soft); }
   .lvinfo b { color:var(--ink); }
   .chips { display:flex; gap:8px; flex-wrap:wrap; margin:0 0 10px; }
-  .chip { font:500 var(--step--1)/1 "IBM Plex Sans", sans-serif; padding:8px 12px; border:1px solid var(--rule); background:var(--ground); color:var(--ink); cursor:pointer; }
+  .chip { font:500 var(--step--1)/1 Figtree, sans-serif; padding:8px 12px; border:1px solid var(--rule); background:var(--ground); color:var(--ink); cursor:pointer; }
   .chip[aria-pressed="true"] { background:var(--ink); color:var(--ground); border-color:var(--ink); }
-  .legend { display:flex; flex-wrap:wrap; gap:6px 16px; font-size:var(--step--2); font-family:"IBM Plex Mono", monospace; letter-spacing:.06em; color:var(--ink-soft); text-transform:uppercase; margin-bottom:10px; }
+  .legend { display:flex; flex-wrap:wrap; gap:6px 16px; font-size:var(--step--2); font-family:"Martian Mono", monospace; letter-spacing:.06em; color:var(--ink-soft); text-transform:uppercase; margin-bottom:10px; }
   .legend i { display:inline-block; width:11px; height:11px; margin-right:6px; vertical-align:-1px; border:1px solid var(--rule); }
 
   table { border-collapse:collapse; width:100%; font-size:var(--step--1); }
   th, td { text-align:left; padding:8px 10px; border-bottom:1px solid var(--rule); vertical-align:top; }
-  th { font-family:"IBM Plex Mono", monospace; font-size:var(--step--2); letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); font-weight:500; }
+  th { font-family:"Martian Mono", monospace; font-size:var(--step--2); letter-spacing:.04em; text-transform:uppercase; color:var(--ink-faint); font-weight:500; }
   td.lvl { white-space:nowrap; }
   tr.lvlup td { background:color-mix(in srgb, var(--accent-home) 12%, transparent); }
   tr.restrow td:nth-child(2) { color:var(--accent-home); font-weight:500; }
   tr.lvrow td:nth-child(2) { color:var(--accent-official); font-weight:500; }
 
   .spell { margin:18px 0; background:var(--surface); border:1px solid var(--rule); padding:16px 18px; font-size:var(--step--1); }
-  .spell h4 { margin:0 0 8px; font-family:Fraunces, serif; font-size:var(--step-2); letter-spacing:.02em; }
+  .spell h4 { margin:0 0 8px; font-family:Figtree, system-ui, sans-serif; font-size:var(--step-2); letter-spacing:.02em; }
   .sl { padding:4px 8px 4px 34px; position:relative; margin:2px 0; transition:background .2s; }
   .sl::before { content:attr(data-n); position:absolute; left:6px; top:5px; width:20px; height:20px; border-radius:50%; background:var(--ink); color:var(--ground);
-                font:600 .66rem/20px "IBM Plex Mono", monospace; text-align:center; }
+                font:600 .66rem/20px "Martian Mono", monospace; text-align:center; }
   .sl.on { background:color-mix(in srgb, var(--hl) 16%, transparent); }
   .sl.on::before { background:var(--hl); }
   .legend-n { list-style:none; margin:0; padding:0; display:grid; gap:2px; font-size:var(--step--1); }
   .legend-n li { padding:8px 10px 8px 38px; position:relative; border-left:2px solid var(--rule); cursor:default; }
-  .legend-n li::before { content:attr(data-n); position:absolute; left:8px; top:9px; width:20px; height:20px; border-radius:50%; background:var(--ink); color:var(--ground); font:600 .66rem/20px "IBM Plex Mono", monospace; text-align:center; }
+  .legend-n li::before { content:attr(data-n); position:absolute; left:8px; top:9px; width:20px; height:20px; border-radius:50%; background:var(--ink); color:var(--ground); font:600 .66rem/20px "Martian Mono", monospace; text-align:center; }
   .legend-n li:hover, .legend-n li:focus-visible { border-left-color:var(--hl); background:color-mix(in srgb, var(--hl) 8%, transparent); outline:none; }
 
   .pact { margin:20px 0; padding:16px 18px; border:1px solid var(--rule); border-top:3px solid var(--accent-home); background:var(--surface); }
-  .pact .tag { font-family:"IBM Plex Mono", monospace; font-size:var(--step--2); letter-spacing:.14em; text-transform:uppercase; color:var(--accent-home); display:block; margin-bottom:6px; }
+  .pact .tag { font-family:"Martian Mono", monospace; font-size:var(--step--2); letter-spacing:.05em; text-transform:uppercase; color:var(--accent-home); display:block; margin-bottom:6px; }
 
   /* example of play */
   .play { margin:0; }
-  .play-k { display:flex; flex-wrap:wrap; gap:4px 12px; align-items:baseline; margin:0 0 14px; font-family:"IBM Plex Mono", monospace; font-size:var(--step--1); letter-spacing:.12em; text-transform:uppercase; color:var(--accent-home); }
+  .play-k { display:flex; flex-wrap:wrap; gap:4px 12px; align-items:baseline; margin:0 0 14px; font-family:"Martian Mono", monospace; font-size:var(--step--1); letter-spacing:.05em; text-transform:uppercase; color:var(--accent-home); }
   .play-k span { color:var(--ink-faint); letter-spacing:.06em; text-transform:none; }
   .cast { font-size:var(--step--1); color:var(--ink-soft); margin:0 0 16px; font-style:italic; }
   .play .beat { padding:14px 16px 6px; background:var(--surface); border:1px solid var(--rule); border-left:3px solid var(--accent-home); margin-bottom:clamp(30px,7vh,72px); }
@@ -248,7 +255,7 @@
          border:1px solid var(--rule); border-top:3px solid var(--accent-official); transition:transform .15s, border-color .15s; }
   .cta.home { border-top-color:var(--accent-home); }
   .cta:hover, .cta:focus-visible { transform:translateY(-2px); border-color:var(--accent-official); outline:none; }
-  .cta b { font-family:Fraunces, serif; font-size:var(--step-2); font-weight:600; }
+  .cta b { font-family:Figtree, system-ui, sans-serif; font-size:var(--step-2); font-weight:600; }
   .cta span { color:var(--ink-soft); font-size:var(--step--1); }
   .cta em { font-style:normal; font-size:var(--step--1); font-weight:500; color:var(--accent-official); margin-top:4px; }
   .cta em::after { content:" \2192"; }
@@ -257,7 +264,7 @@
   .endfoot p { margin:0 0 .9em; max-width:70ch; }
   .endfoot a { color:inherit; }
   .endfoot .srd { font-size:.82em; opacity:.85; }
-  .endfoot h2 { font-family:"IBM Plex Mono", monospace; font-size:var(--step--2); letter-spacing:.14em; text-transform:uppercase; font-weight:500; margin:0 0 10px; }
+  .endfoot h2 { font-family:"Martian Mono", monospace; font-size:var(--step--2); letter-spacing:.05em; text-transform:uppercase; font-weight:500; margin:0 0 10px; }
 
   /* small screens: sheet pins to the top, text scrolls under it */
   @media (max-width: 56rem) {
@@ -285,23 +292,99 @@
     .js .beat, .js .reveal { opacity:1 !important; transform:none !important; }
   }
 </style>
-</head>
-<body>
-<style>
-  .sitenav {
-    max-width:64rem; margin-inline:auto; padding:12px 20px 0;
-    display:flex; flex-wrap:wrap; align-items:baseline; gap:0 8px;
-    font-family:"IBM Plex Mono", ui-monospace, monospace;
-    font-size:.7rem; letter-spacing:.11em; text-transform:uppercase;
-  }
-  .sitenav a { color: var(--ink-faint, #8A9099); text-decoration:none; }
-  .sitenav a:hover { color: var(--accent, currentColor); text-decoration:underline; }
-  .sitenav a:focus-visible { outline:2px solid var(--accent, currentColor); outline-offset:2px; }
-  .sitenav-here { color: var(--ink-soft, #5B626C); }
-  .sitenav-sep { color: var(--rule, #C6C2B6); }
-  @media print { .sitenav { display:none; } }
+<style>/* ===== redesign layer: palette, type, shape and motion over the original pages ===== */
+:root{
+  --ground:#0B0B0B; --surface:#151918; --surface-2:#1C2120;
+  --ink:#EDEFEE; --ink-soft:#B4BBB8; --ink-faint:#9BA3A0;
+  --rule:#2C3231; --rule-soft:#1E2322;
+  --accent-official:#FF5B1F; --accent-home:#BDEBD3; --accent:#FF5B1F; --accent-ink:#121414; --good:#BDEBD3; --hl:#FF5B1F;
+  --chip-bg:#1C2120; --chip-shadow:0 2px 6px rgba(0,0,0,.5),0 16px 38px -14px rgba(0,0,0,.95); --veil:rgba(0,0,0,.6);
+  --sky-top:#0B0B0B; --sky-bot:#261F45; --moon:#FFC9D9; --star-o:.9; --moon-glow:.12;
+  --ridge1:#2D2650; --ridge2:#1E1A38; --ridge3:#141224; --tower:#0B0B0B; --fore:#070707; --glow:#E4F26B; --fore-ink:#EDEFEE;
+  --c1:#FF5B1F; --c2:#E4F26B; --c3:#FFC9D9; --c4:#C7B8FF; --c5:#BDEBD3;
+  --ease:cubic-bezier(.22,.8,.2,1);
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --ground:#0B0B0B; --surface:#151918; --surface-2:#1C2120; --ink:#EDEFEE; --ink-soft:#B4BBB8; --ink-faint:#9BA3A0; --rule:#2C3231; --rule-soft:#1E2322;
+  --accent-official:#FF5B1F; --accent-home:#BDEBD3; --accent:#FF5B1F; --accent-ink:#121414; --good:#BDEBD3; --hl:#FF5B1F; --chip-bg:#1C2120; --veil:rgba(0,0,0,.6);
+  --sky-top:#0B0B0B; --sky-bot:#261F45; --moon:#FFC9D9; --star-o:.9; --moon-glow:.12; --ridge1:#2D2650; --ridge2:#1E1A38; --ridge3:#141224; --tower:#0B0B0B; --fore:#070707; --glow:#E4F26B; --fore-ink:#EDEFEE; color-scheme:dark}}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]){
+  --ground:#F0F2EF; --surface:#FFFFFF; --surface-2:#E6E9E5; --ink:#121414; --ink-soft:#3C4240; --ink-faint:#4F5654; --rule:#C6CBC8; --rule-soft:#DADEDB;
+  --accent-official:#B72E08; --accent-home:#17724A; --accent:#B72E08; --accent-ink:#FFFFFF; --good:#17724A; --hl:#D9400F; --chip-bg:#FFFFFF; --chip-shadow:0 2px 6px rgba(18,20,20,.10),0 14px 34px -14px rgba(18,20,20,.4); --veil:rgba(18,20,20,.34);
+  --sky-top:#E4DEFA; --sky-bot:#FFE1D3; --moon:#FFFFFF; --star-o:0; --moon-glow:.4; --ridge1:#D3CBF2; --ridge2:#B1A5E6; --ridge3:#7B6BC4; --tower:#2B2552; --fore:#1B1736; --glow:#FF5B1F; --fore-ink:#F0F2EF; color-scheme:light}}
+:root[data-theme="light"]{
+  --ground:#F0F2EF; --surface:#FFFFFF; --surface-2:#E6E9E5; --ink:#121414; --ink-soft:#3C4240; --ink-faint:#4F5654; --rule:#C6CBC8; --rule-soft:#DADEDB;
+  --accent-official:#B72E08; --accent-home:#17724A; --accent:#B72E08; --accent-ink:#FFFFFF; --good:#17724A; --hl:#D9400F; --chip-bg:#FFFFFF; --chip-shadow:0 2px 6px rgba(18,20,20,.10),0 14px 34px -14px rgba(18,20,20,.4); --veil:rgba(18,20,20,.34);
+  --sky-top:#E4DEFA; --sky-bot:#FFE1D3; --moon:#FFFFFF; --star-o:0; --moon-glow:.4; --ridge1:#D3CBF2; --ridge2:#B1A5E6; --ridge3:#7B6BC4; --tower:#2B2552; --fore:#1B1736; --glow:#FF5B1F; --fore-ink:#F0F2EF; color-scheme:light}
+:root[data-theme="dark"]{
+  --ground:#0B0B0B; --surface:#151918; --surface-2:#1C2120; --ink:#EDEFEE; --ink-soft:#B4BBB8; --ink-faint:#9BA3A0; --rule:#2C3231; --rule-soft:#1E2322;
+  --accent-official:#FF5B1F; --accent-home:#BDEBD3; --accent:#FF5B1F; --accent-ink:#121414; --good:#BDEBD3; --hl:#FF5B1F; --chip-bg:#1C2120; --veil:rgba(0,0,0,.6);
+  --sky-top:#0B0B0B; --sky-bot:#261F45; --moon:#FFC9D9; --star-o:.9; --moon-glow:.12; --ridge1:#2D2650; --ridge2:#1E1A38; --ridge3:#141224; --tower:#0B0B0B; --fore:#070707; --glow:#E4F26B; --fore-ink:#EDEFEE; color-scheme:dark}
+body{transition:background .3s,color .3s}
+/* each page takes the colour of its card on the home page */
+:where(body.pg-create){--pa:#FF5B1F}
+:where(body.pg-finder){--pa:#E4F26B}
+:where(body.pg-stats){--pa:#FFC9D9}
+:where(body.pg-compendium){--pa:#C7B8FF}
+:where(body.pg-spells){--pa:#BDEBD3}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]) :where(body.pg-create){--pa:#B72E08}
+  :root:not([data-theme="dark"]) :where(body.pg-finder){--pa:#5C6A00}
+  :root:not([data-theme="dark"]) :where(body.pg-stats){--pa:#B0285A}
+  :root:not([data-theme="dark"]) :where(body.pg-compendium){--pa:#5A46B8}
+  :root:not([data-theme="dark"]) :where(body.pg-spells){--pa:#17724A}
+}
+:root[data-theme="light"] :where(body.pg-create){--pa:#B72E08}
+:root[data-theme="light"] :where(body.pg-finder){--pa:#5C6A00}
+:root[data-theme="light"] :where(body.pg-stats){--pa:#B0285A}
+:root[data-theme="light"] :where(body.pg-compendium){--pa:#5A46B8}
+:root[data-theme="light"] :where(body.pg-spells){--pa:#17724A}
+:where(body[class*="pg-"]){--accent:var(--pa);--accent-official:var(--pa);--hl:var(--pa)}
+
+/* shape: soft corners, pill controls */
+.widget,.mini,.spell,.callout,.pact,.cta,.formula,.play .beat,.stage-inner,.sheet,.stage-cap,.card,.tile,.panel,.result-card,.chip-panel{border-radius:14px}
+.stage-inner{overflow:hidden}
+input,select,textarea{border-radius:10px}
+.btn,button.chip,button.pill{border-radius:999px}
+h1,h2,h3{font-weight:600;letter-spacing:-.03em}
+.chap-num{-webkit-text-stroke-width:1.2px}
+
+/* motion: every button and link-card responds */
+.btn,button.chip,.cta,button,.lv,.card,.row,.tile,.opt,a[class]{transition:transform .25s var(--ease),background .2s,color .2s,border-color .2s,box-shadow .25s,filter .2s}
+.btn:hover,button.chip:hover,.lv:hover{transform:translateY(-2px)}
+.btn:active,button.chip:active,.lv:active,.cta:active{transform:scale(.96)}
+.cta:hover,.cta:focus-visible{transform:translateY(-4px);box-shadow:0 18px 30px -18px rgba(0,0,0,.6)}
+.btn,button.chip,.lv,.cta{position:relative;overflow:hidden}
+.rp{position:absolute;border-radius:50%;background:currentColor;opacity:.22;transform:scale(0);pointer-events:none;animation:rp .6s ease-out forwards}
+@keyframes rp{to{transform:scale(1);opacity:0}}
+:focus-visible{outline-color:var(--accent-official)!important}
+@media (prefers-reduced-motion: reduce){.rp{display:none}.btn:hover,button.chip:hover,.lv:hover,.cta:hover{transform:none}}
+
+/* site bar */
+.sitebar{position:relative;z-index:90;display:flex;align-items:center;gap:6px 18px;flex-wrap:wrap;padding:10px max(16px,env(safe-area-inset-left,0px));background:color-mix(in srgb,var(--ground) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--rule);font-family:"Figtree",system-ui,sans-serif;font-size:14px}
+.sitebar a{color:var(--ink-soft);text-decoration:none;position:relative;padding:6px 0;transition:color .2s}
+.sitebar a::after{content:"";position:absolute;left:0;right:0;bottom:2px;height:1.5px;background:var(--accent-official);transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease)}
+.sitebar a:hover,.sitebar a[aria-current]{color:var(--ink)}
+.sitebar a:hover::after,.sitebar a[aria-current]::after{transform:scaleX(1)}
+.sitebar .brand{font-weight:600;color:var(--ink);display:inline-flex;align-items:center;gap:9px;margin-right:6px}
+.sitebar .brand i{width:11px;height:11px;border-radius:50%;background:var(--c5);transition:transform .4s var(--ease),background .3s}
+.sitebar .brand:hover i{transform:scale(1.5);background:var(--c1)}
+.sitebar .sp{flex:1}
+.sitebar button{font:inherit;color:var(--ink-soft);background:transparent;border:1px solid var(--rule);border-radius:999px;padding:5px 12px;cursor:pointer}
+.sitebar button:hover{color:var(--ink);border-color:var(--ink-faint)}
+@media print{.sitebar{display:none}}
+
+/* the spell filter row scrolls sideways on phones by design; fade its right edge so a half-cut chip reads as 'more this way' */
+@media (max-width:40rem){.bar-in{-webkit-mask-image:linear-gradient(to right,#000 88%,transparent);mask-image:linear-gradient(to right,#000 88%,transparent);padding-right:24px}.sitebar{gap:2px 14px;padding-top:8px;padding-bottom:8px}.sitebar .sp{display:none}}
+/* page transition: colour sweeps over the old page, then an iris opens on the new one */
+.cover{position:fixed;inset:0;z-index:2147483000;pointer-events:none}
 </style>
-<nav class="sitenav" aria-label="Site"><a href="/">D&amp;D Tools</a><span class="sitenav-sep" aria-hidden="true">/</span><span class="sitenav-here" aria-current="page">Make a Character</span><span class="sitenav-sep" aria-hidden="true">/</span><a href="/finder/">Class Finder</a><span class="sitenav-sep" aria-hidden="true">/</span><a href="/stats/">Ability Scores</a><span class="sitenav-sep" aria-hidden="true">/</span><a href="/compendium/">Subclass Compendium</a><span class="sitenav-sep" aria-hidden="true">/</span><a href="/spells/">Spell Compendium</a></nav>
+</head>
+<body class="pg-create">
+<nav class="sitebar" aria-label="Site"><a class="brand" href="../index.html"><i></i>D&amp;D Tools</a><a href="../create/index.html" aria-current="page">Make a Character</a><a href="../finder/index.html">Class Finder</a><a href="../stats/index.html">Ability Scores</a><a href="../compendium/index.html">Subclasses</a><a href="../spells/index.html">Spells</a><span class="sp"></span><button id="themeBtn" type="button">Light theme</button></nav>
+
+
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <defs>
     <symbol id="d20" viewBox="0 0 100 100"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"><polygon points="50,4 91,27 91,73 50,96 9,73 9,27"/><polygon points="50,24 76,66 24,66"/><path d="M50 4V24M91 27L76 66M9 27L24 66M50 96V66M91 73L76 66M9 73L24 66M50 24L9 27M50 24L91 27"/></g></symbol>
@@ -482,7 +565,7 @@
             <div class="mini"><h4>Random Generation</h4><p>Roll four d6 and keep the highest three. Do that six times.</p></div>
             <div class="mini"><h4>Point Cost</h4><p>27 points to spend across the six. A 14 costs 7 of them.</p></div>
           </div>
-          <p><a href="/stats/">Open the Ability Scores tool</a> to roll or assign them.</p>
+          <p><a href="../stats/index.html">Open the Ability Scores tool</a> to roll or assign them.</p>
         </div>
 
         <article class="play" aria-labelledby="play2">
@@ -878,8 +961,8 @@
     <aside class="stage" aria-hidden="true">
       <div class="stage-inner" id="stage-inner">
         <div class="sheet" id="sheet" data-page="1">
-          <img class="p1" src="/create/img/sheet-p1.jpg" width="1675" height="2150" alt="" decoding="async">
-          <img class="p2" src="/create/img/sheet-p2.jpg" width="1675" height="2150" alt="" loading="lazy" decoding="async">
+          <img class="p1" src="img/sheet-p1.jpg" width="1675" height="2150" alt="" decoding="async">
+          <img class="p2" src="img/sheet-p2.jpg" width="1675" height="2150" alt="" loading="lazy" decoding="async">
           <div class="hls" id="hls"></div>
         </div>
         <div class="stage-cap"><span id="cap">Page 1 &middot; The whole sheet</span><span><b id="capn">1</b> / 2</span></div>
@@ -957,10 +1040,10 @@
   </div>
 </div>
 <div class="ctas">
-    <a class="cta" href="/finder/"><b>Class Finder</b><span>Ten questions about how you like to play, ending in a class and a reason.</span><em>Find a class</em></a>
-    <a class="cta" href="/stats/"><b>Ability Scores</b><span>Roll, use the standard array or point buy, then apply your background.</span><em>Roll some dice</em></a>
-    <a class="cta home" href="/compendium/"><b>Subclass Compendium</b><span>Every 2024 subclass plus homebrew, listed by level.</span><em>Browse subclasses</em></a>
-    <a class="cta home" href="/spells/"><b>Spell Compendium</b><span>Filter by class, level, school and book, or search the spell text.</span><em>Browse spells</em></a>
+    <a class="cta" href="../finder/index.html"><b>Class Finder</b><span>Ten questions about how you like to play, ending in a class and a reason.</span><em>Find a class</em></a>
+    <a class="cta" href="../stats/index.html"><b>Ability Scores</b><span>Roll, use the standard array or point buy, then apply your background.</span><em>Roll some dice</em></a>
+    <a class="cta home" href="../compendium/index.html"><b>Subclass Compendium</b><span>Every 2024 subclass plus homebrew, listed by level.</span><em>Browse subclasses</em></a>
+    <a class="cta home" href="../spells/index.html"><b>Spell Compendium</b><span>Filter by class, level, school and book, or search the spell text.</span><em>Browse spells</em></a>
   </div>
   <footer class="endfoot">
     <div>
@@ -1191,6 +1274,45 @@
   }
   if (window.gsap && window.ScrollTrigger) parallax();
   else window.addEventListener("load", parallax);
+})();
+</script>
+
+<script>(function(){
+  var rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.addEventListener('pointerdown',function(e){
+    var el=e.target.closest('.btn,button.chip,.lv,.cta');if(!el||rm)return;
+    var r=el.getBoundingClientRect(),d=Math.max(r.width,r.height)*2,s=document.createElement('span');
+    s.className='rp';s.style.cssText='width:'+d+'px;height:'+d+'px;left:'+(e.clientX-r.left-d/2)+'px;top:'+(e.clientY-r.top-d/2)+'px';
+    el.appendChild(s);setTimeout(function(){s.remove()},650);
+  });
+  var b=document.getElementById('themeBtn');
+  function eff(){return document.documentElement.dataset.theme||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark')}
+  function label(){if(b)b.textContent=eff()==='dark'?'Light theme':'Dark theme'}
+  try{var t=localStorage.getItem('dnd-theme');if(t)document.documentElement.dataset.theme=t}catch(e){}
+  label();
+  if(b)b.addEventListener('click',function(){var n=eff()==='dark'?'light':'dark';document.documentElement.dataset.theme=n;try{localStorage.setItem('dnd-theme',n)}catch(e){}label()});
+})();
+(function(){
+  /* page transition, two phases:
+     1) a solid in the clicked item's colour wipes across the old page
+     2) on the new page an iris hole opens in that solid, centred where you clicked */
+  var rm2=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a[href]');
+    if(!a||e.defaultPrevented||e.button||e.metaKey||e.ctrlKey||e.shiftKey||a.target==='_blank')return;
+    var u=new URL(a.href,location.href);
+    if(u.origin!==location.origin||u.pathname===location.pathname||/^#/.test(a.getAttribute('href')))return;
+    if(rm2)return;
+    e.preventDefault();
+    var x=e.clientX,y=e.clientY;
+    if(!e.detail||(!x&&!y)){var r=a.getBoundingClientRect();x=r.left+r.width/2;y=r.top+r.height/2}
+    var p=document.createElement('i');p.style.cssText='position:absolute;visibility:hidden;color:var(--cc,var(--k,var(--accent-official,var(--c1,#FF5B1F))))';a.appendChild(p);var col=getComputedStyle(p).color;p.remove();
+    try{sessionStorage.setItem('iris',Math.round(x)+'|'+Math.round(y)+'|'+col)}catch(err){}
+    var o=document.createElement('div');o.className='cover';o.style.background=col;var R=Math.hypot(Math.max(x,innerWidth-x),Math.max(y,innerHeight-y))+4,c0='circle(0px at '+x+'px '+y+'px)',c1='circle('+R+'px at '+x+'px '+y+'px)';o.style.clipPath=c0;document.body.appendChild(o);
+    var go=function(){location.href=a.href};
+    if(o.animate){var an=o.animate([{clipPath:c0},{clipPath:c1}],{duration:560,easing:'cubic-bezier(.65,0,.35,1)',fill:'forwards'});an.onfinish=go;setTimeout(go,800)}else go();
+  });
+  addEventListener('pageshow',function(ev){if(ev.persisted)document.querySelectorAll('.cover').forEach(function(n){n.remove()})});
 })();
 </script>
 </body>

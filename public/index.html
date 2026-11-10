@@ -1,238 +1,410 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
-<title>D&amp;D Class Tools</title>
 <meta name="description" content="Three tools for D&amp;D 2024: a ten-question class finder for first-time players, an ability score roller, and a subclass compendium covering official and homebrew classes.">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="D&amp;D Tools">
 <meta property="og:title" content="D&amp;D Class Tools">
 <meta property="og:description" content="A ten-question class finder for first-time players, an ability score roller, and a subclass compendium covering official and homebrew classes.">
-<meta name="twitter:card" content="summary">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
-
-<style>
-  :root {
-    --ground:#E4E1D8; --surface:#F1EFE9;
-    --ink:#1B1E23; --ink-soft:#5B626C; --ink-faint:#8A9099;
-    --rule:#C6C2B6; --rule-soft:#D6D2C7;
-    --accent-official:#9A5A15; --accent-home:#1C6659; --accent-ink:#FFFFFF;
-
-    --step--2:.68rem;
-    --step--1: clamp(.74rem,.72rem + .12vw,.8rem);
-    --step-0:  clamp(.95rem,.92rem + .18vw,1.05rem);
-    --step-1:  clamp(1.05rem,1rem + .26vw,1.2rem);
-    --step-2:  clamp(1.25rem,1.12rem + .6vw,1.6rem);
-    --step-3:  clamp(1.7rem,1.35rem + 1.7vw,2.6rem);
+<meta name="twitter:card" content="summary"><script>(function(){try{if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;var v=sessionStorage.getItem('iris');if(!v)return;sessionStorage.removeItem('iris');var a=v.split('|'),x=+a[0],y=+a[1],W=innerWidth,H=innerHeight,R=Math.hypot(Math.max(x,W-x),Math.max(y,H-y))+4;
+var d=document.createElement('div');d.className='cover';d.style.cssText='position:fixed;inset:0;z-index:2147483000;pointer-events:none;background:'+(a[2]||'#FF5B1F');document.documentElement.appendChild(d);
+function mask(r){var m='radial-gradient(circle at '+x+'px '+y+'px,transparent '+r+'px,#000 '+(r+1)+'px)';d.style.webkitMaskImage=m;d.style.maskImage=m}
+mask(0);var t0=null,hold=50,dur=820;function ease(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2}
+function step(ts){if(t0===null)t0=ts;var t=(ts-t0-hold)/dur;if(t<=0){requestAnimationFrame(step);return}if(t>=1){d.remove();return}mask(R*ease(t));requestAnimationFrame(step)}
+requestAnimationFrame(step);setTimeout(function(){d.remove()},hold+dur+600)}catch(e){}})();</script><title>D&amp;D Tools</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Martian+Mono:wght@400;500;600&display=swap"><style>/* Layout: sticky left panel (headline, intro, nav) beside the tool; the guide swaps it for a top bar and a pinned, zooming character sheet. */
+:root{
+  --bg:#0B0B0B; --bg2:#151918; --line:#262A29; --line2:#3A3F3E;
+  --text:#EDEFEE; --text2:#B4BBB8; --text3:#9BA3A0; --ink:#121414;
+  --c1:#FF5B1F; --c2:#E4F26B; --c3:#FFC9D9; --c4:#C7B8FF; --c5:#BDEBD3;
+  --t1:#FF5B1F; --t2:#E4F26B; --t3:#FFC9D9; --t4:#C7B8FF; --t5:#BDEBD3;
+  --focus:#BDEBD3; --term:#C7B8FF; --hl:#FF5B1F;
+  --paper:#151918; --pline:#4A504E; --ptext:#9BA3A0;
+  --f:'Figtree',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --m:'Martian Mono',ui-monospace,'SF Mono',Menlo,monospace;
+  --ease:cubic-bezier(.22,.8,.2,1);
+  --tb:60px;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]){
+    --bg:#F0F2EF; --bg2:#E6E9E5; --line:#C6CBC8; --line2:#9AA19E;
+    --text:#121414; --text2:#3C4240; --text3:#4F5654;
+    --t1:#B72E08; --t2:#5C6A00; --t3:#B0285A; --t4:#5A46B8; --t5:#17724A;
+    --focus:#5A46B8; --term:#5A46B8; --hl:#B72E08;
+    --paper:#FFFFFF; --pline:#9AA19E; --ptext:#4F5654;
+    color-scheme:light;
   }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --ground:#131619; --surface:#1B1F24;
-      --ink:#E7E4DB; --ink-soft:#A0A7B0; --ink-faint:#6E757E;
-      --rule:#2E343B; --rule-soft:#262B31;
-      --accent-official:#D9903F; --accent-home:#47AD99; --accent-ink:#131619;
-    }
-  }
-  :root[data-theme="dark"] {
-    --ground:#131619; --surface:#1B1F24;
-    --ink:#E7E4DB; --ink-soft:#A0A7B0; --ink-faint:#6E757E;
-    --rule:#2E343B; --rule-soft:#262B31;
-    --accent-official:#D9903F; --accent-home:#47AD99; --accent-ink:#131619;
-  }
+}
+:root[data-theme="light"]{
+  --bg:#F0F2EF; --bg2:#E6E9E5; --line:#C6CBC8; --line2:#9AA19E;
+  --text:#121414; --text2:#3C4240; --text3:#4F5654;
+  --t1:#B72E08; --t2:#5C6A00; --t3:#B0285A; --t4:#5A46B8; --t5:#17724A;
+  --focus:#5A46B8; --term:#5A46B8; --hl:#B72E08;
+  --paper:#FFFFFF; --pline:#9AA19E; --ptext:#4F5654;
+  color-scheme:light;
+}
+:root[data-theme="dark"]{ color-scheme:dark }
 
-  * { box-sizing: border-box; }
-  body {
-    margin:0; background: var(--ground); color: var(--ink);
-    font-family:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-    font-size: var(--step-0); line-height:1.6; -webkit-font-smoothing: antialiased;
-  }
-  .wrap { max-width:62rem; margin-inline:auto; padding:clamp(40px,8vw,84px) 20px 80px; }
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:400 17px/1.6 var(--f);-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--bg)}
+a{color:inherit}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--focus);outline-offset:3px;border-radius:4px}
+.mono{font-family:var(--m);font-size:12.5px;letter-spacing:.01em}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
-  .eyebrow {
-    font-family:"IBM Plex Mono", ui-monospace, monospace; font-size: var(--step--1);
-    letter-spacing:.14em; text-transform:uppercase; color: var(--ink-faint); margin:0;
-  }
-  h1 {
-    font-family: Fraunces, Georgia,"Times New Roman",serif; font-optical-sizing:auto;
-    font-weight:600; font-size: var(--step-3); line-height:1.05; letter-spacing:-.015em;
-    margin:8px 0 0; text-wrap: balance; max-width:20ch;
-  }
-  .lede { color: var(--ink-soft); max-width:56ch; margin:14px 0 0; font-size: var(--step-1); }
+/* ---------- shell ---------- */
+.shell{display:grid;grid-template-columns:minmax(300px,440px) minmax(0,1fr);min-height:100dvh;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.aside{position:sticky;top:env(safe-area-inset-top,0px);height:100dvh;overflow:auto;padding:40px 40px 32px 0;display:flex;flex-direction:column;gap:44px;border-right:1px solid var(--line);scrollbar-width:thin}
+.brand{display:inline-flex;align-items:center;gap:12px;font-weight:600;font-size:18px;text-decoration:none;width:max-content}
+.brand .dot{width:13px;height:13px;border-radius:50%;background:var(--c5);transition:transform .5s var(--ease),background .3s}
+.brand:hover .dot{transform:scale(1.5) translateX(2px);background:var(--c1)}
+.eb{margin:0 0 16px;color:var(--text3)}
+.intro h1{margin:0;font-weight:500;font-size:clamp(28px,3.2vw,38px);line-height:1.12;letter-spacing:-.03em;color:var(--t5);text-wrap:balance}
+.intro h1.sm{font-size:clamp(26px,2.6vw,32px)}
+.lead{margin:22px 0 0;color:var(--text2);font-size:17px}
+.sub{margin:14px 0 0;color:var(--text3);font-size:15px}
+.nav{display:flex;flex-direction:column;margin-top:auto}
+.nav a{position:relative;display:flex;align-items:center;gap:12px;min-height:48px;color:var(--text2);text-decoration:none;border-top:1px solid var(--line);font-size:16px;transition:color .2s,padding .3s var(--ease)}
+.nav a:last-child{border-bottom:1px solid var(--line)}
+.nav a::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--k);opacity:.5;transition:transform .3s var(--ease),opacity .2s}
+.nav a::after{content:"";position:absolute;left:0;bottom:-1px;height:1px;width:100%;background:var(--k);transform:scaleX(0);transform-origin:left;transition:transform .45s var(--ease)}
+.nav a:hover,.nav a[aria-current="page"]{color:var(--text);padding-left:6px}
+.nav a:hover::before,.nav a[aria-current="page"]::before{transform:scale(1.5);opacity:1}
+.nav a:hover::after,.nav a[aria-current="page"]::after{transform:scaleX(1)}
+.aside-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;color:var(--text3);font-size:13.5px}
+.themebtn{display:inline-flex;align-items:center;gap:8px;min-height:36px;padding:0 12px 0 10px;border:1px solid var(--line2);border-radius:999px;background:transparent;cursor:pointer;font-size:13.5px;color:var(--text2);transition:background .2s,transform .2s var(--ease),border-color .2s}
+.themebtn:hover{background:var(--bg2);border-color:var(--text3)}
+.themebtn:active{transform:scale(.95)}
+.themebtn svg{width:16px;height:16px;transition:transform .6s var(--ease)}
+.themebtn:hover svg{transform:rotate(50deg)}
 
-  .cards { display:grid; gap:18px; margin-top:44px; }
-  @media (min-width: 40rem) { .cards { grid-template-columns:1fr 1fr; } }
-  @media (min-width: 58rem) { .cards { grid-template-columns:repeat(2,1fr); } }
+.main{min-width:0;padding:40px 0 64px 56px;max-width:960px;width:100%}
+#view{transition:opacity .16s ease,transform .16s ease}
+#view.leaving{opacity:0;transform:translateY(8px)}
+#view.entering>*{animation:rise .5s var(--ease) both}
+#view.entering>*:nth-child(2){animation-delay:.05s}
+#view.entering>*:nth-child(3){animation-delay:.1s}
+#view.entering>*:nth-child(4){animation-delay:.15s}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 
-  .card {
-    display:flex; flex-direction:column; gap:10px; min-width:0;
-    background: var(--surface); border:1px solid var(--rule);
-    border-top:3px solid var(--accent); padding:22px 22px 24px;
-    color:inherit; text-decoration:none;
-    transition: border-color .15s ease, transform .15s ease;
-  }
-  .card:hover, .card:focus-visible { border-color: var(--accent); transform: translateY(-2px); }
-  .card:focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
-  .card--create { --accent: var(--accent-official); }
-  @media (min-width: 40rem) { .card--create { grid-column: 1 / -1; } }
-  .card--finder { --accent: var(--accent-official); }
-  .card--stats  { --accent: var(--accent-official); }
-  .card--comp   { --accent: var(--accent-home); }
-  .card--spells { --accent: var(--accent-home); }
+/* ---------- buttons ---------- */
+.btn,.chip,.opt,.tab{position:relative;overflow:hidden;cursor:pointer}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:44px;padding:0 20px;border-radius:999px;border:1px solid var(--line2);background:transparent;color:var(--text);font-weight:500;font-size:15.5px;text-decoration:none;transition:transform .25s var(--ease),background .2s,color .2s,border-color .2s,box-shadow .25s}
+.btn:hover{transform:translateY(-2px);border-color:var(--text2);box-shadow:0 8px 20px -10px rgba(0,0,0,.5)}
+.btn:active{transform:scale(.96);box-shadow:none}
+.btn.primary{background:var(--c1);border-color:var(--c1);color:var(--ink)}
+.btn.primary:hover{background:var(--c2);border-color:var(--c2)}
+.btn .ar{display:inline-block;transition:transform .3s var(--ease)}
+.btn:hover .ar{transform:translateX(4px)}
+.btn[disabled]{opacity:.4;pointer-events:none}
+.btn.sm{min-height:36px;padding:0 14px;font-size:14px}
+.rp{position:absolute;border-radius:50%;background:currentColor;opacity:.22;transform:scale(0);pointer-events:none;animation:rp .6s ease-out forwards}
+@keyframes rp{to{transform:scale(1);opacity:0}}
 
-  .card-k {
-    font-family:"IBM Plex Mono", monospace; font-size: var(--step--2); letter-spacing:.14em;
-    text-transform:uppercase; color: var(--accent);
-  }
-  .card-h {
-    font-family: Fraunces, Georgia, serif; font-weight:600; font-size: var(--step-2);
-    line-height:1.15; margin:0; letter-spacing:-.01em;
-  }
-  .card p { margin:0; color: var(--ink-soft); font-size: var(--step--1); }
-  .card-go {
-    margin-top:auto; padding-top:12px; font-weight:500; font-size: var(--step--1); color: var(--accent);
-  }
-  .card-go::after { content:" \2192"; }
+/* ---------- home ---------- */
+.main{container-type:inline-size}
+.hand{display:flex;justify-content:center;padding:20px 12px 44px;width:100%}
+.card{--r:0deg;flex:1 1 0;min-width:0;max-width:156px;min-height:236px;margin-left:-10px;padding:16px;border-radius:12px;background:var(--cc);color:var(--ink);text-decoration:none;display:flex;flex-direction:column;justify-content:space-between;transform:rotate(var(--r));transform-origin:50% 100%;transition:transform .35s cubic-bezier(.2,.9,.3,1.25),box-shadow .35s;animation:deal .7s var(--ease) both;animation-delay:calc(var(--i)*70ms)}
+.card:first-child{margin-left:0}
+.card:hover,.card:focus-visible{transform:rotate(0deg) translateY(-14px);z-index:2;box-shadow:0 22px 30px -18px rgba(0,0,0,.7)}
+.card:active{transform:rotate(0deg) translateY(-8px) scale(.97)}
+.card .k{font:500 11.5px/1.3 var(--m);opacity:.8}
+.card .n{font-weight:600;font-size:clamp(17px,2.4cqw,21px);overflow-wrap:anywhere;line-height:1.15;letter-spacing:-.02em}
+.card .go{align-self:flex-end;width:34px;height:34px;border-radius:50%;border:1.5px solid currentColor;display:grid;place-items:center;transition:transform .35s var(--ease),background .2s,color .2s}
+.card:hover .go{transform:rotate(-45deg);background:var(--ink);color:var(--cc)}
+@keyframes deal{from{opacity:0;transform:translateY(60px) rotate(0deg)}}
+.rows{display:flex;flex-direction:column}
+.row{position:relative;display:block;padding:26px 0 28px;border-top:1px solid var(--line);text-decoration:none;transition:padding .35s var(--ease)}
+.row:last-child{border-bottom:1px solid var(--line)}
+.row::before{content:"";position:absolute;inset:0 -16px;background:var(--bg2);opacity:0;border-radius:6px;z-index:-1;transition:opacity .25s}
+.row:hover::before,.row:focus-visible::before{opacity:1}
+.row:hover{padding-left:8px}
+.row .rt{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 16px;margin-bottom:8px}
+.row h2{margin:0;font-weight:500;font-size:25px;letter-spacing:-.02em}
+.row .tag{color:var(--k)}
+.row p{margin:0;max-width:60ch;color:var(--text2);font-size:16.5px}
+.row .arr{position:absolute;right:0;top:28px;opacity:0;transform:translateX(-10px);transition:all .35s var(--ease);color:var(--k)}
+.row:hover .arr{opacity:1;transform:none}
+.foot{padding-top:64px;font-size:14.5px;line-height:1.6;color:var(--text3);max-width:64ch}
+.foot p{margin:0 0 6px}
+.foot .mono{margin-bottom:10px}
+.foot a{color:var(--t5)}
 
-  .note {
-    margin-top:44px; border-left:3px solid var(--rule); padding:2px 0 2px 15px;
-    font-size: var(--step--1); color: var(--ink-soft);
-  }
+/* ---------- page header inside tools ---------- */
+.tool-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 16px;margin:0 0 6px}
+.tool-h h2{margin:0;font-weight:500;font-size:28px;letter-spacing:-.025em}
+.panel-sub{margin:0 0 28px;color:var(--text2);max-width:60ch}
 
-  footer {
-    margin-top:52px; padding-top:22px; border-top:1px solid var(--rule);
-    font-size: var(--step--1); color: var(--ink-faint);
-  }
-  footer h2 {
-    font-family:"IBM Plex Mono", monospace; font-size: var(--step--2); letter-spacing:.14em;
-    text-transform:uppercase; color: var(--ink-faint); font-weight:500; margin:0 0 10px;
-  }
-  footer ul { list-style:none; margin:0; padding:0; display:grid; gap:6px; }
-  footer li { display:grid; grid-template-columns:minmax(0,1fr); }
-  footer b { color: var(--ink-soft); font-weight:500; }
-  footer p { margin:16px 0 0; max-width:62ch; }
-  /* CC BY 4.0 requires this statement word for word, so it is set quieter than
-     the prose above it but never hidden or shortened */
-  footer p.srd { font-size:.82em; opacity:.8; }
-  footer p.srd a { color:inherit; }
-</style>
-</head>
-<body>
-<div class="wrap">
+/* ---------- tabs / chips / selects ---------- */
+.tabs{position:relative;display:inline-grid;grid-auto-flow:column;grid-auto-columns:1fr;border:1px solid var(--line2);border-radius:999px;padding:3px;margin-bottom:26px}
+.tabs .ind{position:absolute;top:3px;bottom:3px;left:3px;width:calc((100% - 6px)/var(--n));border-radius:999px;background:var(--c1);transform:translateX(calc(var(--idx)*100%));transition:transform .4s var(--ease)}
+.tab{position:relative;z-index:1;border:0;background:transparent;min-height:38px;padding:0 20px;border-radius:999px;font-size:15px;font-weight:500;color:var(--text2);transition:color .25s}
+.tab[aria-selected="true"]{color:var(--ink)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line2);background:transparent;border-radius:999px;min-height:34px;padding:0 14px;font-size:14px;color:var(--text2);transition:transform .2s var(--ease),background .2s,color .2s,border-color .2s}
+.chip:hover{transform:translateY(-2px);border-color:var(--text2)}
+.chip:active{transform:scale(.94)}
+.chip[aria-pressed="true"]{background:var(--text);color:var(--bg);border-color:var(--text)}
+.field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.field label,.lbl{font:500 12px/1.2 var(--m);color:var(--text3)}
+.inp,.sel{height:42px;border:1px solid var(--line2);border-radius:10px;background:var(--bg);padding:0 12px;min-width:0;width:100%;transition:border-color .2s,box-shadow .2s}
+.inp:hover,.sel:hover{border-color:var(--text3)}
+.inp:focus,.sel:focus{outline:0;border-color:var(--focus);box-shadow:0 0 0 3px color-mix(in srgb,var(--focus) 25%,transparent)}
+.filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:22px}
+.searchbox{position:relative}
+.searchbox .inp{padding-right:64px}
+.kbd{position:absolute;right:10px;top:50%;transform:translateY(-50%);font:500 11px var(--m);color:var(--text3);border:1px solid var(--line2);border-radius:5px;padding:2px 6px;pointer-events:none}
+.count{margin:0 0 10px;color:var(--text3);font-size:14.5px}
 
-  <p class="eyebrow">Dungeons &amp; Dragons 2024</p>
-  <h1>
-    Five tools for picking
-    a character, and for
-    living with the choice
-  </h1>
-  <p class="lede">
-    One is a guided walk through the character sheet for the player who has
-    never rolled a die. One finds a class. One rolls the numbers. The other two are for the
-    table that has read all of it twice and wants to know exactly what a
-    subclass changes, or what a spell actually says.
-  </p>
+/* ---------- accordions (subclasses, spells) ---------- */
+.acc{border-top:1px solid var(--line)}
+.acc:last-child{border-bottom:1px solid var(--line)}
+.acc-h{width:100%;display:flex;align-items:center;gap:16px;text-align:left;background:transparent;border:0;padding:16px 0;cursor:pointer;transition:padding .3s var(--ease),background .2s}
+.acc-h:hover{padding-left:8px}
+.acc-h .nm{font-weight:500;font-size:19px;letter-spacing:-.01em;flex:1;min-width:0}
+.acc-h .meta{color:var(--text3);font-size:14px}
+.acc-h .pl{width:22px;height:22px;position:relative;flex:none}
+.acc-h .pl::before,.acc-h .pl::after{content:"";position:absolute;left:3px;right:3px;top:10px;height:1.5px;background:var(--text2);transition:transform .35s var(--ease)}
+.acc-h .pl::after{transform:rotate(90deg)}
+.acc.open .pl::after{transform:rotate(0)}
+.acc.open .pl::before{transform:rotate(180deg)}
+.exp{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s var(--ease)}
+.acc.open .exp{grid-template-rows:1fr}
+.exp>div{overflow:hidden;min-height:0}
+.exp-in{padding:2px 0 24px;max-width:66ch;color:var(--text2);font-size:16px;opacity:0;transform:translateY(-6px);transition:opacity .35s .05s,transform .45s var(--ease)}
+.acc.open .exp-in{opacity:1;transform:none}
+.grp{font:500 12.5px var(--m);color:var(--text3);margin:30px 0 10px;display:flex;align-items:center;gap:10px}
+.grp i{width:8px;height:8px;border-radius:50%;background:var(--k)}
+.feat{display:grid;grid-template-columns:64px 1fr;gap:4px 14px;padding:10px 0;border-top:1px dashed var(--line)}
+.feat:first-child{border-top:0}
+.feat .lv{font:500 12.5px/1.9 var(--m);color:var(--t1)}
+.feat b{font-weight:600;color:var(--text)}
+.feat p{margin:2px 0 0}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin:4px 0 14px}
+.facts div{border-top:1px solid var(--line);padding-top:6px}
+.facts span{display:block;font:500 11.5px var(--m);color:var(--text3)}
+.empty{padding:36px 0;color:var(--text3);border-top:1px solid var(--line)}
 
-  <div class="cards">
+/* ---------- terms + tooltip ---------- */
+.term{display:inline;padding:0;border:0;background:transparent;cursor:help;color:inherit;font:inherit;border-bottom:1.5px dotted var(--term);transition:background .2s,color .2s}
+.term:hover,.term:focus-visible{background:color-mix(in srgb,var(--term) 18%,transparent);color:var(--text)}
+#tip{position:fixed;z-index:80;max-width:min(320px,calc(100vw - 24px));padding:12px 14px;border-radius:10px;background:var(--text);color:var(--bg);font-size:14px;line-height:1.5;box-shadow:0 14px 30px -12px rgba(0,0,0,.6);opacity:0;transform:translateY(6px) scale(.98);pointer-events:none;transition:opacity .18s,transform .22s var(--ease)}
+#tip.on{opacity:1;transform:none}
+#tip b{display:block;font-weight:600;margin-bottom:2px}
 
-    <a class="card card--create" href="/create/">
-      <span class="card-k">A scrolling guide</span>
-      <h2 class="card-h">Make a Character</h2>
-      <p>
-        The 2024 character sheet, one section at a time, with the page staying
-        beside you as you read. Who you are, your six numbers, class and levelling,
-        combat and spells &mdash; and an example of play at a table where the
-        players get a few things wrong and the DM sorts them out.
-      </p>
-      <span class="card-go">Start reading</span>
-    </a>
+/* ---------- class finder ---------- */
+.fcard{max-width:640px}
+.prog{height:3px;background:var(--line);border-radius:3px;overflow:hidden;margin:12px 0 28px}
+.prog i{display:block;height:100%;background:var(--c1);width:var(--p);transition:width .5s var(--ease)}
+.q{margin:0 0 22px;font-weight:500;font-size:25px;line-height:1.25;letter-spacing:-.02em;text-wrap:balance}
+.opts{display:flex;flex-direction:column;gap:10px}
+.opt{display:flex;align-items:center;gap:14px;text-align:left;width:100%;min-height:56px;padding:12px 16px;border:1px solid var(--line2);border-radius:12px;background:transparent;transition:transform .25s var(--ease),border-color .2s,background .2s}
+.opt:hover{transform:translateX(6px);border-color:var(--text2);background:var(--bg2)}
+.opt:active{transform:scale(.985)}
+.opt .no{flex:none;width:26px;height:26px;border-radius:7px;border:1px solid var(--line2);display:grid;place-items:center;font:500 12px var(--m);color:var(--text3);transition:all .25s}
+.opt:hover .no{border-color:var(--text2);color:var(--text)}
+.opt.sel{background:var(--c1);border-color:var(--c1);color:var(--ink);transform:translateX(10px)}
+.opt.sel .no{background:var(--ink);border-color:var(--ink);color:var(--c1)}
+.slide-in{animation:slidein .45s var(--ease) both}
+@keyframes slidein{from{opacity:0;transform:translateX(28px)}}
+.fnav{display:flex;justify-content:space-between;align-items:center;margin-top:24px;color:var(--text3);font-size:14px}
+.res-h{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline}
+.res-name{margin:6px 0 0;font-size:clamp(40px,6vw,60px);line-height:1;font-weight:500;letter-spacing:-.04em}
+.res-facts{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 22px}
+.pill{font:500 12px var(--m);border:1px solid var(--line2);border-radius:999px;padding:5px 11px;color:var(--text2)}
+.why{margin:0 0 28px;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px;color:var(--text2)}
+.why li{padding-left:18px;position:relative}
+.why li::before{content:"";position:absolute;left:0;top:.7em;width:8px;height:1.5px;background:var(--c1)}
+.bars{display:flex;flex-direction:column;gap:12px;margin:26px 0 30px}
+.bar{display:grid;grid-template-columns:96px 1fr;align-items:center;gap:14px;font-size:15px}
+.bar span:last-child{height:8px;border-radius:8px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--bc);border-radius:8px;transition:width .9s var(--ease)}
+.acts{display:flex;flex-wrap:wrap;gap:10px}
 
-    <a class="card card--finder" href="/finder/">
-      <span class="card-k">Ten questions</span>
-      <h2 class="card-h">Class Finder</h2>
-      <p>
-        Questions about how you like to play, not about game mechanics — how
-        much you want to keep track of, when you start thinking about your turn,
-        which scene sounds like the character you want to be. Ends with a class
-        and an explanation of why. Official and homebrew modes.
-      </p>
-      <span class="card-go">Find a class</span>
-    </a>
+/* ---------- ability scores ---------- */
+.stats-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:48px}
+.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin:18px 0}
+.slot{display:flex;flex-direction:column;gap:6px}
+.tile{border:1px solid var(--line2);border-radius:12px;background:transparent;padding:12px;text-align:left;cursor:pointer;display:flex;flex-direction:column;gap:6px;transition:transform .25s var(--ease),border-color .2s,background .2s}
+.tile:hover{transform:translateY(-3px);border-color:var(--text2)}
+.tile:active{transform:scale(.97)}
+.tile[aria-pressed="true"]{border-color:var(--c3);background:color-mix(in srgb,var(--c3) 14%,transparent);transform:translateY(-3px)}
+.tile .sum{font-size:34px;font-weight:500;letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums}
+.dice{display:flex;gap:5px}
+.die{width:24px;height:24px;border-radius:6px;background:var(--text);color:var(--bg);display:grid;place-items:center;font:600 12px var(--m);font-variant-numeric:tabular-nums}
+.die.drop{background:transparent;color:var(--text3);border:1px dashed var(--line2);text-decoration:line-through}
+.die.tum{animation:tum .55s ease}
+@keyframes tum{0%{transform:rotate(0) translateY(0)}30%{transform:rotate(140deg) translateY(-8px)}60%{transform:rotate(280deg) translateY(2px)}100%{transform:rotate(360deg)}}
+.slot-row{display:flex;align-items:center;justify-content:space-between}
+.mini{border:0;background:transparent;color:var(--text3);cursor:pointer;font-size:12.5px;padding:4px 8px;border-radius:6px;transition:color .2s,background .2s,transform .2s}
+.mini:hover{color:var(--text);background:var(--bg2)}
+.mini:active{transform:scale(.92)}
+.mini svg{width:14px;height:14px;vertical-align:-2px;margin-right:4px;transition:transform .5s var(--ease)}
+.mini:hover svg{transform:rotate(180deg)}
+.hint{color:var(--text3);font-size:14.5px;min-height:1.6em;margin:0}
+.pb-row,.std-row{display:grid;grid-template-columns:52px 1fr auto;align-items:center;gap:12px;padding:10px 0;border-top:1px solid var(--line)}
+.pb-row:last-of-type,.std-row:last-of-type{border-bottom:1px solid var(--line)}
+.step{display:inline-flex;align-items:center;gap:10px}
+.step button{width:34px;height:34px;border-radius:50%;border:1px solid var(--line2);background:transparent;cursor:pointer;font-size:18px;line-height:1;position:relative;overflow:hidden;transition:transform .2s var(--ease),background .2s,border-color .2s}
+.step button:hover{background:var(--bg2);border-color:var(--text2);transform:scale(1.08)}
+.step button:active{transform:scale(.9)}
+.step button[disabled]{opacity:.3;pointer-events:none}
+.step output{min-width:28px;text-align:center;font-weight:600;font-variant-numeric:tabular-nums}
+.meter{height:6px;background:var(--line);border-radius:6px;overflow:hidden;margin:6px 0 4px}
+.meter i{display:block;height:100%;width:var(--p);background:var(--c5);transition:width .4s var(--ease)}
+.result{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.result th{font:500 11.5px var(--m);color:var(--text3);text-align:right;padding:0 0 10px}
+.result th:first-child,.result td:first-child{text-align:left}
+.result td{padding:11px 0;border-top:1px solid var(--line);text-align:right;color:var(--text2)}
+.result td:first-child{color:var(--text);font-weight:500}
+.result .fin{font-size:24px;font-weight:600;color:var(--text);letter-spacing:-.02em}
+.result .mod{font-weight:600;color:var(--t3)}
+.result tr.pulse .fin{animation:pulse .6s var(--ease)}
+@keyframes pulse{40%{transform:scale(1.25);color:var(--t1)}}
+.result .fin{display:inline-block}
+.scroll-x{overflow-x:auto}
+.bgbox{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin:12px 0 0}
 
-    <a class="card card--stats" href="/stats/">
-      <span class="card-k">4d6, drop the lowest</span>
-      <h2 class="card-h">Ability Scores</h2>
-      <p>
-        Roll, then put the number wherever you want — and reroll anything, as
-        often as you want. Standard array and point buy are here too, along with
-        the background increases the 2024 rules attach to your origin.
-      </p>
-      <span class="card-go">Roll some dice</span>
-    </a>
+/* ---------- guide ---------- */
+.topbar{display:none;position:sticky;top:env(safe-area-inset-top,0px);z-index:50;height:var(--tb);align-items:center;gap:20px;background:var(--bg);border-bottom:1px solid var(--line);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.topbar .where{margin-left:auto;color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.back{display:inline-flex;align-items:center;gap:8px;color:var(--text2);text-decoration:none;font-size:14.5px;transition:color .2s}
+.back span{transition:transform .3s var(--ease)}
+.back:hover{color:var(--text)}
+.back:hover span{transform:translateX(-4px)}
+.is-guide{display:block;padding:0}
+.is-guide .aside{display:none}
+.is-guide .topbar{display:flex}
+.is-guide .main{max-width:none;padding:0}
+.guide{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr)}
+.stage{position:sticky;top:calc(var(--tb) + env(safe-area-inset-top,0px));height:calc(100dvh - var(--tb) - env(safe-area-inset-top,0px));display:flex;flex-direction:column;border-right:1px solid var(--line);background:var(--bg);padding-left:max(16px,env(safe-area-inset-left,0px))}
+.stage-top{display:flex;justify-content:space-between;gap:12px;padding:14px 20px 8px 0;color:var(--text3)}
+.stage-top b{color:var(--text);font-weight:500}
+.vp{position:relative;flex:1;min-height:0;overflow:hidden;margin-right:20px;border-radius:10px;background:var(--bg2)}
+.sheet{position:absolute;left:0;top:0;width:1558px;height:2000px;transform-origin:0 0;transition:transform 1s var(--ease);will-change:transform}
+.sheet.snap{transition:none}
+.sheet svg{width:100%;height:100%;display:block}
+.sheet .paper{fill:var(--paper);stroke:var(--pline);stroke-width:3}
+.sheet .hl rect,.sheet .hl circle{fill:none;stroke:var(--pline);stroke-width:3;transition:fill .5s,stroke .5s,stroke-width .4s}
+.sheet .hl{transition:opacity .5s}
+.sheet.focusing .hl:not(.on){opacity:.4}
+.sheet .hl.on rect,.sheet .hl.hover rect{fill:color-mix(in srgb,var(--hl) 20%,transparent);stroke:var(--hl);stroke-width:6}
+.sheet .hl.hover{opacity:1!important}
+.sheet .lb{font:600 21px var(--m);fill:var(--ptext)}
+.sheet .big{font:500 80px var(--f);fill:var(--pline)}
+.sheet .ln{stroke:var(--pline);stroke-width:2;opacity:.5}
+.sheet .ttl{font:600 44px var(--f);fill:var(--ptext)}
+.sheet #p1,.sheet #p2{transition:opacity .6s}
+.sheet[data-page="1"] #p2,.sheet[data-page="2"] #p1{opacity:0}
+.stage-bot{display:flex;align-items:center;gap:14px;padding:12px 20px 18px 0}
+.dots{display:flex;gap:6px;flex:1;flex-wrap:wrap}
+.dots button{width:10px;height:10px;border-radius:50%;border:0;padding:0;background:var(--line2);cursor:pointer;transition:transform .3s var(--ease),background .3s,width .3s var(--ease)}
+.dots button:hover{transform:scale(1.4)}
+.dots button.on{width:26px;border-radius:6px;background:var(--c1)}
+.read{min-width:0;padding:0 clamp(20px,4.5vw,72px) 120px clamp(20px,4vw,56px);padding-right:max(clamp(20px,4.5vw,72px),env(safe-area-inset-right,0px))}
+.beat{min-height:82dvh;padding:56px 0;display:flex;flex-direction:column;justify-content:center;gap:16px;max-width:60ch;opacity:.38;transition:opacity .5s;scroll-margin-top:var(--tb)}
+.beat.on{opacity:1}
+.beat .no{color:var(--t1)}
+.beat h2{margin:0;font-weight:500;font-size:clamp(28px,3vw,36px);line-height:1.12;letter-spacing:-.03em;text-wrap:balance}
+.beat.hero h1{margin:0;font-weight:500;font-size:clamp(34px,4.4vw,52px);line-height:1.05;letter-spacing:-.04em;color:var(--t5);text-wrap:balance}
+.beat p{margin:0;color:var(--text2)}
+.hv{font-weight:600;color:var(--text);cursor:default;border-bottom:1.5px solid var(--t1);transition:background .2s}
+.hv:hover,.hv:focus-visible{background:color-mix(in srgb,var(--t1) 20%,transparent)}
+.roller{margin-top:8px;padding:20px;border:1px solid var(--line2);border-radius:14px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 16px}
+.roller .full{grid-column:1/-1}
+.chk{display:flex;align-items:center;gap:10px;min-height:42px;cursor:pointer;user-select:none}
+.chk input{appearance:none;width:22px;height:22px;border:1.5px solid var(--line2);border-radius:6px;display:grid;place-items:center;margin:0;cursor:pointer;transition:background .2s,border-color .2s,transform .2s var(--ease)}
+.chk input::after{content:"";width:10px;height:6px;border-left:2px solid var(--ink);border-bottom:2px solid var(--ink);transform:rotate(-45deg) scale(0) translate(1px,-1px);transition:transform .25s var(--ease)}
+.chk input:checked{background:var(--c5);border-color:var(--c5)}
+.chk input:checked::after{transform:rotate(-45deg) scale(1) translate(1px,-1px)}
+.chk:active input{transform:scale(.85)}
+.out{display:flex;align-items:center;gap:16px;min-height:60px}
+.out .d20{width:56px;height:56px;border-radius:14px;background:var(--c2);color:var(--ink);display:grid;place-items:center;font:600 22px var(--m);font-variant-numeric:tabular-nums;flex:none}
+.out .d20.tum{animation:tum .6s ease}
+.out p{margin:0;color:var(--text2);font-size:15.5px}
+.out p b{color:var(--text);font-size:19px}
 
-    <a class="card card--comp" href="/compendium/">
-      <span class="card-k">Every subclass</span>
-      <h2 class="card-h">Subclass Compendium</h2>
-      <p>
-        All the 2024 subclasses plus six homebrew classes and 118 homebrew
-        subclasses for the official ones, each feature listed by level. Hover any
-        rules term for a definition — and a marked term tells you what this
-        subclass specifically does to it. Search with
-        <kbd>Ctrl</kbd>&#8202;+&#8202;<kbd>K</kbd>.
-      </p>
-      <span class="card-go">Browse subclasses</span>
-    </a>
-
-    <a class="card card--spells" href="/spells/">
-      <span class="card-k">980 spells, 4 books</span>
-      <h2 class="card-h">Spell Compendium</h2>
-      <p>
-        The 2024 Player's Handbook alongside Legends &amp; Legacies, Craft and
-        Creation and Lyre's Guide to Retia, as printed. Filter by class, level,
-        school and book at once, or search the spell text itself &mdash; the
-        material components included. Hover any rules term for a definition.
-      </p>
-      <span class="card-go">Browse spells</span>
-    </a>
-
-  </div>
-
-  <p class="note">
-    All five work on a phone at the table, in light or dark, and none of them
-    needs an account or stores anything about you.
-  </p>
-
-  <footer>
-    <h2>Sources</h2>
-    <ul>
-      <li><b>Player's Handbook (2024)</b> — Wizards of the Coast</li>
-      <li><b>Kibbles' Compendium of Craft and Creation</b> — KibblesTasty</li>
-      <li><b>Kibbles' Compendium of Legends and Legacies</b> — KibblesTasty</li>
-      <li><b>Lyre's Guide to Retia: Land of Industry</b> — Logan Laidlaw / Nat19</li>
-    </ul>
-    <p>
-      An unofficial fan reference. The class and subclass pages summarise
-      rather than reproduce; the spell pages carry the books' own text. The
-      Player's Handbook spells are shown in full only where the 2024 SRD
-      releases them — 53 of them appear as a stat line and a page reference
-      instead. Every page cites its book and page number — go there for
-      anything that matters, and please buy the homebrew books if you use
-      them. Not affiliated with or endorsed by Wizards of the Coast.
-    </p>
-    <p class="srd">
-      This work includes material from the System Reference Document 5.2.1
-      (&ldquo;SRD 5.2.1&rdquo;) by Wizards of the Coast LLC, available at
-      <a href="https://www.dndbeyond.com/srd">https://www.dndbeyond.com/srd</a>.
-      The SRD 5.2.1 is licensed under the Creative Commons Attribution 4.0
-      International License, available at
-      <a href="https://creativecommons.org/licenses/by/4.0/legalcode">https://creativecommons.org/licenses/by/4.0/legalcode</a>.
-    </p>
-  </footer>
-
-</div>
-</body>
-</html>
+/* ---------- responsive ---------- */
+@media (max-width:56rem){
+  .shell{display:block}
+  .aside{position:static;height:auto;border-right:0;padding:28px 0 8px;gap:30px}
+  .nav{margin-top:0}
+  .main{padding:28px 0 56px}
+  .stats-grid{grid-template-columns:1fr;gap:32px}
+  .guide{display:block}
+  .stage{height:44dvh;border-right:0;border-bottom:1px solid var(--line);padding-right:max(16px,env(safe-area-inset-right,0px));z-index:5}
+  .stage-top{padding-right:0}.vp{margin-right:0}.stage-bot{padding-right:0}
+  .read{padding-left:max(16px,env(safe-area-inset-left,0px))}
+  .beat{min-height:56dvh;scroll-margin-top:calc(var(--tb) + 44dvh)}
+  .topbar .where{display:none}
+}
+@container (max-width:640px){
+  .hand{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:20px 0 32px}
+  .card{max-width:none;min-height:150px;margin:0;--r:0deg!important;transform:none}
+  .card:last-child{grid-column:1/-1}
+  .card:hover{transform:translateY(-4px)}
+}
+@media (max-width:40rem){
+  body{font-size:16.5px}
+  .hand{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding-bottom:32px}
+  .card{width:auto;min-height:150px;margin:0;--r:0deg!important;transform:none}
+  .card:last-child{grid-column:1/-1}
+  .card:hover{transform:translateY(-4px)}
+  .roller{grid-template-columns:1fr}
+  .row .arr{display:none}
+  .feat{grid-template-columns:52px 1fr}
+}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
+/* page transition: colour sweeps over the old page, then an iris opens on the new one */
+.cover{position:fixed;inset:0;z-index:2147483000;pointer-events:none}
+</style></head><body>
+<div class="shell"><aside class="aside"><a class="brand" href="index.html"><span class="dot"></span>D&amp;D Tools</a>
+<div class="intro"><p class="eb mono">D&amp;D 2024, unofficial</p><h1>Five tools for picking a character, and for living with the choice</h1><p class="lead">One is a guided walk through the character sheet for the player who has never rolled a die. One finds a class. One rolls the numbers. The other two are for the table that has read all of it twice and wants to know exactly what a subclass changes, or what a spell actually says.</p><p class="sub">All five work on a phone at the table, in light or dark, and none of them needs an account or stores anything about you.</p></div>
+<nav class="nav" aria-label="Tools"><a href="create/index.html" style="--k:var(--t1)">Make a Character</a><a href="finder/index.html" style="--k:var(--t2)">Class Finder</a><a href="stats/index.html" style="--k:var(--t3)">Ability Scores</a><a href="compendium/index.html" style="--k:var(--t4)">Subclasses</a><a href="spells/index.html" style="--k:var(--t5)">Spells</a></nav>
+<div class="aside-foot"><span>Unofficial fan reference</span><button type="button" class="themebtn" id="themeBtn">Light theme</button></div></aside>
+<main class="main"><div id="view" class="entering"><div class="hand" role="list"><a role="listitem" class="card" href="create/index.html" style="--cc:var(--c1);--r:-3deg;--i:0"><span class="k">Scrolling guide</span><span class="n">Make a Character</span><span class="go"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></a><a role="listitem" class="card" href="finder/index.html" style="--cc:var(--c2);--r:-1.5deg;--i:1"><span class="k">Ten questions</span><span class="n">Class Finder</span><span class="go"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></a><a role="listitem" class="card" href="stats/index.html" style="--cc:var(--c3);--r:0deg;--i:2"><span class="k">4d6, drop the lowest</span><span class="n">Ability Scores</span><span class="go"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></a><a role="listitem" class="card" href="compendium/index.html" style="--cc:var(--c4);--r:1.5deg;--i:3"><span class="k">Every subclass</span><span class="n">Subclasses</span><span class="go"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></a><a role="listitem" class="card" href="spells/index.html" style="--cc:var(--c5);--r:3deg;--i:4"><span class="k">1,298 spells, 4 books</span><span class="n">Spells</span><span class="go"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></a></div>
+<div class="rows"><a class="row" href="create/index.html" style="--k:var(--t1)"><span class="rt"><h2>Make a Character</h2><span class="tag mono">Scrolling guide</span></span><p>The 2024 character sheet, one section at a time, with the page staying beside you as you read. Who you are, your six numbers, class and levelling, combat and spells, and an example of play at a table where the players get a few things wrong and the DM sorts them out.</p><span class="arr"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></a><a class="row" href="finder/index.html" style="--k:var(--t2)"><span class="rt"><h2>Class Finder</h2><span class="tag mono">Ten questions</span></span><p>Questions about how you like to play, not about game mechanics: how much you want to keep track of, when you start thinking about your turn, which scene sounds like the character you want to be. Ends with a class and an explanation of why. Official and homebrew modes.</p><span class="arr"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></a><a class="row" href="stats/index.html" style="--k:var(--t3)"><span class="rt"><h2>Ability Scores</h2><span class="tag mono">4d6, drop the lowest</span></span><p>Roll, then put the number wherever you want, and reroll anything, as often as you want. Standard array and point buy are here too, along with the background increases the 2024 rules attach to your origin.</p><span class="arr"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></a><a class="row" href="compendium/index.html" style="--k:var(--t4)"><span class="rt"><h2>Subclass Compendium</h2><span class="tag mono">Every subclass</span></span><p>All the 2024 subclasses plus six homebrew classes and 118 homebrew subclasses for the official ones, each feature listed by level. Hover any rules term for a definition, and a marked term tells you what this subclass specifically does to it. Search with Ctrl + K.</p><span class="arr"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></a><a class="row" href="spells/index.html" style="--k:var(--t5)"><span class="rt"><h2>Spell Compendium</h2><span class="tag mono">1,298 spells, 4 books</span></span><p>The 2024 Player’s Handbook alongside Legends &amp; Legacies, Craft and Creation and Lyre’s Guide to Retia, as printed. Filter by class, level, school and book at once, or search the spell text itself. Hover any rules term for a definition.</p><span class="arr"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></a></div>
+<footer class="foot"><p class="mono">Sources</p><p>Player’s Handbook (2024), Wizards of the Coast</p><p>Kibbles’ Compendium of Craft and Creation, KibblesTasty</p><p>Kibbles’ Compendium of Legends and Legacies, KibblesTasty</p><p style="margin-bottom:18px">Lyre’s Guide to Retia: Land of Industry, Logan Laidlaw / Nat19</p><p style="margin-bottom:12px">An unofficial fan reference. Every page cites its book and page number. Go there for anything that matters, and please buy the homebrew books if you use them. Not affiliated with or endorsed by Wizards of the Coast.</p><p>This work includes material from the System Reference Document 5.2.1 (“SRD 5.2.1”) by Wizards of the Coast LLC, available at <a href="https://www.dndbeyond.com/srd" target="_blank" rel="noopener">dndbeyond.com/srd</a>. The SRD 5.2.1 is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/legalcode" target="_blank" rel="noopener">Creative Commons Attribution 4.0 International License</a>.</p></footer></div></main></div>
+<script>(function(){
+  var rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.addEventListener('pointerdown',function(e){
+    var el=e.target.closest('.btn,button.chip,.lv,.cta');if(!el||rm)return;
+    var r=el.getBoundingClientRect(),d=Math.max(r.width,r.height)*2,s=document.createElement('span');
+    s.className='rp';s.style.cssText='width:'+d+'px;height:'+d+'px;left:'+(e.clientX-r.left-d/2)+'px;top:'+(e.clientY-r.top-d/2)+'px';
+    el.appendChild(s);setTimeout(function(){s.remove()},650);
+  });
+  var b=document.getElementById('themeBtn');
+  function eff(){return document.documentElement.dataset.theme||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark')}
+  function label(){if(b)b.textContent=eff()==='dark'?'Light theme':'Dark theme'}
+  try{var t=localStorage.getItem('dnd-theme');if(t)document.documentElement.dataset.theme=t}catch(e){}
+  label();
+  if(b)b.addEventListener('click',function(){var n=eff()==='dark'?'light':'dark';document.documentElement.dataset.theme=n;try{localStorage.setItem('dnd-theme',n)}catch(e){}label()});
+})();
+(function(){
+  /* page transition, two phases:
+     1) a solid in the clicked item's colour wipes across the old page
+     2) on the new page an iris hole opens in that solid, centred where you clicked */
+  var rm2=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a[href]');
+    if(!a||e.defaultPrevented||e.button||e.metaKey||e.ctrlKey||e.shiftKey||a.target==='_blank')return;
+    var u=new URL(a.href,location.href);
+    if(u.origin!==location.origin||u.pathname===location.pathname||/^#/.test(a.getAttribute('href')))return;
+    if(rm2)return;
+    e.preventDefault();
+    var x=e.clientX,y=e.clientY;
+    if(!e.detail||(!x&&!y)){var r=a.getBoundingClientRect();x=r.left+r.width/2;y=r.top+r.height/2}
+    var p=document.createElement('i');p.style.cssText='position:absolute;visibility:hidden;color:var(--cc,var(--k,var(--accent-official,var(--c1,#FF5B1F))))';a.appendChild(p);var col=getComputedStyle(p).color;p.remove();
+    try{sessionStorage.setItem('iris',Math.round(x)+'|'+Math.round(y)+'|'+col)}catch(err){}
+    var o=document.createElement('div');o.className='cover';o.style.background=col;var R=Math.hypot(Math.max(x,innerWidth-x),Math.max(y,innerHeight-y))+4,c0='circle(0px at '+x+'px '+y+'px)',c1='circle('+R+'px at '+x+'px '+y+'px)';o.style.clipPath=c0;document.body.appendChild(o);
+    var go=function(){location.href=a.href};
+    if(o.animate){var an=o.animate([{clipPath:c0},{clipPath:c1}],{duration:560,easing:'cubic-bezier(.65,0,.35,1)',fill:'forwards'});an.onfinish=go;setTimeout(go,800)}else go();
+  });
+  addEventListener('pageshow',function(ev){if(ev.persisted)document.querySelectorAll('.cover').forEach(function(n){n.remove()})});
+})();
+</script></body></html>

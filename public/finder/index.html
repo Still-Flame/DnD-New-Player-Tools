@@ -13,10 +13,17 @@
 <meta property="og:description" content="Ten questions that point a first-time D&amp;D player at a class they'll actually enjoy — official classes and homebrew, no jargon required.">
 <meta property="og:url" content="https://dnd-tools.pages.dev/finder/">
 <meta name="twitter:card" content="summary">
+<script>(function(){try{if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;var v=sessionStorage.getItem('iris');if(!v)return;sessionStorage.removeItem('iris');var a=v.split('|'),x=+a[0],y=+a[1],W=innerWidth,H=innerHeight,R=Math.hypot(Math.max(x,W-x),Math.max(y,H-y))+4;
+var d=document.createElement('div');d.className='cover';d.style.cssText='position:fixed;inset:0;z-index:2147483000;pointer-events:none;background:'+(a[2]||'#FF5B1F');document.documentElement.appendChild(d);
+function mask(r){var m='radial-gradient(circle at '+x+'px '+y+'px,transparent '+r+'px,#000 '+(r+1)+'px)';d.style.webkitMaskImage=m;d.style.maskImage=m}
+mask(0);var t0=null,hold=50,dur=820;function ease(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2}
+function step(ts){if(t0===null)t0=ts;var t=(ts-t0-hold)/dur;if(t<=0){requestAnimationFrame(step);return}if(t>=1){d.remove();return}mask(R*ease(t));requestAnimationFrame(step)}
+requestAnimationFrame(step);setTimeout(function(){d.remove()},hold+dur+600)}catch(e){}})();</script>
 <title>Which D&D Class Should I Play?</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Martian+Mono:wght@400;500;600&display=swap">
 
 <style>
   :root {
@@ -59,7 +66,7 @@
   body {
     background: var(--ground);
     color: var(--ink);
-    font-family: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-family: Figtree, system-ui, -apple-system, "Segoe UI", sans-serif;
     font-size: var(--step-0);
     line-height: 1.55;
     --accent: var(--accent-official);
@@ -76,13 +83,13 @@
   }
 
   .eyebrow {
-    font-family: "IBM Plex Mono", ui-monospace, monospace;
-    font-size: var(--step--1); letter-spacing: .14em;
+    font-family: "Martian Mono", ui-monospace, monospace;
+    font-size: var(--step--1); letter-spacing:.05em;
     text-transform: uppercase; color: var(--ink-faint); margin: 0;
   }
 
   h1 {
-    font-family: Fraunces, Georgia, "Times New Roman", serif;
+    font-family: Figtree, system-ui, sans-serif"Times New Roman", serif;
     font-optical-sizing: auto; font-weight: 600;
     font-size: var(--step-3); line-height: 1.04; letter-spacing: -.015em;
     text-wrap: balance; margin: 6px 0 0;
@@ -95,7 +102,7 @@
     border: 1px solid var(--rule); padding: 3px; gap: 2px;
   }
   .seg button {
-    font: 500 var(--step--1)/1 "IBM Plex Mono", ui-monospace, monospace;
+    font: 500 var(--step--1)/1 "Martian Mono", ui-monospace, monospace;
     letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft);
     background: none; border: 0; padding: 9px 13px; cursor: pointer; white-space: nowrap;
   }
@@ -105,8 +112,8 @@
   .prog { display: flex; flex-direction: column; gap: 9px; }
   .prog-top {
     display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
-    font-family: "IBM Plex Mono", monospace; font-size: var(--step--1);
-    letter-spacing: .1em; text-transform: uppercase; color: var(--ink-faint);
+    font-family: "Martian Mono", monospace; font-size: var(--step--1);
+    letter-spacing:.04em; text-transform: uppercase; color: var(--ink-faint);
   }
   .prog-round { color: var(--accent); }
   .ticks { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 3px; }
@@ -115,7 +122,7 @@
   .tick[data-s="now"]  { background: var(--ink-soft); }
 
   .q-title {
-    font-family: Fraunces, Georgia, serif; font-weight: 600;
+    font-family: Figtree, system-ui, sans-serif; font-weight: 600;
     font-size: var(--step-2); line-height: 1.18; letter-spacing: -.01em;
     text-wrap: balance; margin: 0; max-width: 30ch;
   }
@@ -134,13 +141,13 @@
   }
   .opt:focus-visible { box-shadow: inset 0 0 0 2px var(--accent); }
   .opt-label { font-weight: 500; display: block; }
-  .opt-arrow { font-family: "IBM Plex Mono", monospace; color: var(--ink-faint); font-size: var(--step--1); align-self: center; }
+  .opt-arrow { font-family: "Martian Mono", monospace; color: var(--ink-faint); font-size: var(--step--1); align-self: center; }
   .opt:hover .opt-arrow, .opt:focus-visible .opt-arrow { color: var(--accent); }
 
   /* scene vignettes read as prose, not as menu items */
   .options.scenes .opt { align-items: start; padding-block: 18px; }
   .options.scenes .opt-label {
-    font-family: Fraunces, Georgia, serif;
+    font-family: Figtree, system-ui, sans-serif;
     font-size: var(--step-1); font-weight: 400; line-height: 1.45;
     letter-spacing: -.005em; max-width: 58ch;
   }
@@ -148,7 +155,7 @@
 
   .backrow { margin-top: 16px; display: flex; gap: 10px; flex-wrap: wrap; }
   .link-btn {
-    font: 500 var(--step--1)/1 "IBM Plex Mono", monospace; letter-spacing: .06em;
+    font: 500 var(--step--1)/1 "Martian Mono", monospace; letter-spacing: .06em;
     text-transform: uppercase; background: none; border: 1px solid var(--rule);
     color: var(--ink-soft); padding: 9px 12px; cursor: pointer;
   }
@@ -156,11 +163,11 @@
   .link-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
   .result-eyebrow {
-    font-family: "IBM Plex Mono", monospace; font-size: var(--step--1);
-    letter-spacing: .14em; text-transform: uppercase; color: var(--accent);
+    font-family: "Martian Mono", monospace; font-size: var(--step--1);
+    letter-spacing:.05em; text-transform: uppercase; color: var(--accent);
   }
   .result-name {
-    font-family: Fraunces, Georgia, serif; font-weight: 700;
+    font-family: Figtree, system-ui, sans-serif; font-weight: 700;
     font-size: var(--step-4); line-height: .98; letter-spacing: -.025em;
     margin: 6px 0 0; text-wrap: balance;
   }
@@ -177,10 +184,10 @@
   }
   .bookref-ico { flex:none; width:28px; height:28px; color: var(--accent); }
   .bookref-m { flex:1 1 12rem; min-width:0; }
-  .bookref-k { display:block; font-family:"IBM Plex Mono",monospace; font-size:.68rem; letter-spacing:.14em; text-transform:uppercase; color: var(--accent); }
+  .bookref-k { display:block; font-family:"Martian Mono",monospace; font-size:.68rem; letter-spacing:.05em; text-transform:uppercase; color: var(--accent); }
   .bookref-t { display:block; font-weight:600; line-height:1.3; color: var(--ink); overflow-wrap:anywhere; }
   .bookref-x { display:block; margin-top:3px; font-size: var(--step--1); color: var(--ink-soft); font-weight:400; }
-  .bookref-p { font-family:Fraunces, Georgia, serif; font-weight:700; font-size: var(--step-2); line-height:1; letter-spacing:-.01em; color: var(--accent); white-space:nowrap; }
+  .bookref-p { font-family:Figtree, system-ui, sans-serif; font-weight:700; font-size: var(--step-2); line-height:1; letter-spacing:-.01em; color: var(--accent); white-space:nowrap; }
   .spec {
     display: grid; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
     margin-top: 26px; border: 1px solid var(--rule); background: var(--surface);
@@ -188,13 +195,13 @@
   .spec div { padding: 12px 14px; border-left: 1px solid var(--rule-soft); min-width: 0; }
   .spec div:first-child { border-left: 0; }
   .spec dt {
-    font-family: "IBM Plex Mono", monospace; font-size: .68rem; letter-spacing: .13em;
+    font-family: "Martian Mono", monospace; font-size: .68rem; letter-spacing: .13em;
     text-transform: uppercase; color: var(--ink-faint); margin: 0;
   }
   .spec dd { margin: 4px 0 0; font-size: var(--step--1); font-weight: 500; overflow-wrap: anywhere; }
 
   .block-k {
-    font-family: "IBM Plex Mono", monospace; font-size: .68rem; letter-spacing: .14em;
+    font-family: "Martian Mono", monospace; font-size: .68rem; letter-spacing:.05em;
     text-transform: uppercase; color: var(--ink-faint); display: block;
   }
   .runners { margin-top: 28px; display: flex; flex-direction: column; gap: 10px; }
@@ -207,7 +214,7 @@
   .bar { height: 6px; background: var(--rule-soft); position: relative; }
   .bar span { position: absolute; inset: 0 auto 0 0; background: var(--accent); }
   .runner-p {
-    font-family: "IBM Plex Mono", monospace; font-size: var(--step--1);
+    font-family: "Martian Mono", monospace; font-size: var(--step--1);
     color: var(--ink-faint); font-variant-numeric: tabular-nums; text-align: right;
   }
 
@@ -218,8 +225,8 @@
     border-left: 2px solid var(--accent); padding: 2px 0 2px 12px;
   }
   .drivers b { color: var(--ink-faint); font-weight: 500; display: block;
-    font-family: "IBM Plex Mono", monospace; font-size: .66rem;
-    letter-spacing: .12em; text-transform: uppercase; margin-bottom: 2px; }
+    font-family: "Martian Mono", monospace; font-size: .66rem;
+    letter-spacing:.05em; text-transform: uppercase; margin-bottom: 2px; }
 
   .notice {
     border-left: 3px solid var(--accent); background: var(--surface);
@@ -233,8 +240,8 @@
     display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
     border-bottom: 2px solid var(--accent); padding-bottom: 8px;
   }
-  .tier-n { font-family: "IBM Plex Mono", monospace; font-size: var(--step--1); color: var(--accent); letter-spacing: .12em; }
-  .tier-t { font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: var(--step-1); margin: 0; }
+  .tier-n { font-family: "Martian Mono", monospace; font-size: var(--step--1); color: var(--accent); letter-spacing:.05em; }
+  .tier-t { font-family: Figtree, system-ui, sans-serif; font-weight: 600; font-size: var(--step-1); margin: 0; }
   .tier-note { font-size: var(--step--1); color: var(--ink-soft); margin: 0 0 0 auto; }
   .branch { border-left: 1px solid var(--rule); margin-left: 4px; padding: 14px 0 2px 18px; position: relative; }
   .branch::before { content: ""; position: absolute; left: -1px; top: 22px; width: 12px; border-top: 1px solid var(--rule); }
@@ -248,7 +255,7 @@
   .leaf::before { content: ""; position: absolute; left: -18px; top: 17px; width: 12px; border-top: 1px solid var(--rule-soft); }
   .leaf-f { color: var(--ink-soft); font-size: var(--step--1); }
   .leaf-c {
-    font-family: "IBM Plex Mono", monospace; font-size: var(--step--1); font-weight: 600;
+    font-family: "Martian Mono", monospace; font-size: var(--step--1); font-weight: 600;
     letter-spacing: .04em; text-transform: uppercase; color: var(--accent);
     text-align: right; white-space: nowrap;
   }
@@ -265,23 +272,99 @@
 
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
 </style>
-</head>
-<body>
-<style>
-  .sitenav {
-    max-width:64rem; margin-inline:auto; padding:12px 20px 0;
-    display:flex; flex-wrap:wrap; align-items:baseline; gap:0 8px;
-    font-family:"IBM Plex Mono", ui-monospace, monospace;
-    font-size:.7rem; letter-spacing:.11em; text-transform:uppercase;
-  }
-  .sitenav a { color: var(--ink-faint, #8A9099); text-decoration:none; }
-  .sitenav a:hover { color: var(--accent, currentColor); text-decoration:underline; }
-  .sitenav a:focus-visible { outline:2px solid var(--accent, currentColor); outline-offset:2px; }
-  .sitenav-here { color: var(--ink-soft, #5B626C); }
-  .sitenav-sep { color: var(--rule, #C6C2B6); }
-  @media print { .sitenav { display:none; } }
+<style>/* ===== redesign layer: palette, type, shape and motion over the original pages ===== */
+:root{
+  --ground:#0B0B0B; --surface:#151918; --surface-2:#1C2120;
+  --ink:#EDEFEE; --ink-soft:#B4BBB8; --ink-faint:#9BA3A0;
+  --rule:#2C3231; --rule-soft:#1E2322;
+  --accent-official:#FF5B1F; --accent-home:#BDEBD3; --accent:#FF5B1F; --accent-ink:#121414; --good:#BDEBD3; --hl:#FF5B1F;
+  --chip-bg:#1C2120; --chip-shadow:0 2px 6px rgba(0,0,0,.5),0 16px 38px -14px rgba(0,0,0,.95); --veil:rgba(0,0,0,.6);
+  --sky-top:#0B0B0B; --sky-bot:#261F45; --moon:#FFC9D9; --star-o:.9; --moon-glow:.12;
+  --ridge1:#2D2650; --ridge2:#1E1A38; --ridge3:#141224; --tower:#0B0B0B; --fore:#070707; --glow:#E4F26B; --fore-ink:#EDEFEE;
+  --c1:#FF5B1F; --c2:#E4F26B; --c3:#FFC9D9; --c4:#C7B8FF; --c5:#BDEBD3;
+  --ease:cubic-bezier(.22,.8,.2,1);
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --ground:#0B0B0B; --surface:#151918; --surface-2:#1C2120; --ink:#EDEFEE; --ink-soft:#B4BBB8; --ink-faint:#9BA3A0; --rule:#2C3231; --rule-soft:#1E2322;
+  --accent-official:#FF5B1F; --accent-home:#BDEBD3; --accent:#FF5B1F; --accent-ink:#121414; --good:#BDEBD3; --hl:#FF5B1F; --chip-bg:#1C2120; --veil:rgba(0,0,0,.6);
+  --sky-top:#0B0B0B; --sky-bot:#261F45; --moon:#FFC9D9; --star-o:.9; --moon-glow:.12; --ridge1:#2D2650; --ridge2:#1E1A38; --ridge3:#141224; --tower:#0B0B0B; --fore:#070707; --glow:#E4F26B; --fore-ink:#EDEFEE; color-scheme:dark}}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]){
+  --ground:#F0F2EF; --surface:#FFFFFF; --surface-2:#E6E9E5; --ink:#121414; --ink-soft:#3C4240; --ink-faint:#4F5654; --rule:#C6CBC8; --rule-soft:#DADEDB;
+  --accent-official:#B72E08; --accent-home:#17724A; --accent:#B72E08; --accent-ink:#FFFFFF; --good:#17724A; --hl:#D9400F; --chip-bg:#FFFFFF; --chip-shadow:0 2px 6px rgba(18,20,20,.10),0 14px 34px -14px rgba(18,20,20,.4); --veil:rgba(18,20,20,.34);
+  --sky-top:#E4DEFA; --sky-bot:#FFE1D3; --moon:#FFFFFF; --star-o:0; --moon-glow:.4; --ridge1:#D3CBF2; --ridge2:#B1A5E6; --ridge3:#7B6BC4; --tower:#2B2552; --fore:#1B1736; --glow:#FF5B1F; --fore-ink:#F0F2EF; color-scheme:light}}
+:root[data-theme="light"]{
+  --ground:#F0F2EF; --surface:#FFFFFF; --surface-2:#E6E9E5; --ink:#121414; --ink-soft:#3C4240; --ink-faint:#4F5654; --rule:#C6CBC8; --rule-soft:#DADEDB;
+  --accent-official:#B72E08; --accent-home:#17724A; --accent:#B72E08; --accent-ink:#FFFFFF; --good:#17724A; --hl:#D9400F; --chip-bg:#FFFFFF; --chip-shadow:0 2px 6px rgba(18,20,20,.10),0 14px 34px -14px rgba(18,20,20,.4); --veil:rgba(18,20,20,.34);
+  --sky-top:#E4DEFA; --sky-bot:#FFE1D3; --moon:#FFFFFF; --star-o:0; --moon-glow:.4; --ridge1:#D3CBF2; --ridge2:#B1A5E6; --ridge3:#7B6BC4; --tower:#2B2552; --fore:#1B1736; --glow:#FF5B1F; --fore-ink:#F0F2EF; color-scheme:light}
+:root[data-theme="dark"]{
+  --ground:#0B0B0B; --surface:#151918; --surface-2:#1C2120; --ink:#EDEFEE; --ink-soft:#B4BBB8; --ink-faint:#9BA3A0; --rule:#2C3231; --rule-soft:#1E2322;
+  --accent-official:#FF5B1F; --accent-home:#BDEBD3; --accent:#FF5B1F; --accent-ink:#121414; --good:#BDEBD3; --hl:#FF5B1F; --chip-bg:#1C2120; --veil:rgba(0,0,0,.6);
+  --sky-top:#0B0B0B; --sky-bot:#261F45; --moon:#FFC9D9; --star-o:.9; --moon-glow:.12; --ridge1:#2D2650; --ridge2:#1E1A38; --ridge3:#141224; --tower:#0B0B0B; --fore:#070707; --glow:#E4F26B; --fore-ink:#EDEFEE; color-scheme:dark}
+body{transition:background .3s,color .3s}
+/* each page takes the colour of its card on the home page */
+:where(body.pg-create){--pa:#FF5B1F}
+:where(body.pg-finder){--pa:#E4F26B}
+:where(body.pg-stats){--pa:#FFC9D9}
+:where(body.pg-compendium){--pa:#C7B8FF}
+:where(body.pg-spells){--pa:#BDEBD3}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]) :where(body.pg-create){--pa:#B72E08}
+  :root:not([data-theme="dark"]) :where(body.pg-finder){--pa:#5C6A00}
+  :root:not([data-theme="dark"]) :where(body.pg-stats){--pa:#B0285A}
+  :root:not([data-theme="dark"]) :where(body.pg-compendium){--pa:#5A46B8}
+  :root:not([data-theme="dark"]) :where(body.pg-spells){--pa:#17724A}
+}
+:root[data-theme="light"] :where(body.pg-create){--pa:#B72E08}
+:root[data-theme="light"] :where(body.pg-finder){--pa:#5C6A00}
+:root[data-theme="light"] :where(body.pg-stats){--pa:#B0285A}
+:root[data-theme="light"] :where(body.pg-compendium){--pa:#5A46B8}
+:root[data-theme="light"] :where(body.pg-spells){--pa:#17724A}
+:where(body[class*="pg-"]){--accent:var(--pa);--accent-official:var(--pa);--hl:var(--pa)}
+
+/* shape: soft corners, pill controls */
+.widget,.mini,.spell,.callout,.pact,.cta,.formula,.play .beat,.stage-inner,.sheet,.stage-cap,.card,.tile,.panel,.result-card,.chip-panel{border-radius:14px}
+.stage-inner{overflow:hidden}
+input,select,textarea{border-radius:10px}
+.btn,button.chip,button.pill{border-radius:999px}
+h1,h2,h3{font-weight:600;letter-spacing:-.03em}
+.chap-num{-webkit-text-stroke-width:1.2px}
+
+/* motion: every button and link-card responds */
+.btn,button.chip,.cta,button,.lv,.card,.row,.tile,.opt,a[class]{transition:transform .25s var(--ease),background .2s,color .2s,border-color .2s,box-shadow .25s,filter .2s}
+.btn:hover,button.chip:hover,.lv:hover{transform:translateY(-2px)}
+.btn:active,button.chip:active,.lv:active,.cta:active{transform:scale(.96)}
+.cta:hover,.cta:focus-visible{transform:translateY(-4px);box-shadow:0 18px 30px -18px rgba(0,0,0,.6)}
+.btn,button.chip,.lv,.cta{position:relative;overflow:hidden}
+.rp{position:absolute;border-radius:50%;background:currentColor;opacity:.22;transform:scale(0);pointer-events:none;animation:rp .6s ease-out forwards}
+@keyframes rp{to{transform:scale(1);opacity:0}}
+:focus-visible{outline-color:var(--accent-official)!important}
+@media (prefers-reduced-motion: reduce){.rp{display:none}.btn:hover,button.chip:hover,.lv:hover,.cta:hover{transform:none}}
+
+/* site bar */
+.sitebar{position:relative;z-index:90;display:flex;align-items:center;gap:6px 18px;flex-wrap:wrap;padding:10px max(16px,env(safe-area-inset-left,0px));background:color-mix(in srgb,var(--ground) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--rule);font-family:"Figtree",system-ui,sans-serif;font-size:14px}
+.sitebar a{color:var(--ink-soft);text-decoration:none;position:relative;padding:6px 0;transition:color .2s}
+.sitebar a::after{content:"";position:absolute;left:0;right:0;bottom:2px;height:1.5px;background:var(--accent-official);transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease)}
+.sitebar a:hover,.sitebar a[aria-current]{color:var(--ink)}
+.sitebar a:hover::after,.sitebar a[aria-current]::after{transform:scaleX(1)}
+.sitebar .brand{font-weight:600;color:var(--ink);display:inline-flex;align-items:center;gap:9px;margin-right:6px}
+.sitebar .brand i{width:11px;height:11px;border-radius:50%;background:var(--c5);transition:transform .4s var(--ease),background .3s}
+.sitebar .brand:hover i{transform:scale(1.5);background:var(--c1)}
+.sitebar .sp{flex:1}
+.sitebar button{font:inherit;color:var(--ink-soft);background:transparent;border:1px solid var(--rule);border-radius:999px;padding:5px 12px;cursor:pointer}
+.sitebar button:hover{color:var(--ink);border-color:var(--ink-faint)}
+@media print{.sitebar{display:none}}
+
+/* the spell filter row scrolls sideways on phones by design; fade its right edge so a half-cut chip reads as 'more this way' */
+@media (max-width:40rem){.bar-in{-webkit-mask-image:linear-gradient(to right,#000 88%,transparent);mask-image:linear-gradient(to right,#000 88%,transparent);padding-right:24px}.sitebar{gap:2px 14px;padding-top:8px;padding-bottom:8px}.sitebar .sp{display:none}}
+/* page transition: colour sweeps over the old page, then an iris opens on the new one */
+.cover{position:fixed;inset:0;z-index:2147483000;pointer-events:none}
 </style>
-<nav class="sitenav" aria-label="Site"><a href="/">D&amp;D Tools</a><span class="sitenav-sep" aria-hidden="true">/</span><a href="/create/">Make a Character</a><span class="sitenav-sep" aria-hidden="true">/</span><span class="sitenav-here" aria-current="page">Class Finder</span><span class="sitenav-sep" aria-hidden="true">/</span><a href="/stats/">Ability Scores</a><span class="sitenav-sep" aria-hidden="true">/</span><a href="/compendium/">Subclass Compendium</a><span class="sitenav-sep" aria-hidden="true">/</span><a href="/spells/">Spell Compendium</a></nav>
+</head>
+<body class="pg-finder">
+<nav class="sitebar" aria-label="Site"><a class="brand" href="../index.html"><i></i>D&amp;D Tools</a><a href="../create/index.html">Make a Character</a><a href="../finder/index.html" aria-current="page">Class Finder</a><a href="../stats/index.html">Ability Scores</a><a href="../compendium/index.html">Subclasses</a><a href="../spells/index.html">Spells</a><span class="sp"></span><button id="themeBtn" type="button">Light theme</button></nav>
+
+
 <div class="wrap">
 
   <header>
@@ -862,6 +945,45 @@
   document.getElementById("view-chart").addEventListener("click", function () { state.view = "chart"; render(); });
 
   render();
+})();
+</script>
+
+<script>(function(){
+  var rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.addEventListener('pointerdown',function(e){
+    var el=e.target.closest('.btn,button.chip,.lv,.cta');if(!el||rm)return;
+    var r=el.getBoundingClientRect(),d=Math.max(r.width,r.height)*2,s=document.createElement('span');
+    s.className='rp';s.style.cssText='width:'+d+'px;height:'+d+'px;left:'+(e.clientX-r.left-d/2)+'px;top:'+(e.clientY-r.top-d/2)+'px';
+    el.appendChild(s);setTimeout(function(){s.remove()},650);
+  });
+  var b=document.getElementById('themeBtn');
+  function eff(){return document.documentElement.dataset.theme||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark')}
+  function label(){if(b)b.textContent=eff()==='dark'?'Light theme':'Dark theme'}
+  try{var t=localStorage.getItem('dnd-theme');if(t)document.documentElement.dataset.theme=t}catch(e){}
+  label();
+  if(b)b.addEventListener('click',function(){var n=eff()==='dark'?'light':'dark';document.documentElement.dataset.theme=n;try{localStorage.setItem('dnd-theme',n)}catch(e){}label()});
+})();
+(function(){
+  /* page transition, two phases:
+     1) a solid in the clicked item's colour wipes across the old page
+     2) on the new page an iris hole opens in that solid, centred where you clicked */
+  var rm2=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a[href]');
+    if(!a||e.defaultPrevented||e.button||e.metaKey||e.ctrlKey||e.shiftKey||a.target==='_blank')return;
+    var u=new URL(a.href,location.href);
+    if(u.origin!==location.origin||u.pathname===location.pathname||/^#/.test(a.getAttribute('href')))return;
+    if(rm2)return;
+    e.preventDefault();
+    var x=e.clientX,y=e.clientY;
+    if(!e.detail||(!x&&!y)){var r=a.getBoundingClientRect();x=r.left+r.width/2;y=r.top+r.height/2}
+    var p=document.createElement('i');p.style.cssText='position:absolute;visibility:hidden;color:var(--cc,var(--k,var(--accent-official,var(--c1,#FF5B1F))))';a.appendChild(p);var col=getComputedStyle(p).color;p.remove();
+    try{sessionStorage.setItem('iris',Math.round(x)+'|'+Math.round(y)+'|'+col)}catch(err){}
+    var o=document.createElement('div');o.className='cover';o.style.background=col;var R=Math.hypot(Math.max(x,innerWidth-x),Math.max(y,innerHeight-y))+4,c0='circle(0px at '+x+'px '+y+'px)',c1='circle('+R+'px at '+x+'px '+y+'px)';o.style.clipPath=c0;document.body.appendChild(o);
+    var go=function(){location.href=a.href};
+    if(o.animate){var an=o.animate([{clipPath:c0},{clipPath:c1}],{duration:560,easing:'cubic-bezier(.65,0,.35,1)',fill:'forwards'});an.onfinish=go;setTimeout(go,800)}else go();
+  });
+  addEventListener('pageshow',function(ev){if(ev.persisted)document.querySelectorAll('.cover').forEach(function(n){n.remove()})});
 })();
 </script>
 </body>

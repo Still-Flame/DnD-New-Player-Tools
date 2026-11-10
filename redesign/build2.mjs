@@ -1,0 +1,47 @@
+import {readFile,writeFile,mkdir,cp} from 'node:fs/promises';
+import {dirname,join} from 'node:path';
+const REPO='/home/claude/still-flame/dnd-new-player-tools',SRC=join(REPO,'src'),OUT=process.cwd()+'/out';
+const theme=(await readFile('theme.css','utf8'))+(await readFile('vt.css','utf8')),fx=await readFile('fx.js','utf8'),homeCss=(await readFile('../dnd-site/style.css','utf8'))+(await readFile('vt.css','utf8'));
+const EARLY=`<script>(function(){try{if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;var v=sessionStorage.getItem('iris');if(!v)return;sessionStorage.removeItem('iris');var a=v.split('|'),x=+a[0],y=+a[1],W=innerWidth,H=innerHeight,R=Math.hypot(Math.max(x,W-x),Math.max(y,H-y))+4;
+var d=document.createElement('div');d.className='cover';d.style.cssText='position:fixed;inset:0;z-index:2147483000;pointer-events:none;background:'+(a[2]||'#FF5B1F');document.documentElement.appendChild(d);
+function mask(r){var m='radial-gradient(circle at '+x+'px '+y+'px,transparent '+r+'px,#000 '+(r+1)+'px)';d.style.webkitMaskImage=m;d.style.maskImage=m}
+mask(0);var t0=null,hold=50,dur=820;function ease(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2}
+function step(ts){if(t0===null)t0=ts;var t=(ts-t0-hold)/dur;if(t<=0){requestAnimationFrame(step);return}if(t>=1){d.remove();return}mask(R*ease(t));requestAnimationFrame(step)}
+requestAnimationFrame(step);setTimeout(function(){d.remove()},hold+dur+600)}catch(e){}})();</script>`;
+const FONT='<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Martian+Mono:wght@400;500;600&display=swap">';
+const NAVL=[['create','Make a Character'],['finder','Class Finder'],['stats','Ability Scores'],['compendium','Subclasses'],['spells','Spells']];
+const bar=cur=>`<nav class="sitebar" aria-label="Site"><a class="brand" href="../index.html"><i></i>D&amp;D Tools</a>${NAVL.map(([k,l])=>`<a href="../${k}/index.html"${k===cur?' aria-current="page"':''}>${l}</a>`).join('')}<span class="sp"></span><button id="themeBtn" type="button">Light theme</button></nav>`;
+const PAGES=[['create.html','create'],['class-finder.html','finder'],['stat-roller.html','stats'],['compendium/index.html','compendium'],['spells/index.html','spells']];
+for(const [src,k] of PAGES){
+  let f=await readFile(join(SRC,src),'utf8');
+  const cut=f.indexOf('</style>')+8;let head=f.slice(0,cut),body=f.slice(cut);
+  const restyle=s=>s.replace(/Fraunces/g,'Figtree').replace(/"IBM Plex Sans"/g,'Figtree').replace(/"IBM Plex Mono"/g,'"Martian Mono"')
+    .replace(/letter-spacing:\s*\.14em/g,'letter-spacing:.05em').replace(/letter-spacing:\s*\.12em/g,'letter-spacing:.05em').replace(/letter-spacing:\s*\.2em/g,'letter-spacing:.08em').replace(/letter-spacing:\s*\.11em/g,'letter-spacing:.04em').replace(/letter-spacing:\s*\.1em/g,'letter-spacing:.04em');
+  const fb=s=>s.replace(/Figtree,\s*(Georgia|serif)[^;"}]*/g,'Figtree, system-ui, sans-serif');head=fb(restyle(head)).replace(/<link rel="stylesheet" href="https:\/\/fonts\.googleapis\.com[^>]*>/,FONT).replace(/<link rel="preconnect"[^>]*>/g,'');
+  body=fb(restyle(body)).replace(/href="\/create\/"/g,'href="../create/index.html"').replace(/href="\/(finder|stats|compendium|spells)\/"/g,'href="../$1/index.html"').replace(/href="\/"/g,'href="../index.html"').replace(/src="\/create\/img\//g,'src="img/');
+  const title=(head.match(/<title>[^<]*<\/title>/)||['<title>D&amp;D Tools</title>'])[0];
+  head=head.replace(/<title>[^<]*<\/title>/,'');
+  const html=`<!doctype html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">\n${EARLY}\n${title}\n${head}\n<style>${theme}</style>\n</head>\n<body class="pg-${k}">\n${bar(k)}\n${body}\n<script>${fx}</script>\n</body>\n</html>\n`;
+  const dest=join(OUT,k,'index.html');await mkdir(dirname(dest),{recursive:true});await writeFile(dest,html);console.log(k,(html.length/1024|0)+'KB');
+}
+await mkdir(join(OUT,'create/img'),{recursive:true});
+await cp(join(REPO,'static/create/img'),join(OUT,'create/img'),{recursive:true});
+for(const f of ['compendium/data.js','spells/spells.js','spells/terms.js','spells/kor.js'])await cp(join(SRC,f),join(OUT,f));
+/* home */
+const T=[['create','Make a Character','Scrolling guide','The 2024 character sheet, one section at a time, with the page staying beside you as you read. Who you are, your six numbers, class and levelling, combat and spells, and an example of play at a table where the players get a few things wrong and the DM sorts them out.','c1','t1',-3],
+['finder','Class Finder','Ten questions','Questions about how you like to play, not about game mechanics: how much you want to keep track of, when you start thinking about your turn, which scene sounds like the character you want to be. Ends with a class and an explanation of why. Official and homebrew modes.','c2','t2',-1.5],
+['stats','Ability Scores','4d6, drop the lowest','Roll, then put the number wherever you want, and reroll anything, as often as you want. Standard array and point buy are here too, along with the background increases the 2024 rules attach to your origin.','c3','t3',0],
+['compendium','Subclass Compendium','Every subclass','All the 2024 subclasses plus six homebrew classes and 118 homebrew subclasses for the official ones, each feature listed by level. Hover any rules term for a definition, and a marked term tells you what this subclass specifically does to it. Search with Ctrl + K.','c4','t4',1.5],
+['spells','Spell Compendium','1,298 spells, 4 books','The 2024 Player’s Handbook alongside Legends &amp; Legacies, Craft and Creation and Lyre’s Guide to Retia, as printed. Filter by class, level, school and book at once, or search the spell text itself. Hover any rules term for a definition.','c5','t5',3]];
+const short={compendium:'Subclasses',spells:'Spells'};
+const AR='<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>';
+const home=`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">${EARLY}<title>D&amp;D Tools</title>${FONT}<style>${homeCss}</style></head><body>
+<div class="shell"><aside class="aside"><a class="brand" href="index.html"><span class="dot"></span>D&amp;D Tools</a>
+<div class="intro"><p class="eb mono">D&amp;D 2024, unofficial</p><h1>Five tools for picking a character, and for living with the choice</h1><p class="lead">One is a guided walk through the character sheet for the player who has never rolled a die. One finds a class. One rolls the numbers. The other two are for the table that has read all of it twice and wants to know exactly what a subclass changes, or what a spell actually says.</p><p class="sub">All five work on a phone at the table, in light or dark, and none of them needs an account or stores anything about you.</p></div>
+<nav class="nav" aria-label="Tools">${T.map(t=>`<a href="${t[0]}/index.html" style="--k:var(--${t[5]})">${short[t[0]]||t[1]}</a>`).join('')}</nav>
+<div class="aside-foot"><span>Unofficial fan reference</span><button type="button" class="themebtn" id="themeBtn">Light theme</button></div></aside>
+<main class="main"><div id="view" class="entering"><div class="hand" role="list">${T.map((t,i)=>`<a role="listitem" class="card" href="${t[0]}/index.html" style="--cc:var(--${t[4]});--r:${t[6]}deg;--i:${i}"><span class="k">${t[2]}</span><span class="n">${short[t[0]]||t[1]}</span><span class="go">${AR}</span></a>`).join('')}</div>
+<div class="rows">${T.map(t=>`<a class="row" href="${t[0]}/index.html" style="--k:var(--${t[5]})"><span class="rt"><h2>${t[1]}</h2><span class="tag mono">${t[2]}</span></span><p>${t[3]}</p><span class="arr">${AR}</span></a>`).join('')}</div>
+<footer class="foot"><p class="mono">Sources</p><p>Player’s Handbook (2024), Wizards of the Coast</p><p>Kibbles’ Compendium of Craft and Creation, KibblesTasty</p><p>Kibbles’ Compendium of Legends and Legacies, KibblesTasty</p><p style="margin-bottom:18px">Lyre’s Guide to Retia: Land of Industry, Logan Laidlaw / Nat19</p><p style="margin-bottom:12px">An unofficial fan reference. Every page cites its book and page number. Go there for anything that matters, and please buy the homebrew books if you use them. Not affiliated with or endorsed by Wizards of the Coast.</p><p>This work includes material from the System Reference Document 5.2.1 (“SRD 5.2.1”) by Wizards of the Coast LLC, available at <a href="https://www.dndbeyond.com/srd" target="_blank" rel="noopener">dndbeyond.com/srd</a>. The SRD 5.2.1 is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/legalcode" target="_blank" rel="noopener">Creative Commons Attribution 4.0 International License</a>.</p></footer></div></main></div>
+<script>${fx}</script></body></html>`;
+await writeFile(join(OUT,'index.html'),home);console.log('home',(home.length/1024|0)+'KB');

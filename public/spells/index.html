@@ -13,10 +13,17 @@
 <meta property="og:description" content="1,208 D&amp;D spells — the 2024 Player's Handbook alongside Legends &amp; Legacies, Craft and Creation, Lyre's Guide to Retia and the Kor hybrid schools. Filter by class, level, school and book, or search the spell text itself.">
 <meta property="og:url" content="https://dnd-tools.pages.dev/spells/">
 <meta name="twitter:card" content="summary">
+<script>(function(){try{if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;var v=sessionStorage.getItem('iris');if(!v)return;sessionStorage.removeItem('iris');var a=v.split('|'),x=+a[0],y=+a[1],W=innerWidth,H=innerHeight,R=Math.hypot(Math.max(x,W-x),Math.max(y,H-y))+4;
+var d=document.createElement('div');d.className='cover';d.style.cssText='position:fixed;inset:0;z-index:2147483000;pointer-events:none;background:'+(a[2]||'#FF5B1F');document.documentElement.appendChild(d);
+function mask(r){var m='radial-gradient(circle at '+x+'px '+y+'px,transparent '+r+'px,#000 '+(r+1)+'px)';d.style.webkitMaskImage=m;d.style.maskImage=m}
+mask(0);var t0=null,hold=50,dur=820;function ease(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2}
+function step(ts){if(t0===null)t0=ts;var t=(ts-t0-hold)/dur;if(t<=0){requestAnimationFrame(step);return}if(t>=1){d.remove();return}mask(R*ease(t));requestAnimationFrame(step)}
+requestAnimationFrame(step);setTimeout(function(){d.remove()},hold+dur+600)}catch(e){}})();</script>
 <title>Spell Compendium</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Martian+Mono:wght@400;500;600&display=swap">
 
 <style>
   :root {
@@ -56,17 +63,17 @@
   * { box-sizing: border-box; }
   body {
     background: var(--ground); color: var(--ink);
-    font-family: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-family: Figtree, system-ui, -apple-system, "Segoe UI", sans-serif;
     font-size: var(--step-0); line-height:1.6; -webkit-font-smoothing: antialiased;
   }
   .wrap { max-width:76rem; margin-inline:auto; padding-inline:20px; padding-block: clamp(20px,3vw,32px) 64px; }
 
   .eyebrow {
-    font-family:"IBM Plex Mono", ui-monospace, monospace; font-size: var(--step--1);
-    letter-spacing:.14em; text-transform:uppercase; color: var(--ink-faint); margin:0;
+    font-family:"Martian Mono", ui-monospace, monospace; font-size: var(--step--1);
+    letter-spacing:.05em; text-transform:uppercase; color: var(--ink-faint); margin:0;
   }
   h1 {
-    font-family: Fraunces, Georgia, serif; font-optical-sizing:auto; font-weight:600;
+    font-family: Figtree, system-ui, sans-serif; font-optical-sizing:auto; font-weight:600;
     font-size: var(--step-3); line-height:1.05; letter-spacing:-.015em; margin:6px 0 0;
   }
   .lede { color: var(--ink-soft); max-width:62ch; margin:8px 0 0; font-size: var(--step--1); }
@@ -102,7 +109,7 @@
   .fil { position:static; }
   .fil > summary {
     list-style:none; cursor:pointer; display:flex; align-items:center; gap:7px;
-    font-family:"IBM Plex Mono",monospace; font-size: var(--step--2); letter-spacing:.1em;
+    font-family:"Martian Mono",monospace; font-size: var(--step--2); letter-spacing:.04em;
     text-transform:uppercase; color: var(--ink-soft); white-space:nowrap;
     background: var(--surface); border:1px solid var(--rule); padding:10px 11px;
   }
@@ -127,10 +134,10 @@
   .fil-pop label:hover { background: var(--surface-2); }
   .fil-pop input { accent-color: var(--accent); margin:0; }
   .fil-pop .fil-c { margin-left:auto; color: var(--ink-faint);
-    font-family:"IBM Plex Mono",monospace; font-size: var(--step--2); font-variant-numeric:tabular-nums; }
+    font-family:"Martian Mono",monospace; font-size: var(--step--2); font-variant-numeric:tabular-nums; }
 
   .tog {
-    font-family:"IBM Plex Mono",monospace; font-size: var(--step--2); letter-spacing:.1em;
+    font-family:"Martian Mono",monospace; font-size: var(--step--2); letter-spacing:.04em;
     text-transform:uppercase; color: var(--ink-soft); background: var(--surface);
     border:1px solid var(--rule); padding:10px 11px; cursor:pointer; white-space:nowrap;
   }
@@ -138,13 +145,13 @@
   .tog:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
   .tog[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
   .clr { margin-left:auto; background:none; border:0; cursor:pointer; color: var(--ink-faint);
-    font-family:"IBM Plex Mono",monospace; font-size: var(--step--2); letter-spacing:.1em;
+    font-family:"Martian Mono",monospace; font-size: var(--step--2); letter-spacing:.04em;
     text-transform:uppercase; padding:10px 4px; }
   .clr:hover { color: var(--accent); text-decoration:underline; }
 
   .status {
     display:flex; gap:14px; align-items:baseline; flex-wrap:wrap; margin:12px 0 0;
-    font-family:"IBM Plex Mono",monospace; font-size: var(--step--2); letter-spacing:.1em;
+    font-family:"Martian Mono",monospace; font-size: var(--step--2); letter-spacing:.04em;
     text-transform:uppercase; color: var(--ink-faint);
   }
   .status b { color: var(--accent); font-weight:600; font-variant-numeric:tabular-nums; }
@@ -156,7 +163,7 @@
   }
   .cols {
     margin-top:10px; padding:0 12px 7px; border-bottom:1px solid var(--rule);
-    font-family:"IBM Plex Mono",monospace; font-size: var(--step--2); letter-spacing:.11em;
+    font-family:"Martian Mono",monospace; font-size: var(--step--2); letter-spacing:.04em;
     text-transform:uppercase; color: var(--ink-faint);
   }
   .cols button {
@@ -181,7 +188,7 @@
   .sp-n { font-weight:500; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
   .sp[open] > .sp-row .sp-n { color: var(--accent); }
   .sp-m {
-    font-family:"IBM Plex Mono",monospace; font-size: var(--step--2); letter-spacing:.06em;
+    font-family:"Martian Mono",monospace; font-size: var(--step--2); letter-spacing:.06em;
     color: var(--ink-soft); min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
   }
   .sp-lvl { font-variant-numeric:tabular-nums; }
@@ -196,7 +203,7 @@
   }
   .sp-open .stat div { font-size: var(--step--1); }
   .sp-open .stat dt {
-    font-family:"IBM Plex Mono",monospace; font-size: var(--step--2); letter-spacing:.11em;
+    font-family:"Martian Mono",monospace; font-size: var(--step--2); letter-spacing:.04em;
     text-transform:uppercase; color: var(--ink-faint);
   }
   .sp-open .stat dd { margin:0; }
@@ -207,15 +214,15 @@
   .sp-open ul { margin:0 0 10px; padding-left:1.15em; max-width:70ch; }
   .sp-open li { margin-bottom:5px; }
   .sp-open h4 {
-    font-family: Fraunces, Georgia, serif; font-weight:600; font-size: var(--step-0);
+    font-family: Figtree, system-ui, sans-serif; font-weight:600; font-size: var(--step-0);
     margin:14px 0 6px;
   }
   /* a stat block printed inside a spell — Find Steed's Otherworldly Steed and
      the three other summons. Set apart so it reads as a creature, not as more
      of the spell's own prose. */
   .sp-open h5 {
-    font-family:"IBM Plex Mono",monospace; font-size: var(--step--2); font-weight:600;
-    letter-spacing:.11em; text-transform:uppercase; color: var(--accent);
+    font-family:"Martian Mono",monospace; font-size: var(--step--2); font-weight:600;
+    letter-spacing:.04em; text-transform:uppercase; color: var(--accent);
     margin:16px 0 6px; padding-top:10px; border-top:1px solid var(--rule-soft);
     max-width:70ch;
   }
@@ -223,7 +230,7 @@
   .sp-open p.sbl + :not(p.sbl) { margin-top:10px; }
   .tags { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 0; }
   .tag {
-    font-family:"IBM Plex Mono",monospace; font-size: var(--step--2); letter-spacing:.08em;
+    font-family:"Martian Mono",monospace; font-size: var(--step--2); letter-spacing:.08em;
     text-transform:uppercase; color: var(--ink-soft);
     border:1px solid var(--rule-soft); background: var(--surface-2); padding:4px 8px;
   }
@@ -241,8 +248,8 @@
   .grp p { margin:0; max-width:none; }
   .grp p + p { margin-top:8px; }
   .grp-h {
-    font-family:"IBM Plex Mono",monospace; font-size: var(--step--2);
-    letter-spacing:.11em; text-transform:uppercase; color: var(--accent);
+    font-family:"Martian Mono",monospace; font-size: var(--step--2);
+    letter-spacing:.04em; text-transform:uppercase; color: var(--accent);
   }
   .grp-r { padding-top:8px; border-top:1px solid var(--rule-soft); }
   .grp-r b { color: var(--ink); }
@@ -266,12 +273,12 @@
   }
   .bookref-ico { flex:none; width:28px; height:28px; color: var(--accent); }
   .bookref-m { flex:1 1 12rem; min-width:0; }
-  .bookref-k { display:block; font-family:"IBM Plex Mono",monospace; font-size:.68rem; letter-spacing:.14em; text-transform:uppercase; color: var(--accent); }
+  .bookref-k { display:block; font-family:"Martian Mono",monospace; font-size:.68rem; letter-spacing:.05em; text-transform:uppercase; color: var(--accent); }
   .bookref-t { display:block; font-weight:600; line-height:1.3; color: var(--ink); overflow-wrap:anywhere; }
   .bookref-x { display:block; margin-top:3px; font-size: var(--step--1); color: var(--ink-soft); font-weight:400; }
-  .bookref-p { font-family:Fraunces, Georgia, serif; font-weight:700; font-size: var(--step-2); line-height:1; letter-spacing:-.01em; color: var(--accent); white-space:nowrap; }
+  .bookref-p { font-family:Figtree, system-ui, sans-serif; font-weight:700; font-size: var(--step-2); line-height:1; letter-spacing:-.01em; color: var(--accent); white-space:nowrap; }
   .cite {
-    margin:14px 0 0; font-family:"IBM Plex Mono",monospace; font-size: var(--step--2);
+    margin:14px 0 0; font-family:"Martian Mono",monospace; font-size: var(--step--2);
     letter-spacing:.08em; text-transform:uppercase; color: var(--ink-faint);
   }
   /* ---------- glossary ---------- */
@@ -295,12 +302,12 @@
     opacity:0; transform: translateY(-3px); transition: opacity .12s ease, transform .12s ease;
   }
   .chip[data-shown="true"] { opacity:1; transform:none; }
-  .chip-term { font-family:"IBM Plex Mono",monospace; font-size: var(--step--2);
-    letter-spacing:.12em; text-transform:uppercase; color: var(--accent); }
+  .chip-term { font-family:"Martian Mono",monospace; font-size: var(--step--2);
+    letter-spacing:.05em; text-transform:uppercase; color: var(--accent); }
   .chip-src { color: var(--ink-faint); }
   .chip-def { margin:5px 0 0; color: var(--ink); }
-  .chip-pin { margin:10px 0 0; font-family:"IBM Plex Mono",monospace; font-size: var(--step--2);
-    letter-spacing:.1em; text-transform:uppercase; color: var(--ink-faint); }
+  .chip-pin { margin:10px 0 0; font-family:"Martian Mono",monospace; font-size: var(--step--2);
+    letter-spacing:.04em; text-transform:uppercase; color: var(--ink-faint); }
 
   .empty { padding:48px 12px; color: var(--ink-faint); text-align:center; }
   mark { background: color-mix(in srgb, var(--accent) 26%, transparent); color:inherit; }
@@ -315,7 +322,7 @@
     .sp-row > .sp-m { display:none; }
     .sp-row > .sp-lvl { display:block; text-align:right; }
     .sp-sub { display:block; grid-column:1 / -1;
-      font-family:"IBM Plex Mono",monospace; font-size: var(--step--2); letter-spacing:.06em;
+      font-family:"Martian Mono",monospace; font-size: var(--step--2); letter-spacing:.06em;
       color: var(--ink-faint); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
     /* On a phone the header and a wrapped filter bar between them eat half the
        screen. The heading shrinks, the lede goes, and the facets become one
@@ -335,23 +342,99 @@
   }
   @media (prefers-reduced-motion: reduce) { * { transition:none !important; } }
 </style>
-</head>
-<body>
-<style>
-  .sitenav {
-    max-width:64rem; margin-inline:auto; padding:12px 20px 0;
-    display:flex; flex-wrap:wrap; align-items:baseline; gap:0 8px;
-    font-family:"IBM Plex Mono", ui-monospace, monospace;
-    font-size:.7rem; letter-spacing:.11em; text-transform:uppercase;
-  }
-  .sitenav a { color: var(--ink-faint, #8A9099); text-decoration:none; }
-  .sitenav a:hover { color: var(--accent, currentColor); text-decoration:underline; }
-  .sitenav a:focus-visible { outline:2px solid var(--accent, currentColor); outline-offset:2px; }
-  .sitenav-here { color: var(--ink-soft, #5B626C); }
-  .sitenav-sep { color: var(--rule, #C6C2B6); }
-  @media print { .sitenav { display:none; } }
+<style>/* ===== redesign layer: palette, type, shape and motion over the original pages ===== */
+:root{
+  --ground:#0B0B0B; --surface:#151918; --surface-2:#1C2120;
+  --ink:#EDEFEE; --ink-soft:#B4BBB8; --ink-faint:#9BA3A0;
+  --rule:#2C3231; --rule-soft:#1E2322;
+  --accent-official:#FF5B1F; --accent-home:#BDEBD3; --accent:#FF5B1F; --accent-ink:#121414; --good:#BDEBD3; --hl:#FF5B1F;
+  --chip-bg:#1C2120; --chip-shadow:0 2px 6px rgba(0,0,0,.5),0 16px 38px -14px rgba(0,0,0,.95); --veil:rgba(0,0,0,.6);
+  --sky-top:#0B0B0B; --sky-bot:#261F45; --moon:#FFC9D9; --star-o:.9; --moon-glow:.12;
+  --ridge1:#2D2650; --ridge2:#1E1A38; --ridge3:#141224; --tower:#0B0B0B; --fore:#070707; --glow:#E4F26B; --fore-ink:#EDEFEE;
+  --c1:#FF5B1F; --c2:#E4F26B; --c3:#FFC9D9; --c4:#C7B8FF; --c5:#BDEBD3;
+  --ease:cubic-bezier(.22,.8,.2,1);
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --ground:#0B0B0B; --surface:#151918; --surface-2:#1C2120; --ink:#EDEFEE; --ink-soft:#B4BBB8; --ink-faint:#9BA3A0; --rule:#2C3231; --rule-soft:#1E2322;
+  --accent-official:#FF5B1F; --accent-home:#BDEBD3; --accent:#FF5B1F; --accent-ink:#121414; --good:#BDEBD3; --hl:#FF5B1F; --chip-bg:#1C2120; --veil:rgba(0,0,0,.6);
+  --sky-top:#0B0B0B; --sky-bot:#261F45; --moon:#FFC9D9; --star-o:.9; --moon-glow:.12; --ridge1:#2D2650; --ridge2:#1E1A38; --ridge3:#141224; --tower:#0B0B0B; --fore:#070707; --glow:#E4F26B; --fore-ink:#EDEFEE; color-scheme:dark}}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]){
+  --ground:#F0F2EF; --surface:#FFFFFF; --surface-2:#E6E9E5; --ink:#121414; --ink-soft:#3C4240; --ink-faint:#4F5654; --rule:#C6CBC8; --rule-soft:#DADEDB;
+  --accent-official:#B72E08; --accent-home:#17724A; --accent:#B72E08; --accent-ink:#FFFFFF; --good:#17724A; --hl:#D9400F; --chip-bg:#FFFFFF; --chip-shadow:0 2px 6px rgba(18,20,20,.10),0 14px 34px -14px rgba(18,20,20,.4); --veil:rgba(18,20,20,.34);
+  --sky-top:#E4DEFA; --sky-bot:#FFE1D3; --moon:#FFFFFF; --star-o:0; --moon-glow:.4; --ridge1:#D3CBF2; --ridge2:#B1A5E6; --ridge3:#7B6BC4; --tower:#2B2552; --fore:#1B1736; --glow:#FF5B1F; --fore-ink:#F0F2EF; color-scheme:light}}
+:root[data-theme="light"]{
+  --ground:#F0F2EF; --surface:#FFFFFF; --surface-2:#E6E9E5; --ink:#121414; --ink-soft:#3C4240; --ink-faint:#4F5654; --rule:#C6CBC8; --rule-soft:#DADEDB;
+  --accent-official:#B72E08; --accent-home:#17724A; --accent:#B72E08; --accent-ink:#FFFFFF; --good:#17724A; --hl:#D9400F; --chip-bg:#FFFFFF; --chip-shadow:0 2px 6px rgba(18,20,20,.10),0 14px 34px -14px rgba(18,20,20,.4); --veil:rgba(18,20,20,.34);
+  --sky-top:#E4DEFA; --sky-bot:#FFE1D3; --moon:#FFFFFF; --star-o:0; --moon-glow:.4; --ridge1:#D3CBF2; --ridge2:#B1A5E6; --ridge3:#7B6BC4; --tower:#2B2552; --fore:#1B1736; --glow:#FF5B1F; --fore-ink:#F0F2EF; color-scheme:light}
+:root[data-theme="dark"]{
+  --ground:#0B0B0B; --surface:#151918; --surface-2:#1C2120; --ink:#EDEFEE; --ink-soft:#B4BBB8; --ink-faint:#9BA3A0; --rule:#2C3231; --rule-soft:#1E2322;
+  --accent-official:#FF5B1F; --accent-home:#BDEBD3; --accent:#FF5B1F; --accent-ink:#121414; --good:#BDEBD3; --hl:#FF5B1F; --chip-bg:#1C2120; --veil:rgba(0,0,0,.6);
+  --sky-top:#0B0B0B; --sky-bot:#261F45; --moon:#FFC9D9; --star-o:.9; --moon-glow:.12; --ridge1:#2D2650; --ridge2:#1E1A38; --ridge3:#141224; --tower:#0B0B0B; --fore:#070707; --glow:#E4F26B; --fore-ink:#EDEFEE; color-scheme:dark}
+body{transition:background .3s,color .3s}
+/* each page takes the colour of its card on the home page */
+:where(body.pg-create){--pa:#FF5B1F}
+:where(body.pg-finder){--pa:#E4F26B}
+:where(body.pg-stats){--pa:#FFC9D9}
+:where(body.pg-compendium){--pa:#C7B8FF}
+:where(body.pg-spells){--pa:#BDEBD3}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]) :where(body.pg-create){--pa:#B72E08}
+  :root:not([data-theme="dark"]) :where(body.pg-finder){--pa:#5C6A00}
+  :root:not([data-theme="dark"]) :where(body.pg-stats){--pa:#B0285A}
+  :root:not([data-theme="dark"]) :where(body.pg-compendium){--pa:#5A46B8}
+  :root:not([data-theme="dark"]) :where(body.pg-spells){--pa:#17724A}
+}
+:root[data-theme="light"] :where(body.pg-create){--pa:#B72E08}
+:root[data-theme="light"] :where(body.pg-finder){--pa:#5C6A00}
+:root[data-theme="light"] :where(body.pg-stats){--pa:#B0285A}
+:root[data-theme="light"] :where(body.pg-compendium){--pa:#5A46B8}
+:root[data-theme="light"] :where(body.pg-spells){--pa:#17724A}
+:where(body[class*="pg-"]){--accent:var(--pa);--accent-official:var(--pa);--hl:var(--pa)}
+
+/* shape: soft corners, pill controls */
+.widget,.mini,.spell,.callout,.pact,.cta,.formula,.play .beat,.stage-inner,.sheet,.stage-cap,.card,.tile,.panel,.result-card,.chip-panel{border-radius:14px}
+.stage-inner{overflow:hidden}
+input,select,textarea{border-radius:10px}
+.btn,button.chip,button.pill{border-radius:999px}
+h1,h2,h3{font-weight:600;letter-spacing:-.03em}
+.chap-num{-webkit-text-stroke-width:1.2px}
+
+/* motion: every button and link-card responds */
+.btn,button.chip,.cta,button,.lv,.card,.row,.tile,.opt,a[class]{transition:transform .25s var(--ease),background .2s,color .2s,border-color .2s,box-shadow .25s,filter .2s}
+.btn:hover,button.chip:hover,.lv:hover{transform:translateY(-2px)}
+.btn:active,button.chip:active,.lv:active,.cta:active{transform:scale(.96)}
+.cta:hover,.cta:focus-visible{transform:translateY(-4px);box-shadow:0 18px 30px -18px rgba(0,0,0,.6)}
+.btn,button.chip,.lv,.cta{position:relative;overflow:hidden}
+.rp{position:absolute;border-radius:50%;background:currentColor;opacity:.22;transform:scale(0);pointer-events:none;animation:rp .6s ease-out forwards}
+@keyframes rp{to{transform:scale(1);opacity:0}}
+:focus-visible{outline-color:var(--accent-official)!important}
+@media (prefers-reduced-motion: reduce){.rp{display:none}.btn:hover,button.chip:hover,.lv:hover,.cta:hover{transform:none}}
+
+/* site bar */
+.sitebar{position:relative;z-index:90;display:flex;align-items:center;gap:6px 18px;flex-wrap:wrap;padding:10px max(16px,env(safe-area-inset-left,0px));background:color-mix(in srgb,var(--ground) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--rule);font-family:"Figtree",system-ui,sans-serif;font-size:14px}
+.sitebar a{color:var(--ink-soft);text-decoration:none;position:relative;padding:6px 0;transition:color .2s}
+.sitebar a::after{content:"";position:absolute;left:0;right:0;bottom:2px;height:1.5px;background:var(--accent-official);transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease)}
+.sitebar a:hover,.sitebar a[aria-current]{color:var(--ink)}
+.sitebar a:hover::after,.sitebar a[aria-current]::after{transform:scaleX(1)}
+.sitebar .brand{font-weight:600;color:var(--ink);display:inline-flex;align-items:center;gap:9px;margin-right:6px}
+.sitebar .brand i{width:11px;height:11px;border-radius:50%;background:var(--c5);transition:transform .4s var(--ease),background .3s}
+.sitebar .brand:hover i{transform:scale(1.5);background:var(--c1)}
+.sitebar .sp{flex:1}
+.sitebar button{font:inherit;color:var(--ink-soft);background:transparent;border:1px solid var(--rule);border-radius:999px;padding:5px 12px;cursor:pointer}
+.sitebar button:hover{color:var(--ink);border-color:var(--ink-faint)}
+@media print{.sitebar{display:none}}
+
+/* the spell filter row scrolls sideways on phones by design; fade its right edge so a half-cut chip reads as 'more this way' */
+@media (max-width:40rem){.bar-in{-webkit-mask-image:linear-gradient(to right,#000 88%,transparent);mask-image:linear-gradient(to right,#000 88%,transparent);padding-right:24px}.sitebar{gap:2px 14px;padding-top:8px;padding-bottom:8px}.sitebar .sp{display:none}}
+/* page transition: colour sweeps over the old page, then an iris opens on the new one */
+.cover{position:fixed;inset:0;z-index:2147483000;pointer-events:none}
 </style>
-<nav class="sitenav" aria-label="Site"><a href="/">D&amp;D Tools</a><span class="sitenav-sep" aria-hidden="true">/</span><a href="/create/">Make a Character</a><span class="sitenav-sep" aria-hidden="true">/</span><a href="/finder/">Class Finder</a><span class="sitenav-sep" aria-hidden="true">/</span><a href="/stats/">Ability Scores</a><span class="sitenav-sep" aria-hidden="true">/</span><a href="/compendium/">Subclass Compendium</a><span class="sitenav-sep" aria-hidden="true">/</span><span class="sitenav-here" aria-current="page">Spell Compendium</span></nav>
+</head>
+<body class="pg-spells">
+<nav class="sitebar" aria-label="Site"><a class="brand" href="../index.html"><i></i>D&amp;D Tools</a><a href="../create/index.html">Make a Character</a><a href="../finder/index.html">Class Finder</a><a href="../stats/index.html">Ability Scores</a><a href="../compendium/index.html">Subclasses</a><a href="../spells/index.html" aria-current="page">Spells</a><span class="sp"></span><button id="themeBtn" type="button">Light theme</button></nav>
+
+
 <div class="wrap">
   <header>
     <p class="eyebrow" id="eyebrow">1,208 spells</p>
@@ -965,6 +1048,45 @@
     DATA.srd;
 
   buildFilters(); sync(); render();
+})();
+</script>
+
+<script>(function(){
+  var rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.addEventListener('pointerdown',function(e){
+    var el=e.target.closest('.btn,button.chip,.lv,.cta');if(!el||rm)return;
+    var r=el.getBoundingClientRect(),d=Math.max(r.width,r.height)*2,s=document.createElement('span');
+    s.className='rp';s.style.cssText='width:'+d+'px;height:'+d+'px;left:'+(e.clientX-r.left-d/2)+'px;top:'+(e.clientY-r.top-d/2)+'px';
+    el.appendChild(s);setTimeout(function(){s.remove()},650);
+  });
+  var b=document.getElementById('themeBtn');
+  function eff(){return document.documentElement.dataset.theme||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark')}
+  function label(){if(b)b.textContent=eff()==='dark'?'Light theme':'Dark theme'}
+  try{var t=localStorage.getItem('dnd-theme');if(t)document.documentElement.dataset.theme=t}catch(e){}
+  label();
+  if(b)b.addEventListener('click',function(){var n=eff()==='dark'?'light':'dark';document.documentElement.dataset.theme=n;try{localStorage.setItem('dnd-theme',n)}catch(e){}label()});
+})();
+(function(){
+  /* page transition, two phases:
+     1) a solid in the clicked item's colour wipes across the old page
+     2) on the new page an iris hole opens in that solid, centred where you clicked */
+  var rm2=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a[href]');
+    if(!a||e.defaultPrevented||e.button||e.metaKey||e.ctrlKey||e.shiftKey||a.target==='_blank')return;
+    var u=new URL(a.href,location.href);
+    if(u.origin!==location.origin||u.pathname===location.pathname||/^#/.test(a.getAttribute('href')))return;
+    if(rm2)return;
+    e.preventDefault();
+    var x=e.clientX,y=e.clientY;
+    if(!e.detail||(!x&&!y)){var r=a.getBoundingClientRect();x=r.left+r.width/2;y=r.top+r.height/2}
+    var p=document.createElement('i');p.style.cssText='position:absolute;visibility:hidden;color:var(--cc,var(--k,var(--accent-official,var(--c1,#FF5B1F))))';a.appendChild(p);var col=getComputedStyle(p).color;p.remove();
+    try{sessionStorage.setItem('iris',Math.round(x)+'|'+Math.round(y)+'|'+col)}catch(err){}
+    var o=document.createElement('div');o.className='cover';o.style.background=col;var R=Math.hypot(Math.max(x,innerWidth-x),Math.max(y,innerHeight-y))+4,c0='circle(0px at '+x+'px '+y+'px)',c1='circle('+R+'px at '+x+'px '+y+'px)';o.style.clipPath=c0;document.body.appendChild(o);
+    var go=function(){location.href=a.href};
+    if(o.animate){var an=o.animate([{clipPath:c0},{clipPath:c1}],{duration:560,easing:'cubic-bezier(.65,0,.35,1)',fill:'forwards'});an.onfinish=go;setTimeout(go,800)}else go();
+  });
+  addEventListener('pageshow',function(ev){if(ev.persisted)document.querySelectorAll('.cover').forEach(function(n){n.remove()})});
 })();
 </script>
 </body>
