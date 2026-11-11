@@ -1,0 +1,91 @@
+<title>Feat Catalogue</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Martian+Mono:wght@400;500;600&display=swap">
+<style>
+  :root{--ground:#0B0B0B;--surface:#151918;--surface-2:#1C2120;--ink:#EDEFEE;--ink-soft:#B4BBB8;--ink-faint:#9BA3A0;--rule:#2C3231;--rule-soft:#1E2322;--accent:#7CD3FF;--accent-ink:#121414;
+    --step--2:.7rem;--step--1:clamp(.78rem,.75rem + .12vw,.84rem);--step-0:clamp(.95rem,.92rem + .18vw,1.05rem);--step-3:clamp(1.9rem,1.4rem + 2vw,3rem)}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--ground);color:var(--ink);font-family:"Figtree",system-ui,sans-serif;font-size:var(--step-0);line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:76rem;margin-inline:auto;padding-inline:max(20px,env(safe-area-inset-left,0px));padding-block:clamp(20px,3vw,32px) 64px}
+  .eyebrow{font-family:"Martian Mono",ui-monospace,monospace;font-size:var(--step--2);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);margin:0}
+  h1{font-size:var(--step-3);line-height:1.05;margin:6px 0 0}
+  .lede{color:var(--ink-soft);max-width:66ch;margin:10px 0 0;font-size:var(--step--1)}
+  .bar{position:sticky;top:0;z-index:30;margin-top:18px;padding:10px 0;background:var(--ground);border-bottom:1px solid var(--rule)}
+  .srch{position:relative;display:flex}
+  .srch input{width:100%;font:inherit;font-size:var(--step--1);color:var(--ink);background:var(--surface);border:1px solid var(--rule);padding:10px 14px;border-radius:999px}
+  .srch input:focus{outline:2px solid var(--accent);outline-offset:-2px}
+  .srch input::placeholder{color:var(--ink-faint)}
+  .grp{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:8px}
+  .grp>b{font-family:"Martian Mono",monospace;font-weight:500;font-size:var(--step--2);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faint);margin-right:4px;min-width:5.2rem}
+  .ch{font:inherit;font-size:var(--step--1);color:var(--ink-soft);background:var(--surface);border:1px solid var(--rule);border-radius:999px;padding:5px 12px;cursor:pointer}
+  .ch:hover{border-color:var(--accent);color:var(--ink)}
+  .ch[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+  .ch i{font-style:normal;opacity:.65;margin-left:5px;font-variant-numeric:tabular-nums}
+  .status{margin:14px 0 0;font-family:"Martian Mono",monospace;font-size:var(--step--2);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faint)}
+  .status b{color:var(--accent);font-weight:600}
+  .clr{margin-left:12px;background:none;border:0;color:var(--ink-faint);font:inherit;text-transform:uppercase;cursor:pointer;text-decoration:underline}
+  .list{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,22rem),1fr));gap:12px;margin-top:14px;padding:0;list-style:none}
+  .ft{background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:14px 16px 16px;min-width:0;display:flex;flex-direction:column;gap:8px}
+  .ft h2{font-size:1.08rem;margin:0;line-height:1.2}
+  .tags{display:flex;flex-wrap:wrap;gap:5px}
+  .tg{font-family:"Martian Mono",monospace;font-size:.64rem;letter-spacing:.04em;text-transform:uppercase;padding:2px 8px;border-radius:999px;border:1px solid var(--rule);color:var(--ink-soft)}
+  .tg.src{border-color:var(--accent);color:var(--accent)}
+  .pre{font-size:var(--step--1);color:var(--ink-soft);margin:0}
+  .pre b{font-weight:600;color:var(--ink)}
+  .ft p.t{margin:0;font-size:.93rem;color:var(--ink)}
+  .none{padding:40px 0;text-align:center;color:var(--ink-faint)}
+  .note{margin-top:34px;padding-top:16px;border-top:1px solid var(--rule);color:var(--ink-faint);font-size:var(--step--1);max-width:78ch}
+  .note p{margin:0 0 8px}
+  @media (max-width:40rem){.grp>b{width:100%}}
+</style>
+
+<div class="wrap">
+  <header>
+    <p class="eyebrow">Feats, 2024 rules</p>
+    <h1>Feat Catalogue</h1>
+    <p class="lede">Every feat from the 2024 Player’s Handbook, plus the feats from Legends &amp; Legacies, Craft and Creation and Lyre’s Guide to Retia. Search the text, or filter by source and kind. Entries are short summaries in our own words: the book and page are on every card, and the book is the authority.</p>
+  </header>
+  <div class="bar">
+    <div class="srch"><input id="q" type="search" placeholder="Search feats: name, effect, prerequisite" aria-label="Search feats" autocomplete="off"></div>
+    <div class="grp" id="gs"><b>Source</b></div>
+    <div class="grp" id="gc"><b>Kind</b></div>
+  </div>
+  <p class="status" id="st" aria-live="polite"></p>
+  <ul class="list" id="ls"></ul>
+  <div class="none" id="none" hidden>No feat matches that. Try fewer filters.</div>
+  <div class="note">
+    <p>Player’s Handbook feats are paraphrased from the 2024 book. Homebrew feats are summaries and some have details, such as tables or scaling, that only the book prints, so read the page before you take one to a table. Ask your DM before using anything homebrew.</p>
+    <p>Please buy the homebrew books if you use them.</p>
+  </div>
+</div>
+<script src="data.js"></script>
+<script>
+(function(){
+  var SRC={phb:'Player’s Handbook',kll:'Legends & Legacies',kcc:'Craft & Creation',retia:'Lyre’s Guide to Retia'},SHORT={phb:'PHB 2024',kll:'L&L',kcc:'C&C',retia:'Retia'};
+  var D=window.FEATS||[],$=function(i){return document.getElementById(i)};
+  var st={q:'',s:{},c:{}};
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  var cats=[];D.forEach(function(f){if(cats.indexOf(f.c)<0)cats.push(f.c)});
+  function chips(id,keys,label,kind){var el=$(id);keys.forEach(function(k){var b=document.createElement('button');b.type='button';b.className='ch';b.setAttribute('aria-pressed','false');b.dataset.k=k;b.dataset.kind=kind;b.innerHTML=esc(label(k))+'<i></i>';b.onclick=function(){st[kind][k]=!st[kind][k];render()};el.appendChild(b)})}
+  chips('gs',['phb','kll','kcc','retia'],function(k){return SRC[k]},'s');
+  chips('gc',cats,function(k){return k},'c');
+  var ls=$('ls');
+  ls.innerHTML=D.map(function(f,i){return '<li class="ft" data-i="'+i+'"><h2>'+esc(f.n)+'</h2><div class="tags"><span class="tg src">'+esc(SHORT[f.s])+(f.pg?' p. '+f.pg:'')+'</span><span class="tg">'+esc(f.c)+'</span></div>'+(f.p?'<p class="pre"><b>Prerequisite:</b> '+esc(f.p)+'</p>':'')+'<p class="t">'+esc(f.t)+'</p></li>'}).join('');
+  var items=[].slice.call(ls.children);
+  var hay=D.map(function(f){return (f.n+' '+f.c+' '+f.p+' '+f.t+' '+SRC[f.s]).toLowerCase()});
+  function on(o){for(var k in o)if(o[k])return true;return false}
+  function render(){
+    var q=st.q.toLowerCase().trim().split(/\s+/).filter(Boolean),n=0,hs=on(st.s),hc=on(st.c),cs={},cc={};
+    items.forEach(function(el,i){var f=D[i],ok=true;
+      for(var j=0;j<q.length;j++)if(hay[i].indexOf(q[j])<0){ok=false;break}
+      var okS=!hs||st.s[f.s],okC=!hc||st.c[f.c];
+      if(ok&&okC){cs[f.s]=(cs[f.s]||0)+1}
+      if(ok&&okS){cc[f.c]=(cc[f.c]||0)+1}
+      var show=ok&&okS&&okC;el.hidden=!show;if(show)n++});
+    [].forEach.call(document.querySelectorAll('.ch'),function(b){var k=b.dataset.k,kind=b.dataset.kind;b.setAttribute('aria-pressed',st[kind][k]?'true':'false');b.lastChild.textContent=(kind==='s'?cs[k]:cc[k])||0});
+    $('st').innerHTML='<b>'+n+'</b> of '+D.length+' feats'+((q.length||hs||hc)?'<button class="clr" id="cl" type="button">Clear</button>':'');
+    var c=$('cl');if(c)c.onclick=function(){st={q:'',s:{},c:{}};$('q').value='';render()};
+    $('none').hidden=n>0}
+  $('q').addEventListener('input',function(e){st.q=e.target.value;render()});
+  render();
+})();
+</script>

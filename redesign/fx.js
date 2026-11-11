@@ -54,3 +54,5 @@
   var idle=window.requestIdleCallback||function(f){setTimeout(f,600)};
   addEventListener('load',function(){idle(function(){document.querySelectorAll('a[href]').forEach(function(a){pre(a,false)})})});
 })();
+
+try{var _c=document.querySelector('.sitebar a[aria-current]');if(_c){var _b=_c.parentNode;_b.scrollLeft=_c.offsetLeft-(_b.clientWidth-_c.offsetWidth)/2}}catch(e){}

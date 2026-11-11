@@ -287,6 +287,12 @@
     .lvl { padding-top:0; }
     .veil { padding-top:6vh; }
   }
+  .compat { margin:18px 0 0; max-width:44rem; padding:12px 16px; border:1.5px solid var(--rule); border-left:6px solid var(--accent-official); background: var(--surface); }
+  .compat-k { display:block; font-family:"IBM Plex Mono", monospace; font-size:.68rem; letter-spacing:.14em; text-transform:uppercase; color: var(--accent-official); margin-bottom:4px; }
+  .compat p { margin:0 0 8px; font-size: var(--step--1); color: var(--ink-soft); }
+  .compat p:last-child { margin-bottom:0; }
+  .compat b { color: var(--ink); }
+  .compat .pg { font-family:"IBM Plex Mono", monospace; font-size:.7rem; white-space:nowrap; color: var(--accent-official); border:1px solid var(--accent-official); border-radius:999px; padding:0 7px; }
   @media (prefers-reduced-motion: reduce) { * { transition:none !important; } }
 </style>
 
@@ -296,6 +302,11 @@
     <p class="eyebrow">12 official classes &middot; 6 homebrew classes &middot; 322 pages</p>
     <h1>Subclass Compendium</h1>
     <p class="lede">Every feature in plain language, with the rules terms underlined. Hover one to read what it means; click or tap to pin it open, <kbd>Esc</kbd> to dismiss. A <em>doubled</em> underline means this page changes how that term works. Homebrew additions to an official class sit in a dropdown at the foot of the list.</p>
+    <div class="compat" role="note">
+      <span class="compat-k">Backwards compatible with 5e</span>
+      <p><b>The 2024 rules are built to sit alongside 5e (2014) material.</b> The fundamentals are the same, and where the two differ the 2024 Player's Handbook says its versions replace the older ones <span class="pg">p. 4</span>. A subclass written for 2014 5e usually drops into the matching 2024 class, because subclass features arrive at the same class levels. If one leans on a class feature that changed, use the 2024 version of that feature and let your DM make the call.</p>
+      <p>Older backgrounds and species need one adjustment: take their ability score increases the 2024 way, one score by 2 and another by 1, or three scores by 1 <span class="pg">p. 37</span>. The homebrew subclasses below were written for 5e, so the same applies to them.</p>
+    </div>
   </header>
 
   <div class="toolbar">

@@ -13,6 +13,7 @@
 <meta property="og:description" content="A scrolling guide to the D&amp;D 2024 character sheet for first-time players: who you are, your six numbers, class, levelling, combat and spells, with an example of play that uses every part of the sheet.">
 <meta property="og:url" content="https://dnd-tools.pages.dev/create/">
 <meta name="twitter:card" content="summary">
+
 <script>(function(){try{if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;var v=sessionStorage.getItem('iris');if(!v)return;sessionStorage.removeItem('iris');var a=v.split('|'),x=+a[0],y=+a[1],W=innerWidth,H=innerHeight,R=Math.hypot(Math.max(x,W-x),Math.max(y,H-y))+4;
 var d=document.createElement('div');d.className='cover';d.style.cssText='position:fixed;inset:0;z-index:2147483000;pointer-events:none;background:'+(a[2]||'#FF5B1F');document.documentElement.appendChild(d);
 function mask(r){var m='radial-gradient(circle at '+x+'px '+y+'px,transparent '+r+'px,#000 '+(r+1)+'px)';d.style.webkitMaskImage=m;d.style.maskImage=m}
@@ -301,7 +302,7 @@ requestAnimationFrame(step);setTimeout(function(){d.remove()},hold+dur+600)}catc
   --chip-bg:#1C2120; --chip-shadow:0 2px 6px rgba(0,0,0,.5),0 16px 38px -14px rgba(0,0,0,.95); --veil:rgba(0,0,0,.6);
   --sky-top:#0B0B0B; --sky-bot:#261F45; --moon:#FFC9D9; --star-o:.9; --moon-glow:.12;
   --ridge1:#2D2650; --ridge2:#1E1A38; --ridge3:#141224; --tower:#0B0B0B; --fore:#070707; --glow:#E4F26B; --fore-ink:#EDEFEE;
-  --c1:#FF5B1F; --c2:#E4F26B; --c3:#FFC9D9; --c4:#C7B8FF; --c5:#BDEBD3;
+  --c1:#FF5B1F; --c2:#E4F26B; --c3:#FFC9D9; --c4:#C7B8FF; --c5:#BDEBD3; --c6:#7CD3FF; --c7:#FFB84D;
   --ease:cubic-bezier(.22,.8,.2,1);
   color-scheme:dark;
 }
@@ -328,18 +329,24 @@ body{transition:background .3s,color .3s}
 :where(body.pg-stats){--pa:#FFC9D9}
 :where(body.pg-compendium){--pa:#C7B8FF}
 :where(body.pg-spells){--pa:#BDEBD3}
+:where(body.pg-feats){--pa:#7CD3FF}
+:where(body.pg-equipment){--pa:#FFB84D}
 @media (prefers-color-scheme: light){
   :root:not([data-theme="dark"]) :where(body.pg-create){--pa:#B72E08}
   :root:not([data-theme="dark"]) :where(body.pg-finder){--pa:#5C6A00}
   :root:not([data-theme="dark"]) :where(body.pg-stats){--pa:#B0285A}
   :root:not([data-theme="dark"]) :where(body.pg-compendium){--pa:#5A46B8}
   :root:not([data-theme="dark"]) :where(body.pg-spells){--pa:#17724A}
+  :root:not([data-theme="dark"]) :where(body.pg-feats){--pa:#0B6A9C}
+  :root:not([data-theme="dark"]) :where(body.pg-equipment){--pa:#8F5A00}
 }
 :root[data-theme="light"] :where(body.pg-create){--pa:#B72E08}
 :root[data-theme="light"] :where(body.pg-finder){--pa:#5C6A00}
 :root[data-theme="light"] :where(body.pg-stats){--pa:#B0285A}
 :root[data-theme="light"] :where(body.pg-compendium){--pa:#5A46B8}
 :root[data-theme="light"] :where(body.pg-spells){--pa:#17724A}
+:root[data-theme="light"] :where(body.pg-feats){--pa:#0B6A9C}
+:root[data-theme="light"] :where(body.pg-equipment){--pa:#8F5A00}
 :where(body[class*="pg-"]){--accent:var(--pa);--accent-official:var(--pa);--hl:var(--pa)}
 
 /* shape: soft corners, pill controls */
@@ -373,16 +380,26 @@ h1,h2,h3{font-weight:600;letter-spacing:-.03em}
 .sitebar .sp{flex:1}
 .sitebar button{font:inherit;color:var(--ink-soft);background:transparent;border:1px solid var(--rule);border-radius:999px;padding:5px 12px;cursor:pointer}
 .sitebar button:hover{color:var(--ink);border-color:var(--ink-faint)}
+
+/* each nav button wears its own page colour; the current page is the solid one */
+.sitebar a.nv{--nv:var(--c1)}
+.sitebar a.nv::after{background:var(--ink)}
+.sitebar a.nv:hover{color:var(--nv)}
+.sitebar a.nv:hover::after{background:var(--nv)}
+.sitebar a.nv[aria-current]{color:var(--ink);font-weight:600}
+.sitebar a.nv-create{--nv:var(--c1)}.sitebar a.nv-finder{--nv:var(--c2)}.sitebar a.nv-stats{--nv:var(--c3)}.sitebar a.nv-compendium{--nv:var(--c4)}.sitebar a.nv-spells{--nv:var(--c5)}.sitebar a.nv-feats{--nv:var(--c6)}.sitebar a.nv-equipment{--nv:var(--c7)}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]) .sitebar a.nv-create{--nv:#B72E08}:root:not([data-theme="dark"]) .sitebar a.nv-finder{--nv:#5C6A00}:root:not([data-theme="dark"]) .sitebar a.nv-stats{--nv:#B0285A}:root:not([data-theme="dark"]) .sitebar a.nv-compendium{--nv:#5A46B8}:root:not([data-theme="dark"]) .sitebar a.nv-spells{--nv:#17724A}:root:not([data-theme="dark"]) .sitebar a.nv-feats{--nv:#0B6A9C}:root:not([data-theme="dark"]) .sitebar a.nv-equipment{--nv:#8F5A00}}
+:root[data-theme="light"] .sitebar a.nv-create{--nv:#B72E08}:root[data-theme="light"] .sitebar a.nv-finder{--nv:#5C6A00}:root[data-theme="light"] .sitebar a.nv-stats{--nv:#B0285A}:root[data-theme="light"] .sitebar a.nv-compendium{--nv:#5A46B8}:root[data-theme="light"] .sitebar a.nv-spells{--nv:#17724A}:root[data-theme="light"] .sitebar a.nv-feats{--nv:#0B6A9C}:root[data-theme="light"] .sitebar a.nv-equipment{--nv:#8F5A00}
 @media print{.sitebar{display:none}}
 
 /* the spell filter row scrolls sideways on phones by design; fade its right edge so a half-cut chip reads as 'more this way' */
-@media (max-width:40rem){.bar-in{-webkit-mask-image:linear-gradient(to right,#000 88%,transparent);mask-image:linear-gradient(to right,#000 88%,transparent);padding-right:24px}.sitebar{gap:2px 14px;padding-top:8px;padding-bottom:8px}.sitebar .sp{display:none}}
+@media (max-width:40rem){.bar-in{-webkit-mask-image:linear-gradient(to right,#000 88%,transparent);mask-image:linear-gradient(to right,#000 88%,transparent);padding-right:24px}.sitebar{gap:8px;padding-top:8px;padding-bottom:8px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-mask-image:linear-gradient(to right,#000 90%,transparent);mask-image:linear-gradient(to right,#000 90%,transparent)}.sitebar::-webkit-scrollbar{display:none}.sitebar>*{flex:none}.sitebar .sp{display:none}}
 /* page transition: colour sweeps over the old page, then an iris opens on the new one */
 .cover{position:fixed;inset:0;z-index:2147483000;pointer-events:none}
 </style>
 </head>
 <body class="pg-create">
-<nav class="sitebar" aria-label="Site"><a class="brand" href="../index.html"><i></i>D&amp;D Tools</a><a href="../create/index.html" aria-current="page">Make a Character</a><a href="../finder/index.html">Class Finder</a><a href="../stats/index.html">Ability Scores</a><a href="../compendium/index.html">Subclasses</a><a href="../spells/index.html">Spells</a><span class="sp"></span><button id="themeBtn" type="button">Light theme</button></nav>
+<nav class="sitebar" aria-label="Site"><a class="brand" href="../index.html"><i></i>D&amp;D Tools</a><a class="nv nv-create" href="../create/index.html" aria-current="page">Make a Character</a><a class="nv nv-finder" href="../finder/index.html">Class Finder</a><a class="nv nv-stats" href="../stats/index.html">Ability Scores</a><a class="nv nv-compendium" href="../compendium/index.html">Subclasses</a><a class="nv nv-spells" href="../spells/index.html">Spells</a><a class="nv nv-feats" href="../feats/index.html">Feats</a><a class="nv nv-equipment" href="../equipment/index.html">Equipment</a><span class="sp"></span><button id="themeBtn" type="button">Light theme</button></nav>
 
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
@@ -1338,6 +1355,8 @@ h1,h2,h3{font-weight:600;letter-spacing:-.03em}
   var idle=window.requestIdleCallback||function(f){setTimeout(f,600)};
   addEventListener('load',function(){idle(function(){document.querySelectorAll('a[href]').forEach(function(a){pre(a,false)})})});
 })();
+
+try{var _c=document.querySelector('.sitebar a[aria-current]');if(_c){var _b=_c.parentNode;_b.scrollLeft=_c.offsetLeft-(_b.clientWidth-_c.offsetWidth)/2}}catch(e){}
 </script>
 </body>
 </html>

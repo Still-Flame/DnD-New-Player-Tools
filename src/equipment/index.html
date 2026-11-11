@@ -1,0 +1,147 @@
+<title>Equipment</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Martian+Mono:wght@400;500;600&display=swap">
+<style>
+  :root{--ground:#0B0B0B;--surface:#151918;--surface-2:#1C2120;--ink:#EDEFEE;--ink-soft:#B4BBB8;--ink-faint:#9BA3A0;--rule:#2C3231;--rule-soft:#1E2322;--accent:#FFB84D;--accent-ink:#121414;
+    --step--2:.7rem;--step--1:clamp(.78rem,.75rem + .12vw,.84rem);--step-0:clamp(.95rem,.92rem + .18vw,1.05rem);--step-3:clamp(1.9rem,1.4rem + 2vw,3rem)}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--ground);color:var(--ink);font-family:"Figtree",system-ui,sans-serif;font-size:var(--step-0);line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:76rem;margin-inline:auto;padding-inline:max(20px,env(safe-area-inset-left,0px));padding-block:clamp(20px,3vw,32px) 64px}
+  .eyebrow{font-family:"Martian Mono",ui-monospace,monospace;font-size:var(--step--2);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);margin:0}
+  h1{font-size:var(--step-3);line-height:1.05;margin:6px 0 0}
+  .lede{color:var(--ink-soft);max-width:66ch;margin:10px 0 0;font-size:var(--step--1)}
+  .bar{position:sticky;top:0;z-index:30;margin-top:18px;padding:10px 0;background:var(--ground);border-bottom:1px solid var(--rule)}
+  .srch input{width:100%;font:inherit;font-size:var(--step--1);color:var(--ink);background:var(--surface);border:1px solid var(--rule);padding:10px 14px;border-radius:999px}
+  .srch input:focus{outline:2px solid var(--accent);outline-offset:-2px}
+  .srch input::placeholder{color:var(--ink-faint)}
+  .grp{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:8px}
+  .grp>b{font-family:"Martian Mono",monospace;font-weight:500;font-size:var(--step--2);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faint);margin-right:4px;min-width:5.2rem}
+  .ch,.sel{font:inherit;font-size:var(--step--1);color:var(--ink-soft);background:var(--surface);border:1px solid var(--rule);border-radius:999px;padding:5px 12px;cursor:pointer}
+  .ch:hover,.sel:hover{border-color:var(--accent);color:var(--ink)}
+  .ch[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+  .ch i{font-style:normal;opacity:.65;margin-left:5px;font-variant-numeric:tabular-nums}
+  .status{margin:14px 0 0;font-family:"Martian Mono",monospace;font-size:var(--step--2);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faint)}
+  .status b{color:var(--accent);font-weight:600}
+  .clr{margin-left:12px;background:none;border:0;color:var(--ink-faint);font:inherit;text-transform:uppercase;cursor:pointer;text-decoration:underline}
+  .cols,.rw{display:grid;align-items:baseline;gap:0 14px;grid-template-columns:minmax(0,1.7fr) minmax(0,1.1fr) minmax(0,1.9fr) 5rem 6rem}
+  .cols{margin-top:10px;padding:0 12px 7px;border-bottom:1px solid var(--rule);font-family:"Martian Mono",monospace;font-size:var(--step--2);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faint)}
+  .cols button{font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;text-align:left}
+  .cols button:hover,.cols button[data-sort]{color:var(--accent)}
+  .cols button[data-sort="1"]::after{content:" \2193"}
+  .cols button[data-sort="-1"]::after{content:" \2191"}
+  details.it{border-bottom:1px solid var(--rule-soft)}
+  .rw{list-style:none;cursor:pointer;padding:11px 12px;border-left:3px solid transparent}
+  .rw::-webkit-details-marker{display:none}
+  .rw:hover{background:var(--surface)}
+  .rw:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+  details[open]>.rw{background:var(--surface);border-left-color:var(--accent)}
+  .nm{font-weight:600;min-width:0}
+  details[open]>.rw .nm{color:var(--accent)}
+  .nm small{display:inline-block;margin-left:6px;font-family:"Martian Mono",monospace;font-size:.6rem;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);border-radius:999px;padding:0 6px;vertical-align:middle;font-weight:500}
+  .m{font-family:"Martian Mono",monospace;font-size:var(--step--2);letter-spacing:.03em;color:var(--ink-soft);min-width:0}
+  .num{font-variant-numeric:tabular-nums}
+  .op{padding:6px 12px 22px;max-width:76ch}
+  .op dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(11rem,1fr));gap:4px 20px;margin:0 0 12px;padding:11px 0;border-top:1px solid var(--rule-soft);border-bottom:1px solid var(--rule-soft)}
+  .op dt{font-family:"Martian Mono",monospace;font-size:var(--step--2);letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faint)}
+  .op dd{margin:0;font-size:var(--step--1)}
+  .op p{margin:0 0 8px;font-size:.93rem}
+  .op p b{font-weight:600}
+  .mt{display:none}
+  .none{padding:40px 0;text-align:center;color:var(--ink-faint)}
+  .note{margin-top:34px;padding-top:16px;border-top:1px solid var(--rule);color:var(--ink-faint);font-size:var(--step--1);max-width:78ch}
+  .note p{margin:0 0 8px}
+  .note a{color:var(--accent)}
+  @media (max-width:46rem){
+    .cols{display:none}
+    .rw{grid-template-columns:minmax(0,1fr) auto;gap:2px 12px}
+    .rw .m.k,.rw .m.p{grid-column:1 / -1}
+    .rw .m.p{display:block}
+    .mt{display:inline}
+  }
+</style>
+
+<div class="wrap">
+  <header>
+    <p class="eyebrow">Gear, 2024 rules</p>
+    <h1>Equipment</h1>
+    <p class="lede">Weapons with their mastery properties, armour, tools and adventuring gear from the System Reference Document, plus the weapons, firearms and shields from Lyre’s Guide to Retia. Costs are in gold pieces. Open a row for the details.</p>
+  </header>
+  <div class="bar">
+    <div class="srch"><input id="q" type="search" placeholder="Search equipment: name, damage, property, mastery" aria-label="Search equipment" autocomplete="off"></div>
+    <div class="grp" id="gt"><b>Type</b></div>
+    <div class="grp" id="gs"><b>Source</b></div>
+  </div>
+  <p class="status" id="st" aria-live="polite"></p>
+  <div class="cols" id="cols"><button type="button" data-k="name" data-sort="1">Name</button><span>Category</span><span>Stats</span><button type="button" data-k="w">Weight</button><button type="button" data-k="gp">Cost</button></div>
+  <div id="ls"></div>
+  <div class="none" id="none" hidden>No item matches that. Try fewer filters.</div>
+  <div class="note">
+    <p>SRD items are from System Reference Document 5.2.1 by Wizards of the Coast LLC, licensed under <a href="https://creativecommons.org/licenses/by/4.0/legalcode" target="_blank" rel="noopener">Creative Commons Attribution 4.0</a>. Retia items are from Lyre’s Guide to Retia: Land of Industry (pp. 516–518), summarised here. Retia’s firearms are listed together and are not split into simple or martial, so check the book. Ask your DM before using anything homebrew.</p>
+  </div>
+</div>
+<script src="data.js"></script>
+<script>
+(function(){
+  var D=window.EQUIP||[],$=function(i){return document.getElementById(i)};
+  var SRC={srd:'SRD 5.2.1',retia:'Retia'};
+  var TYPES=['Weapon','Armor','Tool','Gear','Ammunition'],TL={Weapon:'Weapons',Armor:'Armour',Tool:'Tools',Gear:'Adventuring gear',Ammunition:'Ammunition'};
+  var MASTERY={Cleave:'On a melee hit you may make a second attack against another creature within 5 feet of the first.',Graze:'On a miss you still deal damage equal to the ability modifier you attacked with.',Nick:'The extra Light-weapon attack can be made as part of the Attack action, once per turn.',Push:'On a hit you can shove a Large or smaller creature 10 feet straight away.',Sap:'On a hit the target has Disadvantage on its next attack roll.',Slow:'On a damaging hit you can cut the target’s Speed by 10 feet until your next turn.',Topple:'On a hit the target makes a Constitution save or falls Prone.',Vex:'On a damaging hit you have Advantage on your next attack against that creature.'};
+  var PROP={Ammunition:'Needs matching ammunition; each shot uses one piece.',Finesse:'Use Strength or Dexterity for attack and damage.',Heavy:'Disadvantage if the wielder is too weak (Str 13 melee, Dex 13 ranged).',Light:'Allows an extra attack with a second Light weapon.',Loading:'Only one piece of ammunition per action, Bonus Action or Reaction.',Reach:'Adds 5 feet to your reach.',Thrown:'Can be thrown as a ranged attack, drawing it as part of the attack.','Two-Handed':'Needs two hands to attack.',Versatile:'One or two hands; the number in brackets is the two-handed damage.'};
+  var st={q:'',t:{},s:{},sort:'name',dir:1};
+  function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  function chips(id,keys,label,kind){var el=$(id);keys.forEach(function(k){var b=document.createElement('button');b.type='button';b.className='ch';b.setAttribute('aria-pressed','false');b.dataset.k=k;b.dataset.kind=kind;b.innerHTML=esc(label(k))+'<i></i>';b.onclick=function(){st[kind][k]=!st[kind][k];render()};el.appendChild(b)})}
+  chips('gt',TYPES,function(k){return TL[k]},'t');chips('gs',['srd','retia'],function(k){return SRC[k]},'s');
+  function stats(e){
+    if(e.type==='Weapon')return e.dmg||'';
+    if(e.type==='Armor')return 'AC '+e.ac+(e.str?' · '+e.str:'')+(e.stealth?' · Stealth '+e.stealth.toLowerCase():'');
+    if(e.type==='Tool')return e.ability?e.ability+' tool':'';
+    if(e.type==='Ammunition')return e.dmg||'';
+    return '';
+  }
+  function detail(e){
+    var h='<dl>';
+    function r(a,b){if(b)h+='<div><dt>'+a+'</dt><dd>'+esc(b)+'</dd></div>'}
+    r('Source',SRC[e.src]+(e.page?' p. '+e.page:''));r('Category',e.cat);r('Cost',e.cost);r('Weight',e.wt);
+    if(e.type==='Weapon'){r('Damage',e.dmg);r('Properties',e.props);r('Mastery',e.mastery)}
+    if(e.type==='Armor'){r('Armor Class',e.ac);r('Strength',e.str);r('Stealth',e.stealth)}
+    if(e.type==='Tool'){r('Ability',e.ability);r('Utilize',e.utilize);r('Craft',e.craft);r('Variants',e.variants)}
+    if(e.type==='Ammunition')r('Damage',e.dmg);
+    h+='</dl>';
+    if(e.type==='Weapon'){
+      if(e.mastery&&MASTERY[e.mastery])h+='<p><b>'+esc(e.mastery)+'.</b> '+esc(MASTERY[e.mastery])+' Only characters with a feature such as Weapon Mastery can use it.</p>';
+      var seen={};(e.props||'').split(/,\s*(?![^()]*\))/).forEach(function(p){var k=p.replace(/\s*\(.*$/,'').trim();if(PROP[k]&&!seen[k]){seen[k]=1;h+='<p><b>'+esc(k)+'.</b> '+esc(PROP[k])+'</p>'}});
+      if(e.src==='retia')h+='<p>Retia-specific properties (Firm, Knuckles, Cleaving, Secondary, Special, Trigger, Reload and the firearm rules) are explained in the book, pp. 516–518.</p>';
+    }
+    if(e.txt)h+='<p>'+esc(e.txt)+'</p>';
+    return h;
+  }
+  var rows=D.map(function(e){
+    var d=document.createElement('details');d.className='it';
+    var s=stats(e);
+    d.innerHTML='<summary class="rw"><span class="nm">'+esc(e.name)+(e.src==='retia'?'<small>Retia</small>':'')+'</span><span class="m k">'+esc(e.cat)+'</span><span class="m p">'+esc(s)+(e.props&&e.type==='Weapon'?'<span class="mt"> · '+esc(e.props)+'</span>':'')+'</span><span class="m num">'+esc(e.wt||'—')+'</span><span class="m num">'+esc(e.cost||'—')+'</span></summary><div class="op"></div>';
+    d.addEventListener('toggle',function(){var o=d.querySelector('.op');if(d.open&&!o.firstChild)o.innerHTML=detail(e)});
+    return d});
+  var hay=D.map(function(e){return [e.name,e.cat,e.type,e.dmg,e.props,e.mastery,e.txt,e.ability,e.craft,e.utilize,SRC[e.src]].join(' ').toLowerCase()});
+  function on(o){for(var k in o)if(o[k])return true;return false}
+  function render(){
+    var q=st.q.toLowerCase().trim().split(/\s+/).filter(Boolean),ht=on(st.t),hs=on(st.s),n=0,ct={},cs={};
+    var order=D.map(function(_,i){return i});
+    var k=st.sort;order.sort(function(a,b){var x=D[a],y=D[b],r;
+      if(k==='name')r=x.name.localeCompare(y.name);else{var xv=x[k],yv=y[k];if(k==='gp'){if(xv<0)xv=1e12;if(yv<0)yv=1e12}r=xv-yv||x.name.localeCompare(y.name)}
+      return r*st.dir});
+    var ls=$('ls');
+    order.forEach(function(i){ls.appendChild(rows[i]);var e=D[i],ok=true;
+      for(var j=0;j<q.length;j++)if(hay[i].indexOf(q[j])<0){ok=false;break}
+      var okT=!ht||st.t[e.type],okS=!hs||st.s[e.src];
+      if(ok&&okS)ct[e.type]=(ct[e.type]||0)+1;
+      if(ok&&okT)cs[e.src]=(cs[e.src]||0)+1;
+      var show=ok&&okT&&okS;rows[i].hidden=!show;if(show)n++});
+    [].forEach.call(document.querySelectorAll('.ch'),function(b){var kk=b.dataset.k,kind=b.dataset.kind;b.setAttribute('aria-pressed',st[kind][kk]?'true':'false');b.lastChild.textContent=(kind==='t'?ct[kk]:cs[kk])||0});
+    [].forEach.call(document.querySelectorAll('#cols button'),function(b){if(b.dataset.k===st.sort)b.dataset.sort=st.dir;else b.removeAttribute('data-sort')});
+    $('st').innerHTML='<b>'+n+'</b> of '+D.length+' items'+((q.length||ht||hs)?'<button class="clr" id="cl" type="button">Clear</button>':'');
+    var c=$('cl');if(c)c.onclick=function(){st.q='';st.t={};st.s={};$('q').value='';render()};
+    $('none').hidden=n>0}
+  [].forEach.call(document.querySelectorAll('#cols button'),function(b){b.onclick=function(){if(st.sort===b.dataset.k)st.dir=-st.dir;else{st.sort=b.dataset.k;st.dir=1}render()}});
+  $('q').addEventListener('input',function(e){st.q=e.target.value;render()});
+  render();
+})();
+</script>

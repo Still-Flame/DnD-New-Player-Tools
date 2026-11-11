@@ -2,8 +2,8 @@
 :root{
   --bg:#0B0B0B; --bg2:#151918; --line:#262A29; --line2:#3A3F3E;
   --text:#EDEFEE; --text2:#B4BBB8; --text3:#9BA3A0; --ink:#121414;
-  --c1:#FF5B1F; --c2:#E4F26B; --c3:#FFC9D9; --c4:#C7B8FF; --c5:#BDEBD3;
-  --t1:#FF5B1F; --t2:#E4F26B; --t3:#FFC9D9; --t4:#C7B8FF; --t5:#BDEBD3;
+  --c1:#FF5B1F; --c2:#E4F26B; --c3:#FFC9D9; --c4:#C7B8FF; --c5:#BDEBD3; --c6:#7CD3FF; --c7:#FFB84D;
+  --t1:#FF5B1F; --t2:#E4F26B; --t3:#FFC9D9; --t4:#C7B8FF; --t5:#BDEBD3; --t6:#7CD3FF; --t7:#FFB84D;
   --focus:#BDEBD3; --term:#C7B8FF; --hl:#FF5B1F;
   --paper:#151918; --pline:#4A504E; --ptext:#9BA3A0;
   --f:'Figtree',system-ui,-apple-system,'Segoe UI',sans-serif;
@@ -16,7 +16,7 @@
   :root:not([data-theme="dark"]){
     --bg:#F0F2EF; --bg2:#E6E9E5; --line:#C6CBC8; --line2:#9AA19E;
     --text:#121414; --text2:#3C4240; --text3:#4F5654;
-    --t1:#B72E08; --t2:#5C6A00; --t3:#B0285A; --t4:#5A46B8; --t5:#17724A;
+    --t1:#B72E08; --t2:#5C6A00; --t3:#B0285A; --t4:#5A46B8; --t5:#17724A; --t6:#0B6A9C; --t7:#8F5A00;
     --focus:#5A46B8; --term:#5A46B8; --hl:#B72E08;
     --paper:#FFFFFF; --pline:#9AA19E; --ptext:#4F5654;
     color-scheme:light;
@@ -25,7 +25,7 @@
 :root[data-theme="light"]{
   --bg:#F0F2EF; --bg2:#E6E9E5; --line:#C6CBC8; --line2:#9AA19E;
   --text:#121414; --text2:#3C4240; --text3:#4F5654;
-  --t1:#B72E08; --t2:#5C6A00; --t3:#B0285A; --t4:#5A46B8; --t5:#17724A;
+  --t1:#B72E08; --t2:#5C6A00; --t3:#B0285A; --t4:#5A46B8; --t5:#17724A; --t6:#0B6A9C; --t7:#8F5A00;
   --focus:#5A46B8; --term:#5A46B8; --hl:#B72E08;
   --paper:#FFFFFF; --pline:#9AA19E; --ptext:#4F5654;
   color-scheme:light;
@@ -44,7 +44,7 @@ button,input,select{font:inherit;color:inherit}
 
 /* ---------- shell ---------- */
 .shell{display:grid;grid-template-columns:minmax(300px,440px) minmax(0,1fr);min-height:100dvh;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-.aside{position:sticky;top:env(safe-area-inset-top,0px);height:100dvh;overflow:auto;padding:40px 40px 32px 0;display:flex;flex-direction:column;gap:44px;border-right:1px solid var(--line);scrollbar-width:thin}
+.aside{position:sticky;top:env(safe-area-inset-top,0px);height:100dvh;overflow:auto;padding:40px 40px 32px 0;display:flex;flex-direction:column;gap:28px;border-right:1px solid var(--line);scrollbar-width:thin}
 .brand{display:inline-flex;align-items:center;gap:12px;font-weight:600;font-size:18px;text-decoration:none;width:max-content}
 .brand .dot{width:13px;height:13px;border-radius:50%;background:var(--c5);transition:transform .5s var(--ease),background .3s}
 .brand:hover .dot{transform:scale(1.5) translateX(2px);background:var(--c1)}
@@ -54,7 +54,7 @@ button,input,select{font:inherit;color:inherit}
 .lead{margin:22px 0 0;color:var(--text2);font-size:17px}
 .sub{margin:14px 0 0;color:var(--text3);font-size:15px}
 .nav{display:flex;flex-direction:column;margin-top:auto}
-.nav a{position:relative;display:flex;align-items:center;gap:12px;min-height:48px;color:var(--text2);text-decoration:none;border-top:1px solid var(--line);font-size:16px;transition:color .2s,padding .3s var(--ease)}
+.nav a{position:relative;display:flex;align-items:center;gap:12px;min-height:42px;color:var(--text2);text-decoration:none;border-top:1px solid var(--line);font-size:16px;transition:color .2s,padding .3s var(--ease)}
 .nav a:last-child{border-bottom:1px solid var(--line)}
 .nav a::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--k);opacity:.5;transition:transform .3s var(--ease),opacity .2s}
 .nav a::after{content:"";position:absolute;left:0;bottom:-1px;height:1px;width:100%;background:var(--k);transform:scaleX(0);transform-origin:left;transition:transform .45s var(--ease)}
@@ -331,6 +331,7 @@ button,input,select{font:inherit;color:inherit}
   .beat{min-height:56dvh;scroll-margin-top:calc(var(--tb) + 44dvh)}
   .topbar .where{display:none}
 }
+@container (min-width:641px){.card .n{font-size:15.5px;overflow-wrap:normal;hyphens:none}.card{padding:14px}}
 @container (max-width:640px){
   .hand{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:20px 0 32px}
   .card{max-width:none;min-height:150px;margin:0;--r:0deg!important;transform:none}
