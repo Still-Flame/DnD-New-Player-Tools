@@ -1,9 +1,11 @@
-# D&D Tools redesign
+# D&D Tools: all updates in one
 
-Drop these into the repo, keeping the folder structure:
+Put these at the repo root, keeping the folder layout:
 
-- `public/`  the finished redesigned site (all six pages, colour-coded per tool, iris page transitions). Replaces the existing `public/` folder. This is what Cloudflare serves.
-- `src/stat-roller.html`  Ability Scores source with the new dice-count stepper (only the three highest dice are added) and the adjustable point-buy pool (scores up to 18; 16 costs 12, 17 costs 15, 18 costs 19).
-- `redesign/`  the theme (`theme.css`), transition script (`fx.js`, `vt.css`), home page styles (`home.css`) and the script that restyled the pages (`build2.mjs`). Reference only: it was written against a scratch folder, so it will not run unchanged.
+- `public/`  the finished redesigned site (what Cloudflare serves)
+- `src/`  updated sources: `create.html` (new "Agree it at the table" note) and `stat-roller.html` (dice count and point-buy pool)
+- `redesign/`  theme, transition script, home page styles and the restyling script (reference only)
+- `build.mjs`  now does nothing, so a build step can't overwrite `public/` with the old design
+- `build.legacy.mjs`  your original generator, kept for reference
 
-Note: running the repo's own `node build.mjs` regenerates `public/` from `src/` in the old design and overwrites this. Either skip it or extend it with the files in `redesign/`.
+Included changes: redesign with per-page colours, shorter iris transition with hover preloading, adjustable dice and point pool on Ability Scores, house-rule note in Make a Character, card symbols on the home page.

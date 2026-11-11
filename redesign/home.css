@@ -100,6 +100,9 @@ button,input,select{font:inherit;color:inherit}
 .card:active{transform:rotate(0deg) translateY(-8px) scale(.97)}
 .card .k{font:500 11.5px/1.3 var(--m);opacity:.8}
 .card .n{font-weight:600;font-size:clamp(17px,2.4cqw,21px);overflow-wrap:anywhere;line-height:1.15;letter-spacing:-.02em}
+.card .ic{display:block;width:40px;height:40px;transition:transform .35s var(--ease)}
+.card .ic svg{display:block;width:100%;height:100%}
+.card:hover .ic{transform:translateY(-2px) rotate(-6deg)}
 .card .go{align-self:flex-end;width:34px;height:34px;border-radius:50%;border:1.5px solid currentColor;display:grid;place-items:center;transition:transform .35s var(--ease),background .2s,color .2s}
 .card:hover .go{transform:rotate(-45deg);background:var(--ink);color:var(--cc)}
 @keyframes deal{from{opacity:0;transform:translateY(60px) rotate(0deg)}}
@@ -331,6 +334,7 @@ button,input,select{font:inherit;color:inherit}
 @container (max-width:640px){
   .hand{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:20px 0 32px}
   .card{max-width:none;min-height:150px;margin:0;--r:0deg!important;transform:none}
+  .card .ic{width:30px;height:30px}
   .card:last-child{grid-column:1/-1}
   .card:hover{transform:translateY(-4px)}
 }

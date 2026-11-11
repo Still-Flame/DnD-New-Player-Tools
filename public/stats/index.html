@@ -16,7 +16,7 @@
 <script>(function(){try{if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;var v=sessionStorage.getItem('iris');if(!v)return;sessionStorage.removeItem('iris');var a=v.split('|'),x=+a[0],y=+a[1],W=innerWidth,H=innerHeight,R=Math.hypot(Math.max(x,W-x),Math.max(y,H-y))+4;
 var d=document.createElement('div');d.className='cover';d.style.cssText='position:fixed;inset:0;z-index:2147483000;pointer-events:none;background:'+(a[2]||'#FF5B1F');document.documentElement.appendChild(d);
 function mask(r){var m='radial-gradient(circle at '+x+'px '+y+'px,transparent '+r+'px,#000 '+(r+1)+'px)';d.style.webkitMaskImage=m;d.style.maskImage=m}
-mask(0);var t0=null,hold=50,dur=820;function ease(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2}
+mask(0);var t0=null,hold=50,dur=300;function ease(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2}
 function step(ts){if(t0===null)t0=ts;var t=(ts-t0-hold)/dur;if(t<=0){requestAnimationFrame(step);return}if(t>=1){d.remove();return}mask(R*ease(t));requestAnimationFrame(step)}
 requestAnimationFrame(step);setTimeout(function(){d.remove()},hold+dur+600)}catch(e){}})();</script>
 <title>Roll Your Ability Scores</title>
@@ -119,10 +119,6 @@ requestAnimationFrame(step);setTimeout(function(){d.remove()},hold+dur+600)}catc
   .die[data-empty="true"] { color: var(--ink-faint); border-style:dotted; }
   .roll-sum { font-family:"Martian Mono",monospace; font-size: var(--step-1); }
   .roll-sum b { font-size: var(--step-2); font-weight:600; }
-  .stepper { display:flex; align-items:center; gap:8px; font-size: var(--step--1); color: var(--ink-soft); }
-  .stepper output { min-width:2.2ch; text-align:center; color: var(--ink); font-family:"Martian Mono",monospace; font-size: var(--step-1); font-weight:600; font-variant-numeric: tabular-nums; }
-  .stepper .mini { width:30px; }
-  .points-row { display:flex; flex-wrap:wrap; align-items:center; gap:10px 28px; }
   .roll-actions { margin-left:auto; display:flex; gap:8px; flex-wrap:wrap; }
 
   .btn {
@@ -412,8 +408,7 @@ h1,h2,h3{font-weight:600;letter-spacing:-.03em}
     <p class="eyebrow">Step 3 &middot; determine ability scores</p>
     <h1>Roll Your Ability Scores</h1>
     <p class="lede">
-      Roll as many six-sided dice as you like &mdash; four is the usual &mdash; and
-      only the three highest are added up. Put the number
+      Roll four six-sided dice, drop the lowest, keep the rest. Put the number
       wherever you like, and reroll anything as often as you want &mdash; nothing
       here is locked in. The two non-random methods are here too, in case your
       DM prefers one.
@@ -421,7 +416,7 @@ h1,h2,h3{font-weight:600;letter-spacing:-.03em}
   </header>
 
   <div class="seg" role="group" aria-label="Method">
-    <button type="button" id="m-roll" aria-pressed="true">Roll dice</button>
+    <button type="button" id="m-roll" aria-pressed="true">Roll 4d6</button>
     <button type="button" id="m-array" aria-pressed="false">Standard array</button>
     <button type="button" id="m-point" aria-pressed="false">Point buy</button>
   </div>
@@ -505,23 +500,19 @@ h1,h2,h3{font-weight:600;letter-spacing:-.03em}
   ];
 
   var ARRAY = [15, 14, 13, 12, 10, 8];
-  var COST = { 8:0, 9:1, 10:2, 11:3, 12:4, 13:5, 14:7, 15:9, 16:12, 17:15, 18:19 };
-  var PB_MAX = 18;                  // highest base score point buy can reach
-  var DICE_MIN = 3, DICE_MAX = 10;  // only the three highest are ever added
-  var BUDGET_MIN = 10, BUDGET_MAX = 114;
+  var COST = { 8:0, 9:1, 10:2, 11:3, 12:4, 13:5, 14:7, 15:9 };
+  var BUDGET = 27;
 
   var HOWTO = {
-    roll: function () { return "<b>Roll " + state.dice + " d6, keep the highest three.</b> " + (state.dice === 3 ? "With three dice nothing is dropped. " : "The other " + (state.dice - 3) + " are crossed out and not added. ") + "Use the stepper to change how many dice you roll. Roll, then pick an ability to put the total in — or use <em>Roll all six</em> and place them afterwards. Drag a score box onto another ability to swap the two \u2014 or use the \u21c4 button. Every score has a reroll button too, so nothing you place is final."; },
+    roll: "<b>Roll four d6, drop the lowest.</b> Roll, then pick an ability to put the total in — or use <em>Roll all six</em> and place them afterwards. Drag a score box onto another ability to swap the two \u2014 or use the \u21c4 button. Every score has a reroll button too, so nothing you place is final.",
     array: "<b>The standard array.</b> Six fixed numbers, no luck involved: 15, 14, 13, 12, 10 and 8. Pick a number, then pick an ability. Drag a score box onto another ability to swap them, or send one back to the pool.",
-    point: function () { return "<b>Point buy.</b> " + state.budget + " points" + (state.budget === 27 ? " (the book\u2019s number)" : "") + ", every score starts at 8 and can reach 18. The higher you go the more each point costs — 14 costs 7, 15 costs 9, 16 costs 12, 17 costs 15 and 18 costs 19 — so two good scores and one weak one buys more than three middling ones. Change the pool with the stepper. Drag a score box onto another ability to swap them."; }
+    point: "<b>Point buy.</b> 27 points, every score starts at 8 and can reach 15. The last few points cost more than the first — 14 costs 7 and 15 costs 9 — so two good scores and one weak one buys more than three middling ones. Drag a score box onto another ability to swap them."
   };
 
   var state = {
     method: "roll",
-    dice: 4,           // dice rolled per score; the three highest are added
-    budget: 27,        // point-buy pool
     scores: {},        // ability -> base score, or null
-    pending: null,     // { dice:[n], drop:[indexes], total:n }
+    pending: null,     // { dice:[4], drop:index, total:n }
     pool: [],          // standard array numbers still unplaced
     picked: null,      // index into pool that is selected
     moving: null,      // ability whose score is being moved
@@ -546,20 +537,13 @@ h1,h2,h3{font-weight:600;letter-spacing:-.03em}
 
   function d6() { return 1 + Math.floor(Math.random() * 6); }
 
-  function rollDice() {
-    var n = state.dice, dice = [], order = [], i;
-    for (i = 0; i < n; i++) { dice.push(d6()); order.push(i); }
-    // highest first; on a tie the earlier die is kept
-    order.sort(function (x, y) { return dice[y] - dice[x] || x - y; });
-    var drop = order.slice(3), total = 0;
-    for (i = 0; i < 3; i++) total += dice[order[i]];
+  function roll4d6() {
+    var dice = [d6(), d6(), d6(), d6()];
+    var drop = 0;
+    for (var i = 1; i < 4; i++) if (dice[i] < dice[drop]) drop = i;
+    var total = 0;
+    for (var j = 0; j < 4; j++) if (j !== drop) total += dice[j];
     return { dice: dice, drop: drop, total: total };
-  }
-
-  function rolledText(r) {
-    var gone = r.drop.map(function (i) { return r.dice[i]; });
-    return "Rolled " + r.dice.join(", ") +
-      (gone.length ? ", dropping " + gone.join(" and ") : "") + ", keeping " + r.total + ".";
   }
 
   function mod(score) { return Math.floor((score - 10) / 2); }
@@ -739,21 +723,17 @@ h1,h2,h3{font-weight:600;letter-spacing:-.03em}
       var p = state.pending;
       h += '<div class="roller">';
       h += '<div class="dice" aria-hidden="true">';
-      for (var i = 0; i < (p ? p.dice.length : state.dice); i++) {
+      for (var i = 0; i < 4; i++) {
         h += p
-          ? '<span class="die" data-dropped="' + (p.drop.indexOf(i) !== -1) + '">' + p.dice[i] + "</span>"
+          ? '<span class="die" data-dropped="' + (i === p.drop) + '">' + p.dice[i] + "</span>"
           : '<span class="die" data-empty="true">&middot;</span>';
       }
       h += "</div>";
-      h += '<div class="stepper" role="group" aria-label="Number of dice">Dice ' +
-        '<button type="button" class="mini" data-dice="-1"' + (state.dice <= DICE_MIN ? " disabled" : "") + ' aria-label="Roll one fewer die">−</button>' +
-        "<output>" + state.dice + "</output>" +
-        '<button type="button" class="mini" data-dice="1"' + (state.dice >= DICE_MAX ? " disabled" : "") + ' aria-label="Roll one more die">+</button></div>';
       h += '<p class="roll-sum" style="margin:0">' +
         (p ? "Keeps <b>" + p.total + "</b>" : '<span style="color:var(--ink-faint)">No roll yet</span>') +
         "</p>";
       h += '<div class="roll-actions">';
-      h += '<button type="button" class="btn" id="do-roll">' + (p ? "Reroll" : "Roll " + state.dice + "d6") + "</button>";
+      h += '<button type="button" class="btn" id="do-roll">' + (p ? "Reroll" : "Roll 4d6") + "</button>";
       h += '<button type="button" class="btn btn-ghost" id="roll-all">Roll all six</button>';
       h += '<button type="button" class="btn btn-ghost" id="clear-all">Clear</button>';
       h += "</div></div>";
@@ -776,13 +756,9 @@ h1,h2,h3{font-weight:600;letter-spacing:-.03em}
       }
 
     } else {
-      var left = state.budget - pointsSpent();
-      h += '<div class="points-row"><p class="points" style="margin:0" data-spent="' + (left === 0) + '">' +
-        "<b>" + left + "</b> of " + state.budget + " points left</p>";
-      h += '<div class="stepper" role="group" aria-label="Points to spend">Pool ' +
-        '<button type="button" class="mini" data-budget="-1"' + (state.budget - 1 < Math.max(BUDGET_MIN, pointsSpent()) ? " disabled" : "") + ' aria-label="Remove one point from the pool">−</button>' +
-        "<output>" + state.budget + "</output>" +
-        '<button type="button" class="mini" data-budget="1"' + (state.budget >= BUDGET_MAX ? " disabled" : "") + ' aria-label="Add one point to the pool">+</button></div></div>';
+      var left = BUDGET - pointsSpent();
+      h += '<p class="points" data-spent="' + (left === 0) + '">' +
+        "<b>" + left + "</b> of " + BUDGET + " points left</p>";
       h += '<div class="roll-actions" style="margin-top:14px">' +
         '<button type="button" class="btn btn-ghost" id="clear-all">Reset to 8s</button></div>';
     }
@@ -799,7 +775,7 @@ h1,h2,h3{font-weight:600;letter-spacing:-.03em}
 
   function renderAbilities() {
     var h = "";
-    var left = state.method === "point" ? state.budget - pointsSpent() : 0;
+    var left = state.method === "point" ? BUDGET - pointsSpent() : 0;
 
     ABIL.forEach(function (ab) {
       var key = ab[0], base = state.scores[key], bonus = bonusOf(key), tot = total(key);
@@ -860,7 +836,7 @@ h1,h2,h3{font-weight:600;letter-spacing:-.03em}
             'title="Return ' + base + ' to the pool" aria-label="Return ' + base + ' to the pool">×</button>';
         } else if (state.method === "point") {
           var canDown = base > 8;
-          var canUp = base < PB_MAX && (COST[base + 1] - COST[base]) <= left;
+          var canUp = base < 15 && (COST[base + 1] - COST[base]) <= left;
           h += '<button type="button" class="mini" data-dec="' + key + '"' + (canDown ? "" : " disabled") +
             ' aria-label="Lower ' + esc(ab[1]) + '">−</button>';
           h += '<button type="button" class="mini" data-inc="' + key + '"' + (canUp ? "" : " disabled") +
@@ -885,8 +861,7 @@ h1,h2,h3{font-weight:600;letter-spacing:-.03em}
   }
 
   function render() {
-    var ht = HOWTO[state.method];
-    el.howto.innerHTML = typeof ht === "function" ? ht() : ht;
+    el.howto.innerHTML = HOWTO[state.method];
     renderMethodUI();
     renderAbilities();
     renderBackground();
@@ -942,28 +917,15 @@ h1,h2,h3{font-weight:600;letter-spacing:-.03em}
 
     if (t.id === "do-roll") {
       state.moving = null;
-      state.pending = rollDice();
+      state.pending = roll4d6();
       render();
-      say(rolledText(state.pending));
-      return;
-    }
-    if (t.hasAttribute("data-dice")) {
-      state.dice = Math.max(DICE_MIN, Math.min(DICE_MAX, state.dice + Number(t.getAttribute("data-dice"))));
-      state.pending = null;
-      render();
-      say("Rolling " + state.dice + " dice, keeping the highest three.");
-      return;
-    }
-    if (t.hasAttribute("data-budget")) {
-      var nb = state.budget + Number(t.getAttribute("data-budget"));
-      state.budget = Math.max(BUDGET_MIN, Math.min(BUDGET_MAX, Math.max(nb, pointsSpent())));
-      render();
-      say("Point pool is " + state.budget + ".");
+      say("Rolled " + state.pending.dice.join(", ") + ", dropping the " +
+          state.pending.dice[state.pending.drop] + ", keeping " + state.pending.total + ".");
       return;
     }
     if (t.id === "roll-all") {
       state.moving = null; state.pending = null;
-      KEYS.forEach(function (k) { state.scores[k] = rollDice().total; });
+      KEYS.forEach(function (k) { state.scores[k] = roll4d6().total; });
       render(); say("Rolled all six.");
       return;
     }
@@ -998,7 +960,7 @@ h1,h2,h3{font-weight:600;letter-spacing:-.03em}
       return;
     }
     if ((a = t.getAttribute("data-reroll"))) {
-      var r = rollDice();
+      var r = roll4d6();
       state.scores[a] = r.total;
       render(); say(NAME[a] + " rerolled to " + r.total + ".");
       return;
@@ -1197,9 +1159,28 @@ h1,h2,h3{font-weight:600;letter-spacing:-.03em}
     try{sessionStorage.setItem('iris',Math.round(x)+'|'+Math.round(y)+'|'+col)}catch(err){}
     var o=document.createElement('div');o.className='cover';o.style.background=col;var R=Math.hypot(Math.max(x,innerWidth-x),Math.max(y,innerHeight-y))+4,c0='circle(0px at '+x+'px '+y+'px)',c1='circle('+R+'px at '+x+'px '+y+'px)';o.style.clipPath=c0;document.body.appendChild(o);
     var go=function(){location.href=a.href};
-    if(o.animate){var an=o.animate([{clipPath:c0},{clipPath:c1}],{duration:560,easing:'cubic-bezier(.65,0,.35,1)',fill:'forwards'});an.onfinish=go;setTimeout(go,800)}else go();
+    if(o.animate){var an=o.animate([{clipPath:c0},{clipPath:c1}],{duration:200,easing:'cubic-bezier(.65,0,.35,1)',fill:'forwards'});an.onfinish=go;setTimeout(go,350)}else go();
   });
   addEventListener('pageshow',function(ev){if(ev.persisted)document.querySelectorAll('.cover').forEach(function(n){n.remove()})});
+})();
+(function(){
+  /* warm the next page: prefetch on hover / touch, and the big data files when idle */
+  var seen={};
+  function pf(url){if(seen[url])return;seen[url]=1;var l=document.createElement('link');l.rel='prefetch';l.href=url;document.head.appendChild(l)}
+  function pre(a,page){
+    var u;try{u=new URL(a.href,location.href)}catch(e){return}
+    if(u.origin!==location.origin||u.pathname===location.pathname)return;
+    var dir=u.pathname.replace(/[^\/]*$/,'');
+    if(/\/spells\/$/.test(dir)){pf(dir+'spells.js');pf(dir+'terms.js');pf(dir+'kor.js')}
+    if(/\/compendium\/$/.test(dir))pf(dir+'data.js');
+    if(page)pf(u.href);
+  }
+  function hot(e){var a=e.target.closest&&e.target.closest('a[href]');if(a)pre(a,true)}
+  document.addEventListener('pointerover',hot,{passive:true});
+  document.addEventListener('touchstart',hot,{passive:true});
+  document.addEventListener('focusin',hot);
+  var idle=window.requestIdleCallback||function(f){setTimeout(f,600)};
+  addEventListener('load',function(){idle(function(){document.querySelectorAll('a[href]').forEach(function(a){pre(a,false)})})});
 })();
 </script>
 </body>

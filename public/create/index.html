@@ -16,7 +16,7 @@
 <script>(function(){try{if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;var v=sessionStorage.getItem('iris');if(!v)return;sessionStorage.removeItem('iris');var a=v.split('|'),x=+a[0],y=+a[1],W=innerWidth,H=innerHeight,R=Math.hypot(Math.max(x,W-x),Math.max(y,H-y))+4;
 var d=document.createElement('div');d.className='cover';d.style.cssText='position:fixed;inset:0;z-index:2147483000;pointer-events:none;background:'+(a[2]||'#FF5B1F');document.documentElement.appendChild(d);
 function mask(r){var m='radial-gradient(circle at '+x+'px '+y+'px,transparent '+r+'px,#000 '+(r+1)+'px)';d.style.webkitMaskImage=m;d.style.maskImage=m}
-mask(0);var t0=null,hold=50,dur=820;function ease(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2}
+mask(0);var t0=null,hold=50,dur=300;function ease(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2}
 function step(ts){if(t0===null)t0=ts;var t=(ts-t0-hold)/dur;if(t<=0){requestAnimationFrame(step);return}if(t>=1){d.remove();return}mask(R*ease(t));requestAnimationFrame(step)}
 requestAnimationFrame(step);setTimeout(function(){d.remove()},hold+dur+600)}catch(e){}})();</script>
 <title>How to Make a D&amp;D Character</title>
@@ -559,13 +559,18 @@ h1,h2,h3{font-weight:600;letter-spacing:-.03em}
 
         <div class="beat reveal" data-view="abilities" data-hl="str,dex,con,int,wis,cha" data-cap="Page 1 &middot; Score boxes">
           <h3>Three ways to generate the six scores</h3>
-          <p>Pick one before you assign them. <span class="pg">p. 38</span></p>
+          <p>The book gives these three. Pick one before you assign them. <span class="pg">p. 38</span></p>
           <div class="cards3">
             <div class="mini"><h4>Standard Array</h4><p>Take the set 15, 14, 13, 12, 10, 8 and assign them where you like.</p></div>
             <div class="mini"><h4>Random Generation</h4><p>Roll four d6 and keep the highest three. Do that six times.</p></div>
             <div class="mini"><h4>Point Cost</h4><p>27 points to spend across the six. A 14 costs 7 of them.</p></div>
           </div>
-          <p><a href="../stats/index.html">Open the Ability Scores tool</a> to roll or assign them.</p>
+          <div class="callout">
+            <span class="tag">Agree it at the table</span>
+            <p>These are the book's methods, and tables use plenty of others: rolling each score in order with no choice about where it goes, sharing one set of rolls between every player, rolling extra dice and keeping the best three, or giving everyone a bigger point pool. Most of these are house rules, and any of them can be a good fit.</p>
+            <p>What matters is that everyone at the table uses the same method, and that you settle it before anyone rolls. Talk it through at session zero and let the DM make the final call. If one player rolls well while another buys points, their characters start out uneven, and that tends to cause friction later.</p>
+          </div>
+          <p><a href="../stats/index.html">Open the Ability Scores tool</a> to roll or assign them. It can change the number of dice and the size of the point pool, so it can match whatever your table agrees on.</p>
         </div>
 
         <article class="play" aria-labelledby="play2">
@@ -1310,9 +1315,28 @@ h1,h2,h3{font-weight:600;letter-spacing:-.03em}
     try{sessionStorage.setItem('iris',Math.round(x)+'|'+Math.round(y)+'|'+col)}catch(err){}
     var o=document.createElement('div');o.className='cover';o.style.background=col;var R=Math.hypot(Math.max(x,innerWidth-x),Math.max(y,innerHeight-y))+4,c0='circle(0px at '+x+'px '+y+'px)',c1='circle('+R+'px at '+x+'px '+y+'px)';o.style.clipPath=c0;document.body.appendChild(o);
     var go=function(){location.href=a.href};
-    if(o.animate){var an=o.animate([{clipPath:c0},{clipPath:c1}],{duration:560,easing:'cubic-bezier(.65,0,.35,1)',fill:'forwards'});an.onfinish=go;setTimeout(go,800)}else go();
+    if(o.animate){var an=o.animate([{clipPath:c0},{clipPath:c1}],{duration:200,easing:'cubic-bezier(.65,0,.35,1)',fill:'forwards'});an.onfinish=go;setTimeout(go,350)}else go();
   });
   addEventListener('pageshow',function(ev){if(ev.persisted)document.querySelectorAll('.cover').forEach(function(n){n.remove()})});
+})();
+(function(){
+  /* warm the next page: prefetch on hover / touch, and the big data files when idle */
+  var seen={};
+  function pf(url){if(seen[url])return;seen[url]=1;var l=document.createElement('link');l.rel='prefetch';l.href=url;document.head.appendChild(l)}
+  function pre(a,page){
+    var u;try{u=new URL(a.href,location.href)}catch(e){return}
+    if(u.origin!==location.origin||u.pathname===location.pathname)return;
+    var dir=u.pathname.replace(/[^\/]*$/,'');
+    if(/\/spells\/$/.test(dir)){pf(dir+'spells.js');pf(dir+'terms.js');pf(dir+'kor.js')}
+    if(/\/compendium\/$/.test(dir))pf(dir+'data.js');
+    if(page)pf(u.href);
+  }
+  function hot(e){var a=e.target.closest&&e.target.closest('a[href]');if(a)pre(a,true)}
+  document.addEventListener('pointerover',hot,{passive:true});
+  document.addEventListener('touchstart',hot,{passive:true});
+  document.addEventListener('focusin',hot);
+  var idle=window.requestIdleCallback||function(f){setTimeout(f,600)};
+  addEventListener('load',function(){idle(function(){document.querySelectorAll('a[href]').forEach(function(a){pre(a,false)})})});
 })();
 </script>
 </body>

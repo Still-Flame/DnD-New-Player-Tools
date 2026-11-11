@@ -31,7 +31,26 @@
     try{sessionStorage.setItem('iris',Math.round(x)+'|'+Math.round(y)+'|'+col)}catch(err){}
     var o=document.createElement('div');o.className='cover';o.style.background=col;var R=Math.hypot(Math.max(x,innerWidth-x),Math.max(y,innerHeight-y))+4,c0='circle(0px at '+x+'px '+y+'px)',c1='circle('+R+'px at '+x+'px '+y+'px)';o.style.clipPath=c0;document.body.appendChild(o);
     var go=function(){location.href=a.href};
-    if(o.animate){var an=o.animate([{clipPath:c0},{clipPath:c1}],{duration:560,easing:'cubic-bezier(.65,0,.35,1)',fill:'forwards'});an.onfinish=go;setTimeout(go,800)}else go();
+    if(o.animate){var an=o.animate([{clipPath:c0},{clipPath:c1}],{duration:200,easing:'cubic-bezier(.65,0,.35,1)',fill:'forwards'});an.onfinish=go;setTimeout(go,350)}else go();
   });
   addEventListener('pageshow',function(ev){if(ev.persisted)document.querySelectorAll('.cover').forEach(function(n){n.remove()})});
+})();
+(function(){
+  /* warm the next page: prefetch on hover / touch, and the big data files when idle */
+  var seen={};
+  function pf(url){if(seen[url])return;seen[url]=1;var l=document.createElement('link');l.rel='prefetch';l.href=url;document.head.appendChild(l)}
+  function pre(a,page){
+    var u;try{u=new URL(a.href,location.href)}catch(e){return}
+    if(u.origin!==location.origin||u.pathname===location.pathname)return;
+    var dir=u.pathname.replace(/[^\/]*$/,'');
+    if(/\/spells\/$/.test(dir)){pf(dir+'spells.js');pf(dir+'terms.js');pf(dir+'kor.js')}
+    if(/\/compendium\/$/.test(dir))pf(dir+'data.js');
+    if(page)pf(u.href);
+  }
+  function hot(e){var a=e.target.closest&&e.target.closest('a[href]');if(a)pre(a,true)}
+  document.addEventListener('pointerover',hot,{passive:true});
+  document.addEventListener('touchstart',hot,{passive:true});
+  document.addEventListener('focusin',hot);
+  var idle=window.requestIdleCallback||function(f){setTimeout(f,600)};
+  addEventListener('load',function(){idle(function(){document.querySelectorAll('a[href]').forEach(function(a){pre(a,false)})})});
 })();
