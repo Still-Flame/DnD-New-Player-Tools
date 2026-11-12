@@ -4,6 +4,7 @@
   :root{--ground:#0B0B0B;--surface:#151918;--surface-2:#1C2120;--ink:#EDEFEE;--ink-soft:#B4BBB8;--ink-faint:#9BA3A0;--rule:#2C3231;--rule-soft:#1E2322;--accent:#7CD3FF;--accent-ink:#121414;
     --step--2:.7rem;--step--1:clamp(.78rem,.75rem + .12vw,.84rem);--step-0:clamp(.95rem,.92rem + .18vw,1.05rem);--step-3:clamp(1.9rem,1.4rem + 2vw,3rem)}
   *{box-sizing:border-box}
+  [hidden]{display:none!important}
   body{margin:0;background:var(--ground);color:var(--ink);font-family:"Figtree",system-ui,sans-serif;font-size:var(--step-0);line-height:1.55;-webkit-font-smoothing:antialiased}
   .wrap{max-width:76rem;margin-inline:auto;padding-inline:max(20px,env(safe-area-inset-left,0px));padding-block:clamp(20px,3vw,32px) 64px}
   .eyebrow{font-family:"Martian Mono",ui-monospace,monospace;font-size:var(--step--2);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);margin:0}
