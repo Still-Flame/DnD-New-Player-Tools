@@ -302,7 +302,7 @@ requestAnimationFrame(step);setTimeout(function(){d.remove()},hold+dur+600)}catc
   --chip-bg:#1C2120; --chip-shadow:0 2px 6px rgba(0,0,0,.5),0 16px 38px -14px rgba(0,0,0,.95); --veil:rgba(0,0,0,.6);
   --sky-top:#0B0B0B; --sky-bot:#261F45; --moon:#FFC9D9; --star-o:.9; --moon-glow:.12;
   --ridge1:#2D2650; --ridge2:#1E1A38; --ridge3:#141224; --tower:#0B0B0B; --fore:#070707; --glow:#E4F26B; --fore-ink:#EDEFEE;
-  --c1:#FF5B1F; --c2:#E4F26B; --c3:#FFC9D9; --c4:#C7B8FF; --c5:#BDEBD3; --c6:#7CD3FF; --c7:#FFB84D;
+  --c1:#FF5B1F; --c2:#E4F26B; --c3:#FFC9D9; --c4:#C7B8FF; --c5:#BDEBD3; --c6:#7CD3FF; --c7:#FFB84D; --c8:#F2E8D5;
   --ease:cubic-bezier(.22,.8,.2,1);
   color-scheme:dark;
 }
@@ -331,6 +331,7 @@ body{transition:background .3s,color .3s}
 :where(body.pg-spells){--pa:#BDEBD3}
 :where(body.pg-feats){--pa:#7CD3FF}
 :where(body.pg-equipment){--pa:#FFB84D}
+:where(body.pg-rhythm){--pa:#F2E8D5}
 @media (prefers-color-scheme: light){
   :root:not([data-theme="dark"]) :where(body.pg-create){--pa:#B72E08}
   :root:not([data-theme="dark"]) :where(body.pg-finder){--pa:#5C6A00}
@@ -339,6 +340,7 @@ body{transition:background .3s,color .3s}
   :root:not([data-theme="dark"]) :where(body.pg-spells){--pa:#17724A}
   :root:not([data-theme="dark"]) :where(body.pg-feats){--pa:#0B6A9C}
   :root:not([data-theme="dark"]) :where(body.pg-equipment){--pa:#8F5A00}
+  :root:not([data-theme="dark"]) :where(body.pg-rhythm){--pa:#6E5B2E}
 }
 :root[data-theme="light"] :where(body.pg-create){--pa:#B72E08}
 :root[data-theme="light"] :where(body.pg-finder){--pa:#5C6A00}
@@ -347,6 +349,7 @@ body{transition:background .3s,color .3s}
 :root[data-theme="light"] :where(body.pg-spells){--pa:#17724A}
 :root[data-theme="light"] :where(body.pg-feats){--pa:#0B6A9C}
 :root[data-theme="light"] :where(body.pg-equipment){--pa:#8F5A00}
+:root[data-theme="light"] :where(body.pg-rhythm){--pa:#6E5B2E}
 :where(body[class*="pg-"]){--accent:var(--pa);--accent-official:var(--pa);--hl:var(--pa)}
 
 /* shape: soft corners, pill controls */
@@ -387,9 +390,9 @@ h1,h2,h3{font-weight:600;letter-spacing:-.03em}
 .sitebar a.nv:hover{color:var(--nv)}
 .sitebar a.nv:hover::after{background:var(--nv)}
 .sitebar a.nv[aria-current]{color:var(--ink);font-weight:600}
-.sitebar a.nv-create{--nv:var(--c1)}.sitebar a.nv-finder{--nv:var(--c2)}.sitebar a.nv-stats{--nv:var(--c3)}.sitebar a.nv-compendium{--nv:var(--c4)}.sitebar a.nv-spells{--nv:var(--c5)}.sitebar a.nv-feats{--nv:var(--c6)}.sitebar a.nv-equipment{--nv:var(--c7)}
-@media (prefers-color-scheme: light){:root:not([data-theme="dark"]) .sitebar a.nv-create{--nv:#B72E08}:root:not([data-theme="dark"]) .sitebar a.nv-finder{--nv:#5C6A00}:root:not([data-theme="dark"]) .sitebar a.nv-stats{--nv:#B0285A}:root:not([data-theme="dark"]) .sitebar a.nv-compendium{--nv:#5A46B8}:root:not([data-theme="dark"]) .sitebar a.nv-spells{--nv:#17724A}:root:not([data-theme="dark"]) .sitebar a.nv-feats{--nv:#0B6A9C}:root:not([data-theme="dark"]) .sitebar a.nv-equipment{--nv:#8F5A00}}
-:root[data-theme="light"] .sitebar a.nv-create{--nv:#B72E08}:root[data-theme="light"] .sitebar a.nv-finder{--nv:#5C6A00}:root[data-theme="light"] .sitebar a.nv-stats{--nv:#B0285A}:root[data-theme="light"] .sitebar a.nv-compendium{--nv:#5A46B8}:root[data-theme="light"] .sitebar a.nv-spells{--nv:#17724A}:root[data-theme="light"] .sitebar a.nv-feats{--nv:#0B6A9C}:root[data-theme="light"] .sitebar a.nv-equipment{--nv:#8F5A00}
+.sitebar a.nv-create{--nv:var(--c1)}.sitebar a.nv-finder{--nv:var(--c2)}.sitebar a.nv-stats{--nv:var(--c3)}.sitebar a.nv-compendium{--nv:var(--c4)}.sitebar a.nv-spells{--nv:var(--c5)}.sitebar a.nv-feats{--nv:var(--c6)}.sitebar a.nv-equipment{--nv:var(--c7)}.sitebar a.nv-rhythm{--nv:var(--c8)}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]) .sitebar a.nv-create{--nv:#B72E08}:root:not([data-theme="dark"]) .sitebar a.nv-finder{--nv:#5C6A00}:root:not([data-theme="dark"]) .sitebar a.nv-stats{--nv:#B0285A}:root:not([data-theme="dark"]) .sitebar a.nv-compendium{--nv:#5A46B8}:root:not([data-theme="dark"]) .sitebar a.nv-spells{--nv:#17724A}:root:not([data-theme="dark"]) .sitebar a.nv-feats{--nv:#0B6A9C}:root:not([data-theme="dark"]) .sitebar a.nv-equipment{--nv:#8F5A00}:root:not([data-theme="dark"]) .sitebar a.nv-rhythm{--nv:#6E5B2E}}
+:root[data-theme="light"] .sitebar a.nv-create{--nv:#B72E08}:root[data-theme="light"] .sitebar a.nv-finder{--nv:#5C6A00}:root[data-theme="light"] .sitebar a.nv-stats{--nv:#B0285A}:root[data-theme="light"] .sitebar a.nv-compendium{--nv:#5A46B8}:root[data-theme="light"] .sitebar a.nv-spells{--nv:#17724A}:root[data-theme="light"] .sitebar a.nv-feats{--nv:#0B6A9C}:root[data-theme="light"] .sitebar a.nv-equipment{--nv:#8F5A00}:root[data-theme="light"] .sitebar a.nv-rhythm{--nv:#6E5B2E}
 @media print{.sitebar{display:none}}
 
 /* the spell filter row scrolls sideways on phones by design; fade its right edge so a half-cut chip reads as 'more this way' */
@@ -399,7 +402,7 @@ h1,h2,h3{font-weight:600;letter-spacing:-.03em}
 </style>
 </head>
 <body class="pg-create">
-<nav class="sitebar" aria-label="Site"><a class="brand" href="../index.html"><i></i>D&amp;D Tools</a><a class="nv nv-create" href="../create/index.html" aria-current="page">Make a Character</a><a class="nv nv-finder" href="../finder/index.html">Class Finder</a><a class="nv nv-stats" href="../stats/index.html">Ability Scores</a><a class="nv nv-compendium" href="../compendium/index.html">Subclasses</a><a class="nv nv-spells" href="../spells/index.html">Spells</a><a class="nv nv-feats" href="../feats/index.html">Feats</a><a class="nv nv-equipment" href="../equipment/index.html">Equipment</a><span class="sp"></span><button id="themeBtn" type="button">Light theme</button></nav>
+<nav class="sitebar" aria-label="Site"><a class="brand" href="../index.html"><i></i>D&amp;D Tools</a><a class="nv nv-create" href="../create/index.html" aria-current="page">Make a Character</a><a class="nv nv-rhythm" href="../rhythm/index.html">Rhythm of Play</a><a class="nv nv-finder" href="../finder/index.html">Class Finder</a><a class="nv nv-stats" href="../stats/index.html">Ability Scores</a><a class="nv nv-compendium" href="../compendium/index.html">Subclasses</a><a class="nv nv-spells" href="../spells/index.html">Spells</a><a class="nv nv-feats" href="../feats/index.html">Feats</a><a class="nv nv-equipment" href="../equipment/index.html">Equipment</a><span class="sp"></span><button id="themeBtn" type="button">Light theme</button></nav>
 
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">

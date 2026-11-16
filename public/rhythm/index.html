@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="How a D&amp;D session runs: the describe, answer, resolve loop, how scenes and cuts shape an evening, and how much fits in an hour. Includes a short scene you can play through.">
+<link rel="canonical" href="https://dnd-tools.pages.dev/rhythm/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="D&amp;D Tools">
+<meta property="og:title" content="The Rhythm of Play">
+<meta property="og:description" content="How a D&amp;D session runs: the describe, answer, resolve loop, how scenes and cuts shape an evening, and how much fits in an hour. Includes a short scene you can play through.">
+<meta property="og:url" content="https://dnd-tools.pages.dev/rhythm/">
+<meta name="twitter:card" content="summary">
+
+<script>(function(){try{if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;var v=sessionStorage.getItem('iris');if(!v)return;sessionStorage.removeItem('iris');var a=v.split('|'),x=+a[0],y=+a[1],W=innerWidth,H=innerHeight,R=Math.hypot(Math.max(x,W-x),Math.max(y,H-y))+4;
+var d=document.createElement('div');d.className='cover';d.style.cssText='position:fixed;inset:0;z-index:2147483000;pointer-events:none;background:'+(a[2]||'#FF5B1F');document.documentElement.appendChild(d);
+function mask(r){var m='radial-gradient(circle at '+x+'px '+y+'px,transparent '+r+'px,#000 '+(r+1)+'px)';d.style.webkitMaskImage=m;d.style.maskImage=m}
+mask(0);var t0=null,hold=50,dur=300;function ease(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2}
+function step(ts){if(t0===null)t0=ts;var t=(ts-t0-hold)/dur;if(t<=0){requestAnimationFrame(step);return}if(t>=1){d.remove();return}mask(R*ease(t));requestAnimationFrame(step)}
+requestAnimationFrame(step);setTimeout(function(){d.remove()},hold+dur+600)}catch(e){}})();</script>
+<title>The Rhythm of Play</title>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Martian+Mono:wght@400;500;600&display=swap">
+<style>
+  :root{--ground:#0B0B0B;--surface:#151918;--surface-2:#1C2120;--ink:#EDEFEE;--ink-soft:#B4BBB8;--ink-faint:#9BA3A0;--rule:#2C3231;--rule-soft:#1E2322;--accent:#F2E8D5;--accent-ink:#121414;
+    --step--2:.7rem;--step--1:clamp(.78rem,.75rem + .12vw,.84rem);--step-0:clamp(.95rem,.92rem + .18vw,1.05rem);--step-1:clamp(1.15rem,1.05rem + .5vw,1.4rem);--step-2:clamp(1.45rem,1.2rem + 1.2vw,2.1rem);--step-3:clamp(1.9rem,1.4rem + 2vw,3rem)}
+  *{box-sizing:border-box}
+  [hidden]{display:none!important}
+  body{margin:0;background:var(--ground);color:var(--ink);font-family:"Figtree",system-ui,sans-serif;font-size:var(--step-0);line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:62rem;margin-inline:auto;padding-inline:max(20px,env(safe-area-inset-left,0px));padding-block:clamp(20px,3vw,32px) 72px}
+  .eyebrow{font-family:"Martian Mono",ui-monospace,monospace;font-size:var(--step--2);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);margin:0}
+  h1{font-size:var(--step-3);line-height:1.05;margin:6px 0 0;text-wrap:balance}
+  h2{font-size:var(--step-2);line-height:1.12;margin:0 0 10px;text-wrap:balance}
+  .lede{color:var(--ink-soft);max-width:60ch;margin:12px 0 0;font-size:var(--step-1);line-height:1.45}
+  section{margin-top:clamp(40px,6vw,72px)}
+  .n{font-family:"Martian Mono",monospace;font-size:var(--step--2);letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0 0 6px}
+  p{margin:0 0 12px;max-width:64ch}
+  .soft{color:var(--ink-soft)}
+  .src{font-family:"Martian Mono",monospace;font-size:.64rem;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-faint)}
+  /* the loop */
+  .loop{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:20px 0 0;padding:0;list-style:none;counter-reset:l}
+  .loop li{counter-increment:l;background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:16px 16px 18px;position:relative}
+  .loop li::before{content:counter(l);font-family:"Martian Mono",monospace;font-size:var(--step--1);display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--accent);color:var(--accent-ink);font-weight:600;margin-bottom:10px}
+  .loop h3{margin:0 0 6px;font-size:1.05rem}
+  .loop p{margin:0;font-size:.92rem;color:var(--ink-soft)}
+  .loop li:not(:last-child)::after{content:"\2192";position:absolute;right:-11px;top:50%;transform:translateY(-50%);z-index:2;color:var(--accent);background:var(--ground);border-radius:50%;width:20px;height:20px;display:grid;place-items:center;font-size:.8rem}
+  .back{margin-top:10px;font-family:"Martian Mono",monospace;font-size:var(--step--2);letter-spacing:.05em;text-transform:uppercase;color:var(--ink-faint)}
+  .back b{color:var(--accent);font-weight:500}
+  /* play one loop */
+  .stage{margin-top:26px;background:var(--surface);border:1px solid var(--rule);border-radius:18px;overflow:hidden}
+  .stage-h{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--rule);background:var(--surface-2)}
+  .stage-h b{font-family:"Martian Mono",monospace;font-weight:500;font-size:var(--step--2);letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+  .steps{display:flex;gap:6px}
+  .steps i{font-style:normal;font-family:"Martian Mono",monospace;font-size:.62rem;letter-spacing:.05em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid var(--rule);color:var(--ink-faint);transition:background .3s,color .3s,border-color .3s}
+  .steps i.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+  .stage-b{padding:clamp(16px,3vw,28px);min-height:15rem}
+  .who{font-family:"Martian Mono",monospace;font-size:var(--step--2);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);margin:0 0 8px}
+  .say{font-size:var(--step-1);line-height:1.5;max-width:56ch;margin:0 0 18px}
+  .say em{color:var(--accent);font-style:normal}
+  .opts{display:flex;flex-direction:column;gap:8px;max-width:44rem}
+  .opt{font:inherit;text-align:left;color:var(--ink);background:var(--ground);border:1px solid var(--rule);border-radius:12px;padding:11px 14px;cursor:pointer;display:flex;gap:10px;justify-content:space-between;align-items:baseline;flex-wrap:wrap}
+  .opt:hover,.opt:focus-visible{border-color:var(--accent);outline:none}
+  .opt small{font-family:"Martian Mono",monospace;font-size:.62rem;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-faint)}
+  .btn{font:inherit;font-weight:600;font-size:var(--step--1);color:var(--accent-ink);background:var(--accent);border:0;border-radius:999px;padding:9px 18px;cursor:pointer}
+  .btn:hover{filter:brightness(1.08)}
+  .btn.ghost{background:none;color:var(--ink-soft);border:1px solid var(--rule);font-weight:500}
+  .btn.ghost:hover{color:var(--ink);border-color:var(--accent)}
+  .tag{display:inline-block;font-family:"Martian Mono",monospace;font-size:.64rem;letter-spacing:.05em;text-transform:uppercase;padding:3px 10px;border-radius:999px;border:1px solid var(--accent);color:var(--accent);margin:0 0 12px}
+  .die{display:inline-grid;place-items:center;min-width:3.1rem;height:3.1rem;padding:0 8px;border-radius:12px;border:2px solid var(--accent);font-family:"Martian Mono",monospace;font-weight:600;font-size:1.15rem;margin-right:10px;vertical-align:middle}
+  .roll-l{font-family:"Martian Mono",monospace;font-size:var(--step--1);color:var(--ink-soft)}
+  .row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:14px}
+  /* session strip */
+  .strip{margin-top:22px;background:var(--surface);border:1px solid var(--rule);border-radius:18px;padding:16px 16px 14px}
+  .scroll{overflow-x:auto;padding-bottom:6px}
+  .bars{display:flex;align-items:flex-end;gap:4px;height:11rem;min-width:40rem;border-bottom:1px solid var(--ink-faint)}
+  .bar{font:inherit;border:1px solid var(--accent);background:color-mix(in srgb,var(--accent) 22%,transparent);border-radius:8px 8px 0 0;cursor:pointer;min-width:0;padding:0;transition:background .2s;color:var(--ink)}
+  .bar:hover{background:color-mix(in srgb,var(--accent) 45%,transparent)}
+  .bar[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+  .bar.rest{border-style:dashed;background:transparent}
+  .bar.rest[aria-pressed="true"]{background:var(--accent)}
+  .labs{display:flex;gap:4px;min-width:40rem;margin-top:6px}
+  .labs span{font-family:"Martian Mono",monospace;font-size:.58rem;letter-spacing:.03em;text-transform:uppercase;color:var(--ink-faint);text-align:center;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .ax{display:flex;justify-content:space-between;font-family:"Martian Mono",monospace;font-size:.6rem;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-faint);margin-top:8px}
+  .info{margin-top:14px;padding:14px 16px;border-radius:12px;background:var(--ground);border:1px solid var(--rule);min-height:6.2rem}
+  .info h3{margin:0 0 4px;font-size:1.05rem}
+  .info p{margin:0;font-size:.93rem;color:var(--ink-soft)}
+  /* hour planner */
+  .slots{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:20px}
+  .slot{min-height:4.2rem;border:2px dashed var(--rule);border-radius:12px;padding:10px 12px;font-size:.9rem;display:flex;align-items:center;color:var(--ink-faint)}
+  .slot.f{border:2px solid var(--accent);color:var(--ink);background:color-mix(in srgb,var(--accent) 12%,transparent)}
+  .slot.f.c{border-left-style:dashed}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  .chip{font:inherit;font-size:var(--step--1);color:var(--ink-soft);background:var(--surface);border:1px solid var(--rule);border-radius:999px;padding:6px 14px;cursor:pointer}
+  .chip:hover{border-color:var(--accent);color:var(--ink)}
+  .chip i{font-style:normal;font-family:"Martian Mono",monospace;font-size:.62rem;color:var(--accent);margin-left:6px}
+  .chip:disabled{opacity:.4;cursor:default}
+  .msg{min-height:1.6rem;margin:12px 0 0;font-size:.93rem;color:var(--ink-soft)}
+  /* habits */
+  .habits{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,18rem),1fr));gap:12px;margin:22px 0 0;padding:0;list-style:none}
+  .habits li{background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:16px;min-width:0}
+  .habits h3{margin:0 0 6px;font-size:1.02rem}
+  .habits p{margin:0;font-size:.92rem;color:var(--ink-soft)}
+  .habits .k{font-family:"Martian Mono",monospace;font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin-bottom:6px;display:block}
+  .note{margin-top:48px;padding-top:16px;border-top:1px solid var(--rule);color:var(--ink-faint);font-size:var(--step--1);max-width:70ch}
+  @media (max-width:40rem){
+    .loop{grid-template-columns:1fr}
+    .loop li:not(:last-child)::after{right:auto;left:50%;top:auto;bottom:-11px;transform:translateX(-50%) rotate(90deg)}
+    .slots{grid-template-columns:1fr}
+    .stage-b{min-height:0}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+<style>/* ===== redesign layer: palette, type, shape and motion over the original pages ===== */
+:root{
+  --ground:#0B0B0B; --surface:#151918; --surface-2:#1C2120;
+  --ink:#EDEFEE; --ink-soft:#B4BBB8; --ink-faint:#9BA3A0;
+  --rule:#2C3231; --rule-soft:#1E2322;
+  --accent-official:#FF5B1F; --accent-home:#BDEBD3; --accent:#FF5B1F; --accent-ink:#121414; --good:#BDEBD3; --hl:#FF5B1F;
+  --chip-bg:#1C2120; --chip-shadow:0 2px 6px rgba(0,0,0,.5),0 16px 38px -14px rgba(0,0,0,.95); --veil:rgba(0,0,0,.6);
+  --sky-top:#0B0B0B; --sky-bot:#261F45; --moon:#FFC9D9; --star-o:.9; --moon-glow:.12;
+  --ridge1:#2D2650; --ridge2:#1E1A38; --ridge3:#141224; --tower:#0B0B0B; --fore:#070707; --glow:#E4F26B; --fore-ink:#EDEFEE;
+  --c1:#FF5B1F; --c2:#E4F26B; --c3:#FFC9D9; --c4:#C7B8FF; --c5:#BDEBD3; --c6:#7CD3FF; --c7:#FFB84D; --c8:#F2E8D5;
+  --ease:cubic-bezier(.22,.8,.2,1);
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --ground:#0B0B0B; --surface:#151918; --surface-2:#1C2120; --ink:#EDEFEE; --ink-soft:#B4BBB8; --ink-faint:#9BA3A0; --rule:#2C3231; --rule-soft:#1E2322;
+  --accent-official:#FF5B1F; --accent-home:#BDEBD3; --accent:#FF5B1F; --accent-ink:#121414; --good:#BDEBD3; --hl:#FF5B1F; --chip-bg:#1C2120; --veil:rgba(0,0,0,.6);
+  --sky-top:#0B0B0B; --sky-bot:#261F45; --moon:#FFC9D9; --star-o:.9; --moon-glow:.12; --ridge1:#2D2650; --ridge2:#1E1A38; --ridge3:#141224; --tower:#0B0B0B; --fore:#070707; --glow:#E4F26B; --fore-ink:#EDEFEE; color-scheme:dark}}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]){
+  --ground:#F0F2EF; --surface:#FFFFFF; --surface-2:#E6E9E5; --ink:#121414; --ink-soft:#3C4240; --ink-faint:#4F5654; --rule:#C6CBC8; --rule-soft:#DADEDB;
+  --accent-official:#B72E08; --accent-home:#17724A; --accent:#B72E08; --accent-ink:#FFFFFF; --good:#17724A; --hl:#D9400F; --chip-bg:#FFFFFF; --chip-shadow:0 2px 6px rgba(18,20,20,.10),0 14px 34px -14px rgba(18,20,20,.4); --veil:rgba(18,20,20,.34);
+  --sky-top:#E4DEFA; --sky-bot:#FFE1D3; --moon:#FFFFFF; --star-o:0; --moon-glow:.4; --ridge1:#D3CBF2; --ridge2:#B1A5E6; --ridge3:#7B6BC4; --tower:#2B2552; --fore:#1B1736; --glow:#FF5B1F; --fore-ink:#F0F2EF; color-scheme:light}}
+:root[data-theme="light"]{
+  --ground:#F0F2EF; --surface:#FFFFFF; --surface-2:#E6E9E5; --ink:#121414; --ink-soft:#3C4240; --ink-faint:#4F5654; --rule:#C6CBC8; --rule-soft:#DADEDB;
+  --accent-official:#B72E08; --accent-home:#17724A; --accent:#B72E08; --accent-ink:#FFFFFF; --good:#17724A; --hl:#D9400F; --chip-bg:#FFFFFF; --chip-shadow:0 2px 6px rgba(18,20,20,.10),0 14px 34px -14px rgba(18,20,20,.4); --veil:rgba(18,20,20,.34);
+  --sky-top:#E4DEFA; --sky-bot:#FFE1D3; --moon:#FFFFFF; --star-o:0; --moon-glow:.4; --ridge1:#D3CBF2; --ridge2:#B1A5E6; --ridge3:#7B6BC4; --tower:#2B2552; --fore:#1B1736; --glow:#FF5B1F; --fore-ink:#F0F2EF; color-scheme:light}
+:root[data-theme="dark"]{
+  --ground:#0B0B0B; --surface:#151918; --surface-2:#1C2120; --ink:#EDEFEE; --ink-soft:#B4BBB8; --ink-faint:#9BA3A0; --rule:#2C3231; --rule-soft:#1E2322;
+  --accent-official:#FF5B1F; --accent-home:#BDEBD3; --accent:#FF5B1F; --accent-ink:#121414; --good:#BDEBD3; --hl:#FF5B1F; --chip-bg:#1C2120; --veil:rgba(0,0,0,.6);
+  --sky-top:#0B0B0B; --sky-bot:#261F45; --moon:#FFC9D9; --star-o:.9; --moon-glow:.12; --ridge1:#2D2650; --ridge2:#1E1A38; --ridge3:#141224; --tower:#0B0B0B; --fore:#070707; --glow:#E4F26B; --fore-ink:#EDEFEE; color-scheme:dark}
+body{transition:background .3s,color .3s}
+/* each page takes the colour of its card on the home page */
+:where(body.pg-create){--pa:#FF5B1F}
+:where(body.pg-finder){--pa:#E4F26B}
+:where(body.pg-stats){--pa:#FFC9D9}
+:where(body.pg-compendium){--pa:#C7B8FF}
+:where(body.pg-spells){--pa:#BDEBD3}
+:where(body.pg-feats){--pa:#7CD3FF}
+:where(body.pg-equipment){--pa:#FFB84D}
+:where(body.pg-rhythm){--pa:#F2E8D5}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]) :where(body.pg-create){--pa:#B72E08}
+  :root:not([data-theme="dark"]) :where(body.pg-finder){--pa:#5C6A00}
+  :root:not([data-theme="dark"]) :where(body.pg-stats){--pa:#B0285A}
+  :root:not([data-theme="dark"]) :where(body.pg-compendium){--pa:#5A46B8}
+  :root:not([data-theme="dark"]) :where(body.pg-spells){--pa:#17724A}
+  :root:not([data-theme="dark"]) :where(body.pg-feats){--pa:#0B6A9C}
+  :root:not([data-theme="dark"]) :where(body.pg-equipment){--pa:#8F5A00}
+  :root:not([data-theme="dark"]) :where(body.pg-rhythm){--pa:#6E5B2E}
+}
+:root[data-theme="light"] :where(body.pg-create){--pa:#B72E08}
+:root[data-theme="light"] :where(body.pg-finder){--pa:#5C6A00}
+:root[data-theme="light"] :where(body.pg-stats){--pa:#B0285A}
+:root[data-theme="light"] :where(body.pg-compendium){--pa:#5A46B8}
+:root[data-theme="light"] :where(body.pg-spells){--pa:#17724A}
+:root[data-theme="light"] :where(body.pg-feats){--pa:#0B6A9C}
+:root[data-theme="light"] :where(body.pg-equipment){--pa:#8F5A00}
+:root[data-theme="light"] :where(body.pg-rhythm){--pa:#6E5B2E}
+:where(body[class*="pg-"]){--accent:var(--pa);--accent-official:var(--pa);--hl:var(--pa)}
+
+/* shape: soft corners, pill controls */
+.widget,.mini,.spell,.callout,.pact,.cta,.formula,.play .beat,.stage-inner,.sheet,.stage-cap,.card,.tile,.panel,.result-card,.chip-panel{border-radius:14px}
+.stage-inner{overflow:hidden}
+input,select,textarea{border-radius:10px}
+.btn,button.chip,button.pill{border-radius:999px}
+h1,h2,h3{font-weight:600;letter-spacing:-.03em}
+.chap-num{-webkit-text-stroke-width:1.2px}
+
+/* motion: every button and link-card responds */
+.btn,button.chip,.cta,button,.lv,.card,.row,.tile,.opt,a[class]{transition:transform .25s var(--ease),background .2s,color .2s,border-color .2s,box-shadow .25s,filter .2s}
+.btn:hover,button.chip:hover,.lv:hover{transform:translateY(-2px)}
+.btn:active,button.chip:active,.lv:active,.cta:active{transform:scale(.96)}
+.cta:hover,.cta:focus-visible{transform:translateY(-4px);box-shadow:0 18px 30px -18px rgba(0,0,0,.6)}
+.btn,button.chip,.lv,.cta{position:relative;overflow:hidden}
+.rp{position:absolute;border-radius:50%;background:currentColor;opacity:.22;transform:scale(0);pointer-events:none;animation:rp .6s ease-out forwards}
+@keyframes rp{to{transform:scale(1);opacity:0}}
+:focus-visible{outline-color:var(--accent-official)!important}
+@media (prefers-reduced-motion: reduce){.rp{display:none}.btn:hover,button.chip:hover,.lv:hover,.cta:hover{transform:none}}
+
+/* site bar */
+.sitebar{position:relative;z-index:90;display:flex;align-items:center;gap:6px 18px;flex-wrap:wrap;padding:10px max(16px,env(safe-area-inset-left,0px));background:color-mix(in srgb,var(--ground) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--rule);font-family:"Figtree",system-ui,sans-serif;font-size:14px}
+.sitebar a{color:var(--ink-soft);text-decoration:none;position:relative;padding:6px 0;transition:color .2s}
+.sitebar a::after{content:"";position:absolute;left:0;right:0;bottom:2px;height:1.5px;background:var(--accent-official);transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease)}
+.sitebar a:hover,.sitebar a[aria-current]{color:var(--ink)}
+.sitebar a:hover::after,.sitebar a[aria-current]::after{transform:scaleX(1)}
+.sitebar .brand{font-weight:600;color:var(--ink);display:inline-flex;align-items:center;gap:9px;margin-right:6px}
+.sitebar .brand i{width:11px;height:11px;border-radius:50%;background:var(--c5);transition:transform .4s var(--ease),background .3s}
+.sitebar .brand:hover i{transform:scale(1.5);background:var(--c1)}
+.sitebar .sp{flex:1}
+.sitebar button{font:inherit;color:var(--ink-soft);background:transparent;border:1px solid var(--rule);border-radius:999px;padding:5px 12px;cursor:pointer}
+.sitebar button:hover{color:var(--ink);border-color:var(--ink-faint)}
+
+/* each nav button wears its own page colour; the current page is the solid one */
+.sitebar a.nv{--nv:var(--c1)}
+.sitebar a.nv::after{background:var(--ink)}
+.sitebar a.nv:hover{color:var(--nv)}
+.sitebar a.nv:hover::after{background:var(--nv)}
+.sitebar a.nv[aria-current]{color:var(--ink);font-weight:600}
+.sitebar a.nv-create{--nv:var(--c1)}.sitebar a.nv-finder{--nv:var(--c2)}.sitebar a.nv-stats{--nv:var(--c3)}.sitebar a.nv-compendium{--nv:var(--c4)}.sitebar a.nv-spells{--nv:var(--c5)}.sitebar a.nv-feats{--nv:var(--c6)}.sitebar a.nv-equipment{--nv:var(--c7)}.sitebar a.nv-rhythm{--nv:var(--c8)}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]) .sitebar a.nv-create{--nv:#B72E08}:root:not([data-theme="dark"]) .sitebar a.nv-finder{--nv:#5C6A00}:root:not([data-theme="dark"]) .sitebar a.nv-stats{--nv:#B0285A}:root:not([data-theme="dark"]) .sitebar a.nv-compendium{--nv:#5A46B8}:root:not([data-theme="dark"]) .sitebar a.nv-spells{--nv:#17724A}:root:not([data-theme="dark"]) .sitebar a.nv-feats{--nv:#0B6A9C}:root:not([data-theme="dark"]) .sitebar a.nv-equipment{--nv:#8F5A00}:root:not([data-theme="dark"]) .sitebar a.nv-rhythm{--nv:#6E5B2E}}
+:root[data-theme="light"] .sitebar a.nv-create{--nv:#B72E08}:root[data-theme="light"] .sitebar a.nv-finder{--nv:#5C6A00}:root[data-theme="light"] .sitebar a.nv-stats{--nv:#B0285A}:root[data-theme="light"] .sitebar a.nv-compendium{--nv:#5A46B8}:root[data-theme="light"] .sitebar a.nv-spells{--nv:#17724A}:root[data-theme="light"] .sitebar a.nv-feats{--nv:#0B6A9C}:root[data-theme="light"] .sitebar a.nv-equipment{--nv:#8F5A00}:root[data-theme="light"] .sitebar a.nv-rhythm{--nv:#6E5B2E}
+@media print{.sitebar{display:none}}
+
+/* the spell filter row scrolls sideways on phones by design; fade its right edge so a half-cut chip reads as 'more this way' */
+@media (max-width:40rem){.bar-in{-webkit-mask-image:linear-gradient(to right,#000 88%,transparent);mask-image:linear-gradient(to right,#000 88%,transparent);padding-right:24px}.sitebar{gap:8px;padding-top:8px;padding-bottom:8px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-mask-image:linear-gradient(to right,#000 90%,transparent);mask-image:linear-gradient(to right,#000 90%,transparent)}.sitebar::-webkit-scrollbar{display:none}.sitebar>*{flex:none}.sitebar .sp{display:none}}
+/* page transition: colour sweeps over the old page, then an iris opens on the new one */
+.cover{position:fixed;inset:0;z-index:2147483000;pointer-events:none}
+</style>
+</head>
+<body class="pg-rhythm">
+<nav class="sitebar" aria-label="Site"><a class="brand" href="../index.html"><i></i>D&amp;D Tools</a><a class="nv nv-create" href="../create/index.html">Make a Character</a><a class="nv nv-rhythm" href="../rhythm/index.html" aria-current="page">Rhythm of Play</a><a class="nv nv-finder" href="../finder/index.html">Class Finder</a><a class="nv nv-stats" href="../stats/index.html">Ability Scores</a><a class="nv nv-compendium" href="../compendium/index.html">Subclasses</a><a class="nv nv-spells" href="../spells/index.html">Spells</a><a class="nv nv-feats" href="../feats/index.html">Feats</a><a class="nv nv-equipment" href="../equipment/index.html">Equipment</a><span class="sp"></span><button id="themeBtn" type="button">Light theme</button></nav>
+
+
+<div class="wrap">
+  <header>
+    <p class="eyebrow">How a session feels</p>
+    <h1>The Rhythm of Play</h1>
+    <p class="lede">A D&amp;D session looks complicated from outside and turns out to be one small loop, repeated. Learn the loop and you can follow any table. After that, the skill is knowing when to speed up and when to slow down.</p>
+  </header>
+
+  <section id="loop">
+    <p class="n">01 · The loop</p>
+    <h2>Describe, answer, resolve</h2>
+    <p class="soft">The Dungeon Master’s Guide breaks every encounter into three steps. Almost everything you do at the table fits one of them.</p>
+    <ol class="loop">
+      <li><h3>The DM describes the situation</h3><p>The DM tells you what your characters can see and hear. Everything you know about the world comes from here. A few sentences is enough; the DM adds more as you look closer.</p></li>
+      <li><h3>The players say what they do</h3><p>Each player answers for their own character: open the chest, or go through the door. Outside a fight there are no turns. In a fight, everyone acts in Initiative order.</p></li>
+      <li><h3>The DM describes what happens</h3><p>Sometimes nothing stands in the way and the DM just says it happens. If something does, the DM asks for a D20 Test, or plays the creature you are talking to. In a fight, the combat rules take over.</p></li>
+    </ol>
+    <p class="back">What happens next gives you a new situation. <b>Back to step 1.</b></p>
+
+    <div class="stage" id="stage" aria-live="polite">
+      <div class="stage-h"><b>Play one loop</b><div class="steps" id="steps"><i data-s="1">1 Describe</i><i data-s="2">2 Choose</i><i data-s="3">3 Resolve</i></div></div>
+      <div class="stage-b" id="sb"></div>
+    </div>
+  </section>
+
+  <section id="scenes">
+    <p class="n">02 · Scenes and cuts</p>
+    <h2>A session is a run of scenes</h2>
+    <p class="soft">The Guide compares a session to a film: a series of encounters with cuts between them. An encounter can be exploration (including puzzles), a conversation, or a fight. When one ends, the DM moves on to the next.</p>
+    <p class="soft">The cuts matter as much as the scenes. A long road or a night of rest that nobody interrupts can each be one sentence. The Guide’s advice is to skip the mundane parts and get back to the action. Quiet stretches are part of the design, because they make the loud parts land.</p>
+
+    <div class="strip">
+      <p class="src" style="margin:0 0 12px">Tap a bar. An example session of about three hours, not a rule.</p>
+      <div class="scroll"><div class="bars" id="bars" role="group" aria-label="Example session by intensity"></div><div class="labs" id="labs"></div></div>
+      <div class="ax"><span>Start</span><span>Bar height is how much is on the line</span><span>End</span></div>
+      <div class="info" id="info"></div>
+    </div>
+  </section>
+
+  <section id="hour">
+    <p class="n">03 · How much fits</p>
+    <h2>About three things an hour</h2>
+    <p class="soft">The Guide’s rule of thumb is that most groups get through at least three things in an hour. A thing can be exploring a chamber, talking to someone, settling an argument, solving a riddle, surviving a trap or winning an easy fight. A harder fight counts as two or three. A tense negotiation can fill the whole hour. Fill the hour below.</p>
+    <div class="slots" id="slots"></div>
+    <div class="chips" id="chips"></div>
+    <p class="msg" id="msg"></p>
+    <div class="row"><button class="btn ghost" type="button" id="clr">Clear the hour</button></div>
+  </section>
+
+  <section id="habits">
+    <p class="n">04 · Keeping time</p>
+    <h2>Habits that keep it moving</h2>
+    <ul class="habits">
+      <li><span class="k">Start</span><h3>Open with a recap</h3><p>After the first session, begin by recalling what happened last time. The DM can do it quickly. Or the players can, which shows the DM what they remember and what they cared about.</p></li>
+      <li><span class="k">Describe</span><h3>Short first, longer on request</h3><p>Players tend to drift after about three sentences of description. Give the first view briefly and save the rest for when someone opens the drawer or looks behind the curtain.</p></li>
+      <li><span class="k">Ask</span><h3>Everyone gets a turn to answer</h3><p>Even outside combat, check in with each player so quiet ones are heard. A group answer is fine, and so is two players splitting up to do two things.</p></li>
+      <li><span class="k">Cut</span><h3>Gloss over the dull parts</h3><p>If a rest passes without incident, say so and move on. Nobody needs a vote on who cooks dinner unless the table enjoys it.</p></li>
+      <li><span class="k">Breathe</span><h3>Break after the heavy scene</h3><p>After a long fight or a tense conversation, take a short break. The DM can leave the players in suspense while they work out what comes next.</p></li>
+      <li><span class="k">End</span><h3>End on a hook</h3><p>Try not to stop in the middle of a fight, since the Initiative order is hard to rebuild a week later. A deliberate cliffhanger works well. In the last few minutes, ask what people liked and what they want more of.</p></li>
+    </ul>
+  </section>
+
+  <section id="players">
+    <p class="n">05 · At your seat</p>
+    <h2>What a player can do for the rhythm</h2>
+    <ul class="habits">
+      <li><h3>Say what you want to do</h3><p>One sentence is plenty. “I check the door for traps” gives the DM everything needed to run it.</p></li>
+      <li><h3>Ask questions about the scene</h3><p>If you cannot picture the room, ask. The DM chose what to say first, and you can always get more.</p></li>
+      <li><h3>Plan while others act</h3><p>Think about your next move while others act, so your turn takes seconds. Long planning talks among the characters are normal, and the DM will step back from them.</p></li>
+    </ul>
+  </section>
+
+  <p class="note">Based on the Dungeon Master’s Guide (2024), chapter 1: “Preparing a Session” and “How to Run a Session”, with the loop, the hour guideline, passing time, breaks and ending a session in our own words. The example scene and the example session are made up for this page. The book has the full text and a worked example of play, and it is the authority.</p>
+</div>
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i)};
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  /* ---- play one loop ---- */
+  var sb=$('sb'),stepsEl=$('steps');
+  var path='';
+  var NODES={
+    gate:{d:'You reach the bottom of a flooded stair. An iron gate blocks the way ahead. Somewhere beyond it a bell rings once, slowly, underwater. On your side of the wall you can see a rusted lever.',
+      o:[{t:'I try to pick the lock.',k:'Obstacle: a D20 Test',roll:true},{t:'I pull the lever.',k:'No rules required',next:'beyond',p:'lever',r:'Nothing stands in the way, so the DM just tells you. The gate groans upward and cold air rolls out.'},{t:'I call out to whoever is ringing the bell.',k:'Roleplaying',next:'beyond',p:'talk',r:'A creature is involved, so the DM plays it. A tired voice answers, Indifferent: “Come in if you must. Mind the third step.”'}]},
+    beyond:{d:function(){return {lever:'The gate is open. ',pick:'The lock clicks and the gate swings. ',snap:'Your pick snapped, but the gate shudders open anyway on its old hinges, and the bell stops. ',talk:'The voice belongs to a hooded ferryman. '}[path]+'Ahead, a flat black pool fills the room. A ferryman stands in a small boat beneath a hanging lantern, and something large turns slowly under the water.'},
+      o:[{t:'I wait and watch the water.',k:'No rules required',end:'The DM tells you what you see: ripples in a slow circle, then a pale shape that sinks away. There is no roll. Notice that your answer produced a new description, and the loop starts again.'},{t:'I draw my sword and step in.',k:'Combat',end:'The rhythm changes. The DM asks everyone to roll Initiative, and from here the group acts in order, one turn at a time. The loop is the same, only faster and tighter, and it returns to free-flowing play when the fight ends.'},{t:'I ask the ferryman what is in the water.',k:'Roleplaying',end:'The DM plays the ferryman. Maybe he lies, maybe he shrugs. What you learn depends on how he feels about you, which is why the DM plays creatures as Friendly, Indifferent or Hostile. Then it is your move again.'}]}
+  };
+  function setStep(n){[].forEach.call(stepsEl.children,function(i){i.className=(+i.dataset.s===n)?'on':''})}
+  function show(id){
+    var nd=NODES[id],d=typeof nd.d==='function'?nd.d():nd.d;
+    setStep(1);
+    sb.innerHTML='<p class="who">The DM</p><p class="say">'+esc(d)+'</p><button class="btn" type="button" id="go">Ask me what I do</button>';
+    $('go').onclick=function(){choose(id)};
+    $('go').focus({preventScroll:true});
+  }
+  function choose(id){
+    var nd=NODES[id];setStep(2);
+    var h='<p class="who">You</p><p class="say">What does your character do?</p><div class="opts">';
+    nd.o.forEach(function(o,i){h+='<button type="button" class="opt" data-i="'+i+'"><span>'+esc(o.t)+'</span><small>'+esc(o.k)+'</small></button>'});
+    sb.innerHTML=h+'</div>';
+    [].forEach.call(sb.querySelectorAll('.opt'),function(b){b.onclick=function(){resolve(id,nd.o[+b.dataset.i])}});
+    sb.querySelector('.opt').focus({preventScroll:true});
+  }
+  function resolve(id,o){
+    setStep(3);
+    var tag='<span class="tag">'+esc(o.k)+'</span>';
+    if(o.roll){
+      sb.innerHTML='<p class="who">The DM</p>'+tag+'<p class="say">A lock is an obstacle, so the DM asks for a Dexterity (Sleight of Hand) check against a Difficulty Class of 13. You add +3.</p><div class="row"><button class="btn" type="button" id="rl">Roll the d20</button></div>';
+      $('rl').onclick=function(){
+        var r=1+Math.floor(Math.random()*20),t=r+3,ok=t>=13;path=ok?'pick':'snap';
+        sb.innerHTML='<p class="who">The DM</p>'+tag+'<p class="say"><span class="die">'+t+'</span><span class="roll-l">d20 '+r+' + 3 = '+t+' against DC 13</span></p><p class="say">'+(ok?'You meet the DC, so the action succeeds and the DM describes it. The lock turns with a click.':'You miss the DC, so it fails, but a failure is still something to describe. The pick snaps off in the lock, and then something strange happens that the DM gets to decide.')+'</p><div class="row"><button class="btn" type="button" id="nx">And then…</button></div>';
+        $('nx').onclick=function(){show('beyond')};$('nx').focus({preventScroll:true});
+      };$('rl').focus({preventScroll:true});return;
+    }
+    if(o.end){
+      sb.innerHTML='<p class="who">The DM</p>'+tag+'<p class="say">'+esc(o.end)+'</p><div class="row"><button class="btn" type="button" id="rs">Play it again</button></div>';
+      $('rs').onclick=function(){show('gate')};$('rs').focus({preventScroll:true});return;
+    }
+    path=o.p;
+    sb.innerHTML='<p class="who">The DM</p>'+tag+'<p class="say">'+esc(o.r)+'</p><div class="row"><button class="btn" type="button" id="nx">And then…</button></div>';
+    $('nx').onclick=function(){show(o.next)};$('nx').focus({preventScroll:true});
+  }
+  setStep(0);
+  sb.innerHTML='<p class="say">Three choices, one loop, about a minute. You play the adventurer; the page plays the DM.</p><div class="row"><button class="btn" type="button" id="st">Start the scene</button></div>';
+  $('st').onclick=function(){show('gate')};
+
+  /* ---- session strip ---- */
+  var SEG=[
+    ['Recap',4,10,'Quick','Someone recalls last session. It takes a few minutes and puts everyone back in the story. The first session has no recap.'],
+    ['Explore',14,32,'Exploration','The party moves through a location, searches and solves a small puzzle. The pace is relaxed and every player has room to try things.'],
+    ['Talk',10,48,'Conversation','The group meets someone with their own goals. Nobody takes turns here, and the DM plays the other side.'],
+    ['Trap',6,62,'Exploration','A sudden hazard. Tension is higher than in the quiet exploration just before it.'],
+    ['Fight',20,92,'Combat','A real fight. Everyone acts in Initiative order, and it is the busiest stretch of the evening.'],
+    ['Break',8,0,'Break','The DM takes a quick break after the long fight, and the players get to refocus. Leaving them in suspense is allowed.',1],
+    ['Travel',5,12,'Passing time','Hours of road in two sentences. The DM cuts here the way a film would.',1],
+    ['Parley',18,70,'Conversation','A tense negotiation with real stakes. It can fill most of an hour by itself, with no dice at all.'],
+    ['Cliff',6,100,'The hook','The session ends on a surprising turn rather than mid-round. The DM stops here on purpose, and everyone wants next week.'],
+    ['Wrap',5,8,'Talk it over','A few minutes to say what people liked and what they want more of. The DM jots down where things stand.',1]
+  ];
+  var bars=$('bars'),labs=$('labs'),info=$('info');
+  SEG.forEach(function(s,i){
+    var b=document.createElement('button');b.type='button';b.className='bar'+(s[5]?' rest':'');b.style.flex=s[1]+' 1 0';b.style.height=Math.max(s[2],5)+'%';b.setAttribute('aria-pressed','false');b.setAttribute('aria-label',s[0]+', about '+s[1]*2+' minutes');
+    b.onclick=function(){pick(i)};bars.appendChild(b);
+    var l=document.createElement('span');l.style.flex=s[1]+' 1 0';l.textContent=s[0];labs.appendChild(l)});
+  function pick(i){var s=SEG[i];[].forEach.call(bars.children,function(b,j){b.setAttribute('aria-pressed',j===i?'true':'false')});
+    info.innerHTML='<h3>'+esc(s[0])+' <span class="src">· '+esc(s[3])+' · about '+s[1]*2+' min</span></h3><p>'+esc(s[4])+'</p>'}
+  info.innerHTML='<p>Tap a bar to see what is happening there. Dashed bars are the lulls, where the pace drops on purpose.</p>';
+
+  /* ---- hour planner ---- */
+  var ACT=[['Explore a chamber',1],['Talk to someone',1],['Settle an argument',1],['Solve a riddle',1],['Survive a trap',1],['Easy fight',1],['Hard fight',2],['Tense negotiation',3]];
+  var slots=[],chips=$('chips'),sl=$('slots'),msg=$('msg');
+  function paint(){
+    sl.innerHTML='';var used=0;
+    slots.forEach(function(a){for(var k=0;k<a[1];k++){var d=document.createElement('div');d.className='slot f'+(k?' c':'');d.textContent=k?'(continued)':a[0];sl.appendChild(d)}used+=a[1]});
+    for(var j=used;j<3;j++){var e=document.createElement('div');e.className='slot';e.textContent='Open';sl.appendChild(e)}
+    [].forEach.call(chips.children,function(c,i){c.disabled=used+ACT[i][1]>3});
+    msg.textContent=used===0?'Pick something to run.':used<3?(3-used)+' of the 3 slots left. About '+Math.round(60*used/3)+' minutes used.':'That is an hour. Some groups fit more, and some fit less, since the guide says at least three.'}
+  ACT.forEach(function(a,i){var c=document.createElement('button');c.type='button';c.className='chip';c.innerHTML=esc(a[0])+'<i>'+a[1]+'</i>';c.onclick=function(){slots.push(a);paint()};chips.appendChild(c)});
+  $('clr').onclick=function(){slots=[];paint()};
+  paint();
+})();
+</script>
+
+<script>(function(){
+  var rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.addEventListener('pointerdown',function(e){
+    var el=e.target.closest('.btn,button.chip,.lv,.cta');if(!el||rm)return;
+    var r=el.getBoundingClientRect(),d=Math.max(r.width,r.height)*2,s=document.createElement('span');
+    s.className='rp';s.style.cssText='width:'+d+'px;height:'+d+'px;left:'+(e.clientX-r.left-d/2)+'px;top:'+(e.clientY-r.top-d/2)+'px';
+    el.appendChild(s);setTimeout(function(){s.remove()},650);
+  });
+  var b=document.getElementById('themeBtn');
+  function eff(){return document.documentElement.dataset.theme||(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark')}
+  function label(){if(b)b.textContent=eff()==='dark'?'Light theme':'Dark theme'}
+  try{var t=localStorage.getItem('dnd-theme');if(t)document.documentElement.dataset.theme=t}catch(e){}
+  label();
+  if(b)b.addEventListener('click',function(){var n=eff()==='dark'?'light':'dark';document.documentElement.dataset.theme=n;try{localStorage.setItem('dnd-theme',n)}catch(e){}label()});
+})();
+(function(){
+  /* page transition, two phases:
+     1) a solid in the clicked item's colour wipes across the old page
+     2) on the new page an iris hole opens in that solid, centred where you clicked */
+  var rm2=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a[href]');
+    if(!a||e.defaultPrevented||e.button||e.metaKey||e.ctrlKey||e.shiftKey||a.target==='_blank')return;
+    var u=new URL(a.href,location.href);
+    if(u.origin!==location.origin||u.pathname===location.pathname||/^#/.test(a.getAttribute('href')))return;
+    if(rm2)return;
+    e.preventDefault();
+    var x=e.clientX,y=e.clientY;
+    if(!e.detail||(!x&&!y)){var r=a.getBoundingClientRect();x=r.left+r.width/2;y=r.top+r.height/2}
+    var p=document.createElement('i');p.style.cssText='position:absolute;visibility:hidden;color:var(--cc,var(--k,var(--accent-official,var(--c1,#FF5B1F))))';a.appendChild(p);var col=getComputedStyle(p).color;p.remove();
+    try{sessionStorage.setItem('iris',Math.round(x)+'|'+Math.round(y)+'|'+col)}catch(err){}
+    var o=document.createElement('div');o.className='cover';o.style.background=col;var R=Math.hypot(Math.max(x,innerWidth-x),Math.max(y,innerHeight-y))+4,c0='circle(0px at '+x+'px '+y+'px)',c1='circle('+R+'px at '+x+'px '+y+'px)';o.style.clipPath=c0;document.body.appendChild(o);
+    var go=function(){location.href=a.href};
+    if(o.animate){var an=o.animate([{clipPath:c0},{clipPath:c1}],{duration:200,easing:'cubic-bezier(.65,0,.35,1)',fill:'forwards'});an.onfinish=go;setTimeout(go,350)}else go();
+  });
+  addEventListener('pageshow',function(ev){if(ev.persisted)document.querySelectorAll('.cover').forEach(function(n){n.remove()})});
+})();
+(function(){
+  /* warm the next page: prefetch on hover / touch, and the big data files when idle */
+  var seen={};
+  function pf(url){if(seen[url])return;seen[url]=1;var l=document.createElement('link');l.rel='prefetch';l.href=url;document.head.appendChild(l)}
+  function pre(a,page){
+    var u;try{u=new URL(a.href,location.href)}catch(e){return}
+    if(u.origin!==location.origin||u.pathname===location.pathname)return;
+    var dir=u.pathname.replace(/[^\/]*$/,'');
+    if(/\/spells\/$/.test(dir)){pf(dir+'spells.js');pf(dir+'terms.js');pf(dir+'kor.js')}
+    if(/\/compendium\/$/.test(dir))pf(dir+'data.js');
+    if(page)pf(u.href);
+  }
+  function hot(e){var a=e.target.closest&&e.target.closest('a[href]');if(a)pre(a,true)}
+  document.addEventListener('pointerover',hot,{passive:true});
+  document.addEventListener('touchstart',hot,{passive:true});
+  document.addEventListener('focusin',hot);
+  var idle=window.requestIdleCallback||function(f){setTimeout(f,600)};
+  addEventListener('load',function(){idle(function(){document.querySelectorAll('a[href]').forEach(function(a){pre(a,false)})})});
+})();
+
+try{var _c=document.querySelector('.sitebar a[aria-current]');if(_c){var _b=_c.parentNode;_b.scrollLeft=_c.offsetLeft-(_b.clientWidth-_c.offsetWidth)/2}}catch(e){}
+</script>
+</body>
+</html>
