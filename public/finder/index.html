@@ -505,6 +505,12 @@ h1,h2,h3{font-weight:600;letter-spacing:-.03em}
       known: "Writing that becomes true, and twists you spend to bend a scene",
       src: "Lyre's Guide to Retia, p. 359",
       blurb: "An Inscriptor is a writer whose work comes true. You might be a novelist, a playwright, a poet or a records clerk, and a muse — one of a cabal of demigods who keep an endless library — has taken an interest in your talent. You cast by describing: a novelist narrates events into being, an archivist writes objects into having new qualities. You also spend narrative twists to bend a scene the way a story would. It carries the most bookkeeping of the Retia classes and it's the one that will make your DM think hardest." },
+    commando: {
+      name: "Commando", tough: "High", best: "Strength or quickness, and a sharp mind",
+      known: "A pool of dice built by hitting a marked target, spent on a menu of techniques you can swap at every level",
+      src: "The Commando (original homebrew for D&D 2024)",
+      blurb: "The Commando is a professional who wins by reading the fight. You mark a creature as your target, and every hit on it builds a pool of dice that you spend on techniques and gadgets from your own menu, the Armoury. That menu is the whole class: a shield-and-steady-voice bodyguard, a bare-handed grappler, a satchel-of-charges demolitionist and a two-blade skirmisher are all Commandos with different picks. There are no spells. You choose one of seven Creeds at 3rd level, and you can swap an option every time you level up, so a bad pick is never permanent. Expect a pool to keep track of and a long list of options to read, so it is not the gentlest first class."
+    },
     inventor: {
       name: "Inventor", tough: "Average", best: "Book learning and invention",
       known: "Things you build, across ten different crafts",
@@ -632,24 +638,24 @@ h1,h2,h3{font-weight:600;letter-spacing:-.03em}
         note: "Homebrew classes are wordier than official ones. Answer for the table you actually play at.",
         opts: [
           { l: "I'd rather never have to.", w: { swordsaint: 3, rangerrev: 3, warden: 2 } },
-          { l: "A few options I can remember is fine.", w: { favoredsoul: 3, petalknight: 2, spellblade: 2, warlord: 2, warden: 1 } },
-          { l: "Hand me the rulebook. I'll read all of it.", w: { occultist: 3, inventor: 3, psion: 3, inscriptor: 3 } } ] },
+          { l: "A few options I can remember is fine.", w: { favoredsoul: 3, petalknight: 2, spellblade: 2, warlord: 2, commando: 2, warden: 1 } },
+          { l: "Hand me the rulebook. I'll read all of it.", w: { occultist: 3, inventor: 3, psion: 3, inscriptor: 3, commando: 2 } } ] },
       { q: "Each of these classes invents its own little system to keep track of — a pool of points, a set of marks, a special kind of die.",
         note: "How many separate things do you want going on at the edge of your character sheet?",
         opts: [
           { l: "One, clearly explained.", w: { swordsaint: 3, warden: 2, warlord: 2, spellblade: 2 } },
-          { l: "Two or three, happily.", w: { favoredsoul: 2, petalknight: 2, inventor: 2, psion: 2, occultist: 2 } },
+          { l: "Two or three, happily.", w: { favoredsoul: 2, petalknight: 2, inventor: 2, psion: 2, occultist: 2, commando: 3 } },
           { l: "The stranger the better. I want something nobody else at the table understands.", w: { psion: 3, inscriptor: 3, inventor: 3, occultist: 2 } } ] },
       { q: "Some classes make you choose your magic for the day before you set out. Others just know their handful of tricks permanently.",
         opts: [
-          { l: "Skip it — no magic to manage, please.", w: { swordsaint: 3, warden: 3, warlord: 3, rangerrev: 1 } },
+          { l: "Skip it — no magic to manage, please.", w: { swordsaint: 3, warden: 3, warlord: 3, commando: 3, rangerrev: 1 } },
           { l: "A modest set of tricks I permanently know.", w: { petalknight: 2, favoredsoul: 2, spellblade: 3, rangerrev: 2 } },
-          { l: "A huge range of options that I curate myself.", w: { occultist: 3, inscriptor: 2, psion: 2, inventor: 2 } } ] },
+          { l: "A huge range of options that I curate myself.", w: { occultist: 3, inscriptor: 2, psion: 2, inventor: 2, commando: 2 } } ] },
       { q: "Where are you standing when a fight starts?",
         opts: [
-          { l: "At the front, and immovable.", w: { warden: 3, favoredsoul: 2, swordsaint: 2 } },
-          { l: "At the front, but never in the same place twice.", w: { spellblade: 3, swordsaint: 3, petalknight: 2 } },
-          { l: "In the middle — close enough to help, far enough to work.", w: { petalknight: 3, warlord: 3, occultist: 1 } },
+          { l: "At the front, and immovable.", w: { warden: 3, favoredsoul: 2, swordsaint: 2, commando: 1 } },
+          { l: "At the front, but never in the same place twice.", w: { spellblade: 3, swordsaint: 3, petalknight: 2, commando: 3 } },
+          { l: "In the middle — close enough to help, far enough to work.", w: { petalknight: 3, warlord: 3, commando: 2, occultist: 1 } },
           { l: "At the back, thank you.", w: { psion: 3, inscriptor: 3, occultist: 3, inventor: 2, rangerrev: 1 } } ] },
       { q: "Your best possible turn looks like —",
         opts: [
@@ -658,20 +664,22 @@ h1,h2,h3{font-weight:600;letter-spacing:-.03em}
           { l: "A shot from cover that the target never traces back.", w: { rangerrev: 4 } },
           { l: "Magic delivered on the end of a weapon.", w: { spellblade: 3, petalknight: 2, favoredsoul: 2 } },
           { l: "Everyone else getting an extra go because of me.", w: { warlord: 3, inscriptor: 1, occultist: 1 } },
+          { l: "A plan that works exactly as laid out: the guard, the door, the charge.", w: { commando: 4 } },
           { l: "Something the table has to read twice.", w: { psion: 3, inscriptor: 3, occultist: 2, inventor: 2 } } ] },
       { q: "How do you want to help the people standing next to you?",
         opts: [
           { l: "I'm the wall. Nothing reaches them.", w: { warden: 3, favoredsoul: 2 } },
-          { l: "I patch them up, steady them, and move them around.", w: { warlord: 3, petalknight: 3, occultist: 2 } },
+          { l: "I patch them up, steady them, and move them around.", w: { warlord: 3, petalknight: 3, occultist: 2, commando: 2 } },
           { l: "I hand them equipment that makes them better.", w: { inventor: 3 } },
-          { l: "I remove the threat.", w: { swordsaint: 2, spellblade: 2, psion: 2, favoredsoul: 2, rangerrev: 2 } } ] },
+          { l: "I remove the threat.", w: { swordsaint: 2, spellblade: 2, psion: 2, favoredsoul: 2, rangerrev: 2, commando: 1 } } ] },
       { q: "Away from fighting, what do you want to be the best in the group at?",
         opts: [
           { l: "Tracking, hunting, and getting everyone home.", w: { rangerrev: 3, warden: 2 } },
           { l: "Reading minds, and reading rooms.", w: { psion: 3, occultist: 2, inscriptor: 1 } },
           { l: "Building, repairing and making what we need.", w: { inventor: 3 } },
           { l: "Writing it down, and making it true.", w: { inscriptor: 3 } },
-          { l: "Commanding the room.", w: { warlord: 3, petalknight: 2, favoredsoul: 1 } } ] },
+          { l: "Commanding the room.", w: { warlord: 3, petalknight: 2, favoredsoul: 1 } },
+          { l: "Scouting the job and getting everyone through the door.", w: { commando: 3, warlord: 1, rangerrev: 1 } } ] },
 
       { q: "Which of these scenes stays with you?",
         note: "Three questions about the person, not the rules. Each of these is someone years into their craft — pick the one you'd want to be, not the one that sounds most useful.",
@@ -687,7 +695,8 @@ h1,h2,h3{font-weight:600;letter-spacing:-.03em}
           { l: "The rite is older than the country it's being performed in, and you are one of perhaps four people alive who still know it. You use it to fix something small, because that is what it was for.", w: { occultist: 4 } },
           { l: "You put the spell into the blade rather than throwing it, and cross the room in a step that doesn't quite happen. There was never a choice to make between magic and steel.", w: { spellblade: 4 } },
           { l: "The ground behind you has become impassable and the people you came with are getting away. You have not moved, and you are not going to.", w: { warden: 4, favoredsoul: 1 } },
-          { l: "You say six words to the person beside you and they do something they didn't know they could. The story afterwards is about them, and you are completely fine with that.", w: { warlord: 4 } } ] },
+          { l: "You say six words to the person beside you and they do something they didn't know they could. The story afterwards is about them, and you are completely fine with that.", w: { warlord: 4 } },
+          { l: "Four of you crouch behind a toppled cart while you point at three places on a crowded street. You saw this fight before it started, and each of them knows exactly where to go.", w: { commando: 4, warlord: 1 } } ] },
       { q: "The group rolls into a town none of you have been to. Where do you actually go?",
         opts: [
           { l: "Wherever the best swordsman here trains. You'd like a look.", w: { swordsaint: 4, spellblade: 1 } },
@@ -698,7 +707,8 @@ h1,h2,h3{font-weight:600;letter-spacing:-.03em}
           { l: "A forge, a workshop, anywhere selling tools.", w: { inventor: 4, spellblade: 2 } },
           { l: "Somewhere quiet. Crowds are loud in a way other people don't experience.", w: { psion: 4 } },
           { l: "The oldest part of town, where the odd little customs survive.", w: { occultist: 4, warden: 1 } },
-          { l: "The guard post. You want to know who here would hold if it came to it.", w: { warlord: 4, warden: 2 } } ] },
+          { l: "The guard post. You want to know who here would hold if it came to it.", w: { warlord: 4, warden: 2 } },
+          { l: "The gate and the back alleys. You want every way in, and every way out.", w: { commando: 4, rangerrev: 1 } } ] },
       { q: "Something has gone badly wrong in the village and nobody knows why. What do you do first?",
         opts: [
           { l: "Put yourself between it and everyone else while the others work it out.", w: { warden: 4, favoredsoul: 2 } },
@@ -709,7 +719,8 @@ h1,h2,h3{font-weight:600;letter-spacing:-.03em}
           { l: "Check whether an old rite covers this. One usually does.", w: { occultist: 4, inscriptor: 1 } },
           { l: "Write it down properly. You think better on paper, and sometimes the paper answers.", w: { inscriptor: 4 } },
           { l: "Build something that measures it.", w: { inventor: 4 } },
-          { l: "Go and look at it yourself, weapon drawn, and find out.", w: { swordsaint: 4, spellblade: 2 } } ] }
+          { l: "Go and look at it yourself, weapon drawn, and find out.", w: { swordsaint: 4, spellblade: 2 } },
+          { l: "Walk the whole site, find the weak point, and make a plan before anyone touches anything.", w: { commando: 4, inventor: 1 } } ] }
     ]
   };
 
@@ -782,7 +793,17 @@ h1,h2,h3{font-weight:600;letter-spacing:-.03em}
           { f: "A patron muse who makes my prose real as I narrate it.", cls: "inscriptor" } ] },
         { q: "I want the widest range of magic on the shelf.", opts: [
           { f: "Witch, oracle, shaman, voidwatcher — six traditions, six near-classes.", cls: "occultist" },
-          { f: "Inventions and upgrades across ten different crafts.", cls: "inventor" } ] } ] }
+          { f: "Inventions and upgrades across ten different crafts.", cls: "inventor" } ] } ] },
+      { label: "No magic, a menu to choose from", note: "No spells. One pool of dice and a personal list of techniques you can change at every level.", branches: [
+        { q: "Win the fight by planning it.", opts: [
+          { f: "A squad that knows where to go, and a charge on the wall.", cls: "commando" },
+          { f: "Banners, war cries, and allies who suddenly act like veterans.", cls: "warlord" } ] },
+        { q: "Stand in the way and refuse to move.", opts: [
+          { f: "Shield up, voice steady, holding a doorway as long as it takes.", cls: "commando" },
+          { f: "The ground around me turns treacherous; nothing walks past.", cls: "warden" } ] },
+        { q: "Close the distance and end it up close.", opts: [
+          { f: "Bare hands or a blade in each fist, and a hold nobody escapes.", cls: "commando" },
+          { f: "Chase a legend — a duellist who intends to be remembered by name.", cls: "swordsaint" } ] } ] }
     ]
   };
 
@@ -792,8 +813,8 @@ h1,h2,h3{font-weight:600;letter-spacing:-.03em}
       foot: "Source: Player's Handbook (2024), Chapter 3: Character Classes, pp. 48–175."
     },
     homebrew: {
-      notice: "<strong>Homebrew only</strong> — eleven classes written by people other than the game's publisher, from <em>Lyre's Guide to Retia</em> and the two Kibbles' compendiums. All three are built for the older 5e rules rather than the 2024 ones, so check with whoever is running your game before you pick one. None of them is a gentle first class; if this is your very first character, run the official set first.",
-      foot: "Sources: Lyre's Guide to Retia — Land of Industry (Logan Laidlaw / Nat19), Ch. 8, pp. 337–420. Kibbles' Compendium of Craft and Creation v1.2.1 and Kibbles' Compendium of Legends and Legacies v1.0.2 (KibblesTasty), Ch. 1 in each."
+      notice: "<strong>Homebrew only</strong> — twelve classes written by people other than the game's publisher: eleven from <em>Lyre's Guide to Retia</em> and the two Kibbles' compendiums, which are built for the older 5e rules rather than the 2024 ones, and the Commando, an original class written for the 2024 rules. Check with whoever is running your game before you pick any of them. None of them is a gentle first class; if this is your very first character, run the official set first.",
+      foot: "Sources: Lyre's Guide to Retia — Land of Industry (Logan Laidlaw / Nat19), Ch. 8, pp. 337–420. Kibbles' Compendium of Craft and Creation v1.2.1 and Kibbles' Compendium of Legends and Legacies v1.0.2 (KibblesTasty), Ch. 1 in each. The Commando: an original class for D&D 2024 (Dhruv Ravikumar)."
     }
   };
 
