@@ -482,7 +482,8 @@
       '<h2 class="entry-name">'+esc(e.name)+'</h2>'+
       '<p class="entry-tag">'+esc(e.tag)+'</p>'+
       '<p class="entry-flavor">'+esc(e.flavor)+'</p>'+
-      bookref(e.src,"Read the full text in the book","The features below are summaries; the book is the authority.")+'</div><div class="features">';
+      (e.verbatim?bookref(e.src,"Original homebrew","The features below are the full text, word for word.")
+      :bookref(e.src,"Read the full text in the book","The features below are summaries; the book is the authority."))+'</div><div class="features">';
     e.features.forEach(function(f){
       html+='<article class="feature"><div class="lvl">'+esc(f.lvl)+'</div><div><h3>'+esc(f.name)+"</h3>"+markup(f.body,e.mods)+"</div></article>";
     });

@@ -34,6 +34,7 @@
   var ENTRIES = {
  "wl-asterion": {
   "cls": "warlock",
+  "verbatim": true,
   "nav": "Asterion the Inevitable",
   "navSub": "Levels 3 · 6 · 10 · 14",
   "kicker": "Warlock patron · homebrew",
@@ -95,6 +96,7 @@
  },
  "wl-hyselix": {
   "cls": "warlock",
+  "verbatim": true,
   "nav": "Hyselix the Betraying",
   "navSub": "Levels 3 · 6 · 10 · 14",
   "kicker": "Warlock patron · homebrew",
@@ -161,6 +163,7 @@
  },
  "wl-sherg": {
   "cls": "warlock",
+  "verbatim": true,
   "nav": "Sherg'ozoth the Incomprehensible",
   "navSub": "Levels 3 · 6 · 10 · 14",
   "kicker": "Warlock patron · homebrew",
@@ -228,6 +231,7 @@
  },
  "wl-unaal": {
   "cls": "warlock",
+  "verbatim": true,
   "nav": "Unaal the Hollow",
   "navSub": "Levels 3 · 6 · 10 · 14",
   "kicker": "Warlock patron · homebrew",
