@@ -478,6 +478,7 @@ h1,h2,h3{font-weight:600;letter-spacing:-.03em}
 </div>
 
 <script src="data.js"></script>
+<script src="ouronaks.js"></script>
 <script>
 (function () {
   "use strict";
@@ -925,7 +926,7 @@ h1,h2,h3{font-weight:600;letter-spacing:-.03em}
     if(u.origin!==location.origin||u.pathname===location.pathname)return;
     var dir=u.pathname.replace(/[^\/]*$/,'');
     if(/\/spells\/$/.test(dir)){pf(dir+'spells.js');pf(dir+'terms.js');pf(dir+'kor.js')}
-    if(/\/compendium\/$/.test(dir))pf(dir+'data.js');
+    if(/\/compendium\/$/.test(dir)){pf(dir+'data.js');pf(dir+'ouronaks.js')}
     if(page)pf(u.href);
   }
   function hot(e){var a=e.target.closest&&e.target.closest('a[href]');if(a)pre(a,true)}
